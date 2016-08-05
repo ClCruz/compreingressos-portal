@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListLocalEventoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="LocalEventoListForm">
+                <p:panel header="#{bundle.ListLocalEventoTitle}">
+                    <p:dataTable id="datalist" value="#{localEventoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                 selectionMode="single" selection="#{localEventoController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idLocalEvento}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column sortBy="#{item.dsLocalEvento}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_dsLocalEvento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dsLocalEvento}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.dsEndereco}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_dsEndereco}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dsEndereco}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.dsNumero}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_dsNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dsNumero}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.dsComplemento}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_dsComplemento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dsComplemento}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.dsBairro}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_dsBairro}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dsBairro}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.cdCepCliente}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_cdCepCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cdCepCliente}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.nrTelefone}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_nrTelefone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nrTelefone}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.cdEmail}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_cdEmail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cdEmail}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.dtInativacao}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_dtInativacao}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dtInativacao}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.inAtivo}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_inAtivo}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.inAtivo}" disabled="true"/>
+                        </p:column>
+                        <p:column sortBy="#{item.cdUrlSite}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_cdUrlSite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cdUrlSite}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.idMunicipio}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_idMunicipio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMunicipio.dsMunicipio}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.idTipoLocal}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLocalEventoTitle_idTipoLocal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoLocal.dsTipoLocal}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{localEventoController.prepareCreate}" update=":LocalEventoCreateForm" oncomplete="PF('LocalEventoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocalEventoViewForm" oncomplete="PF('LocalEventoViewDialog').show()" disabled="#{empty localEventoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LocalEventoEditForm" oncomplete="PF('LocalEventoEditDialog').show()" disabled="#{empty localEventoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{localEventoController.destroy}" update=":growl,datalist" disabled="#{empty localEventoController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

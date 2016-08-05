@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
+            <h:form id="UsuarioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_cdLogin}" for="cdLogin" />
+                        <p:inputText id="cdLogin" value="#{usuarioController.selected.cdLogin}" title="#{bundle.EditUsuarioTitle_cdLogin}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_cdLogin}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_dsNome}" for="dsNome" />
+                        <p:inputText id="dsNome" value="#{usuarioController.selected.dsNome}" title="#{bundle.EditUsuarioTitle_dsNome}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_dsNome}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_cdPww}" for="cdPww" />
+                        <p:inputText id="cdPww" value="#{usuarioController.selected.cdPww}" title="#{bundle.EditUsuarioTitle_cdPww}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_cdPww}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_dsEmail}" for="dsEmail" />
+                        <p:inputText id="dsEmail" value="#{usuarioController.selected.dsEmail}" title="#{bundle.EditUsuarioTitle_dsEmail}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_dsEmail}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inAtivo}" for="inAtivo" />
+                        <p:inputText id="inAtivo" value="#{usuarioController.selected.inAtivo}" title="#{bundle.EditUsuarioTitle_inAtivo}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_inAtivo}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inAdmin}" for="inAdmin" />
+                        <p:inputText id="inAdmin" value="#{usuarioController.selected.inAdmin}" title="#{bundle.EditUsuarioTitle_inAdmin}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_inAdmin}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inTelemarketing}" for="inTelemarketing" />
+                        <p:inputText id="inTelemarketing" value="#{usuarioController.selected.inTelemarketing}" title="#{bundle.EditUsuarioTitle_inTelemarketing}" />
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inPdv}" for="inPdv" />
+                        <p:inputText id="inPdv" value="#{usuarioController.selected.inPdv}" title="#{bundle.EditUsuarioTitle_inPdv}" />
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inPos}" for="inPos" />
+                        <p:inputText id="inPos" value="#{usuarioController.selected.inPos}" title="#{bundle.EditUsuarioTitle_inPos}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_inPos}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

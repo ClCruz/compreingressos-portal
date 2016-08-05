@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContaContabilCreateDlg" widgetVar="ContaContabilCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateContaContabilTitle}">
+            <h:form id="ContaContabilCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contaContabilController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateContaContabilLabel_dsContaContabil}" for="dsContaContabil" />
+                        <p:inputText id="dsContaContabil" value="#{contaContabilController.selected.dsContaContabil}" title="#{bundle.CreateContaContabilTitle_dsContaContabil}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_dsContaContabil}"/>
+                        <p:outputLabel value="#{bundle.CreateContaContabilLabel_inAtivo}" for="inAtivo" />
+                        <p:selectBooleanCheckbox id="inAtivo" value="#{contaContabilController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditContaContabilRequiredMessage_inAtivo}"/>
+                        <p:outputLabel value="#{bundle.CreateContaContabilLabel_nrContaContabil}" for="nrContaContabil" />
+                        <p:inputText id="nrContaContabil" value="#{contaContabilController.selected.nrContaContabil}" title="#{bundle.CreateContaContabilTitle_nrContaContabil}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_nrContaContabil}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contaContabilController.create}" value="#{bundle.Save}" update="display,:ContaContabilListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContaContabilCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('ContaContabilCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTipoLancamentoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TipoLancamentoListForm">
+                <p:panel header="#{bundle.ListTipoLancamentoTitle}">
+                    <p:dataTable id="datalist" value="#{tipoLancamentoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                 selectionMode="single" selection="#{tipoLancamentoController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idTipoLancamento}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column sortBy="#{item.dsTipoLancamento}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_dsTipoLancamento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dsTipoLancamento}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inAtivo}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_inAtivo}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.inAtivo}" disabled="true"/>
+                        </p:column >
+                        <p:column sortBy="#{item.dtInsert}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_dtInsert}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dtInsert}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.dtUpdate}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_dtUpdate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dtUpdate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.inPcValor}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_inPcValor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inPcValor}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inAplicacaoRegra}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_inAplicacaoRegra}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inAplicacaoRegra}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inValidoBordero}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_inValidoBordero}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.inValidoBordero}" disabled="true"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inValidoExtrato}" >
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_inValidoExtrato}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.inValidoExtrato}" disabled="true"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inAcrescentaSubstrai}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_inAcrescentaSubstrai}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inAcrescentaSubstrai}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.idFormaPagamento}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_idFormaPagamento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFormaPagamento}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.idCanalVenda}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_idCanalVenda}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCanalVenda.dsCanalVenda}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.idContaContabilDeb}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_idContaContabilDeb}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idContaContabilDeb.dsContaContabil}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.idContaContabilCre}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoLancamentoTitle_idContaContabilCre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idContaContabilCre.dsContaContabil}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoLancamentoController.prepareCreate}" update=":TipoLancamentoCreateForm" oncomplete="PF('TipoLancamentoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoLancamentoViewForm" oncomplete="PF('TipoLancamentoViewDialog').show()" disabled="#{empty tipoLancamentoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoLancamentoEditForm" oncomplete="PF('TipoLancamentoEditDialog').show()" disabled="#{empty tipoLancamentoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoLancamentoController.destroy}" update=":growl,datalist" disabled="#{empty tipoLancamentoController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

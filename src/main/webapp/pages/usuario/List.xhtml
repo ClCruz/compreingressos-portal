@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListUsuarioTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="UsuarioListForm">
+                <p:panel header="#{bundle.ListUsuarioTitle}">
+                    <p:dataTable id="datalist" value="#{usuarioController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                 selectionMode="single" selection="#{usuarioController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idUsuario}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column sortBy="#{item.cdLogin}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_cdLogin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cdLogin}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.dsNome}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_dsNome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dsNome}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.cdPww}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_cdPww}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cdPww}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.dsEmail}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_dsEmail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dsEmail}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inAtivo}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_inAtivo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inAtivo}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inAdmin}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_inAdmin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inAdmin}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inTelemarketing}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_inTelemarketing}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inTelemarketing}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inPdv}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_inPdv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inPdv}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.inPos}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_inPos}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inPos}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioController.destroy}" update=":growl,datalist" disabled="#{empty usuarioController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

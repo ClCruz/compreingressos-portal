@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrazoPagamentoViewDlg" widgetVar="PrazoPagamentoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPrazoPagamentoTitle}">
+            <h:form id="PrazoPagamentoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{prazoPagamentoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPrazoPagamentoLabel_dsPrazoPagamento}"/>
+                        <h:outputText value="#{prazoPagamentoController.selected.dsPrazoPagamento}" title="#{bundle.ViewPrazoPagamentoTitle_dsPrazoPagamento}"/>
+                        <h:outputText value="#{bundle.ViewPrazoPagamentoLabel_inDiaSemana}"/>
+                        <h:outputText value="Qualquer dia da semana" rendered="#{prazoPagamentoController.selected.inDiaSemana == 0}"/>
+                        <h:outputText value="Segunda" rendered="#{prazoPagamentoController.selected.inDiaSemana == 1}"/>
+                        <h:outputText value="Terça" rendered="#{prazoPagamentoController.selected.inDiaSemana == 2}"/>
+                        <h:outputText value="Quarta" rendered="#{prazoPagamentoController.selected.inDiaSemana == 3}"/>
+                        <h:outputText value="Quinta" rendered="#{prazoPagamentoController.selected.inDiaSemana == 4}"/>
+                        <h:outputText value="Sexta" rendered="#{prazoPagamentoController.selected.inDiaSemana == 5}"/>
+                        <h:outputText value="#{bundle.ViewPrazoPagamentoLabel_qtDiasPrazo}"/>
+                        <h:outputText value="#{prazoPagamentoController.selected.qtDiasPrazo}" title="#{bundle.ViewPrazoPagamentoTitle_qtDiasPrazo}"/>
+                        <h:outputText value="#{bundle.ViewPrazoPagamentoLabel_dsDiasFixos}"/>
+                        <h:outputText value="#{prazoPagamentoController.selected.dsDiasFixos}" title="#{bundle.ViewPrazoPagamentoTitle_dsDiasFixos}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('PrazoPagamentoViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

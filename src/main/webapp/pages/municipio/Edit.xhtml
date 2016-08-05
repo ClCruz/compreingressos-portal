@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MunicipioEditDlg" widgetVar="MunicipioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMunicipioTitle}">
+            <h:form id="MunicipioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{municipioController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMunicipioLabel_dsMunicipio}" for="dsMunicipio" />
+                        <p:inputText id="dsMunicipio" value="#{municipioController.selected.dsMunicipio}" title="#{bundle.EditMunicipioTitle_dsMunicipio}" required="true" requiredMessage="#{bundle.EditMunicipioRequiredMessage_dsMunicipio}"/>
+                        <p:outputLabel value="#{bundle.EditMunicipioLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu id="idEstado" value="#{municipioController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditMunicipioRequiredMessage_idEstado}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"
+                                           itemLabel="#{idEstadoItem.dsEstado}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{municipioController.update}" value="#{bundle.Save}" update="display,:MunicipioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MunicipioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('MunicipioEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

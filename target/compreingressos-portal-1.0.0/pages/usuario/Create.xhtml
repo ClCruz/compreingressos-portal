@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}">
+            <h:form id="UsuarioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_cdLogin}" for="cdLogin" />
+                        <p:inputText id="cdLogin" value="#{usuarioController.selected.cdLogin}" title="#{bundle.CreateUsuarioTitle_cdLogin}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cdLogin}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_dsNome}" for="dsNome" />
+                        <p:inputText id="dsNome" value="#{usuarioController.selected.dsNome}" title="#{bundle.CreateUsuarioTitle_dsNome}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_dsNome}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_cdPww}" for="cdPww" />
+                        <p:inputText id="cdPww" value="#{usuarioController.selected.cdPww}" title="#{bundle.CreateUsuarioTitle_cdPww}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cdPww}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_dsEmail}" for="dsEmail" />
+                        <p:inputText id="dsEmail" value="#{usuarioController.selected.dsEmail}" title="#{bundle.CreateUsuarioTitle_dsEmail}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_dsEmail}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_inAtivo}" for="inAtivo" />
+                        <p:inputText id="inAtivo" value="#{usuarioController.selected.inAtivo}" title="#{bundle.CreateUsuarioTitle_inAtivo}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_inAtivo}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_inAdmin}" for="inAdmin" />
+                        <p:inputText id="inAdmin" value="#{usuarioController.selected.inAdmin}" title="#{bundle.CreateUsuarioTitle_inAdmin}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_inAdmin}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_inTelemarketing}" for="inTelemarketing" />
+                        <p:inputText id="inTelemarketing" value="#{usuarioController.selected.inTelemarketing}" title="#{bundle.CreateUsuarioTitle_inTelemarketing}" />
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_inPdv}" for="inPdv" />
+                        <p:inputText id="inPdv" value="#{usuarioController.selected.inPdv}" title="#{bundle.CreateUsuarioTitle_inPdv}" />
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_inPos}" for="inPos" />
+                        <p:inputText id="inPos" value="#{usuarioController.selected.inPos}" title="#{bundle.CreateUsuarioTitle_inPos}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_inPos}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
