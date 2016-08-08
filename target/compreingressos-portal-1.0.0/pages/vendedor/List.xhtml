@@ -26,14 +26,20 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+                        
+                        <p:column sortBy="#{item.idVendedor}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendedorTitle_idVendedor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idVendedor}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.dsVendedor}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVendedorTitle_dsVendedor}"/>
                             </f:facet>
                             <h:outputText value="#{item.dsVendedor}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.inAtivo}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVendedorTitle_inAtivo}"/>
                             </f:facet>

@@ -9,8 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -33,13 +31,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Vendedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Basic(optional = false)
-    @Column(name = "id_vendedor")
+    @NotNull
+    @Column(name = "id_vendedor", columnDefinition = "integer")
     private Integer idVendedor;
     @Lob
     @Column(name = "ds_vendedor")
-    private byte[] dsVendedor;
+    private String dsVendedor;
     @Column(name = "in_ativo")
     private Boolean inAtivo;
 
@@ -58,12 +57,12 @@ public class Vendedor implements Serializable {
         this.idVendedor = idVendedor;
     }
 
-    public byte[] getDsVendedor() {
+    public String getDsVendedor() {
         return dsVendedor;
     }
 
-    public void setDsVendedor(byte[] dsVendedor) {
-        this.dsVendedor = dsVendedor;
+    public void setDsVendedor(String dsVendedor) {
+        this.dsVendedor = (String) dsVendedor;
     }
 
     public Boolean getInAtivo() {

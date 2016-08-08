@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -49,9 +50,11 @@ public class PrazoPagamento implements Serializable {
     private int inDiaSemana;
     @Basic(optional = false)
     @NotNull
+    @Pattern(regexp = "^[0-9]+$", message="Você deve informar somente números no campo 'Quantidade de dias para o prazo'.")
     @Column(name = "qt_dias_prazo")
     private int qtDiasPrazo;
     @Size(max = 20)
+    @Pattern(regexp = "^[0-9]+$", message="Você deve informar somente números no campo 'Dias Fixos'.")
     @Column(name = "ds_dias_fixos")
     private String dsDiasFixos;
 

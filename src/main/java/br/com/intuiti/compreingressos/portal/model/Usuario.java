@@ -22,6 +22,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.security.*;
+import java.math.*;
 
 /**
  *
@@ -52,7 +54,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
-    @Column(name = "cd_login")
+    @Column(name = "cd_login", unique = true)
     private String cdLogin;
     @Basic(optional = false)
     @NotNull
@@ -67,7 +69,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "ds_email")
+    @Column(name = "ds_email", unique = true)
     private String dsEmail;
     @Basic(optional = false)
     @NotNull
@@ -136,8 +138,10 @@ public class Usuario implements Serializable {
         return cdPww;
     }
 
-    public void setCdPww(String cdPww) {
-        this.cdPww = cdPww;
+    public void setCdPww(String cdPww) throws NoSuchAlgorithmException {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.update(cdPww.getBytes(),0,cdPww.length());
+        this.cdPww = new BigInteger(1,m.digest()).toString(16);
     }
 
     public String getDsEmail() {

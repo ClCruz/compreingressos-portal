@@ -25,7 +25,7 @@
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_cdCepCliente}" for="cdCepCliente" />
                         <p:inputText id="cdCepCliente" value="#{localEventoController.selected.cdCepCliente}" title="#{bundle.CreateLocalEventoTitle_cdCepCliente}" />
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_nrTelefone}" for="nrTelefone" />
-                        <p:inputText id="nrTelefone" value="#{localEventoController.selected.nrTelefone}" title="#{bundle.CreateLocalEventoTitle_nrTelefone}" />
+                        <p:inputMask mask="(99)9999-9999" id="nrTelefone" value="#{localEventoController.selected.nrTelefone}" title="#{bundle.CreateLocalEventoTitle_nrTelefone}" />
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_cdEmail}" for="cdEmail" />
                         <p:inputText id="cdEmail" value="#{localEventoController.selected.cdEmail}" title="#{bundle.CreateLocalEventoTitle_cdEmail}" />
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_dtInativacao}" for="dtInativacao" />

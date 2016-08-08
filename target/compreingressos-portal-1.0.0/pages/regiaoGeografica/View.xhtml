@@ -12,6 +12,8 @@
             <h:form id="RegiaoGeograficaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{regiaoGeograficaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewRegiaoGeograficaLabel_idRegiaoGeografica}"/>
+                        <h:outputText value="#{regiaoGeograficaController.selected.idRegiaoGeografica}" title="#{bundle.ViewRegiaoGeograficaTitle_idRegiaoGeografica}"/>
                         <h:outputText value="#{bundle.ViewRegiaoGeograficaLabel_dsRegiaoGeografica}"/>
                         <h:outputText value="#{regiaoGeograficaController.selected.dsRegiaoGeografica}" title="#{bundle.ViewRegiaoGeograficaTitle_dsRegiaoGeografica}"/>
                     </p:panelGrid>

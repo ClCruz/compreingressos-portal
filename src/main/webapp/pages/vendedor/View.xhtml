@@ -12,6 +12,8 @@
             <h:form id="VendedorViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{vendedorController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVendedorLabel_idVendedor}"/>
+                        <h:outputText value="#{vendedorController.selected.idVendedor}" title="#{bundle.ViewVendedorTitle_idVendedor}"/>
                         <h:outputText value="#{bundle.ViewVendedorLabel_dsVendedor}"/>
                         <h:outputText value="#{vendedorController.selected.dsVendedor}" title="#{bundle.ViewVendedorTitle_dsVendedor}"/>
                         <h:outputText value="#{bundle.ViewVendedorLabel_inAtivo}"/>

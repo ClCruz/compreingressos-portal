@@ -33,9 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ModalidadeContrato implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @NotNull
     @Basic(optional = false)
-    @Column(name = "id_modalidade_contrato")
+    @Column(name = "id_modalidade_contrato", columnDefinition = "integer")
     private Integer idModalidadeContrato;
     @Size(max = 30)
     @Column(name = "ds_modalidade_contrato")

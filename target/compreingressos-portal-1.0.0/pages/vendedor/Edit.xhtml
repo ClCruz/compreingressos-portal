@@ -12,8 +12,10 @@
             <h:form id="VendedorEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{vendedorController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVendedorLabel_idVendedor}" for="idVendedor" />
+                        <p:inputText id="idVendedor" value="#{vendedorController.selected.idVendedor}" title="#{bundle.EditVendedorTitle_idVendedor}" required="true" requiredMessage="#{bundle.EditVendedorRequiredMessage_idVendedor}" />
                         <p:outputLabel value="#{bundle.EditVendedorLabel_dsVendedor}" for="dsVendedor" />
-                        <p:inputTextarea rows="4" cols="30" id="dsVendedor" value="#{vendedorController.selected.dsVendedor}" title="#{bundle.EditVendedorTitle_dsVendedor}" />
+                        <p:inputText id="dsVendedor" value="#{vendedorController.selected.dsVendedor}" title="#{bundle.EditVendedorTitle_dsVendedor}" />
                         <p:outputLabel value="#{bundle.EditVendedorLabel_inAtivo}" for="inAtivo" />
                         <p:selectBooleanCheckbox id="inAtivo" value="#{vendedorController.selected.inAtivo}" />
                     </p:panelGrid>

@@ -11,9 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,9 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Estado implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
     @Basic(optional = false)
-    @Column(name = "id_estado")
+    @Column(name = "id_estado", columnDefinition = "integer")
     private Short idEstado;
     @Basic(optional = false)
     @NotNull

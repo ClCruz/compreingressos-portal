@@ -37,9 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class RegiaoGeografica implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @NotNull
     @Basic(optional = false)
-    @Column(name = "id_regiao_geografica")
+    @Column(name = "id_regiao_geografica", columnDefinition = "integer")
     private Integer idRegiaoGeografica;
     @Basic(optional = false)
     @NotNull

@@ -12,6 +12,8 @@
             <h:form id="ModalidadeContratoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{modalidadeContratoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewModalidadeContratoLabel_idModalidadeContrato}"/>
+                        <h:outputText value="#{modalidadeContratoController.selected.idModalidadeContrato}" title="#{bundle.ViewModalidadeContratoTitle_idModalidadeContrato}"/>
                         <h:outputText value="#{bundle.ViewModalidadeContratoLabel_dsModalidadeContrato}"/>
                         <h:outputText value="#{modalidadeContratoController.selected.dsModalidadeContrato}" title="#{bundle.ViewModalidadeContratoTitle_dsModalidadeContrato}"/>
                     </p:panelGrid>
