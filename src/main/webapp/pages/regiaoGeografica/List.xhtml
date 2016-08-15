@@ -33,7 +33,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idRegiaoGeografica}"/>
                         </p:column>
-                        <p:column sortBy="#{item.dsRegiaoGeografica}">
+                        <p:column sortBy="#{item.dsRegiaoGeografica}" filterBy="#{item.dsRegiaoGeografica}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRegiaoGeograficaTitle_dsRegiaoGeografica}"/>
                             </f:facet>

@@ -19,15 +19,20 @@
                         <h:outputText value="#{bundle.ViewUsuarioLabel_dsEmail}"/>
                         <h:outputText value="#{usuarioController.selected.dsEmail}" title="#{bundle.ViewUsuarioTitle_dsEmail}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_inAtivo}"/>
-                        <h:outputText value="#{usuarioController.selected.inAtivo}" title="#{bundle.ViewUsuarioTitle_inAtivo}"/>
+                        <h:outputText value="Ativo" rendered="#{usuarioController.selected.inAtivo == 1}" title="#{bundle.ViewUsuarioTitle_inAtivo}"/>
+                        <h:outputText value="Inativo" rendered="#{usuarioController.selected.inAtivo == 0}" title="#{bundle.ViewUsuarioTitle_inAtivo}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_inAdmin}"/>
-                        <h:outputText value="#{usuarioController.selected.inAdmin}" title="#{bundle.ViewUsuarioTitle_inAdmin}"/>
+                        <h:outputText value="Sim" rendered="#{usuarioController.selected.inAdmin == 1}" title="#{bundle.ViewUsuarioTitle_inAdmin}"/>
+                        <h:outputText value="Não" rendered="#{usuarioController.selected.inAdmin == 0}" title="#{bundle.ViewUsuarioTitle_inAdmin}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_inTelemarketing}"/>
-                        <h:outputText value="#{usuarioController.selected.inTelemarketing}" title="#{bundle.ViewUsuarioTitle_inTelemarketing}"/>
+                        <h:outputText value="Ativo" rendered="#{usuarioController.selected.inTelemarketing == 1}" title="#{bundle.ViewUsuarioTitle_inTelemarketing}"/>
+                        <h:outputText value="Inativo" rendered="#{usuarioController.selected.inTelemarketing== 0}" title="#{bundle.ViewUsuarioTitle_inTelemarketing}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_inPdv}"/>
-                        <h:outputText value="#{usuarioController.selected.inPdv}" title="#{bundle.ViewUsuarioTitle_inPdv}"/>
+                        <h:outputText value="Ativo" rendered="#{usuarioController.selected.inPdv== 1}" title="#{bundle.ViewUsuarioTitle_inPdv}"/>
+                        <h:outputText value="Inativo" rendered="#{usuarioController.selected.inPdv== 0}" title="#{bundle.ViewUsuarioTitle_inPdv}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_inPos}"/>
-                        <h:outputText value="#{usuarioController.selected.inPos}" title="#{bundle.ViewUsuarioTitle_inPos}"/>
+                        <h:outputText value="Ativo" rendered="#{usuarioController.selected.inPos == 1}" title="#{bundle.ViewUsuarioTitle_inPos}"/>
+                        <h:outputText value="Inativo" rendered="#{usuarioController.selected.inPos == 0}" title="#{bundle.ViewUsuarioTitle_inPos}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('UsuarioViewDialog').hide()"/>
                 </h:panelGroup>

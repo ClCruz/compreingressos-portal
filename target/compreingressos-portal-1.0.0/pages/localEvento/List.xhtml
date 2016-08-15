@@ -27,49 +27,49 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column sortBy="#{item.dsLocalEvento}">
+                        <p:column sortBy="#{item.dsLocalEvento}" filterBy="#{item.dsLocalEvento}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalEventoTitle_dsLocalEvento}"/>
                             </f:facet>
                             <h:outputText value="#{item.dsLocalEvento}"/>
                         </p:column>
-                        <p:column sortBy="#{item.dsEndereco}">
+                        <p:column sortBy="#{item.dsEndereco}" filterBy="#{item.dsEndereco}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalEventoTitle_dsEndereco}"/>
                             </f:facet>
                             <h:outputText value="#{item.dsEndereco}"/>
                         </p:column>
-                        <p:column sortBy="#{item.dsNumero}">
+                        <p:column sortBy="#{item.dsNumero}" filterBy="#{item.dsNumero}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalEventoTitle_dsNumero}"/>
                             </f:facet>
                             <h:outputText value="#{item.dsNumero}"/>
                         </p:column>
-                        <p:column sortBy="#{item.dsComplemento}">
+                        <p:column sortBy="#{item.dsComplemento}" filterBy="#{item.dsComplemento}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalEventoTitle_dsComplemento}"/>
                             </f:facet>
                             <h:outputText value="#{item.dsComplemento}"/>
                         </p:column>
-                        <p:column sortBy="#{item.dsBairro}">
+                        <p:column sortBy="#{item.dsBairro}" filterBy="#{item.dsBairro}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalEventoTitle_dsBairro}"/>
                             </f:facet>
                             <h:outputText value="#{item.dsBairro}"/>
                         </p:column>
-                        <p:column sortBy="#{item.cdCepCliente}">
+                        <p:column sortBy="#{item.cdCepCliente}" filterBy="#{item.cdCepCliente}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalEventoTitle_cdCepCliente}"/>
                             </f:facet>
                             <h:outputText value="#{item.cdCepCliente}"/>
                         </p:column>
-                        <p:column sortBy="#{item.nrTelefone}">
+                        <p:column sortBy="#{item.nrTelefone}" filterBy="#{item.nrTelefone}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalEventoTitle_nrTelefone}"/>
                             </f:facet>
                             <h:outputText value="#{item.nrTelefone}"/>
                         </p:column>
-                        <p:column sortBy="#{item.cdEmail}">
+                        <p:column sortBy="#{item.cdEmail}" filterBy="#{item.cdEmail}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalEventoTitle_cdEmail}"/>
                             </f:facet>

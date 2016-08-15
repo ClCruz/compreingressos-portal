@@ -27,7 +27,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column sortBy="#{item.dsMunicipio}">
+                        <p:column sortBy="#{item.dsMunicipio}" filterBy="#{item.dsMunicipio}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMunicipioTitle_dsMunicipio}"/>
                             </f:facet>

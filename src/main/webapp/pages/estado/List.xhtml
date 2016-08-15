@@ -33,13 +33,13 @@
                             </f:facet>
                             <h:outputText value="#{item.idEstado}"/>
                         </p:column>
-                        <p:column sortBy="#{item.dsEstado}">
+                        <p:column sortBy="#{item.dsEstado}" filterBy="#{item.dsEstado}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstadoTitle_dsEstado}"/>
                             </f:facet>
                             <h:outputText value="#{item.dsEstado}"/>
                         </p:column>
-                        <p:column sortBy="#{item.sgEstado}">
+                        <p:column sortBy="#{item.sgEstado}" filterBy="#{item.sgEstado}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstadoTitle_sgEstado}"/>
                             </f:facet>

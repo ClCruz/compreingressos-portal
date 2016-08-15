@@ -7,7 +7,7 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-08-08T14:43:44")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-08-10T17:37:55")
 @StaticMetamodel(SegmentoEvento.class)
 public class SegmentoEvento_ { 
 

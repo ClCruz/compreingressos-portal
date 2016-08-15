@@ -74,15 +74,15 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_ativo")
-    private Character inAtivo;
+    private int inAtivo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_admin")
-    private Character inAdmin;
+    private int inAdmin;
     @Column(name = "in_telemarketing")
-    private Character inTelemarketing;
+    private int inTelemarketing;
     @Column(name = "in_pdv")
-    private Character inPdv;
+    private int inPdv;
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_pos")
@@ -152,35 +152,35 @@ public class Usuario implements Serializable {
         this.dsEmail = dsEmail;
     }
 
-    public Character getInAtivo() {
+    public int getInAtivo() {
         return inAtivo;
     }
 
-    public void setInAtivo(Character inAtivo) {
+    public void setInAtivo(int inAtivo) {
         this.inAtivo = inAtivo;
     }
 
-    public Character getInAdmin() {
+    public int getInAdmin() {
         return inAdmin;
     }
 
-    public void setInAdmin(Character inAdmin) {
+    public void setInAdmin(int inAdmin) {
         this.inAdmin = inAdmin;
     }
 
-    public Character getInTelemarketing() {
+    public int getInTelemarketing() {
         return inTelemarketing;
     }
 
-    public void setInTelemarketing(Character inTelemarketing) {
+    public void setInTelemarketing(int inTelemarketing) {
         this.inTelemarketing = inTelemarketing;
     }
 
-    public Character getInPdv() {
+    public int getInPdv() {
         return inPdv;
     }
 
-    public void setInPdv(Character inPdv) {
+    public void setInPdv(int inPdv) {
         this.inPdv = inPdv;
     }
 

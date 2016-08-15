@@ -21,16 +21,31 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_dsEmail}" for="dsEmail" />
                         <p:inputText id="dsEmail" value="#{usuarioController.selected.dsEmail}" title="#{bundle.CreateUsuarioTitle_dsEmail}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_dsEmail}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_inAtivo}" for="inAtivo" />
-                        <p:inputText id="inAtivo" value="#{usuarioController.selected.inAtivo}" title="#{bundle.CreateUsuarioTitle_inAtivo}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_inAtivo}"/>
+                        <p:selectOneMenu id="inAtivo" value="#{usuarioController.selected.inAtivo}" style="width:100px;">
+                            <f:selectItem itemLabel="Ativo" itemValue="1" />
+                            <f:selectItem itemLabel="Inativo" itemValue="0" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_inAdmin}" for="inAdmin" />
-                        <p:inputText id="inAdmin" value="#{usuarioController.selected.inAdmin}" title="#{bundle.CreateUsuarioTitle_inAdmin}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_inAdmin}"/>
+                        <p:selectOneMenu id="inAdmin" value="#{usuarioController.selected.inAdmin}" style="width:100px;">
+                            <f:selectItem itemLabel="Sim" itemValue="1" />
+                            <f:selectItem itemLabel="Não" itemValue="0" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_inTelemarketing}" for="inTelemarketing" />
-                        <p:inputText id="inTelemarketing" value="#{usuarioController.selected.inTelemarketing}" title="#{bundle.CreateUsuarioTitle_inTelemarketing}" />
+                        <p:selectOneMenu id="inTelemarketing" value="#{usuarioController.selected.inTelemarketing}" style="width:100px;">
+                            <f:selectItem itemLabel="Sim" itemValue="1" />
+                            <f:selectItem itemLabel="Não" itemValue="0" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_inPdv}" for="inPdv" />
-                        <p:inputText id="inPdv" value="#{usuarioController.selected.inPdv}" title="#{bundle.CreateUsuarioTitle_inPdv}" />
+                        <p:selectOneMenu id="inPdv" value="#{usuarioController.selected.inPdv}" style="width:100px;">
+                            <f:selectItem itemLabel="Sim" itemValue="1" />
+                            <f:selectItem itemLabel="Não" itemValue="0" />
+                        </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_inPos}" for="inPos" />
-                        <p:inputText id="inPos" value="#{usuarioController.selected.inPos}" title="#{bundle.CreateUsuarioTitle_inPos}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_inPos}"/>
-                    </p:panelGrid>
+                        <p:selectOneMenu id="inPos" value="#{usuarioController.selected.inPos}" style="width:100px;">
+                            <f:selectItem itemLabel="Sim" itemValue="1" />
+                            <f:selectItem itemLabel="Não" itemValue="0" />
+                        </p:selectOneMenu>                    </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioCreateDialog').hide()"/>
                 </h:panelGroup>

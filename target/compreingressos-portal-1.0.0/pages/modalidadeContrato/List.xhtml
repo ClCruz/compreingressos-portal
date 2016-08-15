@@ -32,7 +32,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idModalidadeContrato}"/>
                         </p:column>
-                        <p:column sortBy="#{item.dsModalidadeContrato}">
+                        <p:column sortBy="#{item.dsModalidadeContrato}" filterBy="#{item.dsModalidadeContrato}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListModalidadeContratoTitle_dsModalidadeContrato}"/>
                             </f:facet>

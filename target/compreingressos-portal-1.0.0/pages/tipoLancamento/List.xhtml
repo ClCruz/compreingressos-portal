@@ -27,7 +27,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column sortBy="#{item.dsTipoLancamento}">
+                        <p:column sortBy="#{item.dsTipoLancamento}" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoLancamentoTitle_dsTipoLancamento}"/>
                             </f:facet>

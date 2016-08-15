@@ -27,13 +27,13 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column sortBy="#{item.cdLogin}">
+                        <p:column sortBy="#{item.cdLogin}" filterBy="#{item.cdLogin}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_cdLogin}"/>
                             </f:facet>
                             <h:outputText value="#{item.cdLogin}"/>
                         </p:column>
-                        <p:column sortBy="#{item.dsNome}">
+                        <p:column sortBy="#{item.dsNome}" filterBy="#{item.dsNome}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_dsNome}"/>
                             </f:facet>
@@ -45,7 +45,7 @@
                             </f:facet>
                             <h:outputText value="#{item.cdPww}"/>
                         </p:column>-->
-                        <p:column sortBy="#{item.dsEmail}">
+                        <p:column sortBy="#{item.dsEmail}" filterBy="#{item.dsEmail}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_dsEmail}"/>
                             </f:facet>
@@ -55,31 +55,36 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_inAtivo}"/>
                             </f:facet>
-                            <h:outputText value="#{item.inAtivo}"/>
+                            <h:outputText rendered="#{item.inAtivo == 1}" value="Ativo"/>
+                            <h:outputText rendered="#{item.inAtivo == 0}" value="Inativo" />
                         </p:column>
                         <p:column sortBy="#{item.inAdmin}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_inAdmin}"/>
                             </f:facet>
-                            <h:outputText value="#{item.inAdmin}"/>
+                            <h:outputText value="Sim" rendered="#{item.inAdmin == 1}"/>
+                            <h:outputText value="Não" rendered="#{item.inAdmin == 0}"/>
                         </p:column>
                         <p:column sortBy="#{item.inTelemarketing}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_inTelemarketing}"/>
                             </f:facet>
-                            <h:outputText value="#{item.inTelemarketing}"/>
+                            <h:outputText value="Ativo" rendered="#{item.inTelemarketing == 1}"/>
+                            <h:outputText value="Inativo" rendered="#{item.inTelemarketing == 0}"/>
                         </p:column>
                         <p:column sortBy="#{item.inPdv}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_inPdv}"/>
                             </f:facet>
-                            <h:outputText value="#{item.inPdv}"/>
+                            <h:outputText value="Ativo" rendered="#{item.inPdv == 1}"/>
+                            <h:outputText value="Inativo" rendered="#{item.inPdv == 0}"/>
                         </p:column>
                         <p:column sortBy="#{item.inPos}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_inPos}"/>
                             </f:facet>
-                            <h:outputText value="#{item.inPos}"/>
+                            <h:outputText value="Ativo" rendered="#{item.inPos == 1}"/>
+                            <h:outputText value="Inativo" rendered="#{item.inPos == 0}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>

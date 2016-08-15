@@ -15,3 +15,18 @@
 .ui-button {
     margin-top: 10px !important;
 }
+body{
+    padding:20px;
+}
+
+.ui-layout-north{
+    height:auto!important;;
+    border:0px!important;;
+}
+.ui-layout-center{
+    border:0px!important;;
+}
+
+.ui-paginator-top{
+    display:none!important;;
+}

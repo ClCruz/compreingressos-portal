@@ -7,7 +7,7 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-08-08T14:43:44")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-08-10T17:37:55")
 @StaticMetamodel(Usuario.class)
 public class Usuario_ { 
 
@@ -15,12 +15,12 @@ public class Usuario_ {
     public static volatile SingularAttribute<Usuario, String> dsEmail;
     public static volatile SingularAttribute<Usuario, String> dsNome;
     public static volatile SingularAttribute<Usuario, Integer> idUsuario;
-    public static volatile SingularAttribute<Usuario, Character> inAtivo;
-    public static volatile SingularAttribute<Usuario, Character> inPdv;
+    public static volatile SingularAttribute<Usuario, Integer> inAtivo;
+    public static volatile SingularAttribute<Usuario, Integer> inPdv;
     public static volatile SingularAttribute<Usuario, String> cdLogin;
     public static volatile CollectionAttribute<Usuario, SegmentoEvento> segmentoEventoCollection;
-    public static volatile SingularAttribute<Usuario, Character> inTelemarketing;
-    public static volatile SingularAttribute<Usuario, Character> inAdmin;
+    public static volatile SingularAttribute<Usuario, Integer> inTelemarketing;
+    public static volatile SingularAttribute<Usuario, Integer> inAdmin;
     public static volatile CollectionAttribute<Usuario, GeneroEvento> generoEventoCollection;
     public static volatile SingularAttribute<Usuario, String> cdPww;
 
