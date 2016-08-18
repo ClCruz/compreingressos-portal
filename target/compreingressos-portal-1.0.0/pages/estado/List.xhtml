@@ -1,70 +1,67 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
 
-    <ui:composition template="/template.xhtml">
-
-
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListEstadoTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
-            <h:form id="EstadoListForm">
-                <p:panel header="#{bundle.ListEstadoTitle}">
-                    <p:dataTable id="datalist" value="#{estadoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
-                                 selectionMode="single" selection="#{estadoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idEstado}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                        
-                        <p:column sortBy="#{item.idEstado}">
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="EstadoListForm">
+                        <p:dataTable id="datalist" value="#{estadoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                     selectionMode="single" selection="#{estadoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.idEstado}"
+                                     rows="10"
+                                     rowsPerPageTemplate="5,10,20,30,40,50"
+                                     reflow="true"
+                                     >
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstadoTitle_idEstado}"/>
+                                #{bundle.ListEstadoTitle}
                             </f:facet>
-                            <h:outputText value="#{item.idEstado}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.dsEstado}" filterBy="#{item.dsEstado}" filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstadoTitle_dsEstado}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dsEstado}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.sgEstado}" filterBy="#{item.sgEstado}" filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstadoTitle_sgEstado}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.sgEstado}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstadoTitle_idRegiaoGeografica}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idRegiaoGeografica.dsRegiaoGeografica}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EstadoViewForm" oncomplete="PF('EstadoViewDialog').show()" disabled="#{empty estadoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EstadoEditForm" oncomplete="PF('EstadoEditDialog').show()" disabled="#{empty estadoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{estadoController.destroy}" update=":growl,datalist" disabled="#{empty estadoController.selected}"/>
+                            
+                            <p:ajax event="rowSelect" update="createButton editButton viewButton deleteButton" />
+                            <p:ajax event="rowUnselect" update="createButton editButton viewButton deleteButton" />
+
+                            <p:column sortBy="#{item.idEstado}" headerText="#{bundle.ListEstadoTitle_idEstado}"
+                                      filterBy="#{item.idEstado}"
+                                      filterMatchMode="exact"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.idEstado}" />
+                            </p:column>
+                            <p:column sortBy="#{item.dsEstado}" headerText="#{bundle.ListEstadoTitle_dsEstado}"
+                                      filterBy="#{item.dsEstado}"
+                                      filterMatchMode="contains"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.dsEstado}" />
+                            </p:column>
+                            <p:column sortBy="#{item.sgEstado}" headerText="#{bundle.ListEstadoTitle_sgEstado}"
+                                      filterBy="#{item.sgEstado}"
+                                      filterMatchMode="contains"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.sgEstado}" />
+                            </p:column>
+                            <p:column sortBy="#{item.idRegiaoGeografica.dsRegiaoGeografica}" headerText="#{bundle.ListEstadoTitle_idRegiaoGeografica}"
+                                      filterBy="#{item.idRegiaoGeografica.dsRegiaoGeografica}"
+                                      filterMatchMode="contains"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.idRegiaoGeografica.dsRegiaoGeografica}" />
+                            </p:column>
+                            <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":EstadoViewForm" oncomplete="PF('EstadoViewDialog').show()" disabled="#{empty estadoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":EstadoEditForm" oncomplete="PF('EstadoEditDialog').show()" disabled="#{empty estadoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{estadoController.destroy}" update=":growl,datalist" disabled="#{empty estadoController.selected}"/>
                         </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-        </ui:define>
-    </ui:composition>
-
-</html>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+    </ui:define>
+</ui:composition>

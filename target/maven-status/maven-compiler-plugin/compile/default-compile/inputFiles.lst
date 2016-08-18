@@ -12,6 +12,7 @@ C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\FormaPagamento.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\TipoLancamento.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\MunicipioFacade.java
+C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\rio\component\menu\RioMenuRenderer.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\Usuario.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\CanalVendaController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\GeneroEvento.java
@@ -41,6 +42,7 @@ C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\TipoLancamentoFacade.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\TipoContrato.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\ContaContabil.java
+C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\rio\component\menu\RioMenu.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\ContaContabilFacade.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\SegmentoEventoController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\GeneroEventoController.java

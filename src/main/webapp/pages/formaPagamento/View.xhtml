@@ -11,15 +11,15 @@
         <p:dialog id="FormaPagamentoViewDlg" widgetVar="FormaPagamentoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFormaPagamentoTitle}">
             <h:form id="FormaPagamentoViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{formaPagamentoController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{formaPagamentoController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <h:outputText value="#{bundle.ViewFormaPagamentoLabel_dsFormaPagamento}"/>
                         <h:outputText value="#{formaPagamentoController.selected.dsFormaPagamento}" title="#{bundle.ViewFormaPagamentoTitle_dsFormaPagamento}"/>
                         <h:outputText value="#{bundle.ViewFormaPagamentoLabel_inAtivo}"/>
-                        <p:selectBooleanCheckbox value="#{formaPagamentoController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{formaPagamentoController.selected.inAtivo eq true}" />
+                        <h:outputText value="Inativo" rendered="#{formaPagamentoController.selected.inAtivo eq false}" />
                         <h:outputText value="#{bundle.ViewFormaPagamentoLabel_inTipoMeioPagamento}"/>
                         <h:outputText value="#{formaPagamentoController.selected.inTipoMeioPagamento}" title="#{bundle.ViewFormaPagamentoTitle_inTipoMeioPagamento}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('FormaPagamentoViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

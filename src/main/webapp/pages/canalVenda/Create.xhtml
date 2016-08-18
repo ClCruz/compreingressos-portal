@@ -7,19 +7,18 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
-        <p:dialog id="CanalVendaCreateDlg" widgetVar="CanalVendaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCanalVendaTitle}">
+        <p:dialog id="CanalVendaCreateDlg" widgetVar="CanalVendaCreateDialog" modal="true" resizable="false"  header="#{bundle.CreateCanalVendaTitle}" showEffect="fade" hideEffect="fade" responsive="true" style="min-width: 400px;">
             <h:form id="CanalVendaCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{canalVendaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCanalVendaLabel_dsCanalVenda}" for="dsCanalVenda" />
-                        <p:inputText id="dsCanalVenda" value="#{canalVendaController.selected.dsCanalVenda}" title="#{bundle.CreateCanalVendaTitle_dsCanalVenda}" required="true" requiredMessage="#{bundle.CreateCanalVendaRequiredMessage_dsCanalVenda}"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{canalVendaController.create}" value="#{bundle.Save}" update="display,:CanalVendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'CanalVendaCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('CanalVendaCreateDialog').hide()"/>
+                        <p:panelGrid columns="2" rendered="#{canalVendaController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="#{bundle.CreateCanalVendaLabel_dsCanalVenda}" for="dsCanalVenda" />
+                            <p:inputText id="dsCanalVenda" value="#{canalVendaController.selected.dsCanalVenda}" title="#{bundle.CreateCanalVendaTitle_dsCanalVenda}" required="true" requiredMessage="#{bundle.CreateCanalVendaRequiredMessage_dsCanalVenda}" />
+                        </p:panelGrid>
+                        <div class="Separator"></div>
+                        <p:commandButton actionListener="#{canalVendaController.create}" value="#{bundle.Save}" update="display,:CanalVendaListForm:datalist, growl" oncomplete="handleSubmit(args, 'CanalVendaCreateDialog')" />
+                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('CanalVendaCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>

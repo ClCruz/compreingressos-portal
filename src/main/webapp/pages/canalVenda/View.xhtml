@@ -1,24 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition>
-
-        <p:dialog id="CanalVendaViewDlg" widgetVar="CanalVendaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCanalVendaTitle}">
-            <h:form id="CanalVendaViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{canalVendaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewCanalVendaLabel_dsCanalVenda}"/>
-                        <h:outputText value="#{canalVendaController.selected.dsCanalVenda}" title="#{bundle.ViewCanalVendaTitle_dsCanalVenda}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('CanalVendaViewDialog').hide()"/>
-                </h:panelGroup>
-            </h:form>
-        </p:dialog>
-
-    </ui:composition>
-</html>
+    <p:dialog header="#{bundle.ViewCanalVendaTitle}" widgetVar="canalDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+        <p:outputPanel id="viewCanal" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty canalVendaController.selected}" layout="grid" styleClass="ui-panelgrid-blank">
+                <h:outputText value="#{bundle.ViewCanalVendaLabel_dsCanalVenda}" style="font-weight: bold"/>
+                <h:outputText value="#{canalVendaController.selected.dsCanalVenda}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</ui:composition>

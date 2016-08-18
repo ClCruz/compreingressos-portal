@@ -4,19 +4,24 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:composition>
 
         <p:dialog id="EmpresaEditDlg" widgetVar="EmpresaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEmpresaTitle}">
             <h:form id="EmpresaEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{empresaController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{empresaController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <p:outputLabel value="#{bundle.EditEmpresaLabel_dsEmpresa}" for="dsEmpresa" />
                         <p:inputText id="dsEmpresa" value="#{empresaController.selected.dsEmpresa}" title="#{bundle.EditEmpresaTitle_dsEmpresa}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_dsEmpresa}"/>
                         <p:outputLabel value="#{bundle.EditEmpresaLabel_inAtivo}" for="inAtivo" />
-                        <p:selectBooleanCheckbox id="inAtivo" value="#{empresaController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_inAtivo}"/>
+                        <p:selectOneMenu id="inAtivo" value="#{empresaController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_inAtivo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                     </p:panelGrid>
+                    <div class="SeparatorFull" />
                     <p:commandButton actionListener="#{empresaController.update}" value="#{bundle.Save}" update="display,:EmpresaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EmpresaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('EmpresaEditDialog').hide()"/>
                 </h:panelGroup>

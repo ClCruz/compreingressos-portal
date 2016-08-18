@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("canalVendaController")
 @SessionScoped
 public class CanalVendaController implements Serializable {

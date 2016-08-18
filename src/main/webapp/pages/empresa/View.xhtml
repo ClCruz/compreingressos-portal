@@ -11,13 +11,13 @@
         <p:dialog id="EmpresaViewDlg" widgetVar="EmpresaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEmpresaTitle}">
             <h:form id="EmpresaViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{empresaController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{empresaController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <h:outputText value="#{bundle.ViewEmpresaLabel_dsEmpresa}"/>
                         <h:outputText value="#{empresaController.selected.dsEmpresa}" title="#{bundle.ViewEmpresaTitle_dsEmpresa}"/>
                         <h:outputText value="#{bundle.ViewEmpresaLabel_inAtivo}"/>
-                        <p:selectBooleanCheckbox value="#{empresaController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{empresaController.selected.inAtivo eq true}" />
+                        <h:outputText value="Inativo" rendered="#{empresaController.selected.inAtivo eq false}" />
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('EmpresaViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -1,69 +1,57 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Página de boas-vindas do Primefaces" />
-        <br />
-        <h:link outcome="/pages/canalVenda/List" value="Show All CanalVenda Items"/>
-        <br />
-        <h:link outcome="/pages/contaContabil/List" value="Show All ContaContabil Items"/>
-        <br />
-        <h:link outcome="/pages/empresa/List" value="Show All Empresa Items"/>
-        <br />
-        <h:link outcome="/pages/estado/List" value="Show All Estado Items"/>
-        <br />
-        <h:link outcome="/pages/formaPagamento/List" value="Show All FormaPagamento Items"/>
-        <br />
-        <h:link outcome="/pages/generoEvento/List" value="Show All GeneroEvento Items"/>
-        <br />
-        <h:link outcome="/pages/localEvento/List" value="Show All LocalEvento Items"/>
-        <br />
-        <h:link outcome="/pages/modalidadeContrato/List" value="Show All ModalidadeContrato Items"/>
-        <br />
-        <h:link outcome="/pages/municipio/List" value="Show All Municipio Items"/>
-        <br />
-        <h:link outcome="/pages/prazoPagamento/List" value="Show All PrazoPagamento Items"/>
-        <br />
-        <h:link outcome="/pages/regiaoGeografica/List" value="Show All RegiaoGeografica Items"/>
-        <br />
-        <h:link outcome="/pages/segmentoEvento/List" value="Show All SegmentoEvento Items"/>
-        <br />
-        <h:link outcome="/pages/tipoContrato/List" value="Show All TipoContrato Items"/>
-        <br />
-        <h:link outcome="/pages/tipoLancamento/List" value="Show All TipoLancamento Items"/>
-        <br />
-        <h:link outcome="/pages/tipoLocal/List" value="Show All TipoLocal Items"/>
-        <br />
-        <h:link outcome="/pages/tipoMeioPagamento/List" value="Show All TipoMeioPagamento Items"/>
-        <br />
-        <h:link outcome="/pages/usuario/List" value="Show All Usuario Items"/>
-        <br />
-        <h:link outcome="/pages/vendedor/List" value="Show All Vendedor Items"/>
-    </h:body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
 
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <br/>
+                    <h2>Empty Page</h2>
+                        <h:link outcome="welcomePrimefaces" value="Página de boas-vindas do Primefaces" />
+                        <br />
+                        <h:link outcome="/pages/canalVenda/List" value="Show All CanalVenda Items"/>
+                        <br />
+                        <h:link outcome="/pages/contaContabil/List" value="Show All ContaContabil Items"/>
+                        <br />
+                        <h:link outcome="/pages/empresa/List" value="Show All Empresa Items"/>
+                        <br />
+                        <h:link outcome="/pages/estado/List" value="Show All Estado Items"/>
+                        <br />
+                        <h:link outcome="/pages/formaPagamento/List" value="Show All FormaPagamento Items"/>
+                        <br />
+                        <h:link outcome="/pages/generoEvento/List" value="Show All GeneroEvento Items"/>
+                        <br />
+                        <h:link outcome="/pages/localEvento/List" value="Show All LocalEvento Items"/>
+                        <br />
+                        <h:link outcome="/pages/modalidadeContrato/List" value="Show All ModalidadeContrato Items"/>
+                        <br />
+                        <h:link outcome="/pages/municipio/List" value="Show All Municipio Items"/>
+                        <br />
+                        <h:link outcome="/pages/prazoPagamento/List" value="Show All PrazoPagamento Items"/>
+                        <br />
+                        <h:link outcome="/pages/regiaoGeografica/List" value="Show All RegiaoGeografica Items"/>
+                        <br />
+                        <h:link outcome="/pages/segmentoEvento/List" value="Show All SegmentoEvento Items"/>
+                        <br />
+                        <h:link outcome="/pages/tipoContrato/List" value="Show All TipoContrato Items"/>
+                        <br />
+                        <h:link outcome="/pages/tipoLancamento/List" value="Show All TipoLancamento Items"/>
+                        <br />
+                        <h:link outcome="/pages/tipoLocal/List" value="Show All TipoLocal Items"/>
+                        <br />
+                        <h:link outcome="/pages/tipoMeioPagamento/List" value="Show All TipoMeioPagamento Items"/>
+                        <br />
+                        <h:link outcome="/pages/usuario/List" value="Show All Usuario Items"/>
+                        <br />
+                        <h:link outcome="/pages/vendedor/List" value="Show All Vendedor Items"/>
+                </div>
+            </div>
+        </div>
+        
+    </ui:define>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</html>
-
+</ui:composition>

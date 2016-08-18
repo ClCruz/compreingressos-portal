@@ -11,7 +11,7 @@
         <p:dialog id="EstadoCreateDlg" widgetVar="EstadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEstadoTitle}">
             <h:form id="EstadoCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{estadoController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{estadoController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <p:outputLabel value="#{bundle.CreateEstadoLabel_idEstado}" for="idEstado" />
                         <p:inputText id="idEstado" value="#{estadoController.selected.idEstado}" title="#{bundle.CreateEstadoTitle_idEstado}" required="true" requiredMessage="#{bundle.CreateEstadoRequiredMessage_idEstado}"/>
                         <p:outputLabel value="#{bundle.CreateEstadoLabel_dsEstado}" for="dsEstado" />
@@ -26,6 +26,7 @@
                                            itemLabel="#{idRegiaoGeograficaItem.dsRegiaoGeografica}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <div class="SeparatorFull" />
                     <p:commandButton actionListener="#{estadoController.create}" value="#{bundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstadoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('EstadoCreateDialog').hide()"/>
                 </h:panelGroup>

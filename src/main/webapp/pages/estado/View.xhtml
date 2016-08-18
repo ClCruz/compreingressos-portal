@@ -11,7 +11,7 @@
         <p:dialog id="EstadoViewDlg" widgetVar="EstadoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEstadoTitle}">
             <h:form id="EstadoViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{estadoController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{estadoController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <h:outputText value="#{bundle.ViewEstadoLabel_idEstado}"/>
                         <h:outputText value="#{estadoController.selected.idEstado}" title="#{bundle.ViewEstadoTitle_idEstado}"/>
                         <h:outputText value="#{bundle.ViewEstadoLabel_dsEstado}"/>
@@ -21,7 +21,6 @@
                         <h:outputText value="#{bundle.ViewEstadoLabel_idRegiaoGeografica}"/>
                         <h:outputText value="#{estadoController.selected.idRegiaoGeografica.dsRegiaoGeografica}" title="#{bundle.ViewEstadoTitle_idRegiaoGeografica}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('EstadoViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -8,18 +8,22 @@
 
     <ui:composition>
 
-        <p:dialog id="ContaContabilCreateDlg" widgetVar="ContaContabilCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateContaContabilTitle}">
+        <p:dialog id="ContaContabilCreateDlg" widgetVar="ContaContabilCreateDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.CreateContaContabilTitle}" >
             <h:form id="ContaContabilCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{contaContabilController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{contaContabilController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank" style="min-width: 500px;">
                         <p:outputLabel value="#{bundle.CreateContaContabilLabel_dsContaContabil}" for="dsContaContabil" />
                         <p:inputText id="dsContaContabil" value="#{contaContabilController.selected.dsContaContabil}" title="#{bundle.CreateContaContabilTitle_dsContaContabil}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_dsContaContabil}"/>
                         <p:outputLabel value="#{bundle.CreateContaContabilLabel_inAtivo}" for="inAtivo" />
-                        <p:selectBooleanCheckbox id="inAtivo" value="#{contaContabilController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditContaContabilRequiredMessage_inAtivo}"/>
+                        <p:selectOneMenu id="inAtivo" value="#{contaContabilController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditContaContabilRequiredMessage_inAtivo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateContaContabilLabel_nrContaContabil}" for="nrContaContabil" />
                         <p:inputText id="nrContaContabil" value="#{contaContabilController.selected.nrContaContabil}" title="#{bundle.CreateContaContabilTitle_nrContaContabil}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_nrContaContabil}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{contaContabilController.create}" value="#{bundle.Save}" update="display,:ContaContabilListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContaContabilCreateDialog');"/>
+                    <div class="SeparatorFull" />
+                    <p:commandButton actionListener="#{contaContabilController.create}" value="#{bundle.Save}" update="display,:ContaContabilListForm:datalist, growl" oncomplete="handleSubmit(args,'ContaContabilCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('ContaContabilCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
