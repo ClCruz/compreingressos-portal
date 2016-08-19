@@ -33,7 +33,9 @@
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewLocalEventoLabel_inAtivo}"/>
-                        <p:selectBooleanCheckbox value="#{localEventoController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{localEventoController.selected.inAtivo eq true}" />
+                        <h:outputText value="Inativo" rendered="#{localEventoController.selected.inAtivo eq false}" />
+                        <h:outputText value="" rendered="#{empty localEventoController.selected.inAtivo}" />
                         <h:outputText value="#{bundle.ViewLocalEventoLabel_cdUrlSite}"/>
                         <h:outputText value="#{localEventoController.selected.cdUrlSite}" title="#{bundle.ViewLocalEventoTitle_cdUrlSite}"/>
                         <h:outputText value="#{bundle.ViewLocalEventoLabel_idMunicipio}"/>

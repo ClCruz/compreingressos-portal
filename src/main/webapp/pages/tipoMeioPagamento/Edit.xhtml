@@ -17,6 +17,7 @@
                         <p:outputLabel value="#{bundle.EditTipoMeioPagamentoLabel_dsTipoMeioPagamento}" for="dsTipoMeioPagamento" />
                         <p:inputText id="dsTipoMeioPagamento" value="#{tipoMeioPagamentoController.selected.dsTipoMeioPagamento}" title="#{bundle.EditTipoMeioPagamentoTitle_dsTipoMeioPagamento}" />
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{tipoMeioPagamentoController.update}" value="#{bundle.Save}" update="display,:TipoMeioPagamentoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoMeioPagamentoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('TipoMeioPagamentoEditDialog').hide()"/>
                 </h:panelGroup>

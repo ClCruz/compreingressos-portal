@@ -1,64 +1,67 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
 
-    <ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="SegmentoEventoListForm">
+                        <p:dataTable id="datalist" value="#{segmentoEventoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                     selectionMode="single" selection="#{segmentoEventoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.idSegmentoEvento}"
+                                     rows="10"
+                                     widgetVar="segmentoEventoTable"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     >
 
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListSegmentoEventoTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
-            <h:form id="SegmentoEventoListForm">
-                <p:panel header="#{bundle.ListSegmentoEventoTitle}">
-                    <p:dataTable id="datalist" value="#{segmentoEventoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
-                                 selectionMode="single" selection="#{segmentoEventoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idSegmentoEvento}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column sortBy="#{item.dsSegmentoEvento}" filterBy="#{item.dsSegmentoEvento}" filterMatchMode="contains">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSegmentoEventoTitle_dsSegmentoEvento}"/>
+                                #{bundle.ListSegmentoEventoTitle}
                             </f:facet>
-                            <h:outputText value="#{item.dsSegmentoEvento}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.inAtivo}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSegmentoEventoTitle_inAtivo}"/>
+                            <p:column sortBy="#{item.dsSegmentoEvento}" headerText="#{bundle.ListSegmentoEventoTitle_dsSegmentoEvento}"
+                                      filterBy="#{item.dsSegmentoEvento}" filterMatchMode="contains"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.dsSegmentoEvento}" />
+                            </p:column>
+                            <p:column sortBy="#{item.inAtivo}" headerText="#{bundle.ListSegmentoEventoTitle_inAtivo}" 
+                                      filterBy="#{item.inAtivo}"
+                                      filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('segmentoEventoTable').filter()">
+                                        <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Ativo" itemValue="true" />
+                                        <f:selectItem itemLabel="Inativo" itemValue="false" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="Ativo" rendered="#{item.inAtivo eq true}" />
+                                <h:outputText value="Inativo" rendered="#{item.inAtivo eq false}" />
+                            </p:column>
+                            <p:column sortBy="#{item.idUsuario.dsNome}" headerText="#{bundle.ListSegmentoEventoTitle_idUsuario}"
+                                      filterBy="#{item.idUsuario.dsNome}" filterMatchMode="contains"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.idUsuario.dsNome}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{segmentoEventoController.prepareCreate}" update=":SegmentoEventoCreateForm" oncomplete="PF('SegmentoEventoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":SegmentoEventoViewForm" oncomplete="PF('SegmentoEventoViewDialog').show()" disabled="#{empty segmentoEventoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":SegmentoEventoEditForm" oncomplete="PF('SegmentoEventoEditDialog').show()" disabled="#{empty segmentoEventoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{segmentoEventoController.destroy}" update=":growl,datalist" disabled="#{empty segmentoEventoController.selected}"/>
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.inAtivo}" disabled="true"/>
-                        </p:column>
-                        <p:column sortBy="#{item.idUsuario}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSegmentoEventoTitle_idUsuario}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idUsuario.dsNome}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{segmentoEventoController.prepareCreate}" update=":SegmentoEventoCreateForm" oncomplete="PF('SegmentoEventoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SegmentoEventoViewForm" oncomplete="PF('SegmentoEventoViewDialog').show()" disabled="#{empty segmentoEventoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SegmentoEventoEditForm" oncomplete="PF('SegmentoEventoEditDialog').show()" disabled="#{empty segmentoEventoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{segmentoEventoController.destroy}" update=":growl,datalist" disabled="#{empty segmentoEventoController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-        </ui:define>
-    </ui:composition>
-
-</html>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+    </ui:define>
+</ui:composition>

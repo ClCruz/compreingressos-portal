@@ -1,75 +1,78 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
 
-    <ui:composition template="/template.xhtml">
-
-
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListPrazoPagamentoTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
-            <h:form id="PrazoPagamentoListForm">
-                <p:panel header="#{bundle.ListPrazoPagamentoTitle}">
-                    <p:dataTable id="datalist" value="#{prazoPagamentoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
-                                 selectionMode="single" selection="#{prazoPagamentoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idPrazoPagamento}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column sortBy="#{item.dsPrazoPagamento}" filterBy="#{item.dsPrazoPagamento}" filterMatchMode="contains">
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="PrazoPagamentoListForm">
+                        <p:dataTable id="datalist" value="#{prazoPagamentoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                     selectionMode="single" selection="#{prazoPagamentoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.idPrazoPagamento}"
+                                     rows="10"
+                                     widgetVar="prazoTable"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     >
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPrazoPagamentoTitle_dsPrazoPagamento}"/>
+                                #{bundle.ListPrazoPagamentoTitle}
                             </f:facet>
-                            <h:outputText value="#{item.dsPrazoPagamento}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.inDiaSemana}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPrazoPagamentoTitle_inDiaSemana}"/>
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:column sortBy="#{item.dsPrazoPagamento}" filterBy="#{item.dsPrazoPagamento}" filterMatchMode="contains"
+                                      headerText="#{bundle.ListPrazoPagamentoTitle_dsPrazoPagamento}"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.dsPrazoPagamento}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.inDiaSemana}" headerText="#{bundle.ListPrazoPagamentoTitle_inDiaSemana}"
+                                      filterBy="#{item.inDiaSemana}" filterMatchMode="exact"
+                                      filterStyle="width:50%">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('prazoTable').filter()" >
+                                        <f:selectItem itemLabel="Todos" itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Qualquer dia da semana" itemValue="0" />
+                                        <f:selectItem itemLabel="Segunda" itemValue="1" />
+                                        <f:selectItem itemLabel="Terça" itemValue="2" />
+                                        <f:selectItem itemLabel="Quarta" itemValue="3" />
+                                        <f:selectItem itemLabel="Quinta" itemValue="4" />
+                                        <f:selectItem itemLabel="Sexta" itemValue="5" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="Qualquer dia da semana" rendered="#{item.inDiaSemana == 0}"/>
+                                <h:outputText value="Segunda" rendered="#{item.inDiaSemana == 1}"/>
+                                <h:outputText value="Terça" rendered="#{item.inDiaSemana == 2}"/>
+                                <h:outputText value="Quarta" rendered="#{item.inDiaSemana == 3}"/>
+                                <h:outputText value="Quinta" rendered="#{item.inDiaSemana == 4}"/>
+                                <h:outputText value="Sexta" rendered="#{item.inDiaSemana == 5}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.qtDiasPrazo}" headerText="#{bundle.ListPrazoPagamentoTitle_qtDiasPrazo}"
+                                      filterBy="#{item.qtDiasPrazo}" filterMatchMode="exact"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.qtDiasPrazo}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.dsDiasFixos}" headerText="#{bundle.ListPrazoPagamentoTitle_dsDiasFixos}"
+                                      filterBy="#{item.dsDiasFixos}" filterMatchMode="exact"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.dsDiasFixos}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{prazoPagamentoController.prepareCreate}" update=":PrazoPagamentoCreateForm" oncomplete="PF('PrazoPagamentoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":PrazoPagamentoViewForm" oncomplete="PF('PrazoPagamentoViewDialog').show()" disabled="#{empty prazoPagamentoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":PrazoPagamentoEditForm" oncomplete="PF('PrazoPagamentoEditDialog').show()" disabled="#{empty prazoPagamentoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{prazoPagamentoController.destroy}" update=":growl,datalist" disabled="#{empty prazoPagamentoController.selected}"/>
                             </f:facet>
-                            <h:outputText value="Qualquer dia da semana" rendered="#{item.inDiaSemana == 0}"/>
-                            <h:outputText value="Segunda" rendered="#{item.inDiaSemana == 1}"/>
-                            <h:outputText value="Terça" rendered="#{item.inDiaSemana == 2}"/>
-                            <h:outputText value="Quarta" rendered="#{item.inDiaSemana == 3}"/>
-                            <h:outputText value="Quinta" rendered="#{item.inDiaSemana == 4}"/>
-                            <h:outputText value="Sexta" rendered="#{item.inDiaSemana == 5}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.qtDiasPrazo}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPrazoPagamentoTitle_qtDiasPrazo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.qtDiasPrazo}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.dsDiasFixos}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPrazoPagamentoTitle_dsDiasFixos}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dsDiasFixos}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{prazoPagamentoController.prepareCreate}" update=":PrazoPagamentoCreateForm" oncomplete="PF('PrazoPagamentoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PrazoPagamentoViewForm" oncomplete="PF('PrazoPagamentoViewDialog').show()" disabled="#{empty prazoPagamentoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PrazoPagamentoEditForm" oncomplete="PF('PrazoPagamentoEditDialog').show()" disabled="#{empty prazoPagamentoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{prazoPagamentoController.destroy}" update=":growl,datalist" disabled="#{empty prazoPagamentoController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-        </ui:define>
-    </ui:composition>
-
-</html>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+    </ui:define>
+</ui:composition>

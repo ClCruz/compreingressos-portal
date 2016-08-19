@@ -34,7 +34,6 @@
                         <h:outputText value="Ativo" rendered="#{usuarioController.selected.inPos == 1}" title="#{bundle.ViewUsuarioTitle_inPos}"/>
                         <h:outputText value="Inativo" rendered="#{usuarioController.selected.inPos == 0}" title="#{bundle.ViewUsuarioTitle_inPos}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('UsuarioViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

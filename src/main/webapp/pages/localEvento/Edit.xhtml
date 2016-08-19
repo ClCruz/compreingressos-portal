@@ -11,7 +11,7 @@
         <p:dialog id="LocalEventoEditDlg" widgetVar="LocalEventoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLocalEventoTitle}">
             <h:form id="LocalEventoEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{localEventoController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{localEventoController.selected != null}">
                         <p:outputLabel value="#{bundle.EditLocalEventoLabel_dsLocalEvento}" for="dsLocalEvento" />
                         <p:inputText id="dsLocalEvento" value="#{localEventoController.selected.dsLocalEvento}" title="#{bundle.EditLocalEventoTitle_dsLocalEvento}" required="true" requiredMessage="#{bundle.EditLocalEventoRequiredMessage_dsLocalEvento}"/>
                         <p:outputLabel value="#{bundle.EditLocalEventoLabel_dsEndereco}" for="dsEndereco" />
@@ -31,7 +31,10 @@
                         <p:outputLabel value="#{bundle.EditLocalEventoLabel_dtInativacao}" for="dtInativacao" />
                         <p:calendar id="dtInativacao" pattern="MM/dd/yyyy HH:mm:ss" value="#{localEventoController.selected.dtInativacao}" title="#{bundle.EditLocalEventoTitle_dtInativacao}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditLocalEventoLabel_inAtivo}" for="inAtivo" />
-                        <p:selectBooleanCheckbox id="inAtivo" value="#{localEventoController.selected.inAtivo}" />
+                        <p:selectOneMenu id="inAtivo" value="#{localEventoController.selected.inAtivo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditLocalEventoLabel_cdUrlSite}" for="cdUrlSite" />
                         <p:inputText id="cdUrlSite" value="#{localEventoController.selected.cdUrlSite}" title="#{bundle.EditLocalEventoTitle_cdUrlSite}" />
                         <p:outputLabel value="#{bundle.EditLocalEventoLabel_idMunicipio}" for="idMunicipio" />

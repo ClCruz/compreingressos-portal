@@ -1,64 +1,63 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
 
-    <ui:composition template="/template.xhtml">
-
-
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListVendedorTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
-            <h:form id="VendedorListForm">
-                <p:panel header="#{bundle.ListVendedorTitle}">
-                    <p:dataTable id="datalist" value="#{vendedorController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
-                                 selectionMode="single" selection="#{vendedorController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idVendedor}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                        
-                        <p:column sortBy="#{item.idVendedor}" filterBy="#{item.idVendedor}" filterMatchMode="contains">
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="VendedorListForm">
+                        <p:dataTable id="datalist" value="#{vendedorController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                     selectionMode="single" selection="#{vendedorController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.idVendedor}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     widgetVar="vendedorTable"
+                                     >
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVendedorTitle_idVendedor}"/>
+                                #{bundle.ListVendedorTitle}
                             </f:facet>
-                            <h:outputText value="#{item.idVendedor}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.dsVendedor}" filterBy="#{item.dsVendedor}" filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVendedorTitle_dsVendedor}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dsVendedor}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.inAtivo}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVendedorTitle_inAtivo}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.inAtivo}" disabled="true"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{vendedorController.prepareCreate}" update=":VendedorCreateForm" oncomplete="PF('VendedorCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VendedorViewForm" oncomplete="PF('VendedorViewDialog').show()" disabled="#{empty vendedorController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VendedorEditForm" oncomplete="PF('VendedorEditDialog').show()" disabled="#{empty vendedorController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{vendedorController.destroy}" update=":growl,datalist" disabled="#{empty vendedorController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-        </ui:define>
-    </ui:composition>
-
-</html>
+                            <p:column sortBy="#{item.idVendedor}" headerText="#{bundle.ListVendedorTitle_idVendedor}" 
+                                      filterBy="#{item.idVendedor}" filterMatchMode="exact">
+                                <h:outputText value="#{item.idVendedor}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.dsVendedor}" headerText="#{bundle.ListVendedorTitle_dsVendedor}"
+                                      filterBy="#{item.dsVendedor}" filterMatchMode="contains">
+                                <h:outputText value="#{item.dsVendedor}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.inAtivo}" headerText="#{bundle.ListVendedorTitle_inAtivo}"
+                                      filterBy="#{item.inAtivo}" filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('vendedorTable').filter()">
+                                        <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Ativo" itemValue="true" />
+                                        <f:selectItem itemLabel="Inativo" itemValue="false" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="Ativo" rendered="#{item.inAtivo eq true}" />
+                                <h:outputText value="Inativo" rendered="#{item.inAtivo eq false}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{vendedorController.prepareCreate}" update=":VendedorCreateForm" oncomplete="PF('VendedorCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":VendedorViewForm" oncomplete="PF('VendedorViewDialog').show()" disabled="#{empty vendedorController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":VendedorEditForm" oncomplete="PF('VendedorEditDialog').show()" disabled="#{empty vendedorController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{vendedorController.destroy}" update=":growl,datalist" disabled="#{empty vendedorController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+    </ui:define>
+</ui:composition>

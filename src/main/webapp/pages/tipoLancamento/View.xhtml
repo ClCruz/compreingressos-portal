@@ -15,7 +15,8 @@
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_dsTipoLancamento}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.dsTipoLancamento}" title="#{bundle.ViewTipoLancamentoTitle_dsTipoLancamento}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inAtivo}"/>
-                        <p:selectBooleanCheckbox value="#{tipoLancamentoController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{tipoLancamentoController.selected.inAtivo eq true}" />
+                        <h:outputText value="Inativo" rendered="#{tipoLancamentoController.selected.inAtivo eq false}" />
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_dtInsert}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.dtInsert}" title="#{bundle.ViewTipoLancamentoTitle_dtInsert}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -29,9 +30,11 @@
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inAplicacaoRegra}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.inAplicacaoRegra}" title="#{bundle.ViewTipoLancamentoTitle_inAplicacaoRegra}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inValidoBordero}"/>
-                        <p:selectBooleanCheckbox value="#{tipoLancamentoController.selected.inValidoBordero}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{tipoLancamentoController.selected.inValidoBordero eq true}" />
+                        <h:outputText value="Inativo" rendered="#{tipoLancamentoController.selected.inValidoBordero eq false}" />
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inValidoExtrato}"/>
-                        <p:selectBooleanCheckbox value="#{tipoLancamentoController.selected.inValidoExtrato}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{tipoLancamentoController.selected.inValidoExtrato eq true}" />
+                        <h:outputText value="Inativo" rendered="#{tipoLancamentoController.selected.inValidoExtrato eq false}" />
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inAcrescentaSubstrai}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.inAcrescentaSubstrai}" title="#{bundle.ViewTipoLancamentoTitle_inAcrescentaSubstrai}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_idFormaPagamento}"/>
@@ -43,7 +46,6 @@
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_idContaContabilCre}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.idContaContabilCre.dsContaContabil}" title="#{bundle.ViewTipoLancamentoTitle_idContaContabilCre}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('TipoLancamentoViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

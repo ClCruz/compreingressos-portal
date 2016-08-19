@@ -17,6 +17,7 @@
                         <p:outputLabel value="#{bundle.CreateModalidadeContratoLabel_dsModalidadeContrato}" for="dsModalidadeContrato" />
                         <p:inputText id="dsModalidadeContrato" value="#{modalidadeContratoController.selected.dsModalidadeContrato}" title="#{bundle.CreateModalidadeContratoTitle_dsModalidadeContrato}" />
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{modalidadeContratoController.create}" value="#{bundle.Save}" update="display,:ModalidadeContratoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ModalidadeContratoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('ModalidadeContratoCreateDialog').hide()"/>
                 </h:panelGroup>

@@ -17,9 +17,9 @@
                         <h:outputText value="#{bundle.ViewVendedorLabel_dsVendedor}"/>
                         <h:outputText value="#{vendedorController.selected.dsVendedor}" title="#{bundle.ViewVendedorTitle_dsVendedor}"/>
                         <h:outputText value="#{bundle.ViewVendedorLabel_inAtivo}"/>
-                        <p:selectBooleanCheckbox value="#{vendedorController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{vendedorController.selected.inAtivo eq true}" /> 
+                        <h:outputText value="Inativo" rendered="#{vendedorController.selected.inAtivo eq false}" /> 
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('VendedorViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

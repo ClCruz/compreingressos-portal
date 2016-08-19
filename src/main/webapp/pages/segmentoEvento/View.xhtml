@@ -15,11 +15,11 @@
                         <h:outputText value="#{bundle.ViewSegmentoEventoLabel_dsSegmentoEvento}"/>
                         <h:outputText value="#{segmentoEventoController.selected.dsSegmentoEvento}" title="#{bundle.ViewSegmentoEventoTitle_dsSegmentoEvento}"/>
                         <h:outputText value="#{bundle.ViewSegmentoEventoLabel_inAtivo}"/>
-                        <p:selectBooleanCheckbox value="#{segmentoEventoController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{bundle.ViewSegmentoEventoLabel_inAtivo eq true}" />
+                        <h:outputText value="Inativo" rendered="#{bundle.ViewSegmentoEventoLabel_inAtivo eq false}" />
                         <h:outputText value="#{bundle.ViewSegmentoEventoLabel_idUsuario}"/>
                         <h:outputText value="#{segmentoEventoController.selected.idUsuario.dsNome}" title="#{bundle.ViewSegmentoEventoTitle_idUsuario}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('SegmentoEventoViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -15,13 +15,13 @@
                         <h:outputText value="#{bundle.ViewGeneroEventoLabel_dsGeneroEvento}"/>
                         <h:outputText value="#{generoEventoController.selected.dsGeneroEvento}" title="#{bundle.ViewGeneroEventoTitle_dsGeneroEvento}"/>
                         <h:outputText value="#{bundle.ViewGeneroEventoLabel_inAtivo}"/>
-                        <p:selectBooleanCheckbox value="#{generoEventoController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{generoEventoController.selected.inAtivo eq true}" />
+                        <h:outputText value="Inativo" rendered="#{generoEventoController.selected.inAtivo eq false}" />
                         <h:outputText value="#{bundle.ViewGeneroEventoLabel_idSegmentoEvento}"/>
                         <h:outputText value="#{generoEventoController.selected.idSegmentoEvento.dsSegmentoEvento}" title="#{bundle.ViewGeneroEventoTitle_idSegmentoEvento}"/>
                         <h:outputText value="#{bundle.ViewGeneroEventoLabel_idUsuario}"/>
                         <h:outputText value="#{generoEventoController.selected.idUsuario.dsNome}" title="#{bundle.ViewGeneroEventoTitle_idUsuario}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('GeneroEventoViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

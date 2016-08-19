@@ -1,58 +1,57 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
 
-    <ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="RegiaoGeograficaListForm">
+                        <p:dataTable id="datalist" value="#{regiaoGeograficaController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                     selectionMode="single" selection="#{regiaoGeograficaController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.idRegiaoGeografica}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     >
 
-
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListRegiaoGeograficaTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
-            <h:form id="RegiaoGeograficaListForm">
-                <p:panel header="#{bundle.ListRegiaoGeograficaTitle}">
-                    <p:dataTable id="datalist" value="#{regiaoGeograficaController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
-                                 selectionMode="single" selection="#{regiaoGeograficaController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idRegiaoGeografica}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                        
-                        <p:column sortBy="#{item.idRegiaoGeografica}">
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRegiaoGeograficaTitle_idRegiaoGeografica}"/>
+                                #{bundle.ListRegiaoGeograficaTitle}
                             </f:facet>
-                            <h:outputText value="#{item.idRegiaoGeografica}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.dsRegiaoGeografica}" filterBy="#{item.dsRegiaoGeografica}" filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRegiaoGeograficaTitle_dsRegiaoGeografica}"/>
+
+                            <p:column sortBy="#{item.idRegiaoGeografica}" 
+                                      headerText="#{bundle.ListRegiaoGeograficaTitle_idRegiaoGeografica}"
+                                      filterBy="#{item.idRegiaoGeografica}"
+                                      filterMatchMode="exact"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.idRegiaoGeografica}" />
+                            </p:column>
+                            <p:column sortBy="#{item.dsRegiaoGeografica}" 
+                                      headerText="#{bundle.ListRegiaoGeograficaTitle_dsRegiaoGeografica}"
+                                      filterBy="#{item.dsRegiaoGeografica}"
+                                      filterMatchMode="contains"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.dsRegiaoGeografica}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{regiaoGeograficaController.prepareCreate}" update=":RegiaoGeograficaCreateForm" oncomplete="PF('RegiaoGeograficaCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":RegiaoGeograficaViewForm" oncomplete="PF('RegiaoGeograficaViewDialog').show()" disabled="#{empty regiaoGeograficaController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":RegiaoGeograficaEditForm" oncomplete="PF('RegiaoGeograficaEditDialog').show()" disabled="#{empty regiaoGeograficaController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{regiaoGeograficaController.destroy}" update=":growl,datalist" disabled="#{empty regiaoGeograficaController.selected}"/>
                             </f:facet>
-                            <h:outputText value="#{item.dsRegiaoGeografica}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{regiaoGeograficaController.prepareCreate}" update=":RegiaoGeograficaCreateForm" oncomplete="PF('RegiaoGeograficaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RegiaoGeograficaViewForm" oncomplete="PF('RegiaoGeograficaViewDialog').show()" disabled="#{empty regiaoGeograficaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RegiaoGeograficaEditForm" oncomplete="PF('RegiaoGeograficaEditDialog').show()" disabled="#{empty regiaoGeograficaController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{regiaoGeograficaController.destroy}" update=":growl,datalist" disabled="#{empty regiaoGeograficaController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-        </ui:define>
-    </ui:composition>
-
-</html>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+    </ui:define>
+</ui:composition>

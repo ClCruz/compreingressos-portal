@@ -11,7 +11,7 @@
         <p:dialog id="LocalEventoCreateDlg" widgetVar="LocalEventoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLocalEventoTitle}">
             <h:form id="LocalEventoCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{localEventoController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{localEventoController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_dsLocalEvento}" for="dsLocalEvento" />
                         <p:inputText id="dsLocalEvento" value="#{localEventoController.selected.dsLocalEvento}" title="#{bundle.CreateLocalEventoTitle_dsLocalEvento}" required="true" requiredMessage="#{bundle.CreateLocalEventoRequiredMessage_dsLocalEvento}"/>
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_dsEndereco}" for="dsEndereco" />
@@ -31,7 +31,10 @@
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_dtInativacao}" for="dtInativacao" />
                         <p:calendar id="dtInativacao" pattern="MM/dd/yyyy HH:mm:ss" value="#{localEventoController.selected.dtInativacao}" title="#{bundle.EditLocalEventoTitle_dtInativacao}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_inAtivo}" for="inAtivo" />
-                        <p:selectBooleanCheckbox id="inAtivo" value="#{localEventoController.selected.inAtivo}" />
+                        <p:selectOneMenu id="inAtivo" value="#{localEventoController.selected.inAtivo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_cdUrlSite}" for="cdUrlSite" />
                         <p:inputText id="cdUrlSite" value="#{localEventoController.selected.cdUrlSite}" title="#{bundle.CreateLocalEventoTitle_cdUrlSite}" />
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_idMunicipio}" for="idMunicipio" />
@@ -49,6 +52,7 @@
                                            itemLabel="#{idTipoLocalItem.dsTipoLocal}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{localEventoController.create}" value="#{bundle.Save}" update="display,:LocalEventoListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocalEventoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('LocalEventoCreateDialog').hide()"/>
                 </h:panelGroup>

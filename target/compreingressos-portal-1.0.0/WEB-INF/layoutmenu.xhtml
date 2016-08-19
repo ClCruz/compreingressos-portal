@@ -1,0 +1,50 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pr="http://primefaces.org/rio">
+
+    <div class="Animated05" id="layout-menu-cover">
+        <ul class="layout-menu">
+            <li>
+                <a class="menulink ripplelink">
+                    <i class="icon-round58 Fs40"></i>
+                    <span class="Fs18">John Wilkins<i class="icon-downwards Fright Fs20"></i><br /><span class="Fs12 FontRobotoLight">Sr. System Administrator</span></span>
+                </a>
+                <ul>
+                    <li><a href="#" class="menulink ripplelink"><i class="icon-user158 Fs16"></i> User Profile</a></li>
+                    <li><a href="#" class="menulink ripplelink"><i class="icon-two385 Fs16"></i> Change User</a></li>
+                    <li><a href="#" class="menulink ripplelink"><i class="icon-settings49 Fs16"></i> System Settings</a></li>
+                    <li><a href="#" class="menulink ripplelink"><i class="icon-thermostat1 Fs16"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="Separator"></div>
+        
+        <pr:menu>
+            <p:menuitem id="rm_index" value="Inicio" icon="icon-keyboard53" outcome="/index"/>
+            <p:menuitem id="rm_canalVenda" value="Canal de Venda" icon="icon-keyboard53" outcome="/faces/pages/canalVenda/List.xhtml"/>
+            <p:menuitem id="rm_contaContabil" value="Conta Contábil" icon="icon-keyboard53" outcome="/faces/pages/contaContabil/List.xhtml"/>
+            <p:menuitem id="rm_empresa" value="Empresa" icon="icon-keyboard53" outcome="/faces/pages/empresa/List.xhtml"/>
+            <p:menuitem id="rm_estado" value="Estados" icon="icon-keyboard53" outcome="/faces/pages/estado/List.xhtml"/>
+            <p:menuitem id="rm_formaPagamento" value="Forma de Pagamento" icon="icon-keyboard53" outcome="/faces/pages/formaPagamento/List.xhtml"/>
+            <p:menuitem id="rm_generoEvento" value="Gênero de Evento" icon="icon-keyboard53" outcome="/faces/pages/generoEvento/List.xhtml"/>
+            <p:menuitem id="rm_localEvento" value="Local do Evento" icon="icon-keyboard53" outcome="/faces/pages/localEvento/List.xhtml"/>
+            <p:menuitem id="rm_modalidadeContrato" value="Modalidade de Contrato" icon="icon-keyboard53" outcome="/faces/pages/modalidadeContrato/List.xhtml"/>
+            <p:menuitem id="rm_municipio" value="Municipio" icon="icon-keyboard53" outcome="/faces/pages/municipio/List.xhtml"/>
+            <p:menuitem id="rm_prazoPagamento" value="Prazo de Pagamento" icon="icon-keyboard53" outcome="/faces/pages/prazoPagamento/List.xhtml"/>
+            <p:menuitem id="rm_regiaoGeografica" value="Região Geográfica" icon="icon-keyboard53" outcome="/faces/pages/regiaoGeografica/List.xhtml"/>
+            <p:menuitem id="rm_segmentoEvento" value="Segmento do Evento" icon="icon-keyboard53" outcome="/faces/pages/segmentoEvento/List.xhtml"/>
+            <p:menuitem id="rm_tipoLancamento" value="Tipo de Lançamento" icon="icon-keyboard53" outcome="/faces/pages/tipoLancamento/List.xhtml"/>
+            <p:menuitem id="rm_tipoLocal" value="Tipo de Local" icon="icon-keyboard53" outcome="/faces/pages/tipoLocal/List.xhtml"/>
+            <p:menuitem id="rm_tipoMeioPagamento" value="Tipo de Meio de Pagamento" icon="icon-keyboard53" outcome="/faces/pages/tipoMeioPagamento/List.xhtml"/>
+            <p:menuitem id="rm_usuario" value="Usuários" icon="icon-keyboard53" outcome="/faces/pages/usuario/List.xhtml"/>
+            <p:menuitem id="rm_vendedor" value="Vendedor" icon="icon-keyboard53" outcome="/faces/pages/vendedor/List.xhtml"/>
+            <p:separator />
+        </pr:menu>
+
+    </div>
+
+</ui:composition>

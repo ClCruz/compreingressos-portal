@@ -15,8 +15,12 @@
                         <p:outputLabel value="#{bundle.EditTipoLocalLabel_dsTipoLocal}" for="dsTipoLocal" />
                         <p:inputText id="dsTipoLocal" value="#{tipoLocalController.selected.dsTipoLocal}" title="#{bundle.EditTipoLocalTitle_dsTipoLocal}" required="true" requiredMessage="#{bundle.EditTipoLocalRequiredMessage_dsTipoLocal}"/>
                         <p:outputLabel value="#{bundle.EditTipoLocalLabel_inAtivo}" for="inAtivo" />
-                        <p:selectBooleanCheckbox id="inAtivo" value="#{tipoLocalController.selected.inAtivo}" />
+                        <p:selectOneMenu id="inAtivo" value="#{tipoLocalController.selected.inAtivo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{tipoLocalController.update}" value="#{bundle.Save}" update="display,:TipoLocalListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoLocalEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('TipoLocalEditDialog').hide()"/>
                 </h:panelGroup>

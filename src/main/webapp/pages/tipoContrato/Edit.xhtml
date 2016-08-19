@@ -15,6 +15,7 @@
                         <p:outputLabel value="#{bundle.EditTipoContratoLabel_dsTipoContrato}" for="dsTipoContrato" />
                         <p:inputText id="dsTipoContrato" value="#{tipoContratoController.selected.dsTipoContrato}" title="#{bundle.EditTipoContratoTitle_dsTipoContrato}" required="true" requiredMessage="#{bundle.EditTipoContratoRequiredMessage_dsTipoContrato}"/>
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{tipoContratoController.update}" value="#{bundle.Save}" update="display,:TipoContratoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoContratoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('TipoContratoEditDialog').hide()"/>
                 </h:panelGroup>

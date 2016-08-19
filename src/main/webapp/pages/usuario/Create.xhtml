@@ -11,7 +11,7 @@
         <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}">
             <h:form id="UsuarioCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_cdLogin}" for="cdLogin" />
                         <p:inputText id="cdLogin" value="#{usuarioController.selected.cdLogin}" title="#{bundle.CreateUsuarioTitle_cdLogin}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cdLogin}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_dsNome}" for="dsNome" />
@@ -40,12 +40,14 @@
                             <f:selectItem itemLabel="Sim" itemValue="1" />
                             <f:selectItem itemLabel="Não" itemValue="0" />
                         </p:selectOneMenu>
-                        
+
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_inPos}" for="inPos" />
                         <p:selectOneMenu id="inPos" value="#{usuarioController.selected.inPos}" style="width:100px;">
                             <f:selectItem itemLabel="Sim" itemValue="1" />
                             <f:selectItem itemLabel="Não" itemValue="0" />
-                        </p:selectOneMenu>                    </p:panelGrid>
+                        </p:selectOneMenu>                    
+                    </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioCreateDialog').hide()"/>
                 </h:panelGroup>

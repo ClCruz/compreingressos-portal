@@ -15,12 +15,11 @@
                         <h:outputText value="#{bundle.ViewTipoLocalLabel_dsTipoLocal}"/>
                         <h:outputText value="#{tipoLocalController.selected.dsTipoLocal}" title="#{bundle.ViewTipoLocalTitle_dsTipoLocal}"/>
                         <h:outputText value="#{bundle.ViewTipoLocalLabel_inAtivo}"/>
-                        <p:selectBooleanCheckbox value="#{tipoLocalController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="Ativo" rendered="#{tipoLocalController.selected.inAtivo eq true}" />
+                        <h:outputText value="Inativo" rendered="#{tipoLocalController.selected.inAtivo eq false}" />
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('TipoLocalViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>

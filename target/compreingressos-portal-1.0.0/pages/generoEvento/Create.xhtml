@@ -15,7 +15,10 @@
                         <p:outputLabel value="#{bundle.CreateGeneroEventoLabel_dsGeneroEvento}" for="dsGeneroEvento" />
                         <p:inputText id="dsGeneroEvento" value="#{generoEventoController.selected.dsGeneroEvento}" title="#{bundle.CreateGeneroEventoTitle_dsGeneroEvento}" required="true" requiredMessage="#{bundle.CreateGeneroEventoRequiredMessage_dsGeneroEvento}"/>
                         <p:outputLabel value="#{bundle.CreateGeneroEventoLabel_inAtivo}" for="inAtivo" />
-                        <p:selectBooleanCheckbox id="inAtivo" value="#{generoEventoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditGeneroEventoRequiredMessage_inAtivo}"/>
+                        <p:selectOneMenu id="inAtivo" value="#{generoEventoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditGeneroEventoRequiredMessage_inAtivo}" >
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateGeneroEventoLabel_idSegmentoEvento}" for="idSegmentoEvento" />
                         <p:selectOneMenu id="idSegmentoEvento" value="#{generoEventoController.selected.idSegmentoEvento}" required="true" requiredMessage="#{bundle.EditGeneroEventoRequiredMessage_idSegmentoEvento}">
                             <f:selectItems value="#{segmentoEventoController.itemsAvailableSelectOne}"
@@ -31,6 +34,7 @@
                                            itemLabel="#{idUsuarioItem.dsNome}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:separator/>
                     <p:commandButton actionListener="#{generoEventoController.create}" value="#{bundle.Save}" update="display,:GeneroEventoListForm:datalist,:growl" oncomplete="handleSubmit(args,'GeneroEventoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('GeneroEventoCreateDialog').hide()"/>
                 </h:panelGroup>

@@ -17,6 +17,7 @@
                         <p:outputLabel value="#{bundle.EditRegiaoGeograficaLabel_dsRegiaoGeografica}" for="dsRegiaoGeografica" />
                         <p:inputText id="dsRegiaoGeografica" value="#{regiaoGeograficaController.selected.dsRegiaoGeografica}" title="#{bundle.EditRegiaoGeograficaTitle_dsRegiaoGeografica}" required="true" requiredMessage="#{bundle.EditRegiaoGeograficaRequiredMessage_dsRegiaoGeografica}"/>
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{regiaoGeograficaController.update}" value="#{bundle.Save}" update="display,:RegiaoGeograficaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RegiaoGeograficaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('RegiaoGeograficaEditDialog').hide()"/>
                 </h:panelGroup>

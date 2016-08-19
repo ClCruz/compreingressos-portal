@@ -11,11 +11,14 @@
         <p:dialog id="TipoLancamentoCreateDlg" widgetVar="TipoLancamentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoLancamentoTitle}">
             <h:form id="TipoLancamentoCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{tipoLancamentoController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{tipoLancamentoController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_dsTipoLancamento}" for="dsTipoLancamento" />
                         <p:inputText id="dsTipoLancamento" value="#{tipoLancamentoController.selected.dsTipoLancamento}" title="#{bundle.CreateTipoLancamentoTitle_dsTipoLancamento}" required="true" requiredMessage="#{bundle.CreateTipoLancamentoRequiredMessage_dsTipoLancamento}"/>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inAtivo}" for="inAtivo" />
-                        <p:selectBooleanCheckbox id="inAtivo" value="#{tipoLancamentoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inAtivo}"/>
+                        <p:selectOneMenu id="inAtivo" value="#{tipoLancamentoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inAtivo}" >
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_dtInsert}" for="dtInsert" />
                         <p:calendar id="dtInsert" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoLancamentoController.selected.dtInsert}" title="#{bundle.EditTipoLancamentoTitle_dtInsert}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_dtUpdate}" for="dtUpdate" />
@@ -25,9 +28,15 @@
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inAplicacaoRegra}" for="inAplicacaoRegra" />
                         <p:inputText id="inAplicacaoRegra" value="#{tipoLancamentoController.selected.inAplicacaoRegra}" title="#{bundle.CreateTipoLancamentoTitle_inAplicacaoRegra}" />
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inValidoBordero}" for="inValidoBordero" />
-                        <p:selectBooleanCheckbox id="inValidoBordero" value="#{tipoLancamentoController.selected.inValidoBordero}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inValidoBordero}"/>
+                        <p:selectOneMenu id="inValidoBordero" value="#{tipoLancamentoController.selected.inValidoBordero}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inValidoBordero}" >
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inValidoExtrato}" for="inValidoExtrato" />
-                        <p:selectBooleanCheckbox id="inValidoExtrato" value="#{tipoLancamentoController.selected.inValidoExtrato}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inValidoExtrato}"/>
+                        <p:selectOneMenu id="inValidoExtrato" value="#{tipoLancamentoController.selected.inValidoExtrato}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inValidoExtrato}" >
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inAcrescentaSubstrai}" for="inAcrescentaSubstrai" />
                         <p:inputText id="inAcrescentaSubstrai" value="#{tipoLancamentoController.selected.inAcrescentaSubstrai}" title="#{bundle.CreateTipoLancamentoTitle_inAcrescentaSubstrai}" />
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_idFormaPagamento}" for="idFormaPagamento" />
@@ -54,6 +63,7 @@
                                            itemLabel="#{idContaContabilCreItem.dsContaContabil}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{tipoLancamentoController.create}" value="#{bundle.Save}" update="display,:TipoLancamentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoLancamentoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('TipoLancamentoCreateDialog').hide()"/>
                 </h:panelGroup>

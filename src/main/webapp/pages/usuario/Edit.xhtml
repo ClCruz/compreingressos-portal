@@ -12,7 +12,7 @@
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
             <h:form id="UsuarioEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_cdLogin}" for="cdLogin" />
                         <p:inputText id="cdLogin" value="#{usuarioController.selected.cdLogin}" title="#{bundle.EditUsuarioTitle_cdLogin}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_cdLogin}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_dsNome}" for="dsNome" />
@@ -77,6 +77,7 @@
                             </c:if>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioEditDialog').hide()"/>
                 </h:panelGroup>
