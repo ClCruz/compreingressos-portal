@@ -37,12 +37,13 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_cdUrlSite}" for="cdUrlSite" />
                         <p:inputText id="cdUrlSite" value="#{localEventoController.selected.cdUrlSite}" title="#{bundle.CreateLocalEventoTitle_cdUrlSite}" />
-                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_idMunicipio}" for="idMunicipio" />
-                        <p:selectOneMenu id="idMunicipio" value="#{localEventoController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditLocalEventoRequiredMessage_idMunicipio}">
-                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
-                                           var="idMunicipioItem"
-                                           itemValue="#{idMunicipioItem}"
-                                           itemLabel="#{idMunicipioItem.dsMunicipio}"/>
+                        
+                        <p:outputLabel value="Estado" for="estado" />
+                        <p:selectOneMenu id="estado" value="" required="true" requiredMessage="O campo 'Estado' é obrigatório" >
+                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="idEstadoSelecionado"
+                                           itemValue="#{idEstadoSelecionado}"
+                                           itemLabel="#{idEstadoSelecionado.dsEstado}" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_idTipoLocal}" for="idTipoLocal" />
                         <p:selectOneMenu id="idTipoLocal" value="#{localEventoController.selected.idTipoLocal}" required="true" requiredMessage="#{bundle.EditLocalEventoRequiredMessage_idTipoLocal}">
@@ -51,6 +52,14 @@
                                            itemValue="#{idTipoLocalItem}"
                                            itemLabel="#{idTipoLocalItem.dsTipoLocal}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_idMunicipio}" for="idMunicipio" />
+                        <p:selectOneMenu id="idMunicipio" value="#{localEventoController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditLocalEventoRequiredMessage_idMunicipio}">
+                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                           var="idMunicipioItem"
+                                           itemValue="#{idMunicipioItem}"
+                                           itemLabel="#{idMunicipioItem.dsMunicipio}"/>
+                        </p:selectOneMenu>
+                        
                     </p:panelGrid>
                     <p:separator />
                     <p:commandButton actionListener="#{localEventoController.create}" value="#{bundle.Save}" update="display,:LocalEventoListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocalEventoCreateDialog');"/>

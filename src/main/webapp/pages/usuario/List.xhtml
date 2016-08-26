@@ -11,12 +11,12 @@
                 <div class="Card ShadowEffect">
                     <h:form id="UsuarioListForm">
                         <p:dataTable id="datalist" value="#{usuarioController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
-                                     selectionMode="single" selection="#{usuarioController.selected}"
+                                     selection="#{usuarioController.selected}" selectionMode="single"
                                      paginator="true"
-                                     rowKey="#{item.idUsuario}"
-                                     rows="10"
+                                     rows="10" paginatorPosition="bottom"
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      reflow="true"
+                                     lazy="true"
                                      widgetVar="usuarioTable"
                                      >
                             <f:facet name="header">

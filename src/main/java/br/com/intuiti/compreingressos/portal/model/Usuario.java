@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
@@ -34,6 +29,8 @@ import java.math.*;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.findLazy", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.findAllRow", query = "SELECT COUNT(u) FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
     @NamedQuery(name = "Usuario.findByCdLogin", query = "SELECT u FROM Usuario u WHERE u.cdLogin = :cdLogin"),
     @NamedQuery(name = "Usuario.findByDsNome", query = "SELECT u FROM Usuario u WHERE u.dsNome = :dsNome"),

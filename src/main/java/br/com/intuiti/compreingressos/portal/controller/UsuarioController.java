@@ -4,9 +4,12 @@ import br.com.intuiti.compreingressos.portal.model.Usuario;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.bean.UsuarioFacade;
+import br.com.intuiti.compreingressos.portal.lazy.UsuarioLazyModel;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,15 +21,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.LazyDataModel;
+import static org.primefaces.model.SortOrder.UNSORTED;
 
 @Named("usuarioController")
 @SessionScoped
-public class UsuarioController implements Serializable {
+public class UsuarioController extends LazyDataModel<Usuario> implements Serializable {
 
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.UsuarioFacade ejbFacade;
-    private List<Usuario> items = null;
+    private LazyDataModel<Usuario> items = null;
     private Usuario selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public UsuarioController() {
     }
@@ -45,7 +51,7 @@ public class UsuarioController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private UsuarioFacade getFacade() {
+    public UsuarioFacade getFacade() {
         return ejbFacade;
     }
 
@@ -74,9 +80,9 @@ public class UsuarioController implements Serializable {
         }
     }
 
-    public List<Usuario> getItems() {
+    public LazyDataModel<Usuario> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new UsuarioLazyModel(getFacade().findLazy(0, 10, null, UNSORTED, filtros));
         }
         return items;
     }
@@ -159,7 +165,5 @@ public class UsuarioController implements Serializable {
                 return null;
             }
         }
-
     }
-
 }

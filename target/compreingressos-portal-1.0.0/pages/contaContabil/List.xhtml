@@ -13,7 +13,7 @@
                         <p:dataTable id="datalist" var="item" value="#{contaContabilController.items}" 
                                      selectionMode="single" selection="#{contaContabilController.selected}" rowKey="#{item.idContaContabil}"
                                      rows="10" paginator="true"
-                                     widgetVar="contabilTable"
+                                     widgetVar="contabilTable" paginatorPosition="bottom"
                                      rowsPerPageTemplate="5,10,20,30,40,50" emptyMessage="Nenhum registro encontrado" reflow="true"
                                      >
                             <p:ajax event="rowSelect" update="createButton viewButton editButton deleteButton" />

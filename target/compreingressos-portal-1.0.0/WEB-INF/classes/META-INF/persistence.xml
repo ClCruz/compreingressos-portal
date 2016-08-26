@@ -3,6 +3,9 @@
   <persistence-unit name="br.com.intuiti_compreingressos-portal_war_1.0.0PU" transaction-type="JTA">
     <jta-data-source>java:app/dsCompreingressos-portal</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+<!--    <properties>
+        <property name="eclipselink.logging.level" value="FINE"/>
+        <property name="eclipselink.logging.parameters" value="true"/>
+    </properties>-->
   </persistence-unit>
 </persistence>

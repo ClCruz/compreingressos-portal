@@ -17,6 +17,7 @@ C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\CanalVendaController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\GeneroEvento.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\LocalEventoFacade.java
+C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\lazy\UsuarioLazyModel.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\EmpresaController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\TipoMeioPagamentoController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\MunicipioController.java
@@ -28,6 +29,7 @@ C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\TipoLocalController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\ModalidadeContratoController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\LocalEventoController.java
+C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\sort\UsuarioSorter.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\Estado.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\TipoContratoController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\Empresa.java

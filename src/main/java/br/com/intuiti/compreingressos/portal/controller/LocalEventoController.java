@@ -4,9 +4,12 @@ import br.com.intuiti.compreingressos.portal.model.LocalEvento;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade;
+import br.com.intuiti.compreingressos.portal.lazy.localEventoLazy;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,15 +21,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.LazyDataModel;
+import static org.primefaces.model.SortOrder.UNSORTED;
 
 @Named("localEventoController")
 @SessionScoped
-public class LocalEventoController implements Serializable {
+public class LocalEventoController extends LazyDataModel<LocalEvento> implements Serializable {
 
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade ejbFacade;
-    private List<LocalEvento> items = null;
+    private LazyDataModel<LocalEvento> items = null;
     private LocalEvento selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public LocalEventoController() {
     }
@@ -74,9 +80,9 @@ public class LocalEventoController implements Serializable {
         }
     }
 
-    public List<LocalEvento> getItems() {
+    public LazyDataModel<LocalEvento> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new localEventoLazy(getFacade().findLazy(0, 10, null, UNSORTED, filtros ));
         }
         return items;
     }

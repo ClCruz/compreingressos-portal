@@ -11,8 +11,9 @@
                 <div class="Card ShadowEffect">
                     <h:form id="CanalVendaListForm">
                         <p:dataTable id="datalist" var="item" value="#{canalVendaController.items}" selectionMode="single" selection="#{canalVendaController.selected}" rowKey="#{item.idCanalVenda}"
-                                     rows="10" paginator="true"
-                                     rowsPerPageTemplate="5,10,20,30,40,50" emptyMessage="Nenhum canal de venda encontrado" reflow="true">
+                                     rows="10" paginator="true" lazy="true"
+                                     rowsPerPageTemplate="5,10,20,30,40,50" paginatorPosition="bottom"
+                                     emptyMessage="Nenhum canal de venda encontrado" reflow="true">
                             
                             <p:ajax event="rowSelect" update="createButton viewButton editButton deleteButton" />
                             <f:facet name="header">
