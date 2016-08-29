@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +16,12 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Banco.findByCdBanco", query = "SELECT b FROM Banco b WHERE b.cdBanco = :cdBanco"),
     @NamedQuery(name = "Banco.findByInAtivo", query = "SELECT b FROM Banco b WHERE b.inAtivo = :inAtivo")})
 public class Banco implements Serializable {
+
+    @OneToMany(mappedBy = "idBanco")
+    private Collection<Contratante> contratanteCollection;
 
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = IDENTITY)
@@ -118,6 +124,15 @@ public class Banco implements Serializable {
     @Override
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.Banco[ idBanco=" + idBanco + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Contratante> getContratanteCollection() {
+        return contratanteCollection;
+    }
+
+    public void setContratanteCollection(Collection<Contratante> contratanteCollection) {
+        this.contratanteCollection = contratanteCollection;
     }
     
 }

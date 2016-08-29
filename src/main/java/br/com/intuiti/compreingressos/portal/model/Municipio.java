@@ -38,6 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Municipio.findByDsMunicipio", query = "SELECT m FROM Municipio m WHERE m.dsMunicipio = :dsMunicipio")})
 public class Municipio implements Serializable {
 
+    @OneToMany(mappedBy = "idMunicipio")
+    private Collection<Contratante> contratanteCollection;
+    @OneToMany(mappedBy = "idMunicipioRepresLegal")
+    private Collection<Contratante> contratanteCollection1;
+
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -122,6 +127,24 @@ public class Municipio implements Serializable {
     @Override
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.Municipio[ idMunicipio=" + idMunicipio + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Contratante> getContratanteCollection() {
+        return contratanteCollection;
+    }
+
+    public void setContratanteCollection(Collection<Contratante> contratanteCollection) {
+        this.contratanteCollection = contratanteCollection;
+    }
+
+    @XmlTransient
+    public Collection<Contratante> getContratanteCollection1() {
+        return contratanteCollection1;
+    }
+
+    public void setContratanteCollection1(Collection<Contratante> contratanteCollection1) {
+        this.contratanteCollection1 = contratanteCollection1;
     }
     
 }

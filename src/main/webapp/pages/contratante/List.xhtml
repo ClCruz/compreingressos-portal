@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="ContratanteListForm">
+                        <p:dataTable id="datalist" value="#{contratanteController.items}" var="item"
+                                     selectionMode="single" selection="#{contratanteController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.idContratante}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     paginatorPosition="bottom"
+                                     reflow="true"
+                                     emptyMessage="#{bundle.ListContratanteEmpty}"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <f:facet name="header">
+                                #{bundle.ListContratanteTitle}
+                            </f:facet>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListContratanteTitle_nmRazaoSocial}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nmRazaoSocial}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListContratanteTitle_cdCnpjCpf}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cdCnpjCpf}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListContratanteTitle_nrTelefone}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nrTelefone}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListContratanteTitle_cdEmail}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cdEmail}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListContratanteTitle_cdSapCardcode}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cdSapCardcode}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListContratanteTitle_idMunicipio}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idMunicipio}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{contratanteController.prepareCreate}" update=":ContratanteCreateForm" oncomplete="PF('ContratanteCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ContratanteViewForm" oncomplete="PF('ContratanteViewDialog').show()" disabled="#{empty contratanteController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ContratanteEditForm" oncomplete="PF('ContratanteEditDialog').show()" disabled="#{empty contratanteController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contratanteController.destroy}" update=":growl,datalist" disabled="#{empty contratanteController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Edit.xhtml" />
+        <ui:include src="Create.xhtml" />
+        <ui:include src="View.xhtml" />
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContratanteEditDlg" widgetVar="ContratanteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditContratanteTitle}">
+            <h:form id="ContratanteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contratanteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_nmRazaoSocial}" for="nmRazaoSocial" />
+                        <p:inputText id="nmRazaoSocial" value="#{contratanteController.selected.nmRazaoSocial}" title="#{bundle.EditContratanteTitle_nmRazaoSocial}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdCnpjCpf}" for="cdCnpjCpf" />
+                        <p:inputText id="cdCnpjCpf" value="#{contratanteController.selected.cdCnpjCpf}" title="#{bundle.EditContratanteTitle_cdCnpjCpf}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdCep}" for="cdCep" />
+                        <p:inputText id="cdCep" value="#{contratanteController.selected.cdCep}" title="#{bundle.EditContratanteTitle_cdCep}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_nrTelefone}" for="nrTelefone" />
+                        <p:inputText id="nrTelefone" value="#{contratanteController.selected.nrTelefone}" title="#{bundle.EditContratanteTitle_nrTelefone}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdEmail}" for="cdEmail" />
+                        <p:inputText id="cdEmail" value="#{contratanteController.selected.cdEmail}" title="#{bundle.EditContratanteTitle_cdEmail}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_nmRepresLegal}" for="nmRepresLegal" />
+                        <p:inputText id="nmRepresLegal" value="#{contratanteController.selected.nmRepresLegal}" title="#{bundle.EditContratanteTitle_nmRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdCpfRepresLegal}" for="cdCpfRepresLegal" />
+                        <p:inputText id="cdCpfRepresLegal" value="#{contratanteController.selected.cdCpfRepresLegal}" title="#{bundle.EditContratanteTitle_cdCpfRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_nmCargoRepresLegal}" for="nmCargoRepresLegal" />
+                        <p:inputText id="nmCargoRepresLegal" value="#{contratanteController.selected.nmCargoRepresLegal}" title="#{bundle.EditContratanteTitle_nmCargoRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdRgRepresLegal}" for="cdRgRepresLegal" />
+                        <p:inputText id="cdRgRepresLegal" value="#{contratanteController.selected.cdRgRepresLegal}" title="#{bundle.EditContratanteTitle_cdRgRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dsEnderecoRepresLegal}" for="dsEnderecoRepresLegal" />
+                        <p:inputText id="dsEnderecoRepresLegal" value="#{contratanteController.selected.dsEnderecoRepresLegal}" title="#{bundle.EditContratanteTitle_dsEnderecoRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dsBairroRepresLegal}" for="dsBairroRepresLegal" />
+                        <p:inputText id="dsBairroRepresLegal" value="#{contratanteController.selected.dsBairroRepresLegal}" title="#{bundle.EditContratanteTitle_dsBairroRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdCepRepresLegal}" for="cdCepRepresLegal" />
+                        <p:inputText id="cdCepRepresLegal" value="#{contratanteController.selected.cdCepRepresLegal}" title="#{bundle.EditContratanteTitle_cdCepRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_nrTelefoneRepresLegal}" for="nrTelefoneRepresLegal" />
+                        <p:inputText id="nrTelefoneRepresLegal" value="#{contratanteController.selected.nrTelefoneRepresLegal}" title="#{bundle.EditContratanteTitle_nrTelefoneRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_nrCelularRepresLegal}" for="nrCelularRepresLegal" />
+                        <p:inputText id="nrCelularRepresLegal" value="#{contratanteController.selected.nrCelularRepresLegal}" title="#{bundle.EditContratanteTitle_nrCelularRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdEmailRepresLegal}" for="cdEmailRepresLegal" />
+                        <p:inputText id="cdEmailRepresLegal" value="#{contratanteController.selected.cdEmailRepresLegal}" title="#{bundle.EditContratanteTitle_cdEmailRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dsEndereco}" for="dsEndereco" />
+                        <p:inputText id="dsEndereco" value="#{contratanteController.selected.dsEndereco}" title="#{bundle.EditContratanteTitle_dsEndereco}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_inAtivo}" for="inAtivo" />
+                        <p:selectBooleanCheckbox id="inAtivo" value="#{contratanteController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_inAtivo}"/>
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdUfRgRepresLegal}" for="cdUfRgRepresLegal" />
+                        <p:inputText id="cdUfRgRepresLegal" value="#{contratanteController.selected.cdUfRgRepresLegal}" title="#{bundle.EditContratanteTitle_cdUfRgRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dsBairro}" for="dsBairro" />
+                        <p:inputText id="dsBairro" value="#{contratanteController.selected.dsBairro}" title="#{bundle.EditContratanteTitle_dsBairro}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dtInativacao}" for="dtInativacao" />
+                        <p:calendar id="dtInativacao" pattern="MM/dd/yyyy HH:mm:ss" value="#{contratanteController.selected.dtInativacao}" title="#{bundle.EditContratanteTitle_dtInativacao}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_idContratante}" for="idContratante" />
+                        <p:inputText id="idContratante" value="#{contratanteController.selected.idContratante}" title="#{bundle.EditContratanteTitle_idContratante}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_idContratante}"/>
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dsNumero}" for="dsNumero" />
+                        <p:inputText id="dsNumero" value="#{contratanteController.selected.dsNumero}" title="#{bundle.EditContratanteTitle_dsNumero}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dsComplemento}" for="dsComplemento" />
+                        <p:inputText id="dsComplemento" value="#{contratanteController.selected.dsComplemento}" title="#{bundle.EditContratanteTitle_dsComplemento}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dsNumeroEnderecoRepresLegal}" for="dsNumeroEnderecoRepresLegal" />
+                        <p:inputText id="dsNumeroEnderecoRepresLegal" value="#{contratanteController.selected.dsNumeroEnderecoRepresLegal}" title="#{bundle.EditContratanteTitle_dsNumeroEnderecoRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dsComplementoEnderecoRepresLegal}" for="dsComplementoEnderecoRepresLegal" />
+                        <p:inputText id="dsComplementoEnderecoRepresLegal" value="#{contratanteController.selected.dsComplementoEnderecoRepresLegal}" title="#{bundle.EditContratanteTitle_dsComplementoEnderecoRepresLegal}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdSapCardcode}" for="cdSapCardcode" />
+                        <p:inputText id="cdSapCardcode" value="#{contratanteController.selected.cdSapCardcode}" title="#{bundle.EditContratanteTitle_cdSapCardcode}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_inPessoaJuridica}" for="inPessoaJuridica" />
+                        <p:selectBooleanCheckbox id="inPessoaJuridica" value="#{contratanteController.selected.inPessoaJuridica}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_inPessoaJuridica}"/>
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_nmFantasia}" for="nmFantasia" />
+                        <p:inputText id="nmFantasia" value="#{contratanteController.selected.nmFantasia}" title="#{bundle.EditContratanteTitle_nmFantasia}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdAgenciaBanco}" for="cdAgenciaBanco" />
+                        <p:inputText id="cdAgenciaBanco" value="#{contratanteController.selected.cdAgenciaBanco}" title="#{bundle.EditContratanteTitle_cdAgenciaBanco}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dvAgenciaBanco}" for="dvAgenciaBanco" />
+                        <p:inputText id="dvAgenciaBanco" value="#{contratanteController.selected.dvAgenciaBanco}" title="#{bundle.EditContratanteTitle_dvAgenciaBanco}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdContaBancaria}" for="cdContaBancaria" />
+                        <p:inputText id="cdContaBancaria" value="#{contratanteController.selected.cdContaBancaria}" title="#{bundle.EditContratanteTitle_cdContaBancaria}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_dvContaBancaria}" for="dvContaBancaria" />
+                        <p:inputText id="dvContaBancaria" value="#{contratanteController.selected.dvContaBancaria}" title="#{bundle.EditContratanteTitle_dvContaBancaria}" />
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_nmTitularContaRepasse}" for="nmTitularContaRepasse" />
+                        <p:inputText id="nmTitularContaRepasse" value="#{contratanteController.selected.nmTitularContaRepasse}" title="#{bundle.EditContratanteTitle_nmTitularContaRepasse}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_nmTitularContaRepasse}"/>
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_cdCpfCnpjTitularConta}" for="cdCpfCnpjTitularConta" />
+                        <p:inputText id="cdCpfCnpjTitularConta" value="#{contratanteController.selected.cdCpfCnpjTitularConta}" title="#{bundle.EditContratanteTitle_cdCpfCnpjTitularConta}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_cdCpfCnpjTitularConta}"/>
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_idBanco}" for="idBanco" />
+                        <p:selectOneMenu id="idBanco" value="#{contratanteController.selected.idBanco}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bancoController.itemsAvailableSelectOne}"
+                                           var="idBancoItem"
+                                           itemValue="#{idBancoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_idMunicipio}" for="idMunicipio" />
+                        <p:selectOneMenu id="idMunicipio" value="#{contratanteController.selected.idMunicipio}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                           var="idMunicipioItem"
+                                           itemValue="#{idMunicipioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContratanteLabel_idMunicipioRepresLegal}" for="idMunicipioRepresLegal" />
+                        <p:selectOneMenu id="idMunicipioRepresLegal" value="#{contratanteController.selected.idMunicipioRepresLegal}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                           var="idMunicipioRepresLegalItem"
+                                           itemValue="#{idMunicipioRepresLegalItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contratanteController.update}" value="#{bundle.Save}" update="display,:ContratanteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContratanteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('ContratanteEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

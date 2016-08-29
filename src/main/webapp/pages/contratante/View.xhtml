@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContratanteViewDlg" widgetVar="ContratanteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContratanteTitle}">
+            <h:form id="ContratanteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contratanteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContratanteLabel_nmRazaoSocial}"/>
+                        <h:outputText value="#{contratanteController.selected.nmRazaoSocial}" title="#{bundle.ViewContratanteTitle_nmRazaoSocial}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdCnpjCpf}"/>
+                        <h:outputText value="#{contratanteController.selected.cdCnpjCpf}" title="#{bundle.ViewContratanteTitle_cdCnpjCpf}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdCep}"/>
+                        <h:outputText value="#{contratanteController.selected.cdCep}" title="#{bundle.ViewContratanteTitle_cdCep}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_nrTelefone}"/>
+                        <h:outputText value="#{contratanteController.selected.nrTelefone}" title="#{bundle.ViewContratanteTitle_nrTelefone}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdEmail}"/>
+                        <h:outputText value="#{contratanteController.selected.cdEmail}" title="#{bundle.ViewContratanteTitle_cdEmail}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_nmRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.nmRepresLegal}" title="#{bundle.ViewContratanteTitle_nmRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdCpfRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.cdCpfRepresLegal}" title="#{bundle.ViewContratanteTitle_cdCpfRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_nmCargoRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.nmCargoRepresLegal}" title="#{bundle.ViewContratanteTitle_nmCargoRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdRgRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.cdRgRepresLegal}" title="#{bundle.ViewContratanteTitle_cdRgRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dsEnderecoRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.dsEnderecoRepresLegal}" title="#{bundle.ViewContratanteTitle_dsEnderecoRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dsBairroRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.dsBairroRepresLegal}" title="#{bundle.ViewContratanteTitle_dsBairroRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdCepRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.cdCepRepresLegal}" title="#{bundle.ViewContratanteTitle_cdCepRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_nrTelefoneRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.nrTelefoneRepresLegal}" title="#{bundle.ViewContratanteTitle_nrTelefoneRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_nrCelularRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.nrCelularRepresLegal}" title="#{bundle.ViewContratanteTitle_nrCelularRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdEmailRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.cdEmailRepresLegal}" title="#{bundle.ViewContratanteTitle_cdEmailRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dsEndereco}"/>
+                        <h:outputText value="#{contratanteController.selected.dsEndereco}" title="#{bundle.ViewContratanteTitle_dsEndereco}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_inAtivo}"/>
+                        <p:selectBooleanCheckbox value="#{contratanteController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdUfRgRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.cdUfRgRepresLegal}" title="#{bundle.ViewContratanteTitle_cdUfRgRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dsBairro}"/>
+                        <h:outputText value="#{contratanteController.selected.dsBairro}" title="#{bundle.ViewContratanteTitle_dsBairro}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dtInativacao}"/>
+                        <h:outputText value="#{contratanteController.selected.dtInativacao}" title="#{bundle.ViewContratanteTitle_dtInativacao}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_idContratante}"/>
+                        <h:outputText value="#{contratanteController.selected.idContratante}" title="#{bundle.ViewContratanteTitle_idContratante}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dsNumero}"/>
+                        <h:outputText value="#{contratanteController.selected.dsNumero}" title="#{bundle.ViewContratanteTitle_dsNumero}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dsComplemento}"/>
+                        <h:outputText value="#{contratanteController.selected.dsComplemento}" title="#{bundle.ViewContratanteTitle_dsComplemento}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dsNumeroEnderecoRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.dsNumeroEnderecoRepresLegal}" title="#{bundle.ViewContratanteTitle_dsNumeroEnderecoRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dsComplementoEnderecoRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.dsComplementoEnderecoRepresLegal}" title="#{bundle.ViewContratanteTitle_dsComplementoEnderecoRepresLegal}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdSapCardcode}"/>
+                        <h:outputText value="#{contratanteController.selected.cdSapCardcode}" title="#{bundle.ViewContratanteTitle_cdSapCardcode}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_inPessoaJuridica}"/>
+                        <p:selectBooleanCheckbox value="#{contratanteController.selected.inPessoaJuridica}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_nmFantasia}"/>
+                        <h:outputText value="#{contratanteController.selected.nmFantasia}" title="#{bundle.ViewContratanteTitle_nmFantasia}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdAgenciaBanco}"/>
+                        <h:outputText value="#{contratanteController.selected.cdAgenciaBanco}" title="#{bundle.ViewContratanteTitle_cdAgenciaBanco}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dvAgenciaBanco}"/>
+                        <h:outputText value="#{contratanteController.selected.dvAgenciaBanco}" title="#{bundle.ViewContratanteTitle_dvAgenciaBanco}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdContaBancaria}"/>
+                        <h:outputText value="#{contratanteController.selected.cdContaBancaria}" title="#{bundle.ViewContratanteTitle_cdContaBancaria}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_dvContaBancaria}"/>
+                        <h:outputText value="#{contratanteController.selected.dvContaBancaria}" title="#{bundle.ViewContratanteTitle_dvContaBancaria}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_nmTitularContaRepasse}"/>
+                        <h:outputText value="#{contratanteController.selected.nmTitularContaRepasse}" title="#{bundle.ViewContratanteTitle_nmTitularContaRepasse}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_cdCpfCnpjTitularConta}"/>
+                        <h:outputText value="#{contratanteController.selected.cdCpfCnpjTitularConta}" title="#{bundle.ViewContratanteTitle_cdCpfCnpjTitularConta}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_idBanco}"/>
+                        <h:outputText value="#{contratanteController.selected.idBanco}" title="#{bundle.ViewContratanteTitle_idBanco}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_idMunicipio}"/>
+                        <h:outputText value="#{contratanteController.selected.idMunicipio}" title="#{bundle.ViewContratanteTitle_idMunicipio}"/>
+                        <h:outputText value="#{bundle.ViewContratanteLabel_idMunicipioRepresLegal}"/>
+                        <h:outputText value="#{contratanteController.selected.idMunicipioRepresLegal}" title="#{bundle.ViewContratanteTitle_idMunicipioRepresLegal}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ContratanteViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

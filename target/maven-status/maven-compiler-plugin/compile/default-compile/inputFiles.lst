@@ -1,8 +1,10 @@
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\ModalidadeContratoFacade.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\FormaPagamentoController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\AbstractFacade.java
+C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\ContratanteFacade.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\Vendedor.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\EstadoFacade.java
+C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\ContratanteController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\TipoMeioPagamento.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\TipoLocal.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\GeneroEventoFacade.java
@@ -51,8 +53,10 @@ C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\Banco.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\SegmentoEventoController.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\GeneroEventoController.java
+C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\Contratante.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\CanalVendaFacade.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\RegiaoGeografica.java
+C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\lazy\BancoLazy.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\bean\PrazoPagamentoFacade.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\model\SegmentoEvento.java
 C:\Projetos\compreingressos-portal\src\main\java\br\com\intuiti\compreingressos\portal\controller\UsuarioController.java
