@@ -54,19 +54,20 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListContratanteTitle_cdSapCardcode}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.cdSapCardcode}"/>
+                                <h:outputText value="#{item.cdSapCardcode}" rendered="#{not empty item.cdSapCardcode}"/>
+                                <h:outputText value="Não informado" rendered="#{empty item.cdSapCardcode }" />
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListContratanteTitle_idMunicipio}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.idMunicipio}"/>
+                                <h:outputText value="#{item.idMunicipio.dsMunicipio}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{contratanteController.prepareCreate}" update=":ContratanteCreateForm" oncomplete="PF('ContratanteCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ContratanteViewForm" oncomplete="PF('ContratanteViewDialog').show()" disabled="#{empty contratanteController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{contratanteController.prepareCreate}" update=":ContratanteCreateForm" oncomplete="PF('ContratanteCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":ContratanteViewForm" oncomplete="PF('ContratanteViewDialog').show()" disabled="#{empty contratanteController.selected}"/>
                                 <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ContratanteEditForm" oncomplete="PF('ContratanteEditDialog').show()" disabled="#{empty contratanteController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contratanteController.destroy}" update=":growl,datalist" disabled="#{empty contratanteController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{contratanteController.destroy}" update=":growl,datalist" disabled="#{empty contratanteController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

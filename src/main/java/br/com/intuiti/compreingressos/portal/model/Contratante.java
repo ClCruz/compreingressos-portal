@@ -8,9 +8,12 @@ package br.com.intuiti.compreingressos.portal.model;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import javax.annotation.PostConstruct;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -69,51 +72,54 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Contratante implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Size(max = 150)
+    @Size(max = 150, message = "O campo deve ter no máximo 150 caracteres")
+    @NotNull
     @Column(name = "nm_razao_social")
     private String nmRazaoSocial;
     @Column(name = "cd_cnpj_cpf")
     private BigInteger cdCnpjCpf;
-    @Size(max = 8)
+    @Size(max = 8, message = "O campo deve ter no máximo 8 caracteres")
     @Column(name = "cd_cep")
     private String cdCep;
-    @Size(max = 50)
+    @Size(max = 50, message = "O campo deve ter no máximo 50 caracteres")
+    @NotNull
     @Column(name = "nr_telefone")
     private String nrTelefone;
-    @Size(max = 100)
+    @Size(max = 100, message = "O campo deve ter no máximo 100 caracteres")
+    @NotNull
     @Column(name = "cd_email")
     private String cdEmail;
-    @Size(max = 100)
+    @Size(max = 100, message = "O campo deve ter no máximo 100 caracteres")
     @Column(name = "nm_repres_legal")
     private String nmRepresLegal;
-    @Size(max = 11)
+    @Size(max = 11, message = "O campo deve ter no máximo 11 caracteres")
     @Column(name = "cd_cpf_repres_legal")
     private String cdCpfRepresLegal;
-    @Size(max = 100)
+    @Size(max = 100, message = "O campo deve ter no máximo 100 caracteres")
     @Column(name = "nm_cargo_repres_legal")
     private String nmCargoRepresLegal;
-    @Size(max = 12)
+    @Size(max = 12, message = "O campo deve ter no máximo 12 caracteres")
     @Column(name = "cd_rg_repres_legal")
     private String cdRgRepresLegal;
-    @Size(max = 100)
+    @Size(max = 100, message = "O campo deve ter no máximo 100 caracteres")
     @Column(name = "ds_endereco_repres_legal")
     private String dsEnderecoRepresLegal;
-    @Size(max = 30)
+    @Size(max = 30, message = "O campo deve ter no máximo 30 caracteres")
     @Column(name = "ds_bairro_repres_legal")
     private String dsBairroRepresLegal;
-    @Size(max = 8)
+    @Size(max = 8, message = "O campo deve ter no máximo 8 caracteres")
     @Column(name = "cd_cep_repres_legal")
     private String cdCepRepresLegal;
-    @Size(max = 50)
+    @Size(max = 50, message = "O campo deve ter no máximo 50 caracteres")
     @Column(name = "nr_telefone_repres_legal")
     private String nrTelefoneRepresLegal;
-    @Size(max = 50)
+    @Size(max = 50, message = "O campo deve ter no máximo 50 caracteres")
     @Column(name = "nr_celular_repres_legal")
     private String nrCelularRepresLegal;
-    @Size(max = 100)
+    @Size(max = 100, message = "O campo deve ter no máximo 100 caracteres")
     @Column(name = "cd_email_repres_legal")
     private String cdEmailRepresLegal;
-    @Size(max = 100)
+    @Size(max = 100, message = "O campo deve ter no máximo 100 caracteres")
     @Column(name = "ds_endereco")
     private String dsEndereco;
     @Basic(optional = false)
@@ -129,9 +135,8 @@ public class Contratante implements Serializable {
     @Column(name = "dt_inativacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtInativacao;
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_contratante")
     private Integer idContratante;
     @Size(max = 100)
@@ -179,12 +184,13 @@ public class Contratante implements Serializable {
     @JoinColumn(name = "id_banco", referencedColumnName = "id_banco")
     @ManyToOne
     private Banco idBanco;
+    @NotNull
     @JoinColumn(name = "id_municipio", referencedColumnName = "id_municipio")
     @ManyToOne
     private Municipio idMunicipio;
     @JoinColumn(name = "id_municipio_repres_legal", referencedColumnName = "id_municipio")
     @ManyToOne
-    private Municipio idMunicipioRepresLegal;
+    private Municipio idMunicipioRepresLegal = new Municipio();
 
     public Contratante() {
     }
@@ -488,11 +494,11 @@ public class Contratante implements Serializable {
     public void setIdMunicipio(Municipio idMunicipio) {
         this.idMunicipio = idMunicipio;
     }
-
+    
     public Municipio getIdMunicipioRepresLegal() {
         return idMunicipioRepresLegal;
     }
-
+    
     public void setIdMunicipioRepresLegal(Municipio idMunicipioRepresLegal) {
         this.idMunicipioRepresLegal = idMunicipioRepresLegal;
     }
