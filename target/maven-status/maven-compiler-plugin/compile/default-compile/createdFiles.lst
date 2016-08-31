@@ -99,6 +99,7 @@ br\com\intuiti\compreingressos\portal\bean\SegmentoEventoFacade.class
 br\com\intuiti\compreingressos\portal\model\GeneroEvento.class
 br\com\intuiti\compreingressos\portal\controller\FormaPagamentoController.class
 br\com\intuiti\compreingressos\portal\model\TipoLocal.class
+br\com\intuiti\compreingressos\portal\dropdown\MunicipioDropdown.class
 br\com\intuiti\compreingressos\portal\controller\GeneroEventoController$GeneroEventoControllerConverter.class
 br\com\intuiti\compreingressos\portal\model\Banco.class
 br\com\intuiti\compreingressos\portal\model\RegiaoGeografica_.class

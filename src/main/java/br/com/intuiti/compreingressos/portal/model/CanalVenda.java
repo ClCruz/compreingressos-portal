@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -43,7 +42,7 @@ public class CanalVenda implements Serializable {
     private Integer idCanalVenda;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 20, message = "O campo Descrição deve conter entre 1 e 20 caracteres")
     @Column(name = "ds_canal_venda")
     private String dsCanalVenda;
     @OneToMany(mappedBy = "idCanalVenda")

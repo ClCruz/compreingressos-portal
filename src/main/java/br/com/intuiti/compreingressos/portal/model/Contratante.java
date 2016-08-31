@@ -8,7 +8,6 @@ package br.com.intuiti.compreingressos.portal.model;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import javax.annotation.PostConstruct;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,8 +22,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.validator.constraints.Range;
 
 /**
  *
@@ -72,20 +73,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Contratante implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Size(max = 150, message = "O campo deve ter no máximo 150 caracteres")
+    @Size(max = 150, message = "O campo Razão Social deve ter no máximo 150 caracteres")
     @NotNull
     @Column(name = "nm_razao_social")
     private String nmRazaoSocial;
+    @Range(min = 11, max = 14, message = "O campo CPF/CNPJ deve conter entre 11 e 14 caracteres.")
     @Column(name = "cd_cnpj_cpf")
     private BigInteger cdCnpjCpf;
-    @Size(max = 8, message = "O campo deve ter no máximo 8 caracteres")
+    @Size(max = 8, message = "O campo CEP deve ter no máximo 8 caracteres")
     @Column(name = "cd_cep")
     private String cdCep;
-    @Size(max = 50, message = "O campo deve ter no máximo 50 caracteres")
+    @Size(max = 50, message = "O campo Telefone deve ter no máximo 50 caracteres")
     @NotNull
     @Column(name = "nr_telefone")
     private String nrTelefone;
-    @Size(max = 100, message = "O campo deve ter no máximo 100 caracteres")
+    @Size(max = 100, message = "O campo E-mail deve ter no máximo 100 caracteres")
     @NotNull
     @Column(name = "cd_email")
     private String cdEmail;
@@ -140,6 +142,7 @@ public class Contratante implements Serializable {
     @Column(name = "id_contratante")
     private Integer idContratante;
     @Size(max = 100)
+    @Pattern(regexp = "^[0-9]+$", message="O campo Número deve conter somente números.")
     @Column(name = "ds_numero")
     private String dsNumero;
     @Size(max = 100)
@@ -190,14 +193,24 @@ public class Contratante implements Serializable {
     private Municipio idMunicipio;
     @JoinColumn(name = "id_municipio_repres_legal", referencedColumnName = "id_municipio")
     @ManyToOne
-    private Municipio idMunicipioRepresLegal = new Municipio();
+    private Municipio idMunicipioRepresLegal;
 
     public Contratante() {
+        idBanco = new Banco();
+        idMunicipio = new Municipio();
+        idMunicipioRepresLegal = new Municipio();
+    }
+    
+    public Contratante(Banco idBanco, Municipio idMunicipio, Municipio idMunicipioRepresLegal){
+        this.idBanco = idBanco;
+        this.idMunicipio = idMunicipio;
+        this.idMunicipioRepresLegal = idMunicipioRepresLegal;
     }
 
     public Contratante(Integer idContratante) {
         this.idContratante = idContratante;
     }
+
 
     public Contratante(Integer idContratante, boolean inAtivo, boolean inPessoaJuridica, String nmTitularContaRepasse, String cdCpfCnpjTitularConta) {
         this.idContratante = idContratante;
@@ -390,7 +403,7 @@ public class Contratante implements Serializable {
     public void setDsComplemento(String dsComplemento) {
         this.dsComplemento = dsComplemento;
     }
-
+        
     public String getDsNumeroEnderecoRepresLegal() {
         return dsNumeroEnderecoRepresLegal;
     }

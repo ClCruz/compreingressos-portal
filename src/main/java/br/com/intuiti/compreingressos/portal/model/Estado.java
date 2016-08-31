@@ -44,12 +44,12 @@ public class Estado implements Serializable {
     private Short idEstado;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 20, message = "O campo Descrição deve ter entre 1 e 20 caracteres")
     @Column(name = "ds_estado")
     private String dsEstado;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2)
+    @Size(min = 1, max = 2, message = "O campo Sigla deve conter no máximo 2 caracteres")
     @Column(name = "sg_estado")
     private String sgEstado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")

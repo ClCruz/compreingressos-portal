@@ -42,7 +42,7 @@ public class FormaPagamento implements Serializable {
     private Integer idFormaPagamento;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
+    @Size(min = 1, max = 30, message = "O campo Descrição deve ter entre 1 e 30 caracteres")
     @Column(name = "ds_forma_pagamento")
     private String dsFormaPagamento;
     @Basic(optional = false)

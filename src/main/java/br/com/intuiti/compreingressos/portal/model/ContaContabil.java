@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -46,7 +45,7 @@ public class ContaContabil implements Serializable {
     private Integer idContaContabil;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 60)
+    @Size(min = 1, max = 60, message = "O campo Descrição deve conter entre 1 e 60 caracteres")
     @Column(name = "ds_conta_contabil")
     private String dsContaContabil;
     @Basic(optional = false)
@@ -55,8 +54,8 @@ public class ContaContabil implements Serializable {
     private boolean inAtivo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
-    @Pattern(regexp = "^[0-9]+$", message="Somente números")
+    @Size(min = 1, max = 30, message = "O campo Número da Conta deve conter entre 1 e 30 caracteres")
+    @Pattern(regexp = "^[0-9]+$", message="O campo Número da Conta deve conter somente números")
     @Column(name = "nr_conta_contabil")
     private String nrContaContabil;
     @OneToMany(mappedBy = "idContaContabilDeb")

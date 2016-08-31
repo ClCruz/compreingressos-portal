@@ -4,12 +4,15 @@ import br.com.intuiti.compreingressos.portal.model.Contratante;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.bean.ContratanteFacade;
+import br.com.intuiti.compreingressos.portal.model.Banco;
+import br.com.intuiti.compreingressos.portal.model.Municipio;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;

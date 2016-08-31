@@ -20,7 +20,7 @@
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateContaContabilLabel_nrContaContabil}" for="nrContaContabil" />
-                        <p:inputText id="nrContaContabil" value="#{contaContabilController.selected.nrContaContabil}" title="#{bundle.CreateContaContabilTitle_nrContaContabil}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_nrContaContabil}"/>
+                        <p:inputText id="nrContaContabil" value="#{contaContabilController.selected.nrContaContabil}" title="#{bundle.CreateContaContabilTitle_nrContaContabil}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_nrContaContabil}" converterMessage="Informe apenas números."/>
                     </p:panelGrid>
                     <div class="SeparatorFull" />
                     <p:commandButton actionListener="#{contaContabilController.create}" value="#{bundle.Save}" update="display,:ContaContabilListForm:datalist, growl" oncomplete="handleSubmit(args,'ContaContabilCreateDialog');"/>

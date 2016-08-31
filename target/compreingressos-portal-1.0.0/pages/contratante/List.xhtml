@@ -26,47 +26,35 @@
                             <f:facet name="header">
                                 #{bundle.ListContratanteTitle}
                             </f:facet>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListContratanteTitle_nmRazaoSocial}"/>
-                                </f:facet>
+                            <p:column sortBy="#{item.nmRazaoSocial}" headerText="#{bundle.ListContratanteTitle_nmRazaoSocial}"
+                                      filterBy="#{item.nmRazaoSocial}" filterMatchMode="contains">
                                 <h:outputText value="#{item.nmRazaoSocial}"/>
                             </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListContratanteTitle_cdCnpjCpf}"/>
-                                </f:facet>
+                            <p:column sortBy="#{item.cdCnpjCpf}" headerText="#{bundle.ListContratanteTitle_cdCnpjCpf}"
+                                      filterBy="#{item.cdCnpjCpf}" filterMatchMode="contains">
                                 <h:outputText value="#{item.cdCnpjCpf}"/>
                             </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListContratanteTitle_nrTelefone}"/>
-                                </f:facet>
+                            <p:column sortBy="#{item.nrTelefone}" headerText="#{bundle.ListContratanteTitle_nrTelefone}"
+                                      filterBy="#{item.nrTelefone}" filterMatchMode="contains">
                                 <h:outputText value="#{item.nrTelefone}"/>
                             </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListContratanteTitle_cdEmail}"/>
-                                </f:facet>
+                            <p:column sortBy="#{item.cdEmail}" headerText="#{bundle.ListContratanteTitle_cdEmail}"
+                                      filterBy="#{item.cdEmail}" filterMatchMode="contains">
                                 <h:outputText value="#{item.cdEmail}"/>
                             </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListContratanteTitle_cdSapCardcode}"/>
-                                </f:facet>
+                            <p:column sortBy="#{item.cdSapCardcode}" headerText="#{bundle.ListContratanteTitle_cdSapCardcode}"
+                                      filterBy="#{item.cdSapCardcode}" filterMatchMode="contains">
                                 <h:outputText value="#{item.cdSapCardcode}" rendered="#{not empty item.cdSapCardcode}"/>
                                 <h:outputText value="Não informado" rendered="#{empty item.cdSapCardcode }" />
                             </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListContratanteTitle_idMunicipio}"/>
-                                </f:facet>
+                            <p:column sortBy="#{item.idMunicipio.dsMunicipio}" headerText="#{bundle.ListContratanteTitle_idMunicipio}"
+                                      filterBy="#{item.idMunicipio.dsMunicipio}" filterMatchMode="contains">
                                 <h:outputText value="#{item.idMunicipio.dsMunicipio}"/>
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{contratanteController.prepareCreate}" update=":ContratanteCreateForm" oncomplete="PF('ContratanteCreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":ContratanteViewForm" oncomplete="PF('ContratanteViewDialog').show()" disabled="#{empty contratanteController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ContratanteEditForm" oncomplete="PF('ContratanteEditDialog').show()" disabled="#{empty contratanteController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":ContratanteEditForm" oncomplete="PF('ContratanteEditDialog').show()" disabled="#{empty contratanteController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{contratanteController.destroy}" update=":growl,datalist" disabled="#{empty contratanteController.selected}"/>
                             </f:facet>
                         </p:dataTable>

@@ -54,7 +54,7 @@ public class LocalEvento implements Serializable {
     private Integer idLocalEvento;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message = "O campo Descrição deve conter entre 1 e 50 caracteres")
     @Column(name = "ds_local_evento")
     private String dsLocalEvento;
     @Size(max = 100)

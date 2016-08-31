@@ -11,14 +11,15 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -46,10 +47,11 @@ public class Banco implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_banco")
     private Integer idBanco;
-    @Size(max = 50)
+    @Size(max = 50, message = "O campo Nome deve conter até 50 caracteres.")
     @Column(name = "nm_banco")
     private String nmBanco;
-    @Size(max = 3)
+    @NotNull
+    @Size(min = 1, max = 3, message = "O campo Código do Banco deve conter entre 1 e 3 caracteres")
     @Column(name = "cd_banco")
     private String cdBanco;
     @Basic(optional = false)

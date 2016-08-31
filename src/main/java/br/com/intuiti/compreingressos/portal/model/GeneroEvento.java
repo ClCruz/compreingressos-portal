@@ -42,7 +42,7 @@ public class GeneroEvento implements Serializable {
     private Integer idGeneroEvento;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message = "O campo Descrição deve ter entre 1 e 50 caracteres")
     @Column(name = "ds_genero_evento")
     private String dsGeneroEvento;
     @Basic(optional = false)

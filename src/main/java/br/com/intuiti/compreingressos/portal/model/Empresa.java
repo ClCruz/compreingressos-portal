@@ -10,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -41,7 +40,7 @@ public class Empresa implements Serializable {
     private Integer idEmpresa;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message = "O campo Descrição deve ter entre 1 e 50 caracteres")
     @Column(name = "ds_empresa")
     private String dsEmpresa;
     @Basic(optional = false)

@@ -13,11 +13,11 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{bancoController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateBancoLabel_cdBanco}" for="cdBanco" />
-                        <p:inputText id="cdBanco" value="#{bancoController.selected.cdBanco}" title="#{bundle.CreateBancoTitle_cdBanco}" />
+                        <p:inputMask mask="9?99" id="cdBanco" maxlength="3" value="#{bancoController.selected.cdBanco}" title="#{bundle.CreateBancoTitle_cdBanco}" required="true" requiredMessage="O campo Código é obrigatório." />
                         <p:outputLabel value="#{bundle.CreateBancoLabel_nmBanco}" for="nmBanco" />
-                        <p:inputText id="nmBanco" value="#{bancoController.selected.nmBanco}" title="#{bundle.CreateBancoTitle_nmBanco}" />
+                        <p:inputText id="nmBanco" value="#{bancoController.selected.nmBanco}" title="#{bundle.CreateBancoTitle_nmBanco}" required="true" requiredMessage="O campo Nome é obrigatório."/>
                         <p:outputLabel value="#{bundle.CreateBancoLabel_inAtivo}" for="inAtivo" />
-                        <p:selectOneMenu id="inAtivo" value="#{bancoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_inAtivo}">
+                        <p:selectOneMenu id="inAtivo" value="true" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_inAtivo}">
                             <f:selectItem itemLabel="Ativo" itemValue="true" />
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
