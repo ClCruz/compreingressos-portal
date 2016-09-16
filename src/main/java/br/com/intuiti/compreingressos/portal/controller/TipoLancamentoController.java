@@ -6,21 +6,23 @@ import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistActi
 import br.com.intuiti.compreingressos.portal.bean.TipoLancamentoFacade;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("tipoLancamentoController")
-@SessionScoped
+@ManagedBean(name = "tipoLancamentoController")
+@ViewScoped
 public class TipoLancamentoController implements Serializable {
 
     @EJB
@@ -79,6 +81,13 @@ public class TipoLancamentoController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public String getNextDate(){
+        Calendar data1 = Calendar.getInstance();
+        data1.add(Calendar.DAY_OF_MONTH, 1);
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+        return formatoData.format(data1.getTime());
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

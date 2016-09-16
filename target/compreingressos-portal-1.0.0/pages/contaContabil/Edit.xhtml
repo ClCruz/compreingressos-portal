@@ -13,6 +13,8 @@
             <h:form id="ContaContabilEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{contaContabilController.selected != null}" layout='grid' styleClass="ui-panelgrid-blank">
+                        <p:outputLabel value="#{bundle.EditContaContabilLabel_nrContaContabil}" for="nrContaContabil" />
+                        <p:inputText id="nrContaContabil" value="#{contaContabilController.selected.nrContaContabil}" title="#{bundle.EditContaContabilTitle_nrContaContabil}" required="true" requiredMessage="#{bundle.EditContaContabilRequiredMessage_nrContaContabil}"/>
                         <p:outputLabel value="#{bundle.EditContaContabilLabel_dsContaContabil}" for="dsContaContabil" />
                         <p:inputText id="dsContaContabil" value="#{contaContabilController.selected.dsContaContabil}" title="#{bundle.EditContaContabilTitle_dsContaContabil}" required="true" requiredMessage="#{bundle.EditContaContabilRequiredMessage_dsContaContabil}"/>
                         <p:outputLabel value="#{bundle.EditContaContabilLabel_inAtivo}" for="inAtivo" />
@@ -20,8 +22,6 @@
                             <f:selectItem itemLabel="Ativo" itemValue="true" />
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditContaContabilLabel_nrContaContabil}" for="nrContaContabil" />
-                        <p:inputText id="nrContaContabil" value="#{contaContabilController.selected.nrContaContabil}" title="#{bundle.EditContaContabilTitle_nrContaContabil}" required="true" requiredMessage="#{bundle.EditContaContabilRequiredMessage_nrContaContabil}"/>
                     </p:panelGrid>
                     <div class='SeparatorFull' />
                     <p:commandButton actionListener="#{contaContabilController.update}" value="#{bundle.Save}" update="display,:ContaContabilListForm:datalist,growl" oncomplete="handleSubmit(args, 'ContaContabilEditDialog');"/>

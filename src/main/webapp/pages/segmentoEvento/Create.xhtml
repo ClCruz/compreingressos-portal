@@ -19,13 +19,6 @@
                             <f:selectItem itemLabel="Ativo" itemValue="true" />
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateSegmentoEventoLabel_idUsuario}" for="idUsuario" />
-                        <p:selectOneMenu id="idUsuario" value="#{segmentoEventoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditSegmentoEventoRequiredMessage_idUsuario}">
-                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
-                                           var="idUsuarioItem"
-                                           itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.dsNome}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:separator />
                     <p:commandButton actionListener="#{segmentoEventoController.create}" value="#{bundle.Save}" update="display,:SegmentoEventoListForm:datalist,:growl" oncomplete="handleSubmit(args,'SegmentoEventoCreateDialog');"/>

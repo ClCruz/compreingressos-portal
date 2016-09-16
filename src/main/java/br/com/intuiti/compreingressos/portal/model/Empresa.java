@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +15,12 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,6 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Empresa.findByDsEmpresa", query = "SELECT e FROM Empresa e WHERE e.dsEmpresa = :dsEmpresa"),
     @NamedQuery(name = "Empresa.findByInAtivo", query = "SELECT e FROM Empresa e WHERE e.inAtivo = :inAtivo")})
 public class Empresa implements Serializable {
+
+    @OneToMany(mappedBy = "idEmpresa")
+    private Collection<ContratoCliente> contratoClienteCollection;
 
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = IDENTITY)
@@ -108,6 +114,15 @@ public class Empresa implements Serializable {
     @Override
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.Empresa[ idEmpresa=" + idEmpresa + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ContratoCliente> getContratoClienteCollection() {
+        return contratoClienteCollection;
+    }
+
+    public void setContratoClienteCollection(Collection<ContratoCliente> contratoClienteCollection) {
+        this.contratoClienteCollection = contratoClienteCollection;
     }
     
 }

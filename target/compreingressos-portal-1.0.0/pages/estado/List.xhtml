@@ -21,9 +21,9 @@
                             <f:facet name="header">
                                 #{bundle.ListEstadoTitle}
                             </f:facet>
-                            
-                            <p:ajax event="rowSelect" update="createButton editButton viewButton deleteButton" />
-                            <p:ajax event="rowUnselect" update="createButton editButton viewButton deleteButton" />
+
+                            <p:ajax event="rowSelect" update="createButton editButton deleteButton" />
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton" />
 
                             <p:column sortBy="#{item.idEstado}" headerText="#{bundle.ListEstadoTitle_idEstado}"
                                       filterBy="#{item.idEstado}"
@@ -50,11 +50,11 @@
                                 <h:outputText value="#{item.idRegiaoGeografica.dsRegiaoGeografica}" />
                             </p:column>
                             <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":EstadoViewForm" oncomplete="PF('EstadoViewDialog').show()" disabled="#{empty estadoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":EstadoEditForm" oncomplete="PF('EstadoEditDialog').show()" disabled="#{empty estadoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{estadoController.destroy}" update=":growl,datalist" disabled="#{empty estadoController.selected}"/>
-                        </f:facet>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":EstadoEditForm" oncomplete="PF('EstadoEditDialog').show()" disabled="#{empty estadoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{estadoController.destroy}" update=":growl,datalist" disabled="#{empty estadoController.selected}"/>
+                                <!--<p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":EstadoViewForm" oncomplete="PF('EstadoViewDialog').show()" disabled="#{empty estadoController.selected}"/>-->
+                            </f:facet>
                         </p:dataTable>
                     </h:form>
                 </div>
@@ -62,6 +62,5 @@
         </div>
         <ui:include src="Create.xhtml"/>
         <ui:include src="Edit.xhtml"/>
-        <ui:include src="View.xhtml"/>
     </ui:define>
 </ui:composition>

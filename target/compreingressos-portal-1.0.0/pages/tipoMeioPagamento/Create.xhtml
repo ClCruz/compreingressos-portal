@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateTipoMeioPagamentoLabel_inTipoMeioPagamento}" for="inTipoMeioPagamento" />
                         <p:inputText id="inTipoMeioPagamento" value="#{tipoMeioPagamentoController.selected.inTipoMeioPagamento}" title="#{bundle.CreateTipoMeioPagamentoTitle_inTipoMeioPagamento}" required="true" requiredMessage="#{bundle.CreateTipoMeioPagamentoRequiredMessage_inTipoMeioPagamento}"/>
                         <p:outputLabel value="#{bundle.CreateTipoMeioPagamentoLabel_dsTipoMeioPagamento}" for="dsTipoMeioPagamento" />
-                        <p:inputText id="dsTipoMeioPagamento" value="#{tipoMeioPagamentoController.selected.dsTipoMeioPagamento}" title="#{bundle.CreateTipoMeioPagamentoTitle_dsTipoMeioPagamento}" />
+                        <p:inputText id="dsTipoMeioPagamento" value="#{tipoMeioPagamentoController.selected.dsTipoMeioPagamento}" title="#{bundle.CreateTipoMeioPagamentoTitle_dsTipoMeioPagamento}" required="true" requiredMessage="#{bundle.CreateTipoMeioPagamentoRequiredMessage_dsTipoMeioPagamento}"/>
                     </p:panelGrid>
                     <p:separator />
                     <p:commandButton actionListener="#{tipoMeioPagamentoController.create}" value="#{bundle.Save}" update="display,:TipoMeioPagamentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoMeioPagamentoCreateDialog');"/>

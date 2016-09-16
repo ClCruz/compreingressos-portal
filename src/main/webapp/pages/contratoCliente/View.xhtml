@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContratoClienteViewDlg" widgetVar="ContratoClienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContratoClienteTitle}">
+            <h:form id="ContratoClienteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{contratoClienteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_idEmpresa}" style="font-weight:bold"/>
+                        <h:outputText value="#{contratoClienteController.selected.idEmpresa.dsEmpresa}" title="#{bundle.ViewContratoClienteTitle_idEmpresa}"/>
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_dsResumida}" style="font-weight:bold"/>
+                        <h:outputText value="#{contratoClienteController.selected.dsResumida}" title="#{bundle.ViewContratoClienteTitle_dsResumida}"/>
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_idLocalEvento}" style="font-weight:bold"/>
+                        <h:outputText value="#{contratoClienteController.selected.idLocalEvento.dsLocalEvento}" title="#{bundle.ViewContratoClienteTitle_idLocalEvento}"/>
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_idContratante}" style="font-weight:bold"/>
+                        <h:outputText value="#{contratoClienteController.selected.idContratante.nmRazaoSocial}" title="#{bundle.ViewContratoClienteTitle_idContratante}"/>
+                        <br />
+                    </p:panelGrid>
+                    <p:tabView>
+                        <p:tab title="Dados do Contrato">
+                            <p:panelGrid columns="4" rendered="#{contratoClienteController.selected != null}">
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_dsHorarioBilheteria}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.dsHorarioBilheteria}" title="#{bundle.ViewContratoClienteTitle_dsHorarioBilheteria}"/>
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_dsHorarioCallcenter}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.dsHorarioCallcenter}" title="#{bundle.ViewContratoClienteTitle_dsHorarioCallcenter}"/>
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_dtInicioVigencia}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.dtInicioVigencia}" title="#{bundle.ViewContratoClienteTitle_dtInicioVigencia}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_cdSiglaProjeto}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.cdSiglaProjeto}" title="#{bundle.ViewContratoClienteTitle_cdSiglaProjeto}"/>
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_dtTerminoVigencia}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.dtTerminoVigencia}" title="#{bundle.ViewContratoClienteTitle_dtTerminoVigencia}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_dsObsVendedor}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.dsObsVendedor}" title="#{bundle.ViewContratoClienteTitle_dsObsVendedor}"/>
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_idModalidadeContrato}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.idModalidadeContrato.dsModalidadeContrato}" title="#{bundle.ViewContratoClienteTitle_idModalidadeContrato}"/>
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_idSegmentoEvento}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.idSegmentoEvento.dsSegmentoEvento}" title="#{bundle.ViewContratoClienteTitle_idSegmentoEvento}"/>
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_idTipoContrato}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.idTipoContrato.dsTipoContrato}" title="#{bundle.ViewContratoClienteTitle_idTipoContrato}"/>
+                                <h:outputText value="#{bundle.ViewContratoClienteLabel_idVendedor}" style="font-weight:bold"/>
+                                <h:outputText value="#{contratoClienteController.selected.idVendedor.dsVendedor}" title="#{bundle.ViewContratoClienteTitle_idVendedor}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab title="Informações para repasse">
+                            <p:dataTable id="listaCCPP" style="width:600px!important;" value="#{contratoClienteController.getItemsAvailableSelectIdContratoPP(contratoClienteController.selected.idContratoCliente)}" var="itemsCCPP" rendered="#{contratoClienteController.selected != null}">
+                                <p:column headerText="#{bundle.ListContratoClientePrazoPagamentoTitle_idFormaPagamento}">
+                                    <h:outputText value="#{itemsCCPP.idFormaPagamento.dsFormaPagamento}" />
+                                </p:column>
+                                <p:column headerText="#{bundle.ListContratoClientePrazoPagamentoTitle_idPrazoPagamento}">
+                                    <h:outputText value="#{itemsCCPP.idPrazoPagamento.dsPrazoPagamento}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Regras">
+                            <p:dataTable id="listaCCTL" style="width:700px!important;" value="#{contratoClienteTipoLancamentoController.getItemAvailableSelectIdContrato(contratoClienteController.selected.idContratoCliente)}" var="itemsCCTL" rendered="#{contratoClienteController.selected != null}">
+                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idTipoLancamento}" >
+                                    <h:outputText value="#{itemsCCTL.idTipoLancamento.dsTipoLancamento}" />
+                                </p:column>
+                                <p:column headerText="Data de Vigência" >
+                                    <h:outputText value="#{itemsCCTL.dtVigencia}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_vlAplicacaoTipoLancamento}">
+                                    <h:outputText value="#{itemsCCTL.vlAplicacaoTipoLancamento}" />
+                                </p:column>
+                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_vlMinimoTipoLancamento}" >
+                                    <h:outputText value="#{itemsCCTL.vlMinimoTipoLancamento}" />
+                                </p:column>
+                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idEvento}" >
+                                    <h:outputText value="#{itemsCCTL.idEvento.dsEvento}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                    </p:tabView>
+<!--                    <p:panelGrid columns="2" rendered="#{contratoClienteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_dtInativacao}"/>
+                        <h:outputText value="#{contratoClienteController.selected.dtInativacao}" title="#{bundle.ViewContratoClienteTitle_dtInativacao}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_dtAprovacao}"/>
+                        <h:outputText value="#{contratoClienteController.selected.dtAprovacao}" title="#{bundle.ViewContratoClienteTitle_dtAprovacao}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_dtAssinaturaContrato}"/>
+                        <h:outputText value="#{contratoClienteController.selected.dtAssinaturaContrato}" title="#{bundle.ViewContratoClienteTitle_dtAssinaturaContrato}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_dsObsAprovador}"/>
+                        <h:outputText value="#{contratoClienteController.selected.dsObsAprovador}" title="#{bundle.ViewContratoClienteTitle_dsObsAprovador}"/>
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_icStatusContrato}"/>
+                        <h:outputText value="#{contratoClienteController.selected.icStatusContrato}" title="#{bundle.ViewContratoClienteTitle_icStatusContrato}"/>
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_dsMotivoInativacao}"/>
+                        <h:outputText value="#{contratoClienteController.selected.dsMotivoInativacao}" title="#{bundle.ViewContratoClienteTitle_dsMotivoInativacao}"/>
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_idUsuarioAprovador}"/>
+                        <h:outputText value="#{contratoClienteController.selected.idUsuarioAprovador}" title="#{bundle.ViewContratoClienteTitle_idUsuarioAprovador}"/>
+                        <h:outputText value="#{bundle.ViewContratoClienteLabel_idUsuarioSolicitante}"/>
+                        <h:outputText value="#{contratoClienteController.selected.idUsuarioSolicitante}" title="#{bundle.ViewContratoClienteTitle_idUsuarioSolicitante}"/>
+                    </p:panelGrid>-->
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -20,8 +20,8 @@
                                      reflow="true"
                                      >
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
 
                             <f:facet name="header">
                                 #{bundle.ListSegmentoEventoTitle}
@@ -51,9 +51,9 @@
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{segmentoEventoController.prepareCreate}" update=":SegmentoEventoCreateForm" oncomplete="PF('SegmentoEventoCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":SegmentoEventoViewForm" oncomplete="PF('SegmentoEventoViewDialog').show()" disabled="#{empty segmentoEventoController.selected}"/>
                                 <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":SegmentoEventoEditForm" oncomplete="PF('SegmentoEventoEditDialog').show()" disabled="#{empty segmentoEventoController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{segmentoEventoController.destroy}" update=":growl,datalist" disabled="#{empty segmentoEventoController.selected}"/>
+                                <!--<p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":SegmentoEventoViewForm" oncomplete="PF('SegmentoEventoViewDialog').show()" disabled="#{empty segmentoEventoController.selected}"/>-->
                             </f:facet>
                         </p:dataTable>
                     </h:form>

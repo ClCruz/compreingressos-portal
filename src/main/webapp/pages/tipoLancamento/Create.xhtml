@@ -14,49 +14,59 @@
                     <p:panelGrid columns="4" rendered="#{tipoLancamentoController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_dsTipoLancamento}" for="dsTipoLancamento" />
                         <p:inputText id="dsTipoLancamento" value="#{tipoLancamentoController.selected.dsTipoLancamento}" title="#{bundle.CreateTipoLancamentoTitle_dsTipoLancamento}" required="true" requiredMessage="#{bundle.CreateTipoLancamentoRequiredMessage_dsTipoLancamento}"/>
-                        <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inAtivo}" for="inAtivo" />
-                        <p:selectOneMenu id="inAtivo" value="#{tipoLancamentoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inAtivo}" >
-                            <f:selectItem itemLabel="Ativo" itemValue="true" />
-                            <f:selectItem itemLabel="Inativo" itemValue="false" />
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_dtInsert}" for="dtInsert" />
-                        <p:calendar id="dtInsert" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoLancamentoController.selected.dtInsert}" title="#{bundle.EditTipoLancamentoTitle_dtInsert}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_dtUpdate}" for="dtUpdate" />
-                        <p:calendar id="dtUpdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoLancamentoController.selected.dtUpdate}" title="#{bundle.EditTipoLancamentoTitle_dtUpdate}"  showOn="button"/>
+                        <p:calendar id="dtInsert" pattern="dd/MM/yyyy" readonly="#{facesContext.renderResponse}" mindate="#{tipoLancamentoController.getNextDate()}" value="#{tipoLancamentoController.selected.dtInsert}" title="#{bundle.EditTipoLancamentoTitle_dtInsert}" locale="pt" showOn="button" required="true" requiredMessage="#{bundle.CreateTipoLancamentoRequiredMessage_dtInsert}"/>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inPcValor}" for="inPcValor" />
-                        <p:inputText id="inPcValor" value="#{tipoLancamentoController.selected.inPcValor}" title="#{bundle.CreateTipoLancamentoTitle_inPcValor}" />
+                        <p:selectOneMenu id="inPcValor" value="#{tipoLancamentoController.selected.inPcValor}" title="#{bundle.CreateTipoLancamentoTitle_inPcValor}" required="true" requiredMessage="#{bundle.CreateTipoLancamentoRequiredMessage_inPcValor}">
+                            <f:selectItem itemValue="#{null}" itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItem itemValue="P" itemLabel="Percentual" />
+                            <f:selectItem itemValue="V" itemLabel="Valor" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inAplicacaoRegra}" for="inAplicacaoRegra" />
-                        <p:inputText id="inAplicacaoRegra" value="#{tipoLancamentoController.selected.inAplicacaoRegra}" title="#{bundle.CreateTipoLancamentoTitle_inAplicacaoRegra}" />
+                        <p:selectOneMenu id="inAplicacaoRegra" value="#{tipoLancamentoController.selected.inAplicacaoRegra}" title="#{bundle.CreateTipoLancamentoTitle_inAplicacaoRegra}" required="true" requiredMessage="#{bundle.CreateTipoLancamentoRequiredMessage_inAplicacaoRegra}">
+                            <f:selectItem itemValue="#{null}" itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItem itemValue="B" itemLabel="Cada bilhete emitido" />
+                            <f:selectItem itemValue="A" itemLabel="Cada apresentacao" />
+                            <f:selectItem itemValue="M" itemLabel="Por mês fechado 30 dias a partir da data de inicio de vigencia" />
+                            <f:selectItem itemValue="P" itemLabel="Por pedido de venda" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inValidoBordero}" for="inValidoBordero" />
-                        <p:selectOneMenu id="inValidoBordero" value="#{tipoLancamentoController.selected.inValidoBordero}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inValidoBordero}" >
-                            <f:selectItem itemLabel="Ativo" itemValue="true" />
-                            <f:selectItem itemLabel="Inativo" itemValue="false" />
-                        </p:selectOneMenu>
+                        <p:selectBooleanCheckbox id="inValidoBordero" value="#{tipoLancamentoController.selected.inValidoBordero}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inValidoBordero}" />
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inValidoExtrato}" for="inValidoExtrato" />
-                        <p:selectOneMenu id="inValidoExtrato" value="#{tipoLancamentoController.selected.inValidoExtrato}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inValidoExtrato}" >
-                            <f:selectItem itemLabel="Ativo" itemValue="true" />
-                            <f:selectItem itemLabel="Inativo" itemValue="false" />
-                        </p:selectOneMenu>
+                        <p:selectBooleanCheckbox id="inValidoExtrato" value="#{tipoLancamentoController.selected.inValidoExtrato}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inValidoExtrato}" />
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_inAcrescentaSubstrai}" for="inAcrescentaSubstrai" />
-                        <p:inputText id="inAcrescentaSubstrai" value="#{tipoLancamentoController.selected.inAcrescentaSubstrai}" title="#{bundle.CreateTipoLancamentoTitle_inAcrescentaSubstrai}" />
+                        <p:selectOneMenu id="inAcrescentaSubstrai" value="#{tipoLancamentoController.selected.inAcrescentaSubstrai}" title="#{bundle.CreateTipoLancamentoTitle_inAcrescentaSubtrai}" required="true" requiredMessage="#{bundle.CreateTipoLancamentoRequiredMessage_inAcrescentaSubtrai}">
+                            <f:selectItem itemValue="#{null}" itemLabel="#{bundle.SelectOneMessage}" noSelectionOption="true"/>
+                            <f:selectItem itemValue="A" itemLabel="Acrescenta" />
+                            <f:selectItem itemValue="S" itemLabel="Subtrai" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_idFormaPagamento}" for="idFormaPagamento" />
-                        <p:inputText id="idFormaPagamento" value="#{tipoLancamentoController.selected.idFormaPagamento}" title="#{bundle.CreateTipoLancamentoTitle_idFormaPagamento}" />
+                        <p:selectOneMenu id="idFormaPagamento" value="#{tipoLancamentoController.selected.idFormaPagamento}" title="#{bundle.CreateTipoLancamentoTitle_idFormaPagamento}">
+                            <f:selectItem itemValue="#{null}" itemLabel="Não se aplica" />
+                            <f:selectItems value="#{formaPagamentoController.itemsAvailableSelectOne}"
+                                           var="idFormaPagamento"
+                                           itemValue="#{idFormaPagamento}"
+                                           itemLabel="#{idFormaPagamento.dsFormaPagamento}" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_idCanalVenda}" for="idCanalVenda" />
                         <p:selectOneMenu id="idCanalVenda" value="#{tipoLancamentoController.selected.idCanalVenda}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="Não se aplica" />
                             <f:selectItems value="#{canalVendaController.itemsAvailableSelectOne}"
                                            var="idCanalVendaItem"
                                            itemValue="#{idCanalVendaItem}"
                                            itemLabel="#{idCanalVendaItem.dsCanalVenda}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_idContaContabilDeb}" for="idContaContabilDeb" />
-                        <p:selectOneMenu id="idContaContabilDeb" value="#{tipoLancamentoController.selected.idContaContabilDeb}" >
+                        <p:selectOneMenu id="idContaContabilDeb" value="#{tipoLancamentoController.selected.idContaContabilDeb}" required="true" requiredMessage="#{bundle.CreateTipoLancamentoRequiredMessage_idContaContabilDeb}">
+                            <f:selectItem itemValue="#{null}" itemLabel="#{bundle.SelectOneMessage}" />
                             <f:selectItems value="#{contaContabilController.itemsAvailableSelectOne}"
                                            var="idContaContabilDebItem"
                                            itemValue="#{idContaContabilDebItem}"
                                            itemLabel="#{idContaContabilDebItem.dsContaContabil}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTipoLancamentoLabel_idContaContabilCre}" for="idContaContabilCre" />
-                        <p:selectOneMenu id="idContaContabilCre" value="#{tipoLancamentoController.selected.idContaContabilCre}" >
+                        <p:selectOneMenu id="idContaContabilCre" value="#{tipoLancamentoController.selected.idContaContabilCre}" required="true" requiredMessage="#{bundle.CreateTipoLancamentoRequiredMessage_idContaContabilCre}">
+                            <f:selectItem itemValue="#{null}" itemLabel="#{bundle.SelectOneMessage}" />
                             <f:selectItems value="#{contaContabilController.itemsAvailableSelectOne}"
                                            var="idContaContabilCreItem"
                                            itemValue="#{idContaContabilCreItem}"

@@ -21,8 +21,8 @@
                             <f:facet name="header">
                                 #{bundle.ListTipoMeioPagamentoTitle}
                             </f:facet>
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
 
                             <p:column sortBy="#{item.inTipoMeioPagamento}" filterBy="#{item.inTipoMeioPagamento}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -38,9 +38,9 @@
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{tipoMeioPagamentoController.prepareCreate}" update=":TipoMeioPagamentoCreateForm" oncomplete="PF('TipoMeioPagamentoCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":TipoMeioPagamentoViewForm" oncomplete="PF('TipoMeioPagamentoViewDialog').show()" disabled="#{empty tipoMeioPagamentoController.selected}"/>
                                 <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":TipoMeioPagamentoEditForm" oncomplete="PF('TipoMeioPagamentoEditDialog').show()" disabled="#{empty tipoMeioPagamentoController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{tipoMeioPagamentoController.destroy}" update=":growl,datalist" disabled="#{empty tipoMeioPagamentoController.selected}"/>
+                                <!--<p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":TipoMeioPagamentoViewForm" oncomplete="PF('TipoMeioPagamentoViewDialog').show()" disabled="#{empty tipoMeioPagamentoController.selected}"/>-->
                             </f:facet>
                         </p:dataTable>
                     </h:form>
@@ -49,6 +49,6 @@
         </div>
         <ui:include src="Create.xhtml"/>
         <ui:include src="Edit.xhtml"/>
-        <ui:include src="View.xhtml"/>
+        <!--<ui:include src="View.xhtml"/>-->
     </ui:define>
 </ui:composition>

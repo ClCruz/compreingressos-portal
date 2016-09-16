@@ -16,12 +16,14 @@
                         <p:inputText id="dsMunicipio" value="#{municipioController.selected.dsMunicipio}" title="#{bundle.CreateMunicipioTitle_dsMunicipio}" required="true" requiredMessage="#{bundle.CreateMunicipioRequiredMessage_dsMunicipio}"/>
                         <p:outputLabel value="#{bundle.CreateMunicipioLabel_idEstado}" for="idEstado" />
                         <p:selectOneMenu id="idEstado" value="#{municipioController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditMunicipioRequiredMessage_idEstado}">
+                            <f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
                                            var="idEstadoItem"
                                            itemValue="#{idEstadoItem}"
                                            itemLabel="#{idEstadoItem.dsEstado}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{municipioController.create}" value="#{bundle.Save}" update="display,:MunicipioListForm:datalist,:growl" oncomplete="handleSubmit(args,'MunicipioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('MunicipioCreateDialog').hide()"/>
                 </h:panelGroup>

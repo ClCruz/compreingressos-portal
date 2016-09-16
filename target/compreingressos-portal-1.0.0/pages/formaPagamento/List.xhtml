@@ -23,8 +23,8 @@
                             <f:facet name="header">
                                 #{bundle.ListFormaPagamentoTitle}
                             </f:facet>
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
                             <p:column sortBy="#{item.dsFormaPagamento}" headerText="#{bundle.ListFormaPagamentoTitle_dsFormaPagamento}" 
                                       filterBy="#{item.dsFormaPagamento}"
                                       filterMatchMode="contains"
@@ -54,9 +54,9 @@
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{formaPagamentoController.prepareCreate}" update=":FormaPagamentoCreateForm" oncomplete="PF('FormaPagamentoCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":FormaPagamentoViewForm" oncomplete="PF('FormaPagamentoViewDialog').show()" disabled="#{empty formaPagamentoController.selected}"/>
                                 <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":FormaPagamentoEditForm" oncomplete="PF('FormaPagamentoEditDialog').show()" disabled="#{empty formaPagamentoController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{formaPagamentoController.destroy}" update=":growl,datalist" disabled="#{empty formaPagamentoController.selected}"/>
+                                <!--<p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":FormaPagamentoViewForm" oncomplete="PF('FormaPagamentoViewDialog').show()" disabled="#{empty formaPagamentoController.selected}"/>-->
                             </f:facet>
                         </p:dataTable>
                     </h:form>
@@ -65,6 +65,6 @@
         </div>
         <ui:include src="Create.xhtml"/>
         <ui:include src="Edit.xhtml"/>
-        <ui:include src="View.xhtml"/>
+        <!--<ui:include src="View.xhtml"/>-->
     </ui:define>
 </ui:composition>

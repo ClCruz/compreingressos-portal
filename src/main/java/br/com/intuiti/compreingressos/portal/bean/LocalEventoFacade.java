@@ -37,6 +37,10 @@ public class LocalEventoFacade extends AbstractFacade<LocalEvento> {
     public LocalEventoFacade() {
         super(LocalEvento.class);
     }
+    
+    public List<LocalEvento> findAllOrderByDs(){
+        return em.createNamedQuery("LocalEvento.findAllOrderBy", LocalEvento.class).getResultList();
+    }
 
     public List<LocalEvento> findLazy(int inicio, int tamanho, String sortFilter, SortOrder sortOrder, Map<String, Object> filters) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();

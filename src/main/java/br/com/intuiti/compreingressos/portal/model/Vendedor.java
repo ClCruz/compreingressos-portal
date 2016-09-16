@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,6 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Vendedor.findByIdVendedor", query = "SELECT v FROM Vendedor v WHERE v.idVendedor = :idVendedor"),
     @NamedQuery(name = "Vendedor.findByInAtivo", query = "SELECT v FROM Vendedor v WHERE v.inAtivo = :inAtivo")})
 public class Vendedor implements Serializable {
+
+    @OneToMany(mappedBy = "idVendedor")
+    private Collection<ContratoCliente> contratoClienteCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -96,6 +102,15 @@ public class Vendedor implements Serializable {
     @Override
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.Vendedor[ idVendedor=" + idVendedor + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ContratoCliente> getContratoClienteCollection() {
+        return contratoClienteCollection;
+    }
+
+    public void setContratoClienteCollection(Collection<ContratoCliente> contratoClienteCollection) {
+        this.contratoClienteCollection = contratoClienteCollection;
     }
     
 }

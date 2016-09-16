@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FormaPagamento.findByInAtivo", query = "SELECT f FROM FormaPagamento f WHERE f.inAtivo = :inAtivo")})
 public class FormaPagamento implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -55,11 +56,11 @@ public class FormaPagamento implements Serializable {
 
     public FormaPagamento() {
     }
-
+    
     public FormaPagamento(Integer idFormaPagamento) {
         this.idFormaPagamento = idFormaPagamento;
     }
-
+    
     public FormaPagamento(Integer idFormaPagamento, String dsFormaPagamento, boolean inAtivo) {
         this.idFormaPagamento = idFormaPagamento;
         this.dsFormaPagamento = dsFormaPagamento;
@@ -122,5 +123,4 @@ public class FormaPagamento implements Serializable {
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.FormaPagamento[ idFormaPagamento=" + idFormaPagamento + " ]";
     }
-    
 }

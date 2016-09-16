@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditModalidadeContratoLabel_idModalidadeContrato}" for="idModalidadeContrato" />
                         <p:inputText id="idModalidadeContrato" value="#{modalidadeContratoController.selected.idModalidadeContrato}" title="#{bundle.EditModalidadeContratoTitle_dsModalidadeContrato}" required="true" requiredMessage="#{bundle.EditModalidadeContratoRequiredMessage_idModalidadeContrato}" />
                         <p:outputLabel value="#{bundle.EditModalidadeContratoLabel_dsModalidadeContrato}" for="dsModalidadeContrato" />
-                        <p:inputText id="dsModalidadeContrato" value="#{modalidadeContratoController.selected.dsModalidadeContrato}" title="#{bundle.EditModalidadeContratoTitle_dsModalidadeContrato}" />
+                        <p:inputText id="dsModalidadeContrato" value="#{modalidadeContratoController.selected.dsModalidadeContrato}" title="#{bundle.EditModalidadeContratoTitle_dsModalidadeContrato}" required="true" requiredMessage="#{bundle.CreateModalidadeContratoRequiredMessage_dsModalidadeContrato}"/>
                     </p:panelGrid>
                     <p:separator />
                     <p:commandButton actionListener="#{modalidadeContratoController.update}" value="#{bundle.Save}" update="display,:ModalidadeContratoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ModalidadeContratoEditDialog');"/>

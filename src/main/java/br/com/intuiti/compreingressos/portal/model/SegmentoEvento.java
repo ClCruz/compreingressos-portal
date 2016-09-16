@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SegmentoEvento.findByInAtivo", query = "SELECT s FROM SegmentoEvento s WHERE s.inAtivo = :inAtivo")})
 public class SegmentoEvento implements Serializable {
 
+    @OneToMany(mappedBy = "idSegmentoEvento")
+    private Collection<ContratoCliente> contratoClienteCollection;
+
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -136,6 +139,15 @@ public class SegmentoEvento implements Serializable {
     @Override
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.SegmentoEvento[ idSegmentoEvento=" + idSegmentoEvento + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ContratoCliente> getContratoClienteCollection() {
+        return contratoClienteCollection;
+    }
+
+    public void setContratoClienteCollection(Collection<ContratoCliente> contratoClienteCollection) {
+        this.contratoClienteCollection = contratoClienteCollection;
     }
     
 }

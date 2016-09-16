@@ -1,14 +1,16 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import br.com.intuiti.compreingressos.portal.model.Banco;
+import br.com.intuiti.compreingressos.portal.model.ContratoCliente;
 import br.com.intuiti.compreingressos.portal.model.Municipio;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.annotation.Generated;
+import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-08-31T11:44:52")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-09-16T11:05:10")
 @StaticMetamodel(Contratante.class)
 public class Contratante_ { 
 
@@ -26,6 +28,7 @@ public class Contratante_ {
     public static volatile SingularAttribute<Contratante, String> nmTitularContaRepasse;
     public static volatile SingularAttribute<Contratante, String> cdCep;
     public static volatile SingularAttribute<Contratante, String> dsEndereco;
+    public static volatile CollectionAttribute<Contratante, ContratoCliente> contratoClienteCollection;
     public static volatile SingularAttribute<Contratante, String> cdRgRepresLegal;
     public static volatile SingularAttribute<Contratante, String> nmRazaoSocial;
     public static volatile SingularAttribute<Contratante, Integer> idContratante;

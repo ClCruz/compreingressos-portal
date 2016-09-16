@@ -13,11 +13,11 @@
                     <p:panelGrid columns="2" rendered="#{not empty contaContabilController.selected}" layout="grid" styleClass="ui-panelgrid-blank">
                         <h:outputText value="#{bundle.ViewContaContabilLabel_dsContaContabil}"/>
                         <h:outputText value="#{contaContabilController.selected.dsContaContabil}" title="#{bundle.ViewContaContabilTitle_dsContaContabil}"/>
+                        <h:outputText value="#{bundle.ViewContaContabilLabel_nrContaContabil}"/>
+                        <h:outputText value="#{contaContabilController.selected.nrContaContabil}" title="#{bundle.ViewContaContabilTitle_nrContaContabil}"/>
                         <h:outputText value="#{bundle.ViewContaContabilLabel_inAtivo}"/>
                         <h:outputText value='Ativo' rendered='#{contaContabilController.selected.inAtivo == true}' />
                         <h:outputText value='Inativo' rendered='#{contaContabilController.selected.inAtivo == false}' />
-                        <h:outputText value="#{bundle.ViewContaContabilLabel_nrContaContabil}"/>
-                        <h:outputText value="#{contaContabilController.selected.nrContaContabil}" title="#{bundle.ViewContaContabilTitle_nrContaContabil}"/>
                     </p:panelGrid>
             </p:outputPanel>
         </p:dialog>

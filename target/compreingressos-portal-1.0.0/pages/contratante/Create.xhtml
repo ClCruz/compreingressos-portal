@@ -75,9 +75,9 @@
                             </p:panelGrid>
                             <p:panelGrid columns="6">
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_cdCpfRepresLegal}" for="cdCpfRepresLegal" />
-                                <p:inputMask mask="999.999.999-99" id="cdCpfRepresLegal" size="32" value="#{contratanteController.selected.cdCpfRepresLegal}" title="#{bundle.CreateContratanteTitle_cdCpfRepresLegal}" />
+                                <p:inputMask mask="99999999999" id="cdCpfRepresLegal" size="32" value="#{contratanteController.selected.cdCpfRepresLegal}" title="#{bundle.CreateContratanteTitle_cdCpfRepresLegal}" />
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_cdRgRepresLegal}" for="cdRgRepresLegal" />
-                                <p:inputMask mask="99.999.999-*" id="cdRgRepresLegal" size="32" value="#{contratanteController.selected.cdRgRepresLegal}" title="#{bundle.CreateContratanteTitle_cdRgRepresLegal}" />
+                                <p:inputMask mask="99999999*" id="cdRgRepresLegal" size="32" value="#{contratanteController.selected.cdRgRepresLegal}" title="#{bundle.CreateContratanteTitle_cdRgRepresLegal}" />
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_cdUfRgRepresLegal}" for="cdUfRgRepresLegal" />
                                 <p:inputText id="cdUfRgRepresLegal" size="8" value="#{contratanteController.selected.cdUfRgRepresLegal}" title="#{bundle.CreateContratanteTitle_cdUfRgRepresLegal}" />
                             </p:panelGrid>

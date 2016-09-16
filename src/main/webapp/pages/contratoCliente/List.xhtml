@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="ContratoClienteListForm">
+                        <p:dataTable id="datalist" value="#{contratoClienteController.items}" var="item"
+                                     selection="#{contratoClienteController.selected}" selectionMode="single"
+                                     paginator="true"
+                                     rowKey="#{item.idContratoCliente}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     paginatorPosition="bottom"
+                                     >
+                            <p:ajax event="rowSelect" update="createButton viewButton editButton deleteButton" />
+                            <f:facet name="header">
+                                #{bundle.ListContratoClienteTitle}
+                            </f:facet>
+                            <p:column headerText="#{bundle.ListContratoClienteTitle_idEmpresa}"
+                                      sortBy="#{item.idEmpresa.dsEmpresa}">
+                                <h:outputText value="#{item.idEmpresa.dsEmpresa}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListContratoClienteTitle_dsResumida}"> 
+                                <h:outputText value="#{item.dsResumida}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListContratoClienteTitle_idLocalEvento}"
+                                      sortBy="#{item.idLocalEvento.dsLocalEvento}">
+                                <h:outputText value="#{item.idLocalEvento.dsLocalEvento}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListContratoClienteTitle_idContratante}"
+                                      sortBy="#{item.idContratante.nmRazaoSocial}">
+                                <h:outputText value="#{item.idContratante.nmRazaoSocial}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListContratoClienteTitle_icStatusContrato}"
+                                      sortBy="#{item.icStatusContrato}">
+                                <h:outputText value="#{item.icStatusContrato}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListContratoClienteTitle_idVendedor}"
+                                      sortBy="#{item.idVendedor.dsVendedor}">
+                                <h:outputText value="#{item.idVendedor.dsVendedor}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{contratoClienteController.prepareCreate}" update=":ContratoClienteCreateForm" oncomplete="PF('ContratoClienteCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":ContratoClienteViewForm" oncomplete="PF('ContratoClienteViewDialog').show()" disabled="#{empty contratoClienteController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":ContratoClienteEditForm" oncomplete="PF('ContratoClienteEditDialog').show()" onclick="#{not empty contratoClienteController.listaItens()}" disabled="#{empty contratoClienteController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{contratoClienteController.destroy}" update=":growl,datalist" disabled="#{empty contratoClienteController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Edit.xhtml" />
+        <ui:include src="Create.xhtml" />
+        <ui:include src="View.xhtml" />
+    </ui:define>
+
+</ui:composition>

@@ -6,7 +6,11 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,7 +55,7 @@ public class ContaContabil implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_ativo")
-    private boolean inAtivo;
+    private boolean inAtivo = true;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30, message = "O campo Número da Conta deve conter entre 1 e 30 caracteres")
@@ -65,7 +69,7 @@ public class ContaContabil implements Serializable {
 
     public ContaContabil() {
     }
-
+    
     public ContaContabil(Integer idContaContabil) {
         this.idContaContabil = idContaContabil;
     }

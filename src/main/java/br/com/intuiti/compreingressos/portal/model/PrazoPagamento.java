@@ -6,7 +6,9 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,11 +16,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,6 +40,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PrazoPagamento.findByDsDiasFixos", query = "SELECT p FROM PrazoPagamento p WHERE p.dsDiasFixos = :dsDiasFixos")})
 public class PrazoPagamento implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPrazoPagamento")
+    private Collection<ContratoClientePrazoPagamento> contratoClientePrazoPagamentoCollection;
+
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -50,11 +57,9 @@ public class PrazoPagamento implements Serializable {
     private int inDiaSemana;
     @Basic(optional = false)
     @NotNull
-    @Pattern(regexp = "^[0-9]+$", message="Você deve informar somente números no campo 'Quantidade de dias para o prazo'.")
     @Column(name = "qt_dias_prazo")
     private int qtDiasPrazo;
     @Size(max = 20)
-    @Pattern(regexp = "^[0-9]+$", message="Você deve informar somente números no campo 'Dias Fixos'.")
     @Column(name = "ds_dias_fixos")
     private String dsDiasFixos;
 
@@ -70,7 +75,7 @@ public class PrazoPagamento implements Serializable {
         this.inDiaSemana = inDiaSemana;
         this.qtDiasPrazo = qtDiasPrazo;
     }
-
+    
     public Integer getIdPrazoPagamento() {
         return idPrazoPagamento;
     }
@@ -135,5 +140,14 @@ public class PrazoPagamento implements Serializable {
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.PrazoPagamento[ idPrazoPagamento=" + idPrazoPagamento + " ]";
     }
-    
+
+    @XmlTransient
+    public Collection<ContratoClientePrazoPagamento> getContratoClientePrazoPagamentoCollection() {
+        return contratoClientePrazoPagamentoCollection;
+    }
+
+    public void setContratoClientePrazoPagamentoCollection(Collection<ContratoClientePrazoPagamento> contratoClientePrazoPagamentoCollection) {
+        this.contratoClientePrazoPagamentoCollection = contratoClientePrazoPagamentoCollection;
+    }
+
 }

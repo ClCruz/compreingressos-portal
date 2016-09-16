@@ -19,16 +19,20 @@
                         <h:outputText value="Inativo" rendered="#{tipoLancamentoController.selected.inAtivo eq false}" />
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_dtInsert}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.dtInsert}" title="#{bundle.ViewTipoLancamentoTitle_dtInsert}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_dtUpdate}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.dtUpdate}" title="#{bundle.ViewTipoLancamentoTitle_dtUpdate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inPcValor}"/>
-                        <h:outputText value="#{tipoLancamentoController.selected.inPcValor}" title="#{bundle.ViewTipoLancamentoTitle_inPcValor}"/>
+                        <h:outputText value="Percentual" title="#{bundle.ViewTipoLancamentoTitle_inPcValor}" rendered="#{tipoLancamentoController.selected.inPcValor == 'P'}"/>
+                        <h:outputText value="Valor" title="#{bundle.ViewTipoLancamentoTitle_inPcValor}" rendered="#{tipoLancamentoController.selected.inPcValor == 'V'}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inAplicacaoRegra}"/>
-                        <h:outputText value="#{tipoLancamentoController.selected.inAplicacaoRegra}" title="#{bundle.ViewTipoLancamentoTitle_inAplicacaoRegra}"/>
+                        <h:outputText value="Regra aplicada para cada bilhete emitido" rendered="#{tipoLancamentoController.selected.inAplicacaoRegra == 'B'}"/>
+                        <h:outputText value="Regra aplicada para cada apresentacao" rendered="#{tipoLancamentoController.selected.inAplicacaoRegra == 'A'}"/>
+                        <h:outputText value="Regra aplicada por mês fechado 30 dias a partir da data de inicio de vigencia" rendered="#{tipoLancamentoController.selected.inAplicacaoRegra == 'M'}"/>
+                        <h:outputText value="Regra aplicada por pedido de venda" rendered="#{tipoLancamentoController.selected.inAplicacaoRegra == 'P'}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inValidoBordero}"/>
                         <h:outputText value="Ativo" rendered="#{tipoLancamentoController.selected.inValidoBordero eq true}" />
                         <h:outputText value="Inativo" rendered="#{tipoLancamentoController.selected.inValidoBordero eq false}" />
@@ -36,9 +40,10 @@
                         <h:outputText value="Ativo" rendered="#{tipoLancamentoController.selected.inValidoExtrato eq true}" />
                         <h:outputText value="Inativo" rendered="#{tipoLancamentoController.selected.inValidoExtrato eq false}" />
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inAcrescentaSubstrai}"/>
-                        <h:outputText value="#{tipoLancamentoController.selected.inAcrescentaSubstrai}" title="#{bundle.ViewTipoLancamentoTitle_inAcrescentaSubstrai}"/>
+                        <h:outputText value="Acrescenta" title="#{bundle.ViewTipoLancamentoTitle_inAcrescentaSubstrai}" rendered="#{tipoLancamentoController.selected.inAcrescentaSubstrai == 'A'}"/>
+                        <h:outputText value="Subtrai" title="#{bundle.ViewTipoLancamentoTitle_inAcrescentaSubstrai}" rendered="#{tipoLancamentoController.selected.inAcrescentaSubstrai == 'S'}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_idFormaPagamento}"/>
-                        <h:outputText value="#{tipoLancamentoController.selected.idFormaPagamento}" title="#{bundle.ViewTipoLancamentoTitle_idFormaPagamento}"/>
+                        <h:outputText value="#{tipoLancamentoController.selected.idFormaPagamento.dsFormaPagamento}" title="#{bundle.ViewTipoLancamentoTitle_idFormaPagamento}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_idCanalVenda}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.idCanalVenda.dsCanalVenda}" title="#{bundle.ViewTipoLancamentoTitle_idCanalVenda}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_idContaContabilDeb}"/>

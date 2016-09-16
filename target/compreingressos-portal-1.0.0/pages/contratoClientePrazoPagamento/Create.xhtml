@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContratoClientePrazoPagamentoCreateDlg" widgetVar="ContratoClientePrazoPagamentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleNv.CreateContratoClientePrazoPagamentoTitle}">
+            <h:form id="ContratoClientePrazoPagamentoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contratoClientePrazoPagamentoController.selected != null}">
+                        <p:outputLabel value="#{bundleNv.CreateContratoClientePrazoPagamentoLabel_idContratoClientePrazoPagamento}" for="idContratoClientePrazoPagamento" />
+                        <p:inputText id="idContratoClientePrazoPagamento" value="#{contratoClientePrazoPagamentoController.selected.idContratoClientePrazoPagamento}" title="#{bundleNv.CreateContratoClientePrazoPagamentoTitle_idContratoClientePrazoPagamento}" required="true" requiredMessage="#{bundleNv.CreateContratoClientePrazoPagamentoRequiredMessage_idContratoClientePrazoPagamento}"/>
+                        <p:outputLabel value="#{bundleNv.CreateContratoClientePrazoPagamentoLabel_idContratoCliente}" for="idContratoCliente" />
+                        <p:selectOneMenu id="idContratoCliente" value="#{contratoClientePrazoPagamentoController.selected.idContratoCliente}" required="true" requiredMessage="#{bundleNv.EditContratoClientePrazoPagamentoRequiredMessage_idContratoCliente}">
+                            <f:selectItems value="#{contratoClienteController.itemsAvailableSelectOne}"
+                                           var="idContratoClienteItem"
+                                           itemValue="#{idContratoClienteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundleNv.CreateContratoClientePrazoPagamentoLabel_idFormaPagamento}" for="idFormaPagamento" />
+                        <p:selectOneMenu id="idFormaPagamento" value="#{contratoClientePrazoPagamentoController.selected.idFormaPagamento}" >
+                            <f:selectItems value="#{formaPagamentoController.itemsAvailableSelectOne}"
+                                           var="idFormaPagamentoItem"
+                                           itemValue="#{idFormaPagamentoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundleNv.CreateContratoClientePrazoPagamentoLabel_idPrazoPagamento}" for="idPrazoPagamento" />
+                        <p:selectOneMenu id="idPrazoPagamento" value="#{contratoClientePrazoPagamentoController.selected.idPrazoPagamento}" required="true" requiredMessage="#{bundleNv.EditContratoClientePrazoPagamentoRequiredMessage_idPrazoPagamento}">
+                            <f:selectItems value="#{prazoPagamentoController.itemsAvailableSelectOne}"
+                                           var="idPrazoPagamentoItem"
+                                           itemValue="#{idPrazoPagamentoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contratoClientePrazoPagamentoController.create}" value="#{bundleNv.Save}" update="display,:ContratoClientePrazoPagamentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContratoClientePrazoPagamentoCreateDialog');"/>
+                    <p:commandButton value="#{bundleNv.Cancel}" onclick="PF('ContratoClientePrazoPagamentoCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

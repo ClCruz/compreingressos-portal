@@ -1,14 +1,17 @@
 package br.com.intuiti.compreingressos.portal.model;
 
+import br.com.intuiti.compreingressos.portal.model.ContratoCliente;
 import javax.annotation.Generated;
+import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-08-31T11:44:52")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-09-16T11:05:10")
 @StaticMetamodel(ModalidadeContrato.class)
 public class ModalidadeContrato_ { 
 
     public static volatile SingularAttribute<ModalidadeContrato, String> dsModalidadeContrato;
     public static volatile SingularAttribute<ModalidadeContrato, Integer> idModalidadeContrato;
+    public static volatile CollectionAttribute<ModalidadeContrato, ContratoCliente> contratoClienteCollection;
 
 }

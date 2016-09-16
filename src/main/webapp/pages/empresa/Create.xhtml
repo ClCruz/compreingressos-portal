@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateEmpresaLabel_dsEmpresa}" for="dsEmpresa" />
                         <p:inputText id="dsEmpresa" value="#{empresaController.selected.dsEmpresa}" title="#{bundle.CreateEmpresaTitle_dsEmpresa}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_dsEmpresa}"/>
                         <p:outputLabel value="#{bundle.CreateEmpresaLabel_inAtivo}" for="inAtivo" />
-                        <p:selectOneMenu id="inAtivo" value="#{empresaController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_inAtivo}">
+                        <p:selectOneMenu id="inAtivo" value="true" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_inAtivo}">
                             <f:selectItem itemValue="true" itemLabel="Ativo" />
                             <f:selectItem itemValue="false" itemLabel="Inativo" />
                         </p:selectOneMenu>

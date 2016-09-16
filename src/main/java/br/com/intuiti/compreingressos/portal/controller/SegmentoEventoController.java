@@ -4,6 +4,7 @@ import br.com.intuiti.compreingressos.portal.model.SegmentoEvento;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade;
+import br.com.intuiti.compreingressos.portal.model.Usuario;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,15 +13,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("segmentoEventoController")
-@SessionScoped
+@ManagedBean(name = "segmentoEventoController")
+@ViewScoped
 public class SegmentoEventoController implements Serializable {
 
     @EJB
@@ -86,6 +87,7 @@ public class SegmentoEventoController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    selected.setIdUsuario(new Usuario(555));
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);

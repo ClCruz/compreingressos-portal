@@ -82,8 +82,9 @@ public class TipoLancamento implements Serializable {
     @Size(max = 20)
     @Column(name = "in_acrescenta_substrai")
     private String inAcrescentaSubstrai;
-    @Column(name = "id_forma_pagamento")
-    private Integer idFormaPagamento;
+    @JoinColumn(name = "id_forma_pagamento", referencedColumnName = "id_forma_pagamento")
+    @ManyToOne
+    private FormaPagamento idFormaPagamento;
     @JoinColumn(name = "id_canal_venda", referencedColumnName = "id_canal_venda")
     @ManyToOne
     private CanalVenda idCanalVenda;
@@ -189,11 +190,11 @@ public class TipoLancamento implements Serializable {
         this.inAcrescentaSubstrai = inAcrescentaSubstrai;
     }
 
-    public Integer getIdFormaPagamento() {
+    public FormaPagamento getIdFormaPagamento() {
         return idFormaPagamento;
     }
 
-    public void setIdFormaPagamento(Integer idFormaPagamento) {
+    public void setIdFormaPagamento(FormaPagamento idFormaPagamento) {
         this.idFormaPagamento = idFormaPagamento;
     }
 

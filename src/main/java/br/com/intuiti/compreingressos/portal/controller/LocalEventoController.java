@@ -4,9 +4,9 @@ import br.com.intuiti.compreingressos.portal.model.LocalEvento;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade;
-import br.com.intuiti.compreingressos.portal.lazy.localEventoLazy;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,17 +15,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import static org.primefaces.model.SortOrder.UNSORTED;
 
-@Named("localEventoController")
-@SessionScoped
+@ManagedBean(name = "localEventoController")
+@ViewScoped
 public class LocalEventoController extends LazyDataModel<LocalEvento> implements Serializable {
 
     @EJB
@@ -82,7 +85,7 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 
     public LazyDataModel<LocalEvento> getItems() {
         if (items == null) {
-            items = new localEventoLazy(getFacade().findLazy(0, 10, null, UNSORTED, filtros ));
+            items = new localEventoLazy(getFacade().findAll(0, 10, null, UNSORTED, filtros ));
         }
         return items;
     }
@@ -126,7 +129,52 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
     public List<LocalEvento> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+    
+    public List<LocalEvento> getItemsAvailableSelectOneOrderBy(){
+        return getFacade().findAllOrderByDs();
+    }
 
+    public class localEventoLazy extends LazyDataModel<LocalEvento> {
+    private List<LocalEvento> localEvento = null;
+
+    public localEventoLazy(List<LocalEvento> localEvento) {
+        this.localEvento = localEvento;
+    }
+
+    @Override
+    public List<LocalEvento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        localEvento = new ArrayList<>();
+        try{
+            Context ctx = new javax.naming.InitialContext();
+            LocalEventoFacade localFacade = (LocalEventoFacade) ctx.lookup("java:global/compreingressos-portal/LocalEventoFacade!br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade");
+            localEvento = localFacade.findLazy(first, pageSize, sortField, sortOrder, filters);
+            setRowCount(localFacade.countLocal(first, pageSize, sortField, sortOrder, filters));
+            setPageSize(pageSize);
+        } catch(NamingException ex){
+            Logger.getLogger(LocalEvento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return localEvento;
+    }
+    
+    @Override
+    public LocalEvento getRowData(String rowKey) {
+        Integer id = Integer.valueOf(rowKey);
+        for (LocalEvento local : localEvento) {
+            if (id.equals(local.getIdLocalEvento())){
+                return local;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Object getRowKey(LocalEvento lcl) {
+        return lcl.getIdLocalEvento();
+    }
+    
+    
+}
+    
     @FacesConverter(forClass = LocalEvento.class)
     public static class LocalEventoControllerConverter implements Converter {
 

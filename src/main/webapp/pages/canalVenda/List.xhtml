@@ -15,7 +15,8 @@
                                      rowsPerPageTemplate="5,10,20,30,40,50" paginatorPosition="bottom"
                                      emptyMessage="Nenhum canal de venda encontrado" reflow="true">
                             
-                            <p:ajax event="rowSelect" update="createButton viewButton editButton deleteButton" />
+                            <p:ajax event="rowSelect" update="createButton editButton deleteButton" />
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton" />
                             <f:facet name="header">
                                 #{bundle.ListCanalVendaTitle}
                             </f:facet>
@@ -27,9 +28,9 @@
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{canalVendaController.prepareCreate}" update=":CanalVendaCreateForm" oncomplete="PF('CanalVendaCreateDialog').show()"/>
-                                <p:commandButton id="viewButton" icon="fa fa-search" value="#{bundle.View}" update=":viewCanal" oncomplete="PF('canalDialog').show()" disabled="#{empty canalVendaController.selected}" />
                                 <p:commandButton id="editButton" icon="fa fa-edit" value="#{bundle.Edit}" update=":CanalVendaEditForm" disabled="#{empty canalVendaController.selected}" oncomplete="PF('CanalVendaEditDialog').show()"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash" value="#{bundle.Delete}" actionListener="#{canalVendaController.destroy}" update="growl, datalist" disabled="#{empty canalVendaController.selected}" />
+                                <!--<p:commandButton id="viewButton" icon="fa fa-search" value="#{bundle.View}" update=":viewCanal" oncomplete="PF('canalDialog').show()" disabled="#{empty canalVendaController.selected}" />-->
                             </f:facet>
                         </p:dataTable>
                     </h:form>
@@ -39,7 +40,7 @@
         
         <ui:include src="Edit.xhtml" />
         <ui:include src="Create.xhtml" />
-        <ui:include src="View.xhtml" />
+        <!--<ui:include src="View.xhtml" />-->
     </ui:define>
 
 </ui:composition>

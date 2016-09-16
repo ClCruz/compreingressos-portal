@@ -4,9 +4,9 @@ import br.com.intuiti.compreingressos.portal.model.Usuario;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.bean.UsuarioFacade;
-import br.com.intuiti.compreingressos.portal.lazy.UsuarioLazyModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,17 +15,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import static org.primefaces.model.SortOrder.UNSORTED;
 
-@Named("usuarioController")
-@SessionScoped
+@ManagedBean(name = "usuarioController")
+@ViewScoped
 public class UsuarioController extends LazyDataModel<Usuario> implements Serializable {
 
     @EJB
@@ -82,7 +85,7 @@ public class UsuarioController extends LazyDataModel<Usuario> implements Seriali
 
     public LazyDataModel<Usuario> getItems() {
         if (items == null) {
-            items = new UsuarioLazyModel(getFacade().findLazy(0, 10, null, UNSORTED, filtros));
+            items = new UsuarioLazyModel(getFacade().findAll(0, 10, null, UNSORTED, filtros));
         }
         return items;
     }
@@ -125,6 +128,49 @@ public class UsuarioController extends LazyDataModel<Usuario> implements Seriali
 
     public List<Usuario> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public class UsuarioLazyModel extends LazyDataModel<Usuario> {
+
+        private List<Usuario> usuarios = null;
+
+        public UsuarioLazyModel() {
+        }
+
+        public UsuarioLazyModel(List<Usuario> usuarios) {
+            this.usuarios = usuarios;
+        }
+
+        @Override
+        public Usuario getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Usuario user : usuarios) {
+                if (id.equals(user.getIdUsuario())) {
+                    return user;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(Usuario usr) {
+            return usr.getIdUsuario();
+        }
+
+        @Override
+        public List<Usuario> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+            usuarios = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                UsuarioFacade usuarioFacade = (UsuarioFacade) ctx.lookup("java:global/compreingressos-portal/UsuarioFacade!br.com.intuiti.compreingressos.portal.bean.UsuarioFacade");
+                usuarios = usuarioFacade.findLazy(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(usuarioFacade.countUsuarios(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return usuarios;
+        }
     }
 
     @FacesConverter(forClass = Usuario.class)

@@ -17,7 +17,7 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_dsNome}" for="dsNome" />
                         <p:inputText id="dsNome" value="#{usuarioController.selected.dsNome}" title="#{bundle.CreateUsuarioTitle_dsNome}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_dsNome}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_cdPww}" for="cdPww" />
-                        <p:inputText id="cdPww" value="#{usuarioController.selected.cdPww}" title="#{bundle.CreateUsuarioTitle_cdPww}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cdPww}"/>
+                        <p:password id="cdPww" value="#{usuarioController.selected.cdPww}" feedback="true" inline="true" promptLabel="Digite uma senha" weakLabel="Fraco" goodLabel="Boa" strongLabel="Segura" title="#{bundle.CreateUsuarioTitle_cdPww}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cdPww}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_dsEmail}" for="dsEmail" />
                         <p:inputText id="dsEmail" value="#{usuarioController.selected.dsEmail}" title="#{bundle.CreateUsuarioTitle_dsEmail}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_dsEmail}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_inAtivo}" for="inAtivo" />

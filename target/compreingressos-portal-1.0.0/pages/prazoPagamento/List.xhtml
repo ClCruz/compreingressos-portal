@@ -22,8 +22,8 @@
                             <f:facet name="header">
                                 #{bundle.ListPrazoPagamentoTitle}
                             </f:facet>
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
                             <p:column sortBy="#{item.dsPrazoPagamento}" filterBy="#{item.dsPrazoPagamento}" filterMatchMode="contains"
                                       headerText="#{bundle.ListPrazoPagamentoTitle_dsPrazoPagamento}"
                                       filterStyle="width:50%">
@@ -62,7 +62,6 @@
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{prazoPagamentoController.prepareCreate}" update=":PrazoPagamentoCreateForm" oncomplete="PF('PrazoPagamentoCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":PrazoPagamentoViewForm" oncomplete="PF('PrazoPagamentoViewDialog').show()" disabled="#{empty prazoPagamentoController.selected}"/>
                                 <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":PrazoPagamentoEditForm" oncomplete="PF('PrazoPagamentoEditDialog').show()" disabled="#{empty prazoPagamentoController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{prazoPagamentoController.destroy}" update=":growl,datalist" disabled="#{empty prazoPagamentoController.selected}"/>
                             </f:facet>
@@ -73,6 +72,5 @@
         </div>
         <ui:include src="Create.xhtml"/>
         <ui:include src="Edit.xhtml"/>
-        <ui:include src="View.xhtml"/>
     </ui:define>
 </ui:composition>

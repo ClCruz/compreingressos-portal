@@ -7,6 +7,7 @@ package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +27,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.validator.constraints.Range;
 
 /**
@@ -72,12 +75,14 @@ import org.hibernate.validator.constraints.Range;
     @NamedQuery(name = "Contratante.findByCdCpfCnpjTitularConta", query = "SELECT c FROM Contratante c WHERE c.cdCpfCnpjTitularConta = :cdCpfCnpjTitularConta")})
 public class Contratante implements Serializable {
 
+    @OneToMany(mappedBy = "idContratante")
+    private Collection<ContratoCliente> contratoClienteCollection;
+
     private static final long serialVersionUID = 1L;
     @Size(max = 150, message = "O campo Razão Social deve ter no máximo 150 caracteres")
     @NotNull
     @Column(name = "nm_razao_social")
     private String nmRazaoSocial;
-    @Range(min = 11, max = 14, message = "O campo CPF/CNPJ deve conter entre 11 e 14 caracteres.")
     @Column(name = "cd_cnpj_cpf")
     private BigInteger cdCnpjCpf;
     @Size(max = 8, message = "O campo CEP deve ter no máximo 8 caracteres")
@@ -539,6 +544,15 @@ public class Contratante implements Serializable {
     @Override
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.Contratante[ idContratante=" + idContratante + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ContratoCliente> getContratoClienteCollection() {
+        return contratoClienteCollection;
+    }
+
+    public void setContratoClienteCollection(Collection<ContratoCliente> contratoClienteCollection) {
+        this.contratoClienteCollection = contratoClienteCollection;
     }
     
 }

@@ -23,6 +23,7 @@
                                            itemLabel="#{idEstadoItem.dsEstado}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:separator />
                     <p:commandButton actionListener="#{municipioController.update}" value="#{bundle.Save}" update="display,:MunicipioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MunicipioEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('MunicipioEditDialog').hide()"/>
                 </h:panelGroup>

@@ -15,12 +15,13 @@
                         <p:outputLabel value="#{bundle.CreateFormaPagamentoLabel_dsFormaPagamento}" for="dsFormaPagamento" />
                         <p:inputText id="dsFormaPagamento" value="#{formaPagamentoController.selected.dsFormaPagamento}" title="#{bundle.CreateFormaPagamentoTitle_dsFormaPagamento}" required="true" requiredMessage="#{bundle.CreateFormaPagamentoRequiredMessage_dsFormaPagamento}"/>
                         <p:outputLabel value="#{bundle.CreateFormaPagamentoLabel_inAtivo}" for="inAtivo" />
-                        <p:selectOneMenu id="inAtivo" value="#{formaPagamentoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditFormaPagamentoRequiredMessage_inAtivo}" >
+                        <p:selectOneMenu id="inAtivo" value="true" required="true" requiredMessage="#{bundle.EditFormaPagamentoRequiredMessage_inAtivo}" >
                             <f:selectItem itemLabel="Ativo" itemValue="true" />
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateFormaPagamentoLabel_inTipoMeioPagamento}" for="inTipoMeioPagamento" />
-                        <p:selectOneMenu id="inTipoMeioPagamento" value="#{formaPagamentoController.selected.inTipoMeioPagamento}" >
+                        <p:selectOneMenu id="inTipoMeioPagamento" value="#{formaPagamentoController.selected.inTipoMeioPagamento}" required="true" requiredMessage="Você deve selecionar um Tipo de meio de pagamento" >
+                            <f:selectItem itemValue="#{null}" itemLabel="Selecione..." />
                             <f:selectItems value="#{tipoMeioPagamentoController.itemsAvailableSelectOne}"
                                            var="inTipoMeioPagamentoItem"
                                            itemValue="#{inTipoMeioPagamentoItem}"

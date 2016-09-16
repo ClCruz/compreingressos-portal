@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{prazoPagamentoController.selected != null}">
                         <p:outputLabel value="#{bundle.EditPrazoPagamentoLabel_dsPrazoPagamento}" for="dsPrazoPagamento" />
-                        <p:inputText id="dsPrazoPagamento" value="#{prazoPagamentoController.selected.dsPrazoPagamento}" title="#{bundle.EditPrazoPagamentoTitle_dsPrazoPagamento}" />
+                        <p:inputText id="dsPrazoPagamento" value="#{prazoPagamentoController.selected.dsPrazoPagamento}" title="#{bundle.EditPrazoPagamentoTitle_dsPrazoPagamento}"  required="true" requiredMessage="#{bundle.CreatePrazoPagamentoRequiredMessage_dsPrazoPagamento}"/>
                         <p:outputLabel value="#{bundle.EditPrazoPagamentoLabel_inDiaSemana}" for="inDiaSemana" />
                         <p:selectOneMenu id="inDiaSemana" value="#{prazoPagamentoController.selected.inDiaSemana}" style="width:150px">
                             <f:selectItem itemLabel="Qualquer dia da semana" itemValue="0" noSelectionOption="true" />
@@ -24,9 +24,9 @@
                             <f:selectItem itemLabel="Sexta" itemValue="5" noSelectionOption="true" />
                         </p:selectOneMenu> 
                         <p:outputLabel value="#{bundle.EditPrazoPagamentoLabel_qtDiasPrazo}" for="qtDiasPrazo" />
-                        <p:inputText id="qtDiasPrazo" value="#{prazoPagamentoController.selected.qtDiasPrazo}" title="#{bundle.EditPrazoPagamentoTitle_qtDiasPrazo}" required="true" requiredMessage="#{bundle.EditPrazoPagamentoRequiredMessage_qtDiasPrazo}"/>
+                        <p:inputNumber id="qtDiasPrazo" value="#{prazoPagamentoController.selected.qtDiasPrazo}" title="#{bundle.EditPrazoPagamentoTitle_qtDiasPrazo}" required="true" requiredMessage="#{bundle.EditPrazoPagamentoRequiredMessage_qtDiasPrazo}"/>
                         <p:outputLabel value="#{bundle.EditPrazoPagamentoLabel_dsDiasFixos}" for="dsDiasFixos" />
-                        <p:inputText id="dsDiasFixos" value="#{prazoPagamentoController.selected.dsDiasFixos}" title="#{bundle.EditPrazoPagamentoTitle_dsDiasFixos}" />
+                        <p:inputNumber id="dsDiasFixos" value="#{prazoPagamentoController.selected.dsDiasFixos}" title="#{bundle.EditPrazoPagamentoTitle_dsDiasFixos}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{prazoPagamentoController.update}" value="#{bundle.Save}" update="display,:PrazoPagamentoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PrazoPagamentoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('PrazoPagamentoEditDialog').hide()"/>

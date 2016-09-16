@@ -16,10 +16,19 @@
                                      widgetVar="contabilTable" paginatorPosition="bottom"
                                      rowsPerPageTemplate="5,10,20,30,40,50" emptyMessage="Nenhum registro encontrado" reflow="true"
                                      >
-                            <p:ajax event="rowSelect" update="createButton viewButton editButton deleteButton" />
+                            <p:ajax event="rowSelect" update="createButton editButton deleteButton" />
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton" />
+                            
                             <f:facet name="header">
                                 #{bundle.ListContaContabilTitle}
                             </f:facet>
+                            <p:column headerText="#{bundle.ListContaContabilTitle_nrContaContabil}"
+                                      sortBy="#{item.nrContaContabil}"
+                                      filterBy="#{item.nrContaContabil}" 
+                                      filterMatchMode="contains" 
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.nrContaContabil}" />
+                            </p:column>
                             <p:column headerText="#{bundle.ListContaContabilTitle_dsContaContabil}"
                                       sortBy="#{item.dsContaContabil}"
                                       filterBy="#{item.dsContaContabil}"
@@ -41,18 +50,12 @@
                                 <h:outputText value="Inativo" rendered="#{item.inAtivo == false}" />
                                 <h:outputText value="Ativo" rendered="#{item.inAtivo == true}" />
                             </p:column>
-                            <p:column headerText="#{bundle.ListContaContabilTitle_nrContaContabil}"
-                                      sortBy="#{item.nrContaContabil}"
-                                      filterBy="#{item.nrContaContabil}" 
-                                      filterMatchMode="contains" 
-                                      filterStyle="width:50%">
-                                <h:outputText value="#{item.nrContaContabil}" />
-                            </p:column>
+
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus" value="#{bundle.Create}" actionListener="#{contaContabilController.prepareCreate}" update=":ContaContabilCreateForm" oncomplete="PF('ContaContabilCreateDialog').show()"/>
-                                <p:commandButton id="viewButton" icon="fa fa-search" value="#{bundle.View}" update=":ContaContabilViewDialog" oncomplete="PF('ContaContabilViewDialog').show()" disabled='#{empty contaContabilController.selected}'/>
                                 <p:commandButton id='editButton' icon="fa fa-edit" value="#{bundle.Edit}" update=":ContaContabilEditForm" oncomplete="PF('ContaContabilEditDialog').show()" disabled='#{empty contaContabilController.selected}' />
                                 <p:commandButton id='deleteButton' icon='fa fa-trash' value="#{bundle.Delete}" actionListener="#{contaContabilController.destroy}" update='growl, datalist' disabled="#{empty contaContabilController.selected}" />
+                                                                <!--<p:commandButton id="viewButton" icon="fa fa-search" value="#{bundle.View}" update=":ContaContabilViewDialog" oncomplete="PF('ContaContabilViewDialog').show()" disabled='#{empty contaContabilController.selected}'/>-->
                             </f:facet>
                         </p:dataTable>
                     </h:form>
@@ -60,7 +63,6 @@
             </div>
         </div>
         <ui:include src="Create.xhtml" />
-        <ui:include src='View.xhtml' />
         <ui:include src='Edit.xhtml' />
     </ui:define>
 </ui:composition>

@@ -48,7 +48,7 @@
   color: #ffffff;
 }
 .ui-inputfield.ui-state-focus {
-  border-bottom: solid 1px #0276aa !important;
+  border-bottom: solid 1px #7F0014 !important;
 }
 /* Interaction states
 ----------------------------------*/
@@ -2280,8 +2280,8 @@ hr.ui-widget-header {
 .ui-treetable table tbody tr td .ui-chkbox-box .ui-icon-check {
   width: 5px;
   height: 9px;
-  border-bottom: solid 2px #26c6da;
-  border-right: solid 2px #26c6da;
+  border-bottom: solid 2px #CD1330;
+  border-right: solid 2px #CD1330;
   margin-top: -5px;
 }
 .ui-treetable table tbody tr td .ui-chkbox-box .ui-icon-minus {
@@ -3136,7 +3136,10 @@ hr.ui-widget-header {
   background-color: #ffffff;
   color: #546e7a;
   min-width:450px;
+  max-height: 90%!important;
+  margin-bottom: 20px;
   border-radius: 2px;
+  overflow-y: scroll!important;
 }
 .ui-dialog .ui-dialog-titlebar {
   padding: 10px 20px !important;
@@ -3432,9 +3435,9 @@ hr.ui-widget-header {
 }
 .ui-button {
   outline: none;
-  border-radius: 2px !important;
-  -webkit-border-radius: 2px !important;
-  -moz-border-radius: 2px !important;
+  border-radius: 4px !important;
+  -webkit-border-radius: 4px !important;
+  -moz-border-radius: 4px !important;
   font-size: 14px;
   font-family: 'roboto_condensedregular';
   color: #ffffff;
@@ -3464,9 +3467,9 @@ hr.ui-widget-header {
 .ui-button-icon-only {
   min-width: 39px !important;
   max-width: 39px !important;
-  border-radius: 30px !important;
-  -webkit-border-radius: 30px !important;
-  -moz-border-radius: 30px !important;
+  border-radius: 4px !important;
+  -webkit-border-radius: 4px !important;
+  -moz-border-radius: 4px !important;
 }
 .ui-button-icon-only .ui-icon {
   font-size: 16px !important;
@@ -3476,9 +3479,9 @@ hr.ui-widget-header {
 }
 .ui-button.ui-button-icon-only .ui-button-text {
   padding: 10px 0px !important;
-  border-radius: 30px !important;
-  -webkit-border-radius: 30px !important;
-  -moz-border-radius: 30px !important;
+  border-radius: 2px !important;
+  -webkit-border-radius: 2px !important;
+  -moz-border-radius: 2px !important;
 }
 .ui-datepicker-trigger,
 .ui-datepicker-trigger.ui-button-icon-only .ui-button-text {
@@ -4466,8 +4469,8 @@ hr.ui-widget-header {
   position: relative;
   background-position: center;
   background-color: transparent;
-  border-bottom: solid 3px #26c6da;
-  border-right: solid 3px #26c6da;
+  border-bottom: solid 3px #CD1330;
+  border-right: solid 3px #CD1330;
   width: 5px;
   height: 10px;
   margin-left: 4px;
@@ -4507,7 +4510,7 @@ hr.ui-widget-header {
 }
 .ui-radiobutton .ui-state-hover,
 .ui-radiobutton .ui-state-active {
-  border: solid 2px #26c6da;
+  border: solid 2px #CD1330;
 }
 .ui-radiobutton .ui-state-focus {
   outline: dotted 1px #778d9b;
@@ -4613,11 +4616,11 @@ hr.ui-widget-header {
 }
 /*Style For Input Switch --------------------------------------------------------------------------------------*/
 .ui-inputswitch {
-  border: solid 1px #1e88e5;
+  border: solid 1px #CD1330;
   padding: 2px !important;
   color: #778d9b;
   font-size: 16px;
-  background-color: #1e88e5;
+  background-color: #CD1330;
   font-family: 'roboto_condensedregular';
   height: 28px !important;
   border-bottom-right-radius: 30px;
@@ -4779,7 +4782,7 @@ hr.ui-widget-header {
 }
 /*Style For Slider --------------------------------------------------------------------------------------*/
 .ui-slider {
-  background-color: #1e88e5;
+  background-color: #CD1330;
   color: #778d9b;
 }
 .ui-slider-horizontal {
@@ -5003,8 +5006,8 @@ hr.ui-widget-header {
   text-align: center !important;
 }
 .ui-datepicker-calendar tbody tr td:hover {
-  background-color: #26a69a;
-  border: solid 1px #26a69a;
+  background-color: #CD1330;
+  border: solid 1px #7F0014;
 }
 .ui-datepicker-calendar tbody tr td:hover a {
   -webkit-transition: all 0.2s ease;
@@ -5026,8 +5029,8 @@ hr.ui-widget-header {
   color: #26a69a !important;
 }
 .ui-datepicker-calendar tbody tr .ui-datepicker-current-day {
-  background-color: #26a69a;
-  border: solid 1px #26a69a;
+  background-color: black;
+  border: solid 1px black;
 }
 .ui-datepicker-calendar tbody tr .ui-datepicker-current-day a {
   color: #f6fafc !important;

@@ -8,14 +8,7 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
-        <resource-bundle>
-            <base-name>/BundleBanco</base-name>
-            <var>bundleBanco</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/BundleCon</base-name>
-            <var>bundleCon</var>
-        </resource-bundle>
+
     </application>
     <component>
         <component-type>org.primefaces.component.RioMenu</component-type>
@@ -29,4 +22,9 @@
             <renderer-class>org.primefaces.rio.component.menu.RioMenuRenderer</renderer-class>
         </renderer>
     </render-kit>
+    <managed-bean>
+        <managed-bean-name>currentDate</managed-bean-name>
+        <managed-bean-class>java.util.Date</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

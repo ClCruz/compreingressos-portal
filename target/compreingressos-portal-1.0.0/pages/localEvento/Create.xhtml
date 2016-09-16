@@ -37,14 +37,6 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_cdUrlSite}" for="cdUrlSite" />
                         <p:inputText id="cdUrlSite" value="#{localEventoController.selected.cdUrlSite}" title="#{bundle.CreateLocalEventoTitle_cdUrlSite}" />
-                        
-                        <p:outputLabel value="Estado" for="estado" />
-                        <p:selectOneMenu id="estado" value="" required="true" requiredMessage="O campo 'Estado' é obrigatório" >
-                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
-                                           var="idEstadoSelecionado"
-                                           itemValue="#{idEstadoSelecionado}"
-                                           itemLabel="#{idEstadoSelecionado.dsEstado}" />
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateLocalEventoLabel_idTipoLocal}" for="idTipoLocal" />
                         <p:selectOneMenu id="idTipoLocal" value="#{localEventoController.selected.idTipoLocal}" required="true" requiredMessage="#{bundle.EditLocalEventoRequiredMessage_idTipoLocal}">
                             <f:selectItems value="#{tipoLocalController.itemsAvailableSelectOne}"

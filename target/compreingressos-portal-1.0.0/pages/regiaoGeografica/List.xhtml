@@ -19,8 +19,8 @@
                                      reflow="true"
                                      >
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
                             <f:facet name="header">
                                 #{bundle.ListRegiaoGeograficaTitle}
                             </f:facet>
@@ -41,9 +41,9 @@
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{regiaoGeograficaController.prepareCreate}" update=":RegiaoGeograficaCreateForm" oncomplete="PF('RegiaoGeograficaCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":RegiaoGeograficaViewForm" oncomplete="PF('RegiaoGeograficaViewDialog').show()" disabled="#{empty regiaoGeograficaController.selected}"/>
                                 <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":RegiaoGeograficaEditForm" oncomplete="PF('RegiaoGeograficaEditDialog').show()" disabled="#{empty regiaoGeograficaController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{regiaoGeograficaController.destroy}" update=":growl,datalist" disabled="#{empty regiaoGeograficaController.selected}"/>
+                                <!--<p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":RegiaoGeograficaViewForm" oncomplete="PF('RegiaoGeograficaViewDialog').show()" disabled="#{empty regiaoGeograficaController.selected}"/>-->
                             </f:facet>
                         </p:dataTable>
                     </h:form>
@@ -52,6 +52,5 @@
         </div>
         <ui:include src="Create.xhtml"/>
         <ui:include src="Edit.xhtml"/>
-        <ui:include src="View.xhtml"/>
     </ui:define>
 </ui:composition>

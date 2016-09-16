@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,12 +18,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "LocalEvento.findAll", query = "SELECT l FROM LocalEvento l"),
+    @NamedQuery(name = "LocalEvento.findAllOrderBy", query = "SELECT l FROM LocalEvento l ORDER BY l.dsLocalEvento"),
     @NamedQuery(name = "LocalEvento.findByIdLocalEvento", query = "SELECT l FROM LocalEvento l WHERE l.idLocalEvento = :idLocalEvento"),
     @NamedQuery(name = "LocalEvento.findByDsLocalEvento", query = "SELECT l FROM LocalEvento l WHERE l.dsLocalEvento = :dsLocalEvento"),
     @NamedQuery(name = "LocalEvento.findByDsEndereco", query = "SELECT l FROM LocalEvento l WHERE l.dsEndereco = :dsEndereco"),
@@ -46,6 +50,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "LocalEvento.findByInAtivo", query = "SELECT l FROM LocalEvento l WHERE l.inAtivo = :inAtivo"),
     @NamedQuery(name = "LocalEvento.findByCdUrlSite", query = "SELECT l FROM LocalEvento l WHERE l.cdUrlSite = :cdUrlSite")})
 public class LocalEvento implements Serializable {
+
+    @OneToMany(mappedBy = "idLocalEvento")
+    private Collection<Evento> eventoCollection;
+
+    @OneToMany(mappedBy = "idLocalEvento")
+    private Collection<ContratoCliente> contratoClienteCollection;
 
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -241,5 +251,23 @@ public class LocalEvento implements Serializable {
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.LocalEvento[ idLocalEvento=" + idLocalEvento + " ]";
     }
-    
+
+    @XmlTransient
+    public Collection<ContratoCliente> getContratoClienteCollection() {
+        return contratoClienteCollection;
+    }
+
+    public void setContratoClienteCollection(Collection<ContratoCliente> contratoClienteCollection) {
+        this.contratoClienteCollection = contratoClienteCollection;
+    }
+
+    @XmlTransient
+    public Collection<Evento> getEventoCollection() {
+        return eventoCollection;
+    }
+
+    public void setEventoCollection(Collection<Evento> eventoCollection) {
+        this.eventoCollection = eventoCollection;
+    }
+
 }

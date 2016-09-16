@@ -18,14 +18,15 @@
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      emptyMessage="#{bundle.ListBancoEmpty}"
                                      widgetVar="bancoTable"
+                                     reflow="true"
                                      >
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
+                            
                             <f:facet name="header">
                                 #{bundle.ListBancoTitle}
                             </f:facet>
-                            
                             
                             <p:column headerText="#{bundle.ListBancoTitle_cdBanco}" sortBy="#{item.cdBanco}"
                                       filterBy="#{item.cdBanco}" filterMatchMode="exact">
@@ -36,9 +37,10 @@
                                 <h:outputText value="#{item.nmBanco}"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListBancoTitle_inAtivo}" sortBy="#{item.inAtivo}"
-                                      filterBy="#{item.inAtivo}" filterMatchMode="exact">
+                                      filterBy="#{item.inAtivo}" filterMatchMode="equals">
                                 <f:facet name="filter" >
                                     <p:selectOneMenu onchange="PF('bancoTable').filter()">
+                                        <f:converter converterId="javax.faces.Boolean" />
                                         <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
                                         <f:selectItem itemLabel="Ativo" itemValue="true" />
                                         <f:selectItem itemLabel="Inativo" itemValue="false" />
@@ -49,7 +51,6 @@
                             </p:column> 
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{bancoController.prepareCreate}" update=":BancoCreateForm" oncomplete="PF('BancoCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":BancoViewForm" oncomplete="PF('BancoViewDialog').show()" disabled="#{empty bancoController.selected}"/>
                                 <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":BancoEditForm" oncomplete="PF('BancoEditDialog').show()" disabled="#{empty bancoController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{bancoController.destroy}" update=":growl,datalist" disabled="#{empty bancoController.selected}"/>
                             </f:facet>
@@ -60,7 +61,5 @@
         </div>
         <ui:include src="Edit.xhtml" />
         <ui:include src="Create.xhtml" />
-        <ui:include src="View.xhtml" />
     </ui:define>
-
 </ui:composition>

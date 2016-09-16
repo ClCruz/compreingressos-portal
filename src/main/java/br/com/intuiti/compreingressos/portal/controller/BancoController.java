@@ -4,35 +4,39 @@ import br.com.intuiti.compreingressos.portal.model.Banco;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.bean.BancoFacade;
-import br.com.intuiti.compreingressos.portal.lazy.BancoLazy;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ManagedBean;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-@Named("bancoController")
-@SessionScoped
-public class BancoController implements Serializable {
+@ManagedBean(name = "bancoController")
+@ViewScoped
+public class BancoController extends LazyDataModel<Banco> implements Serializable {
 
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.BancoFacade ejbFacade;
     private LazyDataModel<Banco> items = null;
     private Banco selected;
     private final Map<String, Object> filtros = new HashMap<>();
+    
+        
 
     public BancoController() {
     }
@@ -82,7 +86,7 @@ public class BancoController implements Serializable {
 
     public LazyDataModel<Banco> getItems() {
         if (items == null) {
-            items = new BancoLazy(getFacade().findLazy(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new BancoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -125,6 +129,47 @@ public class BancoController implements Serializable {
 
     public List<Banco> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public class BancoLazy extends LazyDataModel<Banco> {
+
+        private List<Banco> banco = null;
+
+        public BancoLazy(List<Banco> banco) {
+            this.banco = banco;
+        }
+
+        @Override
+        public List<Banco> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+            banco = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                BancoFacade bancoFacade = (BancoFacade) ctx.lookup("java:global/compreingressos-portal/BancoFacade!br.com.intuiti.compreingressos.portal.bean.BancoFacade");
+                banco = bancoFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(bancoFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                Logger.getLogger(Banco.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return banco;
+        }
+
+        @Override
+        public Banco getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Banco bank : banco) {
+                if (id.equals(bank.getIdBanco())) {
+                    return bank;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(Banco bnc) {
+            return bnc.getIdBanco();
+        }
+
     }
 
     @FacesConverter(forClass = Banco.class)

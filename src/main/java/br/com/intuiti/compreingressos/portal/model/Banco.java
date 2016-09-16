@@ -17,9 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -47,11 +45,11 @@ public class Banco implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_banco")
     private Integer idBanco;
-    @Size(max = 50, message = "O campo Nome deve conter até 50 caracteres.")
+    @Size(max = 50)
     @Column(name = "nm_banco")
     private String nmBanco;
     @NotNull
-    @Size(min = 1, max = 3, message = "O campo Código do Banco deve conter entre 1 e 3 caracteres")
+    @Size(min = 1, max = 3)
     @Column(name = "cd_banco")
     private String cdBanco;
     @Basic(optional = false)
