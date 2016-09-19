@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -46,7 +47,8 @@ public class ContratoClientePrazoPagamento implements Serializable {
     @JoinColumn(name = "id_prazo_pagamento", referencedColumnName = "id_prazo_pagamento")
     @ManyToOne(optional = false)
     private PrazoPagamento idPrazoPagamento;
-    
+    @Transient
+    private int codigoProvisorio;
 
     public ContratoClientePrazoPagamento() {
     }
@@ -66,6 +68,12 @@ public class ContratoClientePrazoPagamento implements Serializable {
 
     public ContratoClientePrazoPagamento(ContratoCliente id, PrazoPagamento idPrazoPagamento, FormaPagamento idFormaPagamento) {
         this.idContratoCliente = id;
+        this.idPrazoPagamento = idPrazoPagamento;
+        this.idFormaPagamento = idFormaPagamento;
+    }
+    
+    public ContratoClientePrazoPagamento(int codigoProvisorio, PrazoPagamento idPrazoPagamento, FormaPagamento idFormaPagamento) {
+        this.codigoProvisorio = codigoProvisorio;
         this.idPrazoPagamento = idPrazoPagamento;
         this.idFormaPagamento = idFormaPagamento;
     }
@@ -101,6 +109,15 @@ public class ContratoClientePrazoPagamento implements Serializable {
     public void setIdPrazoPagamento(PrazoPagamento idPrazoPagamento) {
         this.idPrazoPagamento = idPrazoPagamento;
     }
+    
+    public int getCodigoProvisorio() {
+        return codigoProvisorio;
+    }
+
+    public void setCodigoProvisorio(int codigoProvisorio) {
+        this.codigoProvisorio = codigoProvisorio;
+    }
+    
 
     @Override
     public int hashCode() {

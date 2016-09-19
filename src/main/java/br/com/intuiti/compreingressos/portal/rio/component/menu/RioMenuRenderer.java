@@ -1,4 +1,4 @@
-package org.primefaces.rio.component.menu;
+package br.com.intuiti.compreingressos.portal.rio.component.menu;
 
 import java.io.IOException;
 import java.util.ArrayList;

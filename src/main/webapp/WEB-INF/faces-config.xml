@@ -10,18 +10,18 @@
         </resource-bundle>
 
     </application>
-    <component>
-        <component-type>org.primefaces.component.RioMenu</component-type>
-        <component-class>org.primefaces.rio.component.menu.RioMenu</component-class>
-    </component>
+     <component> 
+         <component-type>org.primefaces.component.RioMenu</component-type> 
+         <component-class>org.primefaces.rio.component.menu.RioMenu</component-class> 
+     </component> 
     
-    <render-kit>
-        <renderer>
-            <component-family>org.primefaces.component</component-family>
-            <renderer-type>org.primefaces.component.RioMenuRenderer</renderer-type>
-            <renderer-class>org.primefaces.rio.component.menu.RioMenuRenderer</renderer-class>
-        </renderer>
-    </render-kit>
+     <render-kit> 
+         <renderer> 
+             <component-family>org.primefaces.component</component-family> 
+             <renderer-type>org.primefaces.component.RioMenuRenderer</renderer-type> 
+             <renderer-class>org.primefaces.rio.component.menu.RioMenuRenderer</renderer-class> 
+         </renderer> 
+     </render-kit> 
     <managed-bean>
         <managed-bean-name>currentDate</managed-bean-name>
         <managed-bean-class>java.util.Date</managed-bean-class>

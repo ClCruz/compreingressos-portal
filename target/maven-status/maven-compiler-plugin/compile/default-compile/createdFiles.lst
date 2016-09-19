@@ -3,6 +3,7 @@ br\com\intuiti\compreingressos\portal\bean\EmpresaFacade.class
 br\com\intuiti\compreingressos\portal\model\LocalEvento.class
 br\com\intuiti\compreingressos\portal\controller\PrazoPagamentoController$PrazoPagamentoControllerConverter.class
 br\com\intuiti\compreingressos\portal\model\Municipio.class
+br\com\intuiti\compreingressos\portal\rio\component\menu\RioMenuRenderer.class
 br\com\intuiti\compreingressos\portal\model\TipoContrato_.class
 br\com\intuiti\compreingressos\portal\controller\BancoController.class
 br\com\intuiti\compreingressos\portal\controller\MunicipioController.class
@@ -14,7 +15,6 @@ br\com\intuiti\compreingressos\portal\bean\TipoLocalFacade.class
 br\com\intuiti\compreingressos\portal\bean\ContratoClienteFacade.class
 br\com\intuiti\compreingressos\portal\controller\RegiaoGeograficaController.class
 br\com\intuiti\compreingressos\portal\controller\TipoLocalController.class
-org\primefaces\rio\component\menu\RioMenuRenderer.class
 br\com\intuiti\compreingressos\portal\model\ContratoCliente_.class
 br\com\intuiti\compreingressos\portal\model\GeneroEvento_.class
 br\com\intuiti\compreingressos\portal\controller\ModalidadeContratoController.class
@@ -62,17 +62,16 @@ br\com\intuiti\compreingressos\portal\model\Usuario.class
 br\com\intuiti\compreingressos\portal\model\Evento.class
 br\com\intuiti\compreingressos\portal\controller\ContaContabilController$ContaContabilControllerConverter.class
 br\com\intuiti\compreingressos\portal\controller\EmpresaController$EmpresaControllerConverter.class
-org\primefaces\rio\component\menu\RioMenu.class
 br\com\intuiti\compreingressos\portal\model\Base_.class
 br\com\intuiti\compreingressos\portal\bean\BaseFacade.class
 br\com\intuiti\compreingressos\portal\model\SegmentoEvento.class
 br\com\intuiti\compreingressos\portal\controller\EventoController.class
-org\primefaces\rio\component\menu\RioMenu$PropertyKeys.class
 br\com\intuiti\compreingressos\portal\bean\RegiaoGeograficaFacade.class
 br\com\intuiti\compreingressos\portal\controller\TipoContratoController.class
 br\com\intuiti\compreingressos\portal\controller\util\JsfUtil$PersistAction.class
 br\com\intuiti\compreingressos\portal\bean\ContratanteFacade.class
 br\com\intuiti\compreingressos\portal\bean\ContratoClientePrazoPagamentoFacade.class
+br\com\intuiti\compreingressos\portal\rio\component\menu\RioMenu.class
 br\com\intuiti\compreingressos\portal\controller\TipoLancamentoController.class
 br\com\intuiti\compreingressos\portal\bean\AbstractFacade.class
 br\com\intuiti\compreingressos\portal\controller\BancoController$BancoControllerConverter.class
@@ -99,6 +98,7 @@ br\com\intuiti\compreingressos\portal\model\Estado_.class
 br\com\intuiti\compreingressos\portal\model\ContratoCliente.class
 br\com\intuiti\compreingressos\portal\bean\ModalidadeContratoFacade.class
 br\com\intuiti\compreingressos\portal\model\TipoContrato.class
+br\com\intuiti\compreingressos\portal\rio\component\menu\RioMenu$PropertyKeys.class
 br\com\intuiti\compreingressos\portal\bean\LocalEventoFacade.class
 br\com\intuiti\compreingressos\portal\controller\EstadoController.class
 br\com\intuiti\compreingressos\portal\model\Banco_.class

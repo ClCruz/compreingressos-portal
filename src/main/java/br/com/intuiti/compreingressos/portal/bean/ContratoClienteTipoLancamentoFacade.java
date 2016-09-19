@@ -34,4 +34,8 @@ public class ContratoClienteTipoLancamentoFacade extends AbstractFacade<Contrato
     public ContratoClienteTipoLancamentoFacade() {
         super(ContratoClienteTipoLancamento.class);
     }
+    
+    public void delete(ContratoCliente id){
+        em.createQuery("delete from ContratoClienteTipoLancamento c WHERE c.idContratoCliente = :id").setParameter("id", id).executeUpdate();
+    }
 }

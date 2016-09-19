@@ -37,12 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Estado.findBySgEstado", query = "SELECT e FROM Estado e WHERE e.sgEstado = :sgEstado")})
 public class Estado implements Serializable {
 
-    @OneToMany(mappedBy = "idEstado")
-    private Collection<Cliente> clienteCollection;
-
-    @OneToMany(mappedBy = "idEstado")
-    
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -63,6 +57,8 @@ public class Estado implements Serializable {
     @JoinColumn(name = "id_regiao_geografica", referencedColumnName = "id_regiao_geografica")
     @ManyToOne(optional = false)
     private RegiaoGeografica idRegiaoGeografica;
+    @OneToMany(mappedBy = "idEstado")
+    private Collection<Cliente> clienteCollection;
 
     public Estado() {
     }

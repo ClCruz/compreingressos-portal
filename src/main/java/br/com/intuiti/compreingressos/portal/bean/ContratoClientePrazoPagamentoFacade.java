@@ -31,6 +31,10 @@ public class ContratoClientePrazoPagamentoFacade extends AbstractFacade<Contrato
         super(ContratoClientePrazoPagamento.class);
     }
     
+    public void delete(ContratoCliente id){
+        em.createQuery("delete from ContratoClientePrazoPagamento c WHERE c.idContratoCliente = :id").setParameter("id", id).executeUpdate();
+    }
+    
      public List<ContratoClientePrazoPagamento> findAll(ContratoCliente idContrato){
         return em.createNamedQuery("ContratoClientePrazoPagamento.findByIdContratoCliente", ContratoClientePrazoPagamento.class).setParameter("idContrato", idContrato).getResultList();
     }

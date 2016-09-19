@@ -8,8 +8,6 @@ import br.com.intuiti.compreingressos.portal.model.Base;
 import br.com.intuiti.compreingressos.portal.model.ContratoClientePrazoPagamento;
 import br.com.intuiti.compreingressos.portal.model.ContratoClienteTipoLancamento;
 import br.com.intuiti.compreingressos.portal.model.Evento;
-import br.com.intuiti.compreingressos.portal.model.FormaPagamento;
-import br.com.intuiti.compreingressos.portal.model.PrazoPagamento;
 import br.com.intuiti.compreingressos.portal.model.Usuario;
 
 import java.io.Serializable;
@@ -42,11 +40,11 @@ public class ContratoClienteController implements Serializable {
     private List<ContratoClientePrazoPagamento> itemsPP = null;
     private List<ContratoClienteTipoLancamento> itemsTL = null;
     private List<ContratoClienteTipoLancamento> itemsEditTL = null;
-
     private ContratoCliente selected;
     private ContratoClientePrazoPagamento selectedPP;
     private ContratoClienteTipoLancamento selectedTL;
     private Base selectedB;
+    private int contadorEditPP = 0;
 
     @ManagedProperty(name = "contratoClientePrazoPagamentoController", value = "#{contratoClientePrazoPagamentoController}")
     private ContratoClientePrazoPagamentoController contratoClientePrazoPagamentoController = new ContratoClientePrazoPagamentoController();
@@ -64,10 +62,11 @@ public class ContratoClienteController implements Serializable {
     public void listaItens() {
         if (selected.getIdContratoCliente() != null) {
             itemsEditPP = new ArrayList<>();
+            contadorEditPP = 0;
             List<ContratoClientePrazoPagamento> listaTemporariaE = getContratoClientePrazoPagamentoController().getFacade().findAll(new ContratoCliente(selected.getIdContratoCliente()));
             if (listaTemporariaE != null) {
                 for (ContratoClientePrazoPagamento lista : listaTemporariaE) {
-                    itemsEditPP.add(new ContratoClientePrazoPagamento(lista.getIdPrazoPagamento(), lista.getIdFormaPagamento()));
+                    itemsEditPP.add(new ContratoClientePrazoPagamento(lista.getIdContratoClientePrazoPagamento(), lista.getIdPrazoPagamento(), lista.getIdFormaPagamento()));
                 }
             }
             
@@ -92,7 +91,12 @@ public class ContratoClienteController implements Serializable {
     }
 
     public void addEditPP() {
+        contadorEditPP += 1;
         itemsEditPP.add(new ContratoClientePrazoPagamento(selectedPP.getIdPrazoPagamento(), selectedPP.getIdFormaPagamento()));
+    }
+    
+    public void removeEditPP(ContratoClientePrazoPagamento p){
+        itemsEditPP.remove(p);
     }
 
     public void addTL() {
@@ -263,6 +267,7 @@ public class ContratoClienteController implements Serializable {
             }
             
             if(itemsEditPP != null){
+                getContratoClientePrazoPagamentoController().getFacade().delete(selected);
                 for(ContratoClientePrazoPagamento cccpe : itemsEditPP){
                     cccpe.setIdContratoCliente(selected);
                     getContratoClientePrazoPagamentoController().getFacade().edit(cccpe);
@@ -278,6 +283,7 @@ public class ContratoClienteController implements Serializable {
             }
             
             if(itemsEditTL != null){
+                getContratoClienteTipoLancamentoController().getFacade().delete(selected);
                 for(ContratoClienteTipoLancamento cccte : itemsEditTL){
                     cccte.setIdUsuarioInsert(new Usuario(555));
                     cccte.setIdContratoCliente(selected);
@@ -356,7 +362,5 @@ public class ContratoClienteController implements Serializable {
                 return null;
             }
         }
-
     }
-
 }

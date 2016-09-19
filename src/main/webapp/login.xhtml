@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <f:facet name="first">
@@ -15,36 +15,33 @@
         <title>Portal de Serviços - COMPREINGRESSOS</title>
         <ui:insert name="head" />
     </h:head>
-
     <h:body style="background-color: #7F0014">
-        
-        <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
-            <div class="Wid33 MarAuto WidAutoOnMobile">
-                <h:graphicImage name="images/menu_logo.png" library="rio-layout" style="width:40%; max-width:180px;"/>
-                <div class="EmptyBox30"></div>
-                <div class="Card ShadowEffect">
-                    <div class="EmptyBox20"></div>
-                    <div class="Wid100 OvHidden BigTopic Fs30"><i class="fa fa-laptop" /> Portal de Serviços</div>
-                    <div class="EmptyBox20"></div>
-                    <div class="Wid100"><p:inputText placeholder="Informe seu e-mail" styleClass="Wid80 TexAlCenter Fs18"/></div>
-                    <div class="EmptyBox10"></div>
-                    <div class="Wid100"><p:inputText type="password" placeholder="Informe sua senha" styleClass="Wid80 TexAlCenter Fs18"/></div>
-                    <div class="EmptyBox10"></div>
-                    <div class="Separator"></div>
-                    <div class="EmptyBox10"></div>
-                    <div class="Wid100"><p:button value="Acessar" icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton" href="/faces/index.xhtml"/></div>
-                    <div class="EmptyBox5"></div>
-                    <div class="Wid100"><p:button value="Esqueceu sua senha?" icon="fa fa-lock" styleClass="RedButton Wid60 Fs18 White RaisedButton"/></div>
-                    <div class="EmptyBox10"></div>
-                    
-                    
-                </div>
-                <div class="Wid100 TexAlCenter MarTop20 Fs14 FontRobotoRegular WhiteBlue">
+        <form id="formLogin" action="j_security_check" method="POST">
+            <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+                <div class="Wid33 MarAuto WidAutoOnMobile">
+                    <h:graphicImage name="images/menu_logo.png" library="rio-layout" style="width:30%; max-width:180px;"/>
+                    <div class="EmptyBox30"></div>
+                    <div class="Card ShadowEffect">
+                        <div class="EmptyBox20"></div>
+                        <div class="Wid100 OvHidden BigTopic Fs30"><i class="fa fa-laptop" /> Portal de Serviços</div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Wid100"><p:inputText id="username" placeholder="Informe seu login" styleClass="Wid80 TexAlCenter Fs18"/></div>
+                        <div class="EmptyBox10"></div>
+                        <div class="Wid100"><p:inputText id="password" type="password" placeholder="Informe sua senha" styleClass="Wid80 TexAlCenter Fs18"/></div>
+                        <div class="EmptyBox10"></div>
+                        <div class="Separator"></div>
+                        <div class="EmptyBox10"></div>
+                        <div class="Wid100"><p:commandButton value="Acessar" icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton" /></div>
+                        <div class="EmptyBox5"></div>
+                        <div class="Wid100"><p:button value="Esqueceu sua senha?" icon="fa fa-lock" styleClass="RedButton Wid60 Fs18 White RaisedButton"/></div>
+                        <div class="EmptyBox10"></div>
+                    </div>
+                    <div class="Wid100 TexAlCenter MarTop20 Fs14 FontRobotoRegular WhiteBlue">
                         <i class="fa fa-copyright"></i>  COMPREINGRESSOS <br/> 
                     </div>
+                </div>
             </div>
-        </div>
-        
+        </form >
         <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
         <h:outputStylesheet name="css/animate.css" library="rio-layout" />
         <h:outputStylesheet name="css/rio-font.css" library="rio-layout" />
@@ -52,5 +49,4 @@
         <h:outputStylesheet name="css/font-awesome.css" library="rio-layout" />
         <h:outputStylesheet name="css/rio-layout.css" library="rio-layout" />
     </h:body>
-
 </html>

@@ -84,16 +84,6 @@
                             </p:panelGrid>
                         </p:tab>
                         <p:tab title="Informações para repasse">
-                            <p:dataTable id="listCCPP" style="width:960px;" value="#{contratoClienteController.itemsPP}" var="itemCCPP"
-                                         emptyMessage="Cadastre os prazos de pagamento abaixo"
-                                         >
-                                <p:column headerText="#{bundle.ListContratoClientePrazoPagamentoTitle_idFormaPagamento}">
-                                    <h:outputLabel value="#{itemCCPP.idFormaPagamento.dsFormaPagamento}" />
-                                </p:column>
-                                <p:column headerText="#{bundle.ListContratoClientePrazoPagamentoTitle_idPrazoPagamento}">
-                                    <h:outputLabel value="#{itemCCPP.idPrazoPagamento.dsPrazoPagamento}" />
-                                </p:column>
-                            </p:dataTable><br />
                             <p:panelGrid columns="4" rendered="#{contratoClienteController.selected != null}">
                                 <p:outputLabel value="#{bundle.ListContratoClientePrazoPagamentoTitle_idFormaPagamento}" for="idFormaPagamento" />
                                 <p:selectOneMenu id="idFormaPagamento" value="#{contratoClienteController.selectedPP.idFormaPagamento}" style="width:235px!important">
@@ -112,30 +102,19 @@
                                                    itemValue="#{idPrazoPagamentoItem}"/>
                                 </p:selectOneMenu>
                                 <p:commandButton icon="fa fa-check" value="Adicionar" actionListener="#{contratoClienteController.addPP()}" update="listCCPP"/>
-                            </p:panelGrid>
-                        </p:tab>
-                        <p:tab title="Regras" >
-                            <p:dataTable id="listCCTL" style="width:960px;" emptyMessage="Cadastre os tipos de lançamento abaixo"
-                                         value="#{contratoClienteController.itemsTL}" var="itemCCTL">
-                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idTipoLancamento}" >
-                                    <h:outputText value="#{itemCCTL.idTipoLancamento.dsTipoLancamento}" />
+                            </p:panelGrid><br />
+                            <p:dataTable id="listCCPP" style="width:960px;" value="#{contratoClienteController.itemsPP}" var="itemCCPP"
+                                         emptyMessage="Cadastre os prazos de pagamento abaixo"
+                                         >
+                                <p:column headerText="#{bundle.ListContratoClientePrazoPagamentoTitle_idFormaPagamento}">
+                                    <h:outputLabel value="#{itemCCPP.idFormaPagamento.dsFormaPagamento}" />
                                 </p:column>
-                                <p:column headerText="Data de Vigência" >
-                                    <h:outputText value="#{itemCCTL.dtVigencia}" >
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_vlAplicacaoTipoLancamento}" >
-                                    <h:outputText value="#{itemCCTL.vlAplicacaoTipoLancamento}" />
-                                </p:column>
-                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_vlMinimoTipoLancamento}" >
-                                    <h:outputText value="#{itemCCTL.vlMinimoTipoLancamento}" />
-                                </p:column>
-                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idEvento}" >
-                                    <h:outputText value="#{itemCCTL.idEvento.dsEvento}" />
+                                <p:column headerText="#{bundle.ListContratoClientePrazoPagamentoTitle_idPrazoPagamento}">
+                                    <h:outputLabel value="#{itemCCPP.idPrazoPagamento.dsPrazoPagamento}" />
                                 </p:column>
                             </p:dataTable>
-                            <br />
+                        </p:tab>
+                        <p:tab title="Regras" >
                             <p:panelGrid columns="4" rendered="#{contratoClienteController.selected != null}">
                                 <p:outputLabel value="#{bundle.CreateContratoClienteTipoLancamentoLabel_idTipoLancamento}" for="idTipoLancamento" />
                                 <p:selectOneMenu id="idTipoLancamento" value="#{contratoClienteController.selectedTL.idTipoLancamento}" required="true" requiredMessage="#{bundleNv.EditContratoClienteTipoLancamentoRequiredMessage_idTipoLancamento}" style="width:405px!important;">
@@ -172,6 +151,27 @@
                                 </p:selectOneMenu>
                                 <p:commandButton actionListener="#{contratoClienteController.addTL()}" icon="fa fa-check" update="listCCTL" value="Adicionar"/>
                             </p:panelGrid>
+                            <br />
+                            <p:dataTable id="listCCTL" style="width:960px;" emptyMessage="Cadastre os tipos de lançamento abaixo"
+                                         value="#{contratoClienteController.itemsTL}" var="itemCCTL">
+                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idTipoLancamento}" >
+                                    <h:outputText value="#{itemCCTL.idTipoLancamento.dsTipoLancamento}" />
+                                </p:column>
+                                <p:column headerText="Data de Vigência" >
+                                    <h:outputText value="#{itemCCTL.dtVigencia}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_vlAplicacaoTipoLancamento}" >
+                                    <h:outputText value="#{itemCCTL.vlAplicacaoTipoLancamento}" />
+                                </p:column>
+                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_vlMinimoTipoLancamento}" >
+                                    <h:outputText value="#{itemCCTL.vlMinimoTipoLancamento}" />
+                                </p:column>
+                                <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idEvento}" >
+                                    <h:outputText value="#{itemCCTL.idEvento.dsEvento}" />
+                                </p:column>
+                            </p:dataTable>
                         </p:tab>
                     </p:tabView>
                     <br />
