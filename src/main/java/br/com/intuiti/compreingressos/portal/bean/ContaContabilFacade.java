@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
 import br.com.intuiti.compreingressos.portal.model.ContaContabil;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,11 @@ public class ContaContabilFacade extends AbstractFacade<ContaContabil> {
 
     public ContaContabilFacade() {
         super(ContaContabil.class);
+    }
+    
+    public int findNumero(String numero){
+        List<ContaContabil> lista = em.createNamedQuery("ContaContabil.findByNrContaContabil").setParameter("nrContaContabil", numero).getResultList();
+        return lista.size();
     }
     
 }

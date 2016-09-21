@@ -55,7 +55,13 @@
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{formaPagamentoController.prepareCreate}" update=":FormaPagamentoCreateForm" oncomplete="PF('FormaPagamentoCreateDialog').show()"/>
                                 <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":FormaPagamentoEditForm" oncomplete="PF('FormaPagamentoEditDialog').show()" disabled="#{empty formaPagamentoController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{formaPagamentoController.destroy}" update=":growl,datalist" disabled="#{empty formaPagamentoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{formaPagamentoController.destroy}" update=":growl,datalist" disabled="#{empty formaPagamentoController.selected}">
+                                    <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="overflow-y:hidden!important;">
+                                    <p:commandButton value="#{bundle.Delete}" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                    <p:commandButton value="#{bundle.Close}" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                                </p:confirmDialog>
                                 <!--<p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":FormaPagamentoViewForm" oncomplete="PF('FormaPagamentoViewDialog').show()" disabled="#{empty formaPagamentoController.selected}"/>-->
                             </f:facet>
                         </p:dataTable>

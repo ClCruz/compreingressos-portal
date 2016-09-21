@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
 import br.com.intuiti.compreingressos.portal.model.Empresa;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,11 @@ public class EmpresaFacade extends AbstractFacade<Empresa> {
 
     public EmpresaFacade() {
         super(Empresa.class);
+    }
+    
+    public int findName(String nome){
+        List<Empresa> lista = em.createNamedQuery("Empresa.findByDsEmpresa").setParameter("dsEmpresa", nome).getResultList();
+        return lista.size();
     }
     
 }

@@ -12,8 +12,6 @@
             <h:form id="RegiaoGeograficaEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{regiaoGeograficaController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditRegiaoGeograficaLabel_idRegiaoGeografica}" for="idRegiaoGeografica" />
-                        <p:inputText id="idRegiaoGeografica" value="#{regiaoGeograficaController.selected.idRegiaoGeografica}" title="#{bundle.EditRegiaoGeograficaTitle_idRegiaoGeografica}" required="true" requiredMessage="#{bundle.EditRegiaoGeograficaRequiredMessage_idRegiaoGeografica}"/>
                         <p:outputLabel value="#{bundle.EditRegiaoGeograficaLabel_dsRegiaoGeografica}" for="dsRegiaoGeografica" />
                         <p:inputText id="dsRegiaoGeografica" value="#{regiaoGeograficaController.selected.dsRegiaoGeografica}" title="#{bundle.EditRegiaoGeograficaTitle_dsRegiaoGeografica}" required="true" requiredMessage="#{bundle.EditRegiaoGeograficaRequiredMessage_dsRegiaoGeografica}"/>
                     </p:panelGrid>

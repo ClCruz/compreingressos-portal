@@ -27,7 +27,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListContratoClienteTipoLancamentoTitle_dtInativacao}"/>
@@ -82,7 +82,13 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{contratoClienteTipoLancamentoController.prepareCreate}" update=":ContratoClienteTipoLancamentoCreateForm" oncomplete="PF('ContratoClienteTipoLancamentoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ContratoClienteTipoLancamentoViewForm" oncomplete="PF('ContratoClienteTipoLancamentoViewDialog').show()" disabled="#{empty contratoClienteTipoLancamentoController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ContratoClienteTipoLancamentoEditForm" oncomplete="PF('ContratoClienteTipoLancamentoEditDialog').show()" disabled="#{empty contratoClienteTipoLancamentoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contratoClienteTipoLancamentoController.destroy}" update=":growl,datalist" disabled="#{empty contratoClienteTipoLancamentoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contratoClienteTipoLancamentoController.destroy}" update=":growl,datalist" disabled="#{empty contratoClienteTipoLancamentoController.selected}">
+                                <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="overflow-y:hidden!important;">
+                                <p:commandButton value="#{bundle.Delete}" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                <p:commandButton value="#{bundle.Close}" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                            </p:confirmDialog>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

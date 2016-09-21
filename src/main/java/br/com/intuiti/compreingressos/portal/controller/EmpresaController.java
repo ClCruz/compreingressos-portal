@@ -86,11 +86,21 @@ public class EmpresaController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    if(persistAction == PersistAction.CREATE){
+                        if(getFacade().findName(selected.getDsEmpresa()) == 0){
+                            getFacade().edit(selected);
+                            JsfUtil.addSuccessMessage(successMessage);
+                        } else {
+                            JsfUtil.addErrorMessage("Já existe uma empresa cadastrada com essa descrição.");
+                        }
+                    } else {
+                        getFacade().edit(selected);
+                        JsfUtil.addSuccessMessage(successMessage);
+                    }
                 } else {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

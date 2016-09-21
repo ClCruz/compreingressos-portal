@@ -11,8 +11,6 @@
             <h:form id="BancoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{bancoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditBancoLabel_cdBanco}" for="cdBanco" />
-                        <p:inputMask mask="9?99" maxlength="3" id="cdBanco" value="#{bancoController.selected.cdBanco}" title="#{bundle.EditBancoTitle_cdBanco}" required="true" requiredMessage="O campo Código é obrigatório" />
                         <p:outputLabel value="#{bundle.EditBancoLabel_nmBanco}" for="nmBanco" />
                         <p:inputText id="nmBanco" value="#{bancoController.selected.nmBanco}" title="#{bundle.EditBancoTitle_nmBanco}" required="true" requiredMessage="O campo Nome é obrigatório" />
                         <p:outputLabel value="#{bundle.EditBancoLabel_inAtivo}" for="inAtivo" />

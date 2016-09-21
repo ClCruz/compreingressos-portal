@@ -19,7 +19,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @ManagedBean(name = "canalVendaController")
 @ViewScoped
 public class CanalVendaController implements Serializable {
@@ -87,11 +86,22 @@ public class CanalVendaController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    if (persistAction == PersistAction.CREATE) {
+                        if (getFacade().findDesc(selected.getDsCanalVenda()) == 0) {
+                            getFacade().edit(selected);
+                            JsfUtil.addSuccessMessage(successMessage);
+                        } else {
+                            JsfUtil.addErrorMessage("Já existe um canal de venda cadastrado com essa descrição.");
+                        }
+                    } else {
+                        getFacade().edit(selected);
+                        JsfUtil.addSuccessMessage(successMessage);
+                    }
+
                 } else {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

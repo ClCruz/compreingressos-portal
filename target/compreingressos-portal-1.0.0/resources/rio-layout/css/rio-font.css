@@ -971,7 +971,7 @@
   content: "\e0d8";
 }
 .icon-ellipsis1:before {
-  content: "\e0d9";
+  /*content: "\e0d9";*/
 }
 .icon-email107:before {
   content: "\e0da";

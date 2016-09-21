@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
 import br.com.intuiti.compreingressos.portal.model.Estado;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,4 +30,9 @@ public class EstadoFacade extends AbstractFacade<Estado> {
         super(Estado.class);
     }
     
+    public int findES(String estado, String sigla){
+        List<Estado> lista = em.createNamedQuery("Estado.findES").setParameter("estado", estado).setParameter("sigla", sigla).getResultList();
+        return lista.size();
+    }
+        
 }

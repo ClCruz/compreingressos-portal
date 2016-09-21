@@ -313,11 +313,11 @@ body {
 .layout-menu > li {
   width: auto;
   height: auto;
-  font-size: 18px;
+  font-size: 17px;
 }
 .layout-menu > li > a {
   width: 84%;
-  padding: 12px 8%;
+  padding: 10px 8%;
   display: block;
   font-family: 'roboto_condensedregular';
   -webkit-transition: all 0.3s ease;
@@ -343,7 +343,7 @@ body {
   font-size: 15px;
 }
 .layout-menu > li ul li a:focus {
-  color: #03a9f4;
+  color: #A5061F;
 }
 .layout-menu li ul li a {
   width: 80%;

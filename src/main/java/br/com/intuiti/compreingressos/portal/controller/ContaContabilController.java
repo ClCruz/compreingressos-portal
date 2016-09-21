@@ -86,11 +86,21 @@ public class ContaContabilController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    if (persistAction == PersistAction.CREATE) {
+                        if(getFacade().findNumero(selected.getNrContaContabil()) > 0){
+                            JsfUtil.addErrorMessage("Já existe uma conta contábil cadastrada com esse número.");
+                        } else {
+                            getFacade().edit(selected);
+                            JsfUtil.addSuccessMessage(successMessage);
+                        }
+                    } else {
+                        getFacade().edit(selected);
+                        JsfUtil.addSuccessMessage(successMessage);
+                    }
                 } else {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

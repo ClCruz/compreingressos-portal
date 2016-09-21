@@ -38,12 +38,14 @@
             <artifactId>hibernate-core</artifactId>
             <version>4.3.11.Final</version>
             <type>jar</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>5.2.4.Final</version>
             <type>jar</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

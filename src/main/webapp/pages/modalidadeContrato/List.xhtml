@@ -41,7 +41,13 @@
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{modalidadeContratoController.prepareCreate}" update=":ModalidadeContratoCreateForm" oncomplete="PF('ModalidadeContratoCreateDialog').show()"/>
                                 <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":ModalidadeContratoEditForm" oncomplete="PF('ModalidadeContratoEditDialog').show()" disabled="#{empty modalidadeContratoController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{modalidadeContratoController.destroy}" update=":growl,datalist" disabled="#{empty modalidadeContratoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{modalidadeContratoController.destroy}" update=":growl,datalist" disabled="#{empty modalidadeContratoController.selected}">
+                                    <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="overflow-y:hidden!important;">
+                                    <p:commandButton value="#{bundle.Delete}" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                    <p:commandButton value="#{bundle.Close}" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                                </p:confirmDialog>
                                 <!--<p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":ModalidadeContratoViewForm" oncomplete="PF('ModalidadeContratoViewDialog').show()" disabled="#{empty modalidadeContratoController.selected}"/>-->
                             </f:facet>
                         </p:dataTable>

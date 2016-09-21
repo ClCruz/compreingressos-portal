@@ -25,7 +25,7 @@
                             </f:facet>
                             <p:ajax event="rowSelect" update="createButton editButton deleteButton" />
                             <p:ajax event="rowUnselect" update="createButton editButton deleteButton" />
-                            
+
                             <p:column sortBy="#{item.dsEmpresa}"
                                       headerText="#{bundle.ListEmpresaTitle_dsEmpresa}"
                                       filterBy="#{item.dsEmpresa}" filterMatchMode="contains"
@@ -50,7 +50,13 @@
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus" value="#{bundle.Create}" actionListener="#{empresaController.prepareCreate}" update=":EmpresaCreateForm" oncomplete="PF('EmpresaCreateDialog').show()"/>
                                 <p:commandButton id="editButton" icon="fa fa-edit" value="#{bundle.Edit}" update=":EmpresaEditForm" oncomplete="PF('EmpresaEditDialog').show()" disabled="#{empty empresaController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="fa fa-trash" value="#{bundle.Delete}" actionListener="#{empresaController.destroy}" update=":growl,datalist" disabled="#{empty empresaController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash" value="#{bundle.Delete}" actionListener="#{empresaController.destroy}" update=":growl,datalist" disabled="#{empty empresaController.selected}">
+                                    <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="overflow-y:hidden!important;">
+                                    <p:commandButton value="#{bundle.Delete}" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                    <p:commandButton value="#{bundle.Close}" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                                </p:confirmDialog>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

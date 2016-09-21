@@ -86,11 +86,21 @@ public class EstadoController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    if(persistAction == PersistAction.CREATE){
+                        if(getFacade().findES(selected.getDsEstado(), selected.getSgEstado()) == 0){
+                            getFacade().edit(selected);
+                            JsfUtil.addSuccessMessage(successMessage);
+                        } else {
+                            JsfUtil.addErrorMessage("Já existe um estado cadastrado com essa descrição e sigla.");
+                        }
+                    } else {
+                        getFacade().edit(selected);
+                        JsfUtil.addSuccessMessage(successMessage);
+                    }
                 } else {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
