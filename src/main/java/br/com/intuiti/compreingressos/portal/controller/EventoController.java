@@ -24,6 +24,7 @@ import javax.faces.convert.FacesConverter;
 @ViewScoped
 public class EventoController implements Serializable {
 
+	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.EventoFacade ejbFacade;
     private List<Evento> items = null;

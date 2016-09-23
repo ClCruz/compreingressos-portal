@@ -23,6 +23,7 @@ import javax.faces.convert.FacesConverter;
 @ViewScoped
 public class EstadoController implements Serializable {
 
+	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.EstadoFacade ejbFacade;
     private List<Estado> items = null;

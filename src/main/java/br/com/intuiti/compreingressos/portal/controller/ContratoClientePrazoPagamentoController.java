@@ -4,8 +4,6 @@ import br.com.intuiti.compreingressos.portal.model.ContratoClientePrazoPagamento
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.bean.ContratoClientePrazoPagamentoFacade;
-import br.com.intuiti.compreingressos.portal.model.ContratoCliente;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -23,7 +21,8 @@ import javax.faces.convert.FacesConverter;
 @ManagedBean(name = "contratoClientePrazoPagamentoController")
 @ViewScoped
 public class ContratoClientePrazoPagamentoController implements Serializable {
-
+	
+	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.ContratoClientePrazoPagamentoFacade ejbFacade;
     private List<ContratoClientePrazoPagamento> items = null;

@@ -23,6 +23,7 @@ import javax.faces.convert.FacesConverter;
 @ViewScoped
 public class MunicipioController implements Serializable {
 
+	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.MunicipioFacade ejbFacade;
     private List<Municipio> items = null;

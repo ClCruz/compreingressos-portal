@@ -23,6 +23,7 @@ import javax.faces.convert.FacesConverter;
 @ViewScoped
 public class TipoLocalController implements Serializable {
 
+	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.TipoLocalFacade ejbFacade;
     private List<TipoLocal> items = null;

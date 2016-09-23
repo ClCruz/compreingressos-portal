@@ -74,13 +74,13 @@
                                                    itemValue="#{idTipoContratoItem}"
                                                    itemLabel="#{idTipoContratoItem.dsTipoContrato}"/>
                                 </p:selectOneMenu>
-                                <p:outputLabel value="#{bundle.CreateContratoClienteLabel_idVendedor}" for="idVendedor" />
-                                <p:selectOneMenu id="idVendedor" value="#{contratoClienteController.selected.idVendedor}" >
-                                    <f:selectItems value="#{vendedorController.itemsAvailableSelectOne}"
-                                                   var="idVendedorItem"
-                                                   itemValue="#{idVendedorItem}"
-                                                   itemLabel="#{idVendedorItem.dsVendedor}"/>
-                                </p:selectOneMenu>
+	                                <p:outputLabel value="#{bundle.CreateContratoClienteLabel_idVendedor}" for="idVendedor" />
+	                                <p:selectOneMenu id="idVendedor" value="#{contratoClienteController.selected.idVendedor}" >
+	                                    <f:selectItems value="#{vendedorController.itemsAvailableSelectOne}"
+	                                                   var="idVendedorItem"
+	                                                   itemValue="#{idVendedorItem}"
+	                                                   itemLabel="#{idVendedorItem.dsVendedor}"/>
+	                                </p:selectOneMenu>
                             </p:panelGrid>
                         </p:tab>
                         <p:tab title="Informações para repasse">

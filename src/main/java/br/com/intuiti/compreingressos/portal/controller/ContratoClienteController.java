@@ -33,6 +33,7 @@ import javax.faces.convert.FacesConverter;
 @ViewScoped
 public class ContratoClienteController implements Serializable {
 
+	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.ContratoClienteFacade ejbFacade;
     private List<ContratoCliente> items = null;
@@ -44,8 +45,7 @@ public class ContratoClienteController implements Serializable {
     private ContratoClientePrazoPagamento selectedPP;
     private ContratoClienteTipoLancamento selectedTL;
     private Base selectedB;
-    private int contadorEditPP = 0;
-
+    
     @ManagedProperty(name = "contratoClientePrazoPagamentoController", value = "#{contratoClientePrazoPagamentoController}")
     private ContratoClientePrazoPagamentoController contratoClientePrazoPagamentoController = new ContratoClientePrazoPagamentoController();
 
@@ -62,7 +62,6 @@ public class ContratoClienteController implements Serializable {
     public void listaItens() {
         if (selected.getIdContratoCliente() != null) {
             itemsEditPP = new ArrayList<>();
-            contadorEditPP = 0;
             List<ContratoClientePrazoPagamento> listaTemporariaE = getContratoClientePrazoPagamentoController().getFacade().findAll(new ContratoCliente(selected.getIdContratoCliente()));
             if (listaTemporariaE != null) {
                 for (ContratoClientePrazoPagamento lista : listaTemporariaE) {
@@ -91,7 +90,6 @@ public class ContratoClienteController implements Serializable {
     }
 
     public void addEditPP() {
-        contadorEditPP += 1;
         itemsEditPP.add(new ContratoClientePrazoPagamento(selectedPP.getIdPrazoPagamento(), selectedPP.getIdFormaPagamento()));
     }
     

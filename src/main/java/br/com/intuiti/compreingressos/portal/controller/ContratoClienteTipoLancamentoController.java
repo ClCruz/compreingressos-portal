@@ -24,6 +24,7 @@ import javax.faces.convert.FacesConverter;
 @ViewScoped
 public class ContratoClienteTipoLancamentoController implements Serializable {
 
+	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.ContratoClienteTipoLancamentoFacade ejbFacade;
     private List<ContratoClienteTipoLancamento> items = null;

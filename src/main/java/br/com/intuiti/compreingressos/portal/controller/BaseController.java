@@ -23,6 +23,7 @@ import javax.faces.convert.FacesConverter;
 @SessionScoped
 public class BaseController implements Serializable {
 
+	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.BaseFacade ejbFacade;
     private List<Base> items = null;

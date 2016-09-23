@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import org.primefaces.component.api.AjaxSource;
 import org.primefaces.component.api.UIOutcomeTarget;
 import org.primefaces.component.menu.AbstractMenu;
@@ -22,7 +24,8 @@ import org.primefaces.util.WidgetBuilder;
 
 public class RioMenuRenderer extends BaseMenuRenderer {
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected void encodeMarkup(FacesContext context, AbstractMenu abstractMenu) throws IOException {
         RioMenu menu = (RioMenu) abstractMenu;
         ResponseWriter writer = context.getResponseWriter();
@@ -97,7 +100,8 @@ public class RioMenuRenderer extends BaseMenuRenderer {
         }
     }
     
-    protected void encodeSubmenu(FacesContext context, AbstractMenu menu, Submenu submenu, int marginLevel) throws IOException{
+    @SuppressWarnings("unchecked")
+	protected void encodeSubmenu(FacesContext context, AbstractMenu menu, Submenu submenu, int marginLevel) throws IOException{
 		ResponseWriter writer = context.getResponseWriter();
         String icon = submenu.getIcon();
         String label = submenu.getLabel();
@@ -194,7 +198,8 @@ public class RioMenuRenderer extends BaseMenuRenderer {
             else {
                 writer.writeAttribute("href", "#", null);
 
-                UIComponent form = ComponentUtils.findParentForm(context, menu);
+                @SuppressWarnings("deprecation")
+				UIComponent form = ComponentUtils.findParentForm(context, menu);
                 if(form == null) {
                     throw new FacesException("MenuItem must be inside a form element");
                 }

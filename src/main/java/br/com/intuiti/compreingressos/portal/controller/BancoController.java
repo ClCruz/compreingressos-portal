@@ -30,7 +30,8 @@ import org.primefaces.model.SortOrder;
 @ViewScoped
 public class BancoController extends LazyDataModel<Banco> implements Serializable {
 
-    @EJB
+	private static final long serialVersionUID = 1L;
+	@EJB
     private br.com.intuiti.compreingressos.portal.bean.BancoFacade ejbFacade;
     private LazyDataModel<Banco> items = null;
     private Banco selected;
@@ -132,7 +133,8 @@ public class BancoController extends LazyDataModel<Banco> implements Serializabl
     }
 
     public class BancoLazy extends LazyDataModel<Banco> {
-
+    	
+    	private static final long serialVersionUID = 1L;
         private List<Banco> banco = null;
 
         public BancoLazy(List<Banco> banco) {
