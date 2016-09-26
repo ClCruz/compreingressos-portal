@@ -20,7 +20,8 @@
                                      widgetVar="usuarioTable"
                                      >
                             <f:facet name="header">
-                                #{bundle.ListUsuarioTitle}
+                            #{Login.retornaNome()}
+                                <!-- #{bundle.ListUsuarioTitle} -->
                             </f:facet>
                             
                             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>

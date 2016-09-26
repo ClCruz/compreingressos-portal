@@ -25,13 +25,18 @@
                         <div class="EmptyBox20"></div>
                         <div class="Wid100 OvHidden BigTopic Fs30"><i class="fa fa-laptop" /> Portal de Serviços</div>
                         <div class="EmptyBox20"></div>
-                        <div class="Wid100"><p:inputText id="username" placeholder="Informe seu login" styleClass="Wid80 TexAlCenter Fs18"/></div>
+                        <div class="Wid100"><input id="j_username" name="j_username" placeholder="Informe seu login" class="Wid80 TexAlCenter Fs18 ui-inputfield"/></div>
                         <div class="EmptyBox10"></div>
-                        <div class="Wid100"><p:inputText id="password" type="password" placeholder="Informe sua senha" styleClass="Wid80 TexAlCenter Fs18"/></div>
+                        <div class="Wid100"><input id="j_password" name="j_password" type="password" placeholder="Informe sua senha" class="Wid80 TexAlCenter Fs18 ui-inputfield"/></div>
                         <div class="EmptyBox10"></div>
                         <div class="Separator"></div>
                         <div class="EmptyBox10"></div>
-                        <div class="Wid100"><p:commandButton value="Acessar" icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton" /></div>
+                        <div class="Wid100"><button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left RedButton Wid60 Fs18 White RaisedButton">
+                        	<span class="ui-button-icon-left ui-icon ui-c fa fa-check"></span>
+                        	<span class="ui-button-text ui-c">Entrar</span>
+                        </button>
+                        
+                        </div>
                         <div class="EmptyBox5"></div>
                         <div class="Wid100"><p:button value="Esqueceu sua senha?" icon="fa fa-lock" styleClass="RedButton Wid60 Fs18 White RaisedButton"/></div>
                         <div class="EmptyBox10"></div>
@@ -41,7 +46,7 @@
                     </div>
                 </div>
             </div>
-        </form >
+        </form>
         <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
         <h:outputStylesheet name="css/animate.css" library="rio-layout" />
         <h:outputStylesheet name="css/rio-font.css" library="rio-layout" />

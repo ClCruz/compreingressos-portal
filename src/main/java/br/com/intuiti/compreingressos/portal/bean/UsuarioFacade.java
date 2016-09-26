@@ -1,9 +1,11 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
 import br.com.intuiti.compreingressos.portal.model.Usuario;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,6 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
 import org.primefaces.model.SortOrder;
 
 /**
@@ -88,4 +91,12 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     {
         em.close();
     }
+
+	public Usuario findUsuario(String userName) {
+		try{
+			return (Usuario) em.createNamedQuery("Usuario.findByCdLogin").setParameter("cdLogin", userName).getSingleResult();
+		}catch(Exception e){
+			return null;
+		}
+	}
 }

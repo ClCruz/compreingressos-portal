@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<jboss-web>
+    <!-- Links with JBoss the Realm to use -->
+    <security-domain>LoginJSFRealm</security-domain>
+</jboss-web>

@@ -24,7 +24,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>/faces/pages/index.xhtml</welcome-file>
     </welcome-file-list>
      <context-param> 
          <param-name>primefaces.THEME</param-name> 
@@ -81,5 +81,36 @@
      <error-page> 
          <error-code>404</error-code> 
          <location>/WEB-INF/404.xhtml</location> 
-     </error-page> 
+     </error-page>
+     
+      <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Only admins</web-resource-name>
+            <url-pattern>/faces/pages/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/faces/login.xhtml</form-login-page>
+            <form-error-page>/faces/loginError.html</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+    
+    <filter>
+        <filter-name>Login</filter-name>
+        <filter-class>br.com.intuiti.compreingressos.portal.filters.Login</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Login</filter-name>
+        <url-pattern>/faces/pages/*</url-pattern>
+    </filter-mapping>
 </web-app>
