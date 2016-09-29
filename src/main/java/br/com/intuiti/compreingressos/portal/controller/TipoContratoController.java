@@ -1,15 +1,14 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.TipoContrato;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.TipoContratoFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +17,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.TipoContratoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.TipoContrato;
 
 @ManagedBean(name = "tipoContratoController")
 @ViewScoped
@@ -26,8 +35,10 @@ public class TipoContratoController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private br.com.intuiti.compreingressos.portal.bean.TipoContratoFacade ejbFacade;
-	private List<TipoContrato> items = null;
+	private LazyDataModel<TipoContrato> items = null;
 	private TipoContrato selected;
+	private final Map<String, Object> filtros = new HashMap<>();
+
 
 	public TipoContratoController() {
 	}
@@ -78,9 +89,9 @@ public class TipoContratoController implements Serializable {
 		}
 	}
 
-	public List<TipoContrato> getItems() {
+	public LazyDataModel<TipoContrato> getItems() {
 		if (items == null) {
-			items = getFacade().findAll();
+			items = new TipoContratoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
 		}
 		return items;
 	}
@@ -144,6 +155,47 @@ public class TipoContratoController implements Serializable {
 	public List<TipoContrato> getItemsAvailableSelectOne() {
 		return getFacade().findAll();
 	}
+	
+    public class TipoContratoLazy extends LazyDataModel<TipoContrato> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<TipoContrato> objList = null;
+
+        public TipoContratoLazy(List<TipoContrato> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<TipoContrato> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                TipoContratoFacade objFacade = (TipoContratoFacade) ctx.lookup("java:global/compreingressos-portal/TipoContratoFacade!br.com.intuiti.compreingressos.portal.bean.TipoContratoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public TipoContrato getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (TipoContrato obj : objList) {
+                if (id.equals(obj.getIdTipoContrato())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(TipoContrato ob) {
+            return ob.getIdTipoContrato();
+        }
+    }
 
 	@FacesConverter(forClass = TipoContrato.class)
 	public static class TipoContratoControllerConverter implements Converter {

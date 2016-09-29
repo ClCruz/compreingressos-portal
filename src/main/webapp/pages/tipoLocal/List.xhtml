@@ -12,7 +12,7 @@
                     <h:form id="TipoLocalListForm">
                             <p:dataTable id="datalist" value="#{tipoLocalController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                          selectionMode="single" selection="#{tipoLocalController.selected}"
-                                         paginator="true"
+                                         paginator="true" lazy="true"
                                          rowKey="#{item.idTipoLocal}"
                                          rows="10"
                                          rowsPerPageTemplate="10,20,30,40,50"
@@ -33,6 +33,7 @@
                                           filterBy="#{item.inAtivo}" filterMatchMode="exact">
                                     <f:facet name="filter" >
                                         <p:selectOneMenu onchange="PF('tipoLocalTable').filter()">
+                                        	<f:converter converterId="javax.faces.Boolean" />
                                             <f:selectItem itemValue="#{null}" itemLabel="Ativo e Inativo" />
                                             <f:selectItem itemValue="true" itemLabel="Ativo" />
                                             <f:selectItem itemValue="false" itemLabel="Inativo" />

@@ -12,7 +12,7 @@
                     <h:form id="ContratanteListForm">
                         <p:dataTable id="datalist" value="#{contratanteController.items}" var="item"
                                      selectionMode="single" selection="#{contratanteController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      rowKey="#{item.idContratante}"
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50"

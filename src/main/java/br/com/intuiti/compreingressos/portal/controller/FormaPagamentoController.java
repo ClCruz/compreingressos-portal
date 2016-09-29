@@ -1,15 +1,14 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.FormaPagamento;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.FormaPagamentoFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +17,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.ContaContabilFacade;
+import br.com.intuiti.compreingressos.portal.bean.FormaPagamentoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.ContaContabil;
+import br.com.intuiti.compreingressos.portal.model.FormaPagamento;
 
 @ManagedBean(name = "formaPagamentoController")
 @ViewScoped
@@ -26,8 +37,9 @@ public class FormaPagamentoController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private br.com.intuiti.compreingressos.portal.bean.FormaPagamentoFacade ejbFacade;
-	private List<FormaPagamento> items = null;
+	private LazyDataModel<FormaPagamento> items = null;
 	private FormaPagamento selected;
+	private final Map<String, Object> filtros = new HashMap<>();
 
 	public FormaPagamentoController() {
 	}
@@ -78,9 +90,9 @@ public class FormaPagamentoController implements Serializable {
 		}
 	}
 
-	public List<FormaPagamento> getItems() {
+	public LazyDataModel<FormaPagamento> getItems() {
 		if (items == null) {
-			items = getFacade().findAll();
+			items = new FormaPagamentoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
 		}
 		return items;
 	}
@@ -148,6 +160,47 @@ public class FormaPagamentoController implements Serializable {
 	public List<FormaPagamento> getItemsAvailableSelectOne() {
 		return getFacade().findAll();
 	}
+	
+    public class FormaPagamentoLazy extends LazyDataModel<FormaPagamento> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<FormaPagamento> objList = null;
+
+        public FormaPagamentoLazy(List<FormaPagamento> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<FormaPagamento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                FormaPagamentoFacade objFacade = (FormaPagamentoFacade) ctx.lookup("java:global/compreingressos-portal/FormaPagamentoFacade!br.com.intuiti.compreingressos.portal.bean.FormaPagamentoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public FormaPagamento getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (FormaPagamento obj : objList) {
+                if (id.equals(obj.getIdFormaPagamento())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(FormaPagamento ob) {
+            return ob.getIdFormaPagamento();
+        }
+    }
 
 	@FacesConverter(forClass = FormaPagamento.class)
 	public static class FormaPagamentoControllerConverter implements Converter {

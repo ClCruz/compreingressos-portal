@@ -12,7 +12,7 @@
                     <h:form id="GeneroEventoListForm">
                         <p:dataTable id="datalist" value="#{generoEventoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                      selectionMode="single" selection="#{generoEventoController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      rowKey="#{item.idGeneroEvento}"
                                      rows="10" paginatorPosition="bottom"
                                      widgetVar="generoEventoTable"

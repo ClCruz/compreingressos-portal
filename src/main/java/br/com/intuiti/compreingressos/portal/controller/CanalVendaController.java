@@ -1,15 +1,14 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.CanalVenda;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.CanalVendaFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +17,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.CanalVendaFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.CanalVenda;
 
 @ManagedBean(name = "canalVendaController")
 @ViewScoped
@@ -26,8 +35,9 @@ public class CanalVendaController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private br.com.intuiti.compreingressos.portal.bean.CanalVendaFacade ejbFacade;
-	private List<CanalVenda> items = null;
+	private LazyDataModel<CanalVenda> items = null;
 	private CanalVenda selected;
+	private final Map<String, Object> filtros = new HashMap<>();
 
 	public CanalVendaController() {
 	}
@@ -78,9 +88,9 @@ public class CanalVendaController implements Serializable {
 		}
 	}
 
-	public List<CanalVenda> getItems() {
+	public LazyDataModel<CanalVenda> getItems() {
 		if (items == null) {
-			items = getFacade().findAll();
+			items = new CanalVendaLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
 		}
 		return items;
 	}
@@ -144,6 +154,46 @@ public class CanalVendaController implements Serializable {
 	public List<CanalVenda> getItemsAvailableSelectOne() {
 		return getFacade().findAll();
 	}
+	
+	public class CanalVendaLazy extends LazyDataModel<CanalVenda> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<CanalVenda> listaObj = null;
+
+        public CanalVendaLazy(List<CanalVenda> listaObj) {
+            this.listaObj = listaObj;
+        }
+
+        public List<CanalVenda> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	listaObj = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                CanalVendaFacade objetoFacade = (CanalVendaFacade) ctx.lookup("java:global/compreingressos-portal/CanalVendaFacade!br.com.intuiti.compreingressos.portal.bean.CanalVendaFacade");
+                listaObj = objetoFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objetoFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                Logger.getLogger(CanalVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return listaObj;
+        }
+
+        public CanalVenda getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (CanalVenda list : listaObj) {
+                if (id.equals(list.getIdCanalVenda())) {
+                    return list;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(CanalVenda obj) {
+            return obj.getIdCanalVenda();
+        }
+
+    }
 
 	@FacesConverter(forClass = CanalVenda.class)
 	public static class CanalVendaControllerConverter implements Converter {

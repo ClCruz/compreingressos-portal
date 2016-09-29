@@ -1,12 +1,10 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.Empresa;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.EmpresaFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +17,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.EmpresaFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.Empresa;
 
 @ManagedBean(name = "empresaController")
 @ViewScoped
@@ -27,8 +35,9 @@ public class EmpresaController implements Serializable {
 	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.EmpresaFacade ejbFacade;
-    private List<Empresa> items = null;
+    private LazyDataModel<Empresa> items = null;
     private Empresa selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public EmpresaController() {
     }
@@ -76,9 +85,9 @@ public class EmpresaController implements Serializable {
         }
     }
 
-    public List<Empresa> getItems() {
+    public LazyDataModel<Empresa> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new EmpresaLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -140,6 +149,48 @@ public class EmpresaController implements Serializable {
 
     public List<Empresa> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public class EmpresaLazy extends LazyDataModel<Empresa> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Empresa> objList = null;
+
+        public EmpresaLazy(List<Empresa> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Empresa> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                EmpresaFacade objFacade = (EmpresaFacade) ctx.lookup("java:global/compreingressos-portal/EmpresaFacade!br.com.intuiti.compreingressos.portal.bean.EmpresaFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Empresa getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Empresa obj : objList) {
+                if (id.equals(obj.getIdEmpresa())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(Empresa ob) {
+            return ob.getIdEmpresa();
+        }
+
     }
 
     @FacesConverter(forClass = Empresa.class)

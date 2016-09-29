@@ -12,7 +12,7 @@
                     <h:form id="EmpresaListForm">
                         <p:dataTable id="datalist" var="item" value="#{empresaController.items}" 
                                      selectionMode="single" selection="#{empresaController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      widgetVar="empresaTable"
                                      rowKey="#{item.idEmpresa}"
                                      rows="10" paginatorPosition="bottom"
@@ -35,10 +35,11 @@
                             <p:column sortBy="#{item.inAtivo}"
                                       headerText="#{bundle.ListEmpresaTitle_inAtivo}" 
                                       filterBy="#{item.inAtivo}"
-                                      filterMatchMode="exact"
+                                      filterMatchMode="equals"
                                       >
                                 <f:facet name="filter">
                                     <p:selectOneMenu onchange="PF('empresaTable').filter()">
+                                    	<f:converter converterId="javax.faces.Boolean" />
                                         <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
                                         <f:selectItem itemLabel="Ativo" itemValue="true" />
                                         <f:selectItem itemLabel="Inativo" itemValue="false" />

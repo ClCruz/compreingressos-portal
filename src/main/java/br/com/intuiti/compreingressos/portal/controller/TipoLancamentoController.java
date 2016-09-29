@@ -1,17 +1,16 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.TipoLancamento;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.TipoLancamentoFacade;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -20,6 +19,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.TipoLancamentoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.TipoLancamento;
 
 @ManagedBean(name = "tipoLancamentoController")
 @ViewScoped
@@ -28,8 +37,9 @@ public class TipoLancamentoController implements Serializable {
 	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.TipoLancamentoFacade ejbFacade;
-    private List<TipoLancamento> items = null;
+    private LazyDataModel<TipoLancamento> items = null;
     private TipoLancamento selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public TipoLancamentoController() {
     }
@@ -77,9 +87,9 @@ public class TipoLancamentoController implements Serializable {
         }
     }
 
-    public List<TipoLancamento> getItems() {
+    public LazyDataModel<TipoLancamento> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new TipoLancamentoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -129,6 +139,47 @@ public class TipoLancamentoController implements Serializable {
 
     public List<TipoLancamento> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public class TipoLancamentoLazy extends LazyDataModel<TipoLancamento> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<TipoLancamento> objList = null;
+
+        public TipoLancamentoLazy(List<TipoLancamento> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<TipoLancamento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                TipoLancamentoFacade objFacade = (TipoLancamentoFacade) ctx.lookup("java:global/compreingressos-portal/TipoLancamentoFacade!br.com.intuiti.compreingressos.portal.bean.TipoLancamentoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public TipoLancamento getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (TipoLancamento obj : objList) {
+                if (id.equals(obj.getIdTipoLancamento())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(TipoLancamento ob) {
+            return ob.getIdTipoLancamento();
+        }
     }
 
     @FacesConverter(forClass = TipoLancamento.class)

@@ -1,15 +1,14 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.TipoLocal;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.TipoLocalFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +17,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.TipoLocalFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.TipoLocal;
 
 @ManagedBean(name = "tipoLocalController")
 @ViewScoped
@@ -26,8 +35,9 @@ public class TipoLocalController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private br.com.intuiti.compreingressos.portal.bean.TipoLocalFacade ejbFacade;
-	private List<TipoLocal> items = null;
+	private LazyDataModel<TipoLocal> items = null;
 	private TipoLocal selected;
+	private final Map<String, Object> filtros = new HashMap<>();
 
 	public TipoLocalController() {
 	}
@@ -78,9 +88,9 @@ public class TipoLocalController implements Serializable {
 		}
 	}
 
-	public List<TipoLocal> getItems() {
+	public LazyDataModel<TipoLocal> getItems() {
 		if (items == null) {
-			items = getFacade().findAll();
+			items = new TipoLocalLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
 		}
 		return items;
 	}
@@ -144,6 +154,47 @@ public class TipoLocalController implements Serializable {
 	public List<TipoLocal> getItemsAvailableSelectOne() {
 		return getFacade().findAll();
 	}
+	
+    public class TipoLocalLazy extends LazyDataModel<TipoLocal> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<TipoLocal> objList = null;
+
+        public TipoLocalLazy(List<TipoLocal> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<TipoLocal> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                TipoLocalFacade objFacade = (TipoLocalFacade) ctx.lookup("java:global/compreingressos-portal/TipoLocalFacade!br.com.intuiti.compreingressos.portal.bean.TipoLocalFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public TipoLocal getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (TipoLocal obj : objList) {
+                if (id.equals(obj.getIdTipoLocal())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(TipoLocal ob) {
+            return ob.getIdTipoLocal();
+        }
+    }
 
 	@FacesConverter(forClass = TipoLocal.class)
 	public static class TipoLocalControllerConverter implements Converter {

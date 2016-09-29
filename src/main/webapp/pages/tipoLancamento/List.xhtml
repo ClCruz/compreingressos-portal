@@ -12,7 +12,7 @@
                     <h:form id="TipoLancamentoListForm">
                         <p:dataTable id="datalist" value="#{tipoLancamentoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                      selectionMode="single" selection="#{tipoLancamentoController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      rowKey="#{item.idTipoLancamento}"
                                      rows="10" paginatorPosition="bottom"
                                      rowsPerPageTemplate="10,20,30,40,50"
@@ -33,6 +33,7 @@
                                       filterBy="#{item.inAtivo}" filterMatchMode="exact">
                                 <f:facet name="filter">
                                     <p:selectOneMenu onchange="PF('tipoLancamentoTable').filter()" >
+                                    	<f:converter converterId="javax.faces.Boolean" />
                                         <f:selectItem itemValue="#{null}" itemLabel="Ativo e Inativo" />
                                         <f:selectItem itemValue="true" itemLabel="Ativo" />
                                         <f:selectItem itemValue="false" itemLabel="Inativo" />  
@@ -77,6 +78,7 @@
                                       filterBy="#{item.inValidoBordero}" filterMatchMode="exact">
                                 <f:facet name="filter">
                                     <p:selectOneMenu onchange="PF('tipoLancamentoTable').filter()" >
+                                    	<f:converter converterId="javax.faces.Boolean" />
                                         <f:selectItem itemValue="#{null}" itemLabel="Ativo e Inativo" />
                                         <f:selectItem itemValue="true" itemLabel="Ativo" />
                                         <f:selectItem itemValue="false" itemLabel="Inativo" />  
@@ -89,6 +91,7 @@
                                       filterBy="#{item.inValidoExtrato}" filterMatchMode="exact">
                                 <f:facet name="filter">
                                     <p:selectOneMenu onchange="PF('tipoLancamentoTable').filter()" >
+                                    	<f:converter converterId="javax.faces.Boolean" />
                                         <f:selectItem itemValue="#{null}" itemLabel="Ativo e Inativo" />
                                         <f:selectItem itemValue="true" itemLabel="Ativo" />
                                         <f:selectItem itemValue="false" itemLabel="Inativo" />  

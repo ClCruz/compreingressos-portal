@@ -12,7 +12,7 @@
                     <h:form id="SegmentoEventoListForm">
                         <p:dataTable id="datalist" value="#{segmentoEventoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                      selectionMode="single" selection="#{segmentoEventoController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      rowKey="#{item.idSegmentoEvento}"
                                      rows="10" paginatorPosition="bottom"
                                      widgetVar="segmentoEventoTable"
@@ -36,6 +36,7 @@
                                       filterMatchMode="exact">
                                 <f:facet name="filter">
                                     <p:selectOneMenu onchange="PF('segmentoEventoTable').filter()">
+                                    	<f:converter converterId="javax.faces.Boolean" />
                                         <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
                                         <f:selectItem itemLabel="Ativo" itemValue="true" />
                                         <f:selectItem itemLabel="Inativo" itemValue="false" />

@@ -12,7 +12,7 @@
                     <h:form id="PrazoPagamentoListForm">
                         <p:dataTable id="datalist" value="#{prazoPagamentoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                      selectionMode="single" selection="#{prazoPagamentoController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      rowKey="#{item.idPrazoPagamento}"
                                      rows="10" paginatorPosition="bottom"
                                      widgetVar="prazoTable"

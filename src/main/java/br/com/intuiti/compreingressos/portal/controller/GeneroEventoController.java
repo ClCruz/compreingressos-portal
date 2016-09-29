@@ -1,13 +1,10 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.GeneroEvento;
-import br.com.intuiti.compreingressos.portal.model.Usuario;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.GeneroEventoFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +17,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
 
-import org.infinispan.util.SysPropertyActions;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.GeneroEventoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.GeneroEvento;
+import br.com.intuiti.compreingressos.portal.model.Usuario;
 
 @ManagedBean(name = "generoEventoController")
 @ViewScoped
@@ -31,9 +37,10 @@ public class GeneroEventoController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private br.com.intuiti.compreingressos.portal.bean.GeneroEventoFacade ejbFacade;
-	private List<GeneroEvento> items = null;
+	private LazyDataModel<GeneroEvento> items = null;
 	private GeneroEvento selected;
 	private Usuario usuario;
+	private final Map<String, Object> filtros = new HashMap<>();
 
 	public GeneroEventoController() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -87,9 +94,9 @@ public class GeneroEventoController implements Serializable {
 		}
 	}
 
-	public List<GeneroEvento> getItems() {
+	public LazyDataModel<GeneroEvento> getItems() {
 		if (items == null) {
-			items = getFacade().findAll();
+			items = new GeneroEventoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
 		}
 		return items;
 	}
@@ -153,6 +160,47 @@ public class GeneroEventoController implements Serializable {
 	public List<GeneroEvento> getItemsAvailableSelectOne() {
 		return getFacade().findAll();
 	}
+	
+    public class GeneroEventoLazy extends LazyDataModel<GeneroEvento> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<GeneroEvento> objList = null;
+
+        public GeneroEventoLazy(List<GeneroEvento> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<GeneroEvento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                GeneroEventoFacade objFacade = (GeneroEventoFacade) ctx.lookup("java:global/compreingressos-portal/GeneroEventoFacade!br.com.intuiti.compreingressos.portal.bean.GeneroEventoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public GeneroEvento getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (GeneroEvento obj : objList) {
+                if (id.equals(obj.getIdGeneroEvento())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(GeneroEvento ob) {
+            return ob.getIdGeneroEvento();
+        }
+    }
 
 	@FacesConverter(forClass = GeneroEvento.class)
 	public static class GeneroEventoControllerConverter implements Converter {

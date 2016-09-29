@@ -1,7 +1,10 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +17,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
@@ -29,9 +37,10 @@ public class SegmentoEventoController implements Serializable {
 	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade ejbFacade;
-    private List<SegmentoEvento> items = null;
+    private LazyDataModel<SegmentoEvento> items = null;
     private SegmentoEvento selected;
     private Usuario usuario;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public SegmentoEventoController() {
     }
@@ -79,9 +88,9 @@ public class SegmentoEventoController implements Serializable {
         }
     }
 
-    public List<SegmentoEvento> getItems() {
+    public LazyDataModel<SegmentoEvento> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new SegmentoEventoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -143,6 +152,47 @@ public class SegmentoEventoController implements Serializable {
 
     public List<SegmentoEvento> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public class SegmentoEventoLazy extends LazyDataModel<SegmentoEvento> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<SegmentoEvento> objList = null;
+
+        public SegmentoEventoLazy(List<SegmentoEvento> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<SegmentoEvento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                SegmentoEventoFacade objFacade = (SegmentoEventoFacade) ctx.lookup("java:global/compreingressos-portal/SegmentoEventoFacade!br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public SegmentoEvento getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (SegmentoEvento obj : objList) {
+                if (id.equals(obj.getIdSegmentoEvento())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(SegmentoEvento ob) {
+            return ob.getIdSegmentoEvento();
+        }
     }
 
     @FacesConverter(forClass = SegmentoEvento.class)

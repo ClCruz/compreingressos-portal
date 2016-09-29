@@ -1,15 +1,14 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.Vendedor;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.VendedorFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +17,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.VendedorFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.Vendedor;
 
 @ManagedBean(name = "vendedorController")
 @ViewScoped
@@ -26,9 +35,10 @@ public class VendedorController implements Serializable {
 	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.VendedorFacade ejbFacade;
-    private List<Vendedor> items = null;
+    private LazyDataModel<Vendedor> items = null;
     private Vendedor selected;
-
+    private final Map<String, Object> filtros = new HashMap<>();
+    
     public VendedorController() {
     }
 
@@ -75,9 +85,9 @@ public class VendedorController implements Serializable {
         }
     }
 
-    public List<Vendedor> getItems() {
+    public LazyDataModel<Vendedor> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new VendedorLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -122,6 +132,47 @@ public class VendedorController implements Serializable {
         return getFacade().findAll();
     }
 
+    public class VendedorLazy extends LazyDataModel<Vendedor> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Vendedor> objList = null;
+
+        public VendedorLazy(List<Vendedor> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Vendedor> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                VendedorFacade objFacade = (VendedorFacade) ctx.lookup("java:global/compreingressos-portal/VendedorFacade!br.com.intuiti.compreingressos.portal.bean.VendedorFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Vendedor getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Vendedor obj : objList) {
+                if (id.equals(obj.getIdVendedor())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(Vendedor ob) {
+            return ob.getIdVendedor();
+        }
+    }
+    
     @FacesConverter(forClass = Vendedor.class)
     public static class VendedorControllerConverter implements Converter {
 

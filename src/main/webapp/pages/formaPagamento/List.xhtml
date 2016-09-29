@@ -12,7 +12,7 @@
                     <h:form id="FormaPagamentoListForm">
                         <p:dataTable id="datalist" value="#{formaPagamentoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                      selectionMode="single" selection="#{formaPagamentoController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      widgetVar="fPagamentoTable"
                                      rowKey="#{item.idFormaPagamento}"
                                      rows="10" paginatorPosition="bottom"
@@ -34,10 +34,11 @@
                             </p:column>
                             <p:column sortBy="#{item.inAtivo}" headerText="#{bundle.ListFormaPagamentoTitle_inAtivo}"
                                       filterBy="#{item.inAtivo}"
-                                      filterMatchMode="exact"
+                                      filterMatchMode="equals"
                                       filterStyle="width:50%">
                                 <f:facet name="filter">
                                     <p:selectOneMenu onchange="PF('fPagamentoTable').filter()">
+                                    	<f:converter converterId="javax.faces.Boolean" />
                                         <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
                                         <f:selectItem itemLabel="Ativo" itemValue="true" />
                                         <f:selectItem itemLabel="Inativo" itemValue="false" />

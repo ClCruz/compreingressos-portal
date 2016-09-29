@@ -1,23 +1,16 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.ContratoCliente;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.ContratoClienteFacade;
-import br.com.intuiti.compreingressos.portal.model.Base;
-import br.com.intuiti.compreingressos.portal.model.ContratoClientePrazoPagamento;
-import br.com.intuiti.compreingressos.portal.model.ContratoClienteTipoLancamento;
-import br.com.intuiti.compreingressos.portal.model.Evento;
-import br.com.intuiti.compreingressos.portal.model.Usuario;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -28,6 +21,21 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.ContratoClienteFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.Base;
+import br.com.intuiti.compreingressos.portal.model.ContratoCliente;
+import br.com.intuiti.compreingressos.portal.model.ContratoClientePrazoPagamento;
+import br.com.intuiti.compreingressos.portal.model.ContratoClienteTipoLancamento;
+import br.com.intuiti.compreingressos.portal.model.Evento;
+import br.com.intuiti.compreingressos.portal.model.Usuario;
 
 @ManagedBean(name = "contratoClienteController")
 @ViewScoped
@@ -36,7 +44,7 @@ public class ContratoClienteController implements Serializable {
 	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.ContratoClienteFacade ejbFacade;
-    private List<ContratoCliente> items = null;
+    private LazyDataModel<ContratoCliente> items = null;
     private List<ContratoClientePrazoPagamento> itemsEditPP = null;
     private List<ContratoClientePrazoPagamento> itemsPP = null;
     private List<ContratoClienteTipoLancamento> itemsTL = null;
@@ -45,6 +53,7 @@ public class ContratoClienteController implements Serializable {
     private ContratoClientePrazoPagamento selectedPP;
     private ContratoClienteTipoLancamento selectedTL;
     private Base selectedB;
+    private final Map<String, Object> filtros = new HashMap<>();
     
     @ManagedProperty(name = "contratoClientePrazoPagamentoController", value = "#{contratoClientePrazoPagamentoController}")
     private ContratoClientePrazoPagamentoController contratoClientePrazoPagamentoController = new ContratoClientePrazoPagamentoController();
@@ -219,9 +228,9 @@ public class ContratoClienteController implements Serializable {
         }
     }
 
-    public List<ContratoCliente> getItems() {
+    public LazyDataModel<ContratoCliente> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new ContratoClienteLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -322,6 +331,48 @@ public class ContratoClienteController implements Serializable {
         return getContratoClientePrazoPagamentoController().getFacade().findAll(new ContratoCliente(id));
     }
 
+    public class ContratoClienteLazy extends LazyDataModel<ContratoCliente> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<ContratoCliente> objList = null;
+
+        public ContratoClienteLazy(List<ContratoCliente> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<ContratoCliente> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                ContratoClienteFacade objFacade = (ContratoClienteFacade) ctx.lookup("java:global/compreingressos-portal/ContratoClienteFacade!br.com.intuiti.compreingressos.portal.bean.ContratoClienteFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public ContratoCliente getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (ContratoCliente obj : objList) {
+                if (id.equals(obj.getIdContratoCliente())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(ContratoCliente ob) {
+            return ob.getIdContratoCliente();
+        }
+
+    }
+    
     @FacesConverter(forClass = ContratoCliente.class)
     public static class ContratoClienteControllerConverter implements Converter {
 

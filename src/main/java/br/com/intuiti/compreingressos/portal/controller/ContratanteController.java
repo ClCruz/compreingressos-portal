@@ -1,13 +1,10 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.Contratante;
-import br.com.intuiti.compreingressos.portal.model.Municipio;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.ContratanteFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +17,17 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.ContratanteFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.Contratante;
+import br.com.intuiti.compreingressos.portal.model.Municipio;
 
 @ManagedBean(name = "contratanteController")
 @ViewScoped
@@ -28,8 +36,9 @@ public class ContratanteController implements Serializable {
 	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.ContratanteFacade ejbFacade;
-    private List<Contratante> items = null;
+    private LazyDataModel<Contratante> items = null;
     private Contratante selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public ContratanteController() {
     }
@@ -77,9 +86,9 @@ public class ContratanteController implements Serializable {
         }
     }
 
-    public List<Contratante> getItems() {
+    public LazyDataModel<Contratante> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new ContratanteLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -132,6 +141,48 @@ public class ContratanteController implements Serializable {
         return getFacade().findAll();
     }
 
+    public class ContratanteLazy extends LazyDataModel<Contratante> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Contratante> objList = null;
+
+        public ContratanteLazy(List<Contratante> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Contratante> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                ContratanteFacade objFacade = (ContratanteFacade) ctx.lookup("java:global/compreingressos-portal/ContratanteFacade!br.com.intuiti.compreingressos.portal.bean.ContratanteFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Contratante getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Contratante obj : objList) {
+                if (id.equals(obj.getIdContratante())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(Contratante ob) {
+            return ob.getIdContratante();
+        }
+
+    }
+    
     @FacesConverter(forClass = Contratante.class)
     public static class ContratanteControllerConverter implements Converter {
 

@@ -12,7 +12,7 @@
                     <h:form id="RegiaoGeograficaListForm">
                         <p:dataTable id="datalist" value="#{regiaoGeograficaController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                      selectionMode="single" selection="#{regiaoGeograficaController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      rowKey="#{item.idRegiaoGeografica}"
                                      rows="10" paginatorPosition="bottom"
                                      rowsPerPageTemplate="10,20,30,40,50"

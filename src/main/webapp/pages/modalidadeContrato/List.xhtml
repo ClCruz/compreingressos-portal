@@ -12,7 +12,7 @@
                     <h:form id="ModalidadeContratoListForm">
                         <p:dataTable id="datalist" value="#{modalidadeContratoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                      selectionMode="single" selection="#{modalidadeContratoController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      rowKey="#{item.idModalidadeContrato}"
                                      rows="10" paginatorPosition="bottom"
                                      rowsPerPageTemplate="10,20,30,40,50"
@@ -27,7 +27,7 @@
                             <p:column sortBy="#{item.idModalidadeContrato}" 
                                       headerText="#{bundle.ListModalidadeContratoTitle_idModalidadeContrato}"
                                       filterBy="#{item.idModalidadeContrato}"
-                                      filterMatchMode="exact"
+                                      filterMatchMode="contains"
                                       filterStyle="width:50%">
                                 <h:outputText value="#{item.idModalidadeContrato}" />
                             </p:column>

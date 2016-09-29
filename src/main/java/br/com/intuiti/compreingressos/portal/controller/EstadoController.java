@@ -1,15 +1,14 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.Estado;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.EstadoFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +17,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.EstadoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.Estado;
 
 @ManagedBean(name = "estadoController")
 @ViewScoped
@@ -26,8 +35,9 @@ public class EstadoController implements Serializable {
 	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.EstadoFacade ejbFacade;
-    private List<Estado> items = null;
+    private LazyDataModel<Estado> items = null;
     private Estado selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public EstadoController() {
     }
@@ -75,9 +85,9 @@ public class EstadoController implements Serializable {
         }
     }
 
-    public List<Estado> getItems() {
+    public LazyDataModel<Estado> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new EstadoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -130,6 +140,48 @@ public class EstadoController implements Serializable {
 
     public List<Estado> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public class EstadoLazy extends LazyDataModel<Estado> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Estado> objList = null;
+
+        public EstadoLazy(List<Estado> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Estado> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                EstadoFacade objFacade = (EstadoFacade) ctx.lookup("java:global/compreingressos-portal/EstadoFacade!br.com.intuiti.compreingressos.portal.bean.EstadoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+                System.out.println(filters);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Estado getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Estado obj : objList) {
+                if (id.equals(obj.getIdEstado())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(Estado ob) {
+            return ob.getIdEstado();
+        }
     }
 
     @FacesConverter(forClass = Estado.class)

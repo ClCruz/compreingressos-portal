@@ -12,7 +12,7 @@
                     <h:form id="EstadoListForm">
                         <p:dataTable id="datalist" value="#{estadoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                      selectionMode="single" selection="#{estadoController.selected}"
-                                     paginator="true"
+                                     paginator="true" lazy="true"
                                      rowKey="#{item.idEstado}"
                                      rows="10" paginatorPosition="bottom"
                                      rowsPerPageTemplate="5,10,20,30,40,50"

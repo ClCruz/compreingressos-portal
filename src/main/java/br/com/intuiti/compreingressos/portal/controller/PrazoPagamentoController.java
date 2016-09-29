@@ -1,15 +1,14 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.PrazoPagamento;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.PrazoPagamentoFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +17,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.PrazoPagamentoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.PrazoPagamento;
 
 @ManagedBean(name = "prazoPagamentoController")
 @ViewScoped
@@ -26,8 +35,9 @@ public class PrazoPagamentoController implements Serializable {
 	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.PrazoPagamentoFacade ejbFacade;
-    private List<PrazoPagamento> items = null;
+    private LazyDataModel<PrazoPagamento> items = null;
     private PrazoPagamento selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public PrazoPagamentoController() {
     }
@@ -75,9 +85,9 @@ public class PrazoPagamentoController implements Serializable {
         }
     }
 
-    public List<PrazoPagamento> getItems() {
+    public LazyDataModel<PrazoPagamento> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new PrazoPagamentoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -120,6 +130,47 @@ public class PrazoPagamentoController implements Serializable {
 
     public List<PrazoPagamento> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public class PrazoPagamentoLazy extends LazyDataModel<PrazoPagamento> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<PrazoPagamento> objList = null;
+
+        public PrazoPagamentoLazy(List<PrazoPagamento> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<PrazoPagamento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                PrazoPagamentoFacade objFacade = (PrazoPagamentoFacade) ctx.lookup("java:global/compreingressos-portal/PrazoPagamentoFacade!br.com.intuiti.compreingressos.portal.bean.PrazoPagamentoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public PrazoPagamento getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (PrazoPagamento obj : objList) {
+                if (id.equals(obj.getIdPrazoPagamento())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(PrazoPagamento ob) {
+            return ob.getIdPrazoPagamento();
+        }
     }
 
     @FacesConverter(forClass = PrazoPagamento.class)

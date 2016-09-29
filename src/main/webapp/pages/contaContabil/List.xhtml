@@ -13,6 +13,7 @@
                         <p:dataTable id="datalist" var="item" value="#{contaContabilController.items}" 
                                      selectionMode="single" selection="#{contaContabilController.selected}" rowKey="#{item.idContaContabil}"
                                      rows="10" paginator="true"
+                                     lazy="true"
                                      widgetVar="contabilTable" paginatorPosition="bottom"
                                      rowsPerPageTemplate="5,10,20,30,40,50" emptyMessage="Nenhum registro encontrado" reflow="true"
                                      >
@@ -39,9 +40,10 @@
                             <p:column headerText="#{bundle.ListContaContabilTitle_inAtivo}"
                                       sortBy="#{item.inAtivo}"
                                       filterBy="#{item.inAtivo}"
-                                      filterMatchMode="exact">
+                                      filterMatchMode="equals">
                                 <f:facet name="filter">
                                     <p:selectOneMenu onchange="PF('contabilTable').filter()">
+                                    	<f:converter converterId="javax.faces.Boolean" />
                                         <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
                                         <f:selectItem itemLabel="Ativo" itemValue="true" />
                                         <f:selectItem itemLabel="Inativo" itemValue="false" />
