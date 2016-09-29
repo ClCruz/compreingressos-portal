@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e"),
     @NamedQuery(name = "Empresa.findByIdEmpresa", query = "SELECT e FROM Empresa e WHERE e.idEmpresa = :idEmpresa"),
     @NamedQuery(name = "Empresa.findByDsEmpresa", query = "SELECT e FROM Empresa e WHERE e.dsEmpresa = :dsEmpresa"),
+    @NamedQuery(name = "Empresa.findByDsEmpresaId", query = "SELECT e FROM Empresa e WHERE e.dsEmpresa = :dsEmpresa AND e.idEmpresa <> :idEmpresa"),
     @NamedQuery(name = "Empresa.findByInAtivo", query = "SELECT e FROM Empresa e WHERE e.inAtivo = :inAtivo")})
 public class Empresa implements Serializable {
 
@@ -47,12 +48,12 @@ public class Empresa implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50, message = "O campo Descrição deve ter entre 1 e 50 caracteres")
-    @Column(name = "ds_empresa")
+    @Column(name = "ds_empresa", unique = true)
     private String dsEmpresa;
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_ativo")
-    private boolean inAtivo;
+    private boolean inAtivo = true;
 
     public Empresa() {
     }
@@ -113,7 +114,7 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Empresa[ idEmpresa=" + idEmpresa + " ]";
+        return dsEmpresa;
     }
 
     @XmlTransient

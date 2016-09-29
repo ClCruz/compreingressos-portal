@@ -87,11 +87,25 @@ public class ModalidadeContratoController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                	if(persistAction == PersistAction.CREATE){
+                		if(getFacade().findDs(selected.getDsModalidadeContrato())){
+                			getFacade().edit(selected);
+                			JsfUtil.addSuccessMessage(successMessage);
+                		} else {
+                			JsfUtil.addErrorMessage("Já existe uma modalide de contrato com essa descrição.");
+                		}
+                	} else if(persistAction == PersistAction.UPDATE){
+                		if(getFacade().findDsId(selected.getDsModalidadeContrato(), selected.getIdModalidadeContrato())){
+                			getFacade().edit(selected);
+                			JsfUtil.addSuccessMessage(successMessage);
+                		} else {
+                			JsfUtil.addErrorMessage("Já existe uma modalide de contrato com essa descrição.");
+                		}
+                	}
                 } else {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

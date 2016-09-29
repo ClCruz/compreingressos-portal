@@ -1,9 +1,6 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.LocalEvento;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade;
+import static org.primefaces.model.SortOrder.UNSORTED;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +10,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -23,9 +21,15 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.naming.Context;
 import javax.naming.NamingException;
+
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-import static org.primefaces.model.SortOrder.UNSORTED;
+
+import br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.LocalEvento;
+import br.com.intuiti.compreingressos.portal.model.Municipio;
 
 @ManagedBean(name = "localEventoController")
 @ViewScoped
@@ -143,6 +147,10 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 
 	public List<LocalEvento> getItemsAvailableSelectOneOrderBy() {
 		return getFacade().findAllOrderByDs();
+	}
+	
+	public List<Municipio> listaMunicipios(){
+		return getFacade().findAll(selected.getIdEstado());
 	}
 
 	public class localEventoLazy extends LazyDataModel<LocalEvento> {

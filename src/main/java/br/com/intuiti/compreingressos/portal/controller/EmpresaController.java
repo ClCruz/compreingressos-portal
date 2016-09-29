@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -94,11 +95,20 @@ public class EmpresaController implements Serializable {
                         } else {
                             JsfUtil.addErrorMessage("Já existe uma empresa cadastrada com essa descrição.");
                         }
+                    } else if(persistAction == PersistAction.UPDATE) {
+                    	if(getFacade().findNameId(selected.getDsEmpresa(), selected.getIdEmpresa()) == 0){
+                    		getFacade().edit(selected);
+                            JsfUtil.addSuccessMessage(successMessage);
+                    	} else
+                    	{
+                    		JsfUtil.addErrorMessage("Já existe uma empresa cadastrada com essa descrição.");
+                    	}
                     } else {
                         getFacade().edit(selected);
                         JsfUtil.addSuccessMessage(successMessage);
                     }
                 } else {
+                	System.out.println("Selected: "+selected);
                     getFacade().remove(selected);
                     JsfUtil.addSuccessMessage(successMessage);
                 }

@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GeneroEvento.findAll", query = "SELECT g FROM GeneroEvento g"),
+    @NamedQuery(name = "GeneroEvento.findDsSg", query = "SELECT g FROM GeneroEvento g WHERE g.dsGeneroEvento = :dsGeneroEvento AND g.idSegmentoEvento = :idSegmentoEvento"),
+    @NamedQuery(name = "GeneroEvento.findDsSgId", query = "SELECT g FROM GeneroEvento g WHERE g.dsGeneroEvento = :dsGeneroEvento AND g.idSegmentoEvento = :idSegmentoEvento AND g.idGeneroEvento <> :idGeneroEvento"),
     @NamedQuery(name = "GeneroEvento.findByIdGeneroEvento", query = "SELECT g FROM GeneroEvento g WHERE g.idGeneroEvento = :idGeneroEvento"),
     @NamedQuery(name = "GeneroEvento.findByDsGeneroEvento", query = "SELECT g FROM GeneroEvento g WHERE g.dsGeneroEvento = :dsGeneroEvento"),
     @NamedQuery(name = "GeneroEvento.findByInAtivo", query = "SELECT g FROM GeneroEvento g WHERE g.inAtivo = :inAtivo")})
@@ -48,7 +50,7 @@ public class GeneroEvento implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_ativo")
-    private boolean inAtivo;
+    private boolean inAtivo = true;
     @JoinColumn(name = "id_segmento_evento", referencedColumnName = "id_segmento_evento")
     @ManyToOne(optional = false)
     private SegmentoEvento idSegmentoEvento;
@@ -131,7 +133,7 @@ public class GeneroEvento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.GeneroEvento[ idGeneroEvento=" + idGeneroEvento + " ]";
+        return dsGeneroEvento;
     }
     
 }

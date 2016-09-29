@@ -34,31 +34,39 @@
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_nrTelefone}" for="nrTelefone" />
                                 <p:inputMask mask="(99) 99999999?9" id="nrTelefone" value="#{contratanteController.selected.nrTelefone}" size="23" title="#{bundle.CreateContratanteTitle_nrTelefone}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_nrTelefone}" />
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_cdEmail}" for="cdEmail" />
-                                <p:inputText id="cdEmail" value="#{contratanteController.selected.cdEmail}" size="35" title="#{bundle.CreateContratanteTitle_cdEmail}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_cdEmail}" />
+                                <p:inputText id="cdEmail" value="#{contratanteController.selected.cdEmail}" size="35" title="#{bundle.CreateContratanteTitle_cdEmail}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_cdEmail}" validatorMessage="Insira um e-mail válido.">
+                                	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                </p:inputText>
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_inPessoaJuridica}" for="inPessoaJuridica" />
                                 <p:selectOneMenu id="inPessoaJuridica" value="#{contratanteController.selected.inPessoaJuridica}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_inPessoaJuridica}">
                                     <f:selectItem itemLabel="Pessoa Fisica" itemValue="0" />
                                     <f:selectItem itemLabel="Pessoa Jurídica" itemValue="1" />
                                 </p:selectOneMenu>
-                                <p:outputLabel value="#{bundle.CreateContratanteLabel_dtInativacao}" for="dtInativacao" />
-                                <p:calendar id="dtInativacao" locale="pt" pattern="MM/dd/yyyy" value="#{contratanteController.selected.dtInativacao}" size="35" title="#{bundle.EditContratanteTitle_dtInativacao}" />
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_cdCep}" for="cdCep" />
-                                <p:inputText id="cdCep" value="#{contratanteController.selected.cdCep}" size="23" title="#{bundle.CreateContratanteTitle_cdCep}" />
+                                <p:inputText id="cdCep" value="#{contratanteController.selected.cdCep}" size="35" title="#{bundle.CreateContratanteTitle_cdCep}" />
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_dsEndereco}" for="dsEndereco" />
-                                <p:inputText id="dsEndereco" value="#{contratanteController.selected.dsEndereco}" size="35" title="#{bundle.CreateContratanteTitle_dsEndereco}" />
+                                <p:inputText id="dsEndereco" value="#{contratanteController.selected.dsEndereco}" size="23" title="#{bundle.CreateContratanteTitle_dsEndereco}" />
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_dsBairro}" for="dsBairro" />
-                                <p:inputText id="dsBairro" value="#{contratanteController.selected.dsBairro}" size="23" title="#{bundle.CreateContratanteTitle_dsBairro}" />
+                                <p:inputText id="dsBairro" value="#{contratanteController.selected.dsBairro}" size="35" title="#{bundle.CreateContratanteTitle_dsBairro}" />
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_dsNumero}" for="dsNumero" />
-                                <p:inputText id="dsNumero" value="#{contratanteController.selected.dsNumero}" size="35" title="#{bundle.CreateContratanteTitle_dsNumero}" />
+                                <p:inputText id="dsNumero" value="#{contratanteController.selected.dsNumero}" size="23" title="#{bundle.CreateContratanteTitle_dsNumero}" />
+                                <p:outputLabel value="Estado: " for="idEstado" />
+                                <p:selectOneMenu id="idEstado" value="#{contratanteController.selected.idEstado}">
+                                	<p:ajax listener="#{contratanteController.listaMunicipios()}" update="idMunicipio" />
+                                	<f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                            		<f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"/>
+                                </p:selectOneMenu>
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_dsComplemento}" for="dsComplemento" />
                                 <p:inputText id="dsComplemento" value="#{contratanteController.selected.dsComplemento}" size="23" title="#{bundle.CreateContratanteTitle_dsComplemento}" />
+                                 
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_idMunicipio}" for="idMunicipio" />
                                 <p:selectOneMenu id="idMunicipio" value="#{contratanteController.selected.idMunicipio}" required="true" requiredMessage="Você deve selecionar um Municipio" >
                                     <f:selectItem itemLabel="Selecione um estado.." noSelectionOption="true"/>
-                                    <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
-                                                   var="idMunicipioItem"
-                                                   itemLabel="#{idMunicipioItem.dsMunicipio}"
-                                                   itemValue="#{idMunicipioItem}"/>
+                                    <f:selectItems value="#{contratanteController.listaMunicipios()}"
+                                           var="idMunicipioItem"
+                                           itemValue="#{idMunicipioItem}"/>
                                 </p:selectOneMenu>
                             </p:panelGrid>
                         </p:tab>
@@ -71,7 +79,9 @@
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_nmCargoRepresLegal}" for="nmCargoRepresLegal" />
                                 <p:inputText id="nmCargoRepresLegal" size="40" value="#{contratanteController.selected.nmCargoRepresLegal}" title="#{bundle.CreateContratanteTitle_nmCargoRepresLegal}" />
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_cdEmailRepresLegal}" for="cdEmailRepresLegal" />
-                                <p:inputText id="cdEmailRepresLegal" size="41" value="#{contratanteController.selected.cdEmailRepresLegal}" title="#{bundle.CreateContratanteTitle_cdEmailRepresLegal}" />
+                                <p:inputText id="cdEmailRepresLegal" size="41" value="#{contratanteController.selected.cdEmailRepresLegal}" title="#{bundle.CreateContratanteTitle_cdEmailRepresLegal}" validatorMessage="Insira um e-mail válido. (Representante Legal)">
+                                	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                </p:inputText>
                             </p:panelGrid>
                             <p:panelGrid columns="6">
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_cdCpfRepresLegal}" for="cdCpfRepresLegal" />
@@ -88,12 +98,19 @@
                                 <p:inputMask mask="(99)9?9999-9999" id="nrCelularRepresLegal"  size="35" value="#{contratanteController.selected.nrCelularRepresLegal}" title="#{bundle.CreateContratanteTitle_nrCelularRepresLegal}" />
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_cdCepRepresLegal}" for="cdCepRepresLegal" />
                                 <p:inputText id="cdCepRepresLegal"  size="35" value="#{contratanteController.selected.cdCepRepresLegal}" title="#{bundle.CreateContratanteTitle_cdCepRepresLegal}" />
+                                <p:outputLabel value="Estado: " for="idEstadoRepresLegal" />
+                                <p:selectOneMenu id="idEstadoRepresLegal" value="#{contratanteController.selected.idEstadoRepresLegal}">
+                                	<p:ajax listener="#{contratanteController.listaMunicipios()}" update="idMunicipioRepresLegal" />
+                                	<f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                            		<f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"/>
+                                </p:selectOneMenu>
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_idMunicipioRepresLegal}" for="idMunicipioRepresLegal" />
                                 <p:selectOneMenu id="idMunicipioRepresLegal" value="#{contratanteController.selected.idMunicipioRepresLegal}">
                                     <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                                    <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                    <f:selectItems value="#{contratanteController.listaMunicipioRepresLegal()}"
                                                    var="idMunicipioRepresLegalItem"
-                                                   itemLabel="#{idMunicipioRepresLegalItem.dsMunicipio}"
                                                    itemValue="#{idMunicipioRepresLegalItem}"/>
 
                                 </p:selectOneMenu>
@@ -116,7 +133,6 @@
                                     <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                                     <f:selectItems value="#{bancoController.itemsAvailableSelectOne}"
                                                    var="idBancoItem"
-                                                   itemLabel="#{idBancoItem.cdBanco} - #{idBancoItem.nmBanco}"
                                                    itemValue="#{idBancoItem}"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="#{bundle.CreateContratanteLabel_nmTitularContaRepasse}" for="nmTitularContaRepasse" />

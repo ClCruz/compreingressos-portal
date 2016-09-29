@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="TipoContratoListForm">
+                        <p:dataTable id="datalist" value="#{tipoContratoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                     selectionMode="single" selection="#{tipoContratoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.idTipoContrato}"
+                                     rows="10" paginatorPosition="bottom"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     >
+                            <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
+                            <f:facet name="header">
+                                #{bundle.ListTipoContratoTitle}
+                            </f:facet>
+                            <p:column sortBy="#{item.dsTipoContrato}" headerText="#{bundle.ListTipoContratoTitle_dsTipoContrato}" 
+                                      filterBy="#{item.dsTipoContrato}" filterMatchMode="contains"
+                                      filterStyle="width:50%" >
+                                <h:outputText value="#{item.dsTipoContrato}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{tipoContratoController.prepareCreate}" update=":TipoContratoCreateForm" oncomplete="PF('TipoContratoCreateDialog').show()"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":TipoContratoEditForm" oncomplete="PF('TipoContratoEditDialog').show()" disabled="#{empty tipoContratoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{tipoContratoController.destroy}" update=":growl,datalist" disabled="#{empty tipoContratoController.selected}">
+                                    <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="overflow-y:hidden!important;">
+                                    <p:commandButton value="#{bundle.Delete}" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                    <p:commandButton value="#{bundle.Close}" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                                </p:confirmDialog>
+                                <!--<p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":TipoContratoViewForm" oncomplete="PF('TipoContratoViewDialog').show()" disabled="#{empty tipoContratoController.selected}"/>-->
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+    </ui:define>
+</ui:composition>

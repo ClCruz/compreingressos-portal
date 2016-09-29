@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoLocal.findAll", query = "SELECT t FROM TipoLocal t"),
     @NamedQuery(name = "TipoLocal.findByIdTipoLocal", query = "SELECT t FROM TipoLocal t WHERE t.idTipoLocal = :idTipoLocal"),
     @NamedQuery(name = "TipoLocal.findByDsTipoLocal", query = "SELECT t FROM TipoLocal t WHERE t.dsTipoLocal = :dsTipoLocal"),
+    @NamedQuery(name = "TipoLocal.findByDsTipoLocalId", query = "SELECT t FROM TipoLocal t WHERE t.dsTipoLocal = :dsTipoLocal AND t.idTipoLocal <> :idTipoLocal"),
     @NamedQuery(name = "TipoLocal.findByInAtivo", query = "SELECT t FROM TipoLocal t WHERE t.inAtivo = :inAtivo")})
 public class TipoLocal implements Serializable {
 
@@ -119,7 +120,7 @@ public class TipoLocal implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.TipoLocal[ idTipoLocal=" + idTipoLocal + " ]";
+        return dsTipoLocal;
     }
     
 }

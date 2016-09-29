@@ -362,7 +362,7 @@ public class Base implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Base[ idBase=" + idBase + " ]";
+        return dsNomeTeatro;
     }
     
 }

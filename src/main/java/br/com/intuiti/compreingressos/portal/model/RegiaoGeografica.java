@@ -31,14 +31,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "RegiaoGeografica.findAll", query = "SELECT r FROM RegiaoGeografica r"),
     @NamedQuery(name = "RegiaoGeografica.findByIdRegiaoGeografica", query = "SELECT r FROM RegiaoGeografica r WHERE r.idRegiaoGeografica = :idRegiaoGeografica"),
-    @NamedQuery(name = "RegiaoGeografica.findByDsRegiaoGeografica", query = "SELECT r FROM RegiaoGeografica r WHERE r.dsRegiaoGeografica = :dsRegiaoGeografica")})
+    @NamedQuery(name = "RegiaoGeografica.findByDsRegiaoGeografica", query = "SELECT r FROM RegiaoGeografica r WHERE r.dsRegiaoGeografica = :dsRegiaoGeografica"),
+    @NamedQuery(name = "RegiaoGeografica.findByDsRegiaoGeograficaId", query = "SELECT r FROM RegiaoGeografica r WHERE r.dsRegiaoGeografica = :dsRegiaoGeografica AND r.idRegiaoGeografica <> :idRegiaoGeografica")})
 public class RegiaoGeografica implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @NotNull
     @Basic(optional = false)
-    @Column(name = "id_regiao_geografica", columnDefinition = "integer")
+    @Column(name = "id_regiao_geografica", columnDefinition = "integer", unique = true)
     private Integer idRegiaoGeografica;
     @Basic(optional = false)
     @NotNull
@@ -107,7 +108,7 @@ public class RegiaoGeografica implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.RegiaoGeografica[ idRegiaoGeografica=" + idRegiaoGeografica + " ]";
+        return dsRegiaoGeografica;
     }
     
 }

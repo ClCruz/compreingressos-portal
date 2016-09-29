@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocalEventoCreateDlg" widgetVar="LocalEventoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLocalEventoTitle}">
+            <h:form id="LocalEventoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{localEventoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_dsLocalEvento}" for="dsLocalEvento" />
+                        <p:inputText id="dsLocalEvento" value="#{localEventoController.selected.dsLocalEvento}" title="#{bundle.CreateLocalEventoTitle_dsLocalEvento}" required="true" requiredMessage="#{bundle.CreateLocalEventoRequiredMessage_dsLocalEvento}"/>
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_inAtivo}" for="inAtivo" />
+                        <p:selectOneMenu id="inAtivo" value="#{localEventoController.selected.inAtivo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_cdEmail}" for="cdEmail" />
+                        <p:inputText id="cdEmail" value="#{localEventoController.selected.cdEmail}" title="#{bundle.CreateLocalEventoTitle_cdEmail}" />
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_nrTelefone}" for="nrTelefone" />
+                        <p:inputMask mask="(99)9999-9999" id="nrTelefone" value="#{localEventoController.selected.nrTelefone}" title="#{bundle.CreateLocalEventoTitle_nrTelefone}" />
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_cdUrlSite}" for="cdUrlSite" />
+                        <p:inputText id="cdUrlSite" value="#{localEventoController.selected.cdUrlSite}" title="#{bundle.CreateLocalEventoTitle_cdUrlSite}" />
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_idTipoLocal}" for="idTipoLocal" />
+                        <p:selectOneMenu id="idTipoLocal" value="#{localEventoController.selected.idTipoLocal}" required="true" requiredMessage="#{bundle.EditLocalEventoRequiredMessage_idTipoLocal}">
+                            <f:selectItems value="#{tipoLocalController.itemsAvailableSelectOne}"
+                                           var="idTipoLocalItem"
+                                           itemValue="#{idTipoLocalItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Estado:" for="idEstado" />
+                        <p:selectOneMenu id="idEstado" value="#{localEventoController.selected.idEstado}" >
+                        	<p:ajax listener="#{localEventoController.listaMunicipios()}" update="idMunicipio" />
+                            <f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_idMunicipio}" for="idMunicipio" />
+                        <p:selectOneMenu id="idMunicipio" value="#{localEventoController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditLocalEventoRequiredMessage_idMunicipio}">
+                            <f:selectItem itemLabel="Selecione um estado." itemValue="" />
+                            <f:selectItems value="#{localEventoController.listaMunicipios()}"
+                                           var="idMunicipioItem"
+                                           itemValue="#{idMunicipioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_dsBairro}" for="dsBairro" />
+                        <p:inputText id="dsBairro" value="#{localEventoController.selected.dsBairro}" title="#{bundle.CreateLocalEventoTitle_dsBairro}" />
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_cdCepCliente}" for="cdCepCliente" />
+                        <p:inputText id="cdCepCliente" value="#{localEventoController.selected.cdCepCliente}" title="#{bundle.CreateLocalEventoTitle_cdCepCliente}" />
+                        
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_dsEndereco}" for="dsEndereco" />
+                        <p:inputText id="dsEndereco" value="#{localEventoController.selected.dsEndereco}" title="#{bundle.CreateLocalEventoTitle_dsEndereco}" />
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_dsNumero}" for="dsNumero" />
+                        <p:inputText id="dsNumero" value="#{localEventoController.selected.dsNumero}" title="#{bundle.CreateLocalEventoTitle_dsNumero}" />
+                        <p:outputLabel value="#{bundle.CreateLocalEventoLabel_dsComplemento}" for="dsComplemento" />
+                        <p:inputText id="dsComplemento" value="#{localEventoController.selected.dsComplemento}" title="#{bundle.CreateLocalEventoTitle_dsComplemento}" />
+                    </p:panelGrid>
+                    <p:separator />
+                    <p:commandButton actionListener="#{localEventoController.create}" value="#{bundle.Save}" update="display,:LocalEventoListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocalEventoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('LocalEventoCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ContaContabil.findByIdContaContabil", query = "SELECT c FROM ContaContabil c WHERE c.idContaContabil = :idContaContabil"),
     @NamedQuery(name = "ContaContabil.findByDsContaContabil", query = "SELECT c FROM ContaContabil c WHERE c.dsContaContabil = :dsContaContabil"),
     @NamedQuery(name = "ContaContabil.findByInAtivo", query = "SELECT c FROM ContaContabil c WHERE c.inAtivo = :inAtivo"),
-    @NamedQuery(name = "ContaContabil.findByNrContaContabil", query = "SELECT c FROM ContaContabil c WHERE c.nrContaContabil = :nrContaContabil")})
+    @NamedQuery(name = "ContaContabil.findByNrContaContabil", query = "SELECT c FROM ContaContabil c WHERE c.nrContaContabil = :nrContaContabil"), 
+    @NamedQuery(name = "ContaContabil.findByNrContaContabilId", query = "SELECT c FROM ContaContabil c WHERE c.nrContaContabil = :nrContaContabil AND c.idContaContabil <> :idContaContabil")})
 public class ContaContabil implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -149,7 +150,7 @@ public class ContaContabil implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.ContaContabil[ idContaContabil=" + idContaContabil + " ]";
+        return dsContaContabil;
     }
     
 }

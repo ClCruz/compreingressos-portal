@@ -32,6 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FormaPagamento.findAll", query = "SELECT f FROM FormaPagamento f"),
     @NamedQuery(name = "FormaPagamento.findByIdFormaPagamento", query = "SELECT f FROM FormaPagamento f WHERE f.idFormaPagamento = :idFormaPagamento"),
     @NamedQuery(name = "FormaPagamento.findByDsFormaPagamento", query = "SELECT f FROM FormaPagamento f WHERE f.dsFormaPagamento = :dsFormaPagamento"),
+    @NamedQuery(name = "FormaPagamento.findByDsMp", query = "SELECT f FROM FormaPagamento f WHERE f.dsFormaPagamento = :dsFormaPagamento AND f.inTipoMeioPagamento = :inTipoMeioPagamento"),
+    @NamedQuery(name = "FormaPagamento.findByDsMpId", query = "SELECT f FROM FormaPagamento f WHERE f.dsFormaPagamento = :dsFormaPagamento AND f.inTipoMeioPagamento = :inTipoMeioPagamento AND f.idFormaPagamento <> :idFormaPagamento"),
     @NamedQuery(name = "FormaPagamento.findByInAtivo", query = "SELECT f FROM FormaPagamento f WHERE f.inAtivo = :inAtivo")})
 public class FormaPagamento implements Serializable {
 
@@ -49,7 +51,7 @@ public class FormaPagamento implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_ativo")
-    private boolean inAtivo;
+    private boolean inAtivo = true;
     @JoinColumn(name = "in_tipo_meio_pagamento", referencedColumnName = "in_tipo_meio_pagamento")
     @ManyToOne
     private TipoMeioPagamento inTipoMeioPagamento;
@@ -121,6 +123,6 @@ public class FormaPagamento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.FormaPagamento[ idFormaPagamento=" + idFormaPagamento + " ]";
+        return dsFormaPagamento;
     }
 }

@@ -34,15 +34,11 @@ public class Login implements Filter {
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1,
 			FilterChain arg2) throws IOException, ServletException {
-
 		String userName = SecurityContextAssociation.getPrincipal().getName();
 		usuario = getFacade().findUsuario(userName);
 		HttpServletRequest req = (HttpServletRequest) arg0;
 		HttpServletResponse resp = (HttpServletResponse) arg1;
-		
 		req.getSession().setAttribute("usuario", usuario);
-		
-		System.out.println("Nome: " + usuario.getDsNome());
 		arg2.doFilter(req, resp);
 	}
 

@@ -1,6 +1,7 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import br.com.intuiti.compreingressos.portal.model.Contratante;
+import br.com.intuiti.compreingressos.portal.model.Municipio;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.bean.ContratanteFacade;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -81,6 +83,14 @@ public class ContratanteController implements Serializable {
         }
         return items;
     }
+    
+    public List<Municipio> listaMunicipios(){
+		return getFacade().findAll(selected.getIdEstado());
+	}
+    
+    public List<Municipio> listaMunicipioRepresLegal(){
+		return getFacade().findAll(selected.getIdEstadoRepresLegal());
+	}
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {

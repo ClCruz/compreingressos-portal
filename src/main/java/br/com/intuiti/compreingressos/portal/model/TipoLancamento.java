@@ -244,7 +244,7 @@ public class TipoLancamento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.TipoLancamento[ idTipoLancamento=" + idTipoLancamento + " ]";
+        return dsTipoLancamento;
     }
     
 }

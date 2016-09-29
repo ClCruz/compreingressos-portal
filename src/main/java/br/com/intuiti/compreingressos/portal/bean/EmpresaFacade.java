@@ -35,4 +35,9 @@ public class EmpresaFacade extends AbstractFacade<Empresa> {
         return lista.size();
     }
     
+    public int findNameId(String nome, int id){
+        List<Empresa> lista = em.createNamedQuery("Empresa.findByDsEmpresaId").setParameter("dsEmpresa", nome).setParameter("idEmpresa", id).getResultList();
+        return lista.size();
+    }
+    
 }

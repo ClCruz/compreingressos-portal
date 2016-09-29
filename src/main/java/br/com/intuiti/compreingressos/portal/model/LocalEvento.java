@@ -8,6 +8,7 @@ package br.com.intuiti.compreingressos.portal.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -48,7 +50,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "LocalEvento.findByCdEmail", query = "SELECT l FROM LocalEvento l WHERE l.cdEmail = :cdEmail"),
     @NamedQuery(name = "LocalEvento.findByDtInativacao", query = "SELECT l FROM LocalEvento l WHERE l.dtInativacao = :dtInativacao"),
     @NamedQuery(name = "LocalEvento.findByInAtivo", query = "SELECT l FROM LocalEvento l WHERE l.inAtivo = :inAtivo"),
-    @NamedQuery(name = "LocalEvento.findByCdUrlSite", query = "SELECT l FROM LocalEvento l WHERE l.cdUrlSite = :cdUrlSite")})
+    @NamedQuery(name = "LocalEvento.findByCdUrlSite", query = "SELECT l FROM LocalEvento l WHERE l.cdUrlSite = :cdUrlSite"),
+    @NamedQuery(name = "LocalEvento.findAllMunicipio", query = "SELECT m FROM Municipio m WHERE m.idEstado = :idEstado ORDER BY m.dsMunicipio")})
 public class LocalEvento implements Serializable {
 
     @OneToMany(mappedBy = "idLocalEvento")
@@ -102,8 +105,12 @@ public class LocalEvento implements Serializable {
     @JoinColumn(name = "id_tipo_local", referencedColumnName = "id_tipo_local")
     @ManyToOne(optional = false)
     private TipoLocal idTipoLocal;
+    @Transient
+    private Estado idEstado;
 
-    public LocalEvento() {
+    
+
+	public LocalEvento() {
     }
 
     public LocalEvento(Integer idLocalEvento) {
@@ -226,6 +233,14 @@ public class LocalEvento implements Serializable {
     public void setIdTipoLocal(TipoLocal idTipoLocal) {
         this.idTipoLocal = idTipoLocal;
     }
+    
+    public Estado getIdEstado() {
+		return idEstado;
+	}
+
+	public void setIdEstado(Estado idEstado) {
+		this.idEstado = idEstado;
+	}
 
     @Override
     public int hashCode() {
@@ -249,7 +264,7 @@ public class LocalEvento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.LocalEvento[ idLocalEvento=" + idLocalEvento + " ]";
+        return dsLocalEvento;
     }
 
     @XmlTransient

@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ModalidadeContrato.findAll", query = "SELECT m FROM ModalidadeContrato m"),
     @NamedQuery(name = "ModalidadeContrato.findByIdModalidadeContrato", query = "SELECT m FROM ModalidadeContrato m WHERE m.idModalidadeContrato = :idModalidadeContrato"),
-    @NamedQuery(name = "ModalidadeContrato.findByDsModalidadeContrato", query = "SELECT m FROM ModalidadeContrato m WHERE m.dsModalidadeContrato = :dsModalidadeContrato")})
+    @NamedQuery(name = "ModalidadeContrato.findByDsModalidadeContrato", query = "SELECT m FROM ModalidadeContrato m WHERE m.dsModalidadeContrato = :dsModalidadeContrato"),
+    @NamedQuery(name = "ModalidadeContrato.findByDsModalidadeContratoId", query = "SELECT m FROM ModalidadeContrato m WHERE m.dsModalidadeContrato = :dsModalidadeContrato AND m.idModalidadeContrato <> :idModalidadeContrato")})
 public class ModalidadeContrato implements Serializable {
 
     @OneToMany(mappedBy = "idModalidadeContrato")
@@ -91,7 +92,7 @@ public class ModalidadeContrato implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.ModalidadeContrato[ idModalidadeContrato=" + idModalidadeContrato + " ]";
+        return dsModalidadeContrato;
     }
 
     @XmlTransient

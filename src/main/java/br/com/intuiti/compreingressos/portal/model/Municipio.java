@@ -127,7 +127,7 @@ public class Municipio implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Municipio[ idMunicipio=" + idMunicipio + " ]";
+        return dsMunicipio;
     }
 
     @XmlTransient

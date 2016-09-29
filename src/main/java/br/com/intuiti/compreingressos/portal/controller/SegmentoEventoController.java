@@ -1,16 +1,11 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.SegmentoEvento;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade;
-import br.com.intuiti.compreingressos.portal.model.Usuario;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -19,16 +14,24 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpSession;
+
+import br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.SegmentoEvento;
+import br.com.intuiti.compreingressos.portal.model.Usuario;
 
 @ManagedBean(name = "segmentoEventoController")
 @ViewScoped
 public class SegmentoEventoController implements Serializable {
-
+	
 	private static final long serialVersionUID = 1L;
     @EJB
     private br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade ejbFacade;
     private List<SegmentoEvento> items = null;
     private SegmentoEvento selected;
+    private Usuario usuario;
 
     public SegmentoEventoController() {
     }
@@ -88,12 +91,30 @@ public class SegmentoEventoController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    selected.setIdUsuario(new Usuario(555));
-                    getFacade().edit(selected);
+                	FacesContext facesContext = FacesContext.getCurrentInstance();
+            		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+            		usuario = (Usuario) session.getAttribute("usuario");
+                    selected.setIdUsuario(usuario);
+                    if(persistAction == PersistAction.CREATE){
+                    	if(getFacade().findDs(selected.getDsSegmentoEvento())){
+                    		getFacade().edit(selected);
+                    		JsfUtil.addSuccessMessage(successMessage);
+                    	} else {
+                    		JsfUtil.addErrorMessage("Já existe um segmento cadastrado com essa descrição.");
+                    	}
+                    } else if(persistAction == PersistAction.UPDATE){
+                    	if(getFacade().findDsId(selected.getDsSegmentoEvento(), selected.getIdSegmentoEvento())){
+                    		getFacade().edit(selected);
+                    		JsfUtil.addSuccessMessage(successMessage);
+                    	} else {
+                    		JsfUtil.addErrorMessage("Já existe um segmento cadastrado com essa descrição.");
+                    	}
+                    }
                 } else {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
+                
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

@@ -5,7 +5,12 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
+import java.util.List;
+
 import br.com.intuiti.compreingressos.portal.model.Contratante;
+import br.com.intuiti.compreingressos.portal.model.Estado;
+import br.com.intuiti.compreingressos.portal.model.Municipio;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +32,10 @@ public class ContratanteFacade extends AbstractFacade<Contratante> {
 
     public ContratanteFacade() {
         super(Contratante.class);
+    }
+    
+    public List<Municipio> findAll(Estado estado){
+    	return em.createNamedQuery("Contratante.findAllMunicipio").setParameter("idEstado", estado).getResultList();
     }
     
 }

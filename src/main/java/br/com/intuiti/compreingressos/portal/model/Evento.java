@@ -258,7 +258,7 @@ public class Evento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Evento[ idEvento=" + idEvento + " ]";
+        return dsEvento;
     }
     
 }

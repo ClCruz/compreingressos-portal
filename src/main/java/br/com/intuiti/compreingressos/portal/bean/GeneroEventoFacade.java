@@ -5,10 +5,14 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.GeneroEvento;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.GeneroEvento;
+import br.com.intuiti.compreingressos.portal.model.SegmentoEvento;
 
 /**
  *
@@ -17,16 +21,35 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class GeneroEventoFacade extends AbstractFacade<GeneroEvento> {
 
-    @PersistenceContext(unitName = "br.com.intuiti_compreingressos-portal_war_1.0.0PU")
-    private EntityManager em;
+	@PersistenceContext(unitName = "br.com.intuiti_compreingressos-portal_war_1.0.0PU")
+	private EntityManager em;
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
+	}
 
-    public GeneroEventoFacade() {
-        super(GeneroEvento.class);
-    }
-    
+	public GeneroEventoFacade() {
+		super(GeneroEvento.class);
+	}
+
+	public boolean findDsSg(String dsGeneroEvento,
+			SegmentoEvento idSegmentoEvento) {
+		List<GeneroEvento> lista = em.createNamedQuery("GeneroEvento.findDsSg")
+				.setParameter("dsGeneroEvento", dsGeneroEvento)
+				.setParameter("idSegmentoEvento", idSegmentoEvento)
+				.getResultList();
+		return lista.size() > 0 ? false : true;
+	}
+
+	public boolean findDsSgId(String dsGeneroEvento,
+			SegmentoEvento idSegmentoEvento, Integer idGeneroEvento) {
+		List<GeneroEvento> lista = em.createNamedQuery("GeneroEvento.findDsSgId")
+				.setParameter("dsGeneroEvento", dsGeneroEvento)
+				.setParameter("idSegmentoEvento", idSegmentoEvento)
+				.setParameter("idGeneroEvento", idGeneroEvento)
+				.getResultList();
+		return lista.size() > 0 ? false : true;
+	}
+
 }

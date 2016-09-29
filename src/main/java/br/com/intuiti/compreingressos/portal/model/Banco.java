@@ -55,7 +55,7 @@ public class Banco implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_ativo")
-    private boolean inAtivo;
+    private boolean inAtivo = true;
 
     public Banco() {
     }
@@ -123,7 +123,7 @@ public class Banco implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Banco[ idBanco=" + idBanco + " ]";
+        return nmBanco;
     }
 
     @XmlTransient

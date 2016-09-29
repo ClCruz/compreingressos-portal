@@ -87,11 +87,26 @@ public class RegiaoGeograficaController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                	if(persistAction == PersistAction.CREATE){
+                		if(getFacade().findDs(selected.getDsRegiaoGeografica())){
+                			getFacade().edit(selected);
+                			JsfUtil.addSuccessMessage(successMessage);
+                		} else {
+                			JsfUtil.addErrorMessage("Já existe uma região cadastrada com essa descrição.");
+                		}
+                	} else if(persistAction == PersistAction.UPDATE){
+                		if(getFacade().findDsId(selected.getDsRegiaoGeografica(), selected.getIdRegiaoGeografica())){
+                			getFacade().edit(selected);
+                			JsfUtil.addSuccessMessage(successMessage);
+                		} else {
+                			JsfUtil.addErrorMessage("Já existe uma região cadastrada com essa descrição.");
+                		}
+                	}
+                    
                 } else {
                     getFacade().remove(selected);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
+                
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

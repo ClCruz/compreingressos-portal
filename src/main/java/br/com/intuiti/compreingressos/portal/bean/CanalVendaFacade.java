@@ -6,7 +6,9 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
 import br.com.intuiti.compreingressos.portal.model.CanalVenda;
+
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,9 +32,14 @@ public class CanalVendaFacade extends AbstractFacade<CanalVenda> {
         super(CanalVenda.class);
     }
 
-    public int findDesc(String descricao) {
+    public boolean findDesc(String descricao) {
         List<CanalVenda> lista = em.createNamedQuery("CanalVenda.findByDsCanalVenda", CanalVenda.class).setParameter("dsCanalVenda", descricao).getResultList();
-        return lista.size();
+        return lista.size() > 0 ? false : true;
     }
+
+	public boolean findDescId(String dsCanalVenda, Integer idCanalVenda) {
+        List<CanalVenda> lista = em.createNamedQuery("CanalVenda.findByDsCanalVendaId", CanalVenda.class).setParameter("dsCanalVenda", dsCanalVenda).setParameter("idCanalVenda", idCanalVenda).getResultList();
+		return lista.size() > 0 ? false : true;
+	}
 
 }

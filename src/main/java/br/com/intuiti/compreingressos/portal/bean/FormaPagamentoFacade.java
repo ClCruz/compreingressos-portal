@@ -5,10 +5,14 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.FormaPagamento;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.FormaPagamento;
+import br.com.intuiti.compreingressos.portal.model.TipoMeioPagamento;
 
 /**
  *
@@ -17,16 +21,36 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class FormaPagamentoFacade extends AbstractFacade<FormaPagamento> {
 
-    @PersistenceContext(unitName = "br.com.intuiti_compreingressos-portal_war_1.0.0PU")
-    private EntityManager em;
+	@PersistenceContext(unitName = "br.com.intuiti_compreingressos-portal_war_1.0.0PU")
+	private EntityManager em;
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
+	}
 
-    public FormaPagamentoFacade() {
-        super(FormaPagamento.class);
-    }
-    
+	public FormaPagamentoFacade() {
+		super(FormaPagamento.class);
+	}
+
+	public boolean findDsMp(String dsFormaPagamento,
+			TipoMeioPagamento inTipoMeioPagamento) {
+		List<FormaPagamento> lista = em
+				.createNamedQuery("FormaPagamento.findByDsMp")
+				.setParameter("dsFormaPagamento", dsFormaPagamento)
+				.setParameter("inTipoMeioPagamento", inTipoMeioPagamento)
+				.getResultList();
+		return lista.size() > 0 ? false : true;
+	}
+
+	public boolean findDsMpId(String dsFormaPagamento,
+			TipoMeioPagamento inTipoMeioPagamento, Integer idFormaPagamento) {
+		List<FormaPagamento> lista = em
+				.createNamedQuery("FormaPagamento.findByDsMpId")
+				.setParameter("dsFormaPagamento", dsFormaPagamento)
+				.setParameter("inTipoMeioPagamento", inTipoMeioPagamento)
+				.setParameter("idFormaPagamento", idFormaPagamento)
+				.getResultList();
+		return lista.size() > 0 ? false : true;
+	}
 }

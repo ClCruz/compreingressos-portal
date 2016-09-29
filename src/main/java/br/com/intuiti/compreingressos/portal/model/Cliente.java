@@ -407,7 +407,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Cliente[ idCliente=" + idCliente + " ]";
+        return dsNome;
     }
     
 }

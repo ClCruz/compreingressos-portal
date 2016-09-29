@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,13 +28,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CanalVenda.findAll", query = "SELECT c FROM CanalVenda c"),
     @NamedQuery(name = "CanalVenda.findByIdCanalVenda", query = "SELECT c FROM CanalVenda c WHERE c.idCanalVenda = :idCanalVenda"),
-    @NamedQuery(name = "CanalVenda.findByDsCanalVenda", query = "SELECT c FROM CanalVenda c WHERE c.dsCanalVenda = :dsCanalVenda")})
+    @NamedQuery(name = "CanalVenda.findByDsCanalVenda", query = "SELECT c FROM CanalVenda c WHERE c.dsCanalVenda = :dsCanalVenda"),
+    @NamedQuery(name = "CanalVenda.findByDsCanalVendaId", query = "SELECT c FROM CanalVenda c WHERE c.dsCanalVenda = :dsCanalVenda AND c.idCanalVenda <> :idCanalVenda")})
 public class CanalVenda implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_canal_venda")
+    @Column(name = "id_canal_venda", unique = true, nullable = false)
     private Integer idCanalVenda;
     @Basic(optional = false)
     @NotNull
@@ -107,7 +104,7 @@ public class CanalVenda implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.CanalVenda[ idCanalVenda=" + idCanalVenda + " ]";
+        return dsCanalVenda;
     }
     
 }

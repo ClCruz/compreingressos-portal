@@ -137,7 +137,7 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Estado[ idEstado=" + idEstado + " ]";
+        return dsEstado;
     }
 
     @XmlTransient

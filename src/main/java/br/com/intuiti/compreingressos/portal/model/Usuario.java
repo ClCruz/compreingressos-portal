@@ -229,7 +229,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Usuario[ idUsuario=" + idUsuario + " ]";
+        return dsNome;
     }
     
 }

@@ -100,7 +100,7 @@ public class TipoMeioPagamento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.TipoMeioPagamento[ inTipoMeioPagamento=" + inTipoMeioPagamento + " ]";
+        return dsTipoMeioPagamento;
     }
     
 }

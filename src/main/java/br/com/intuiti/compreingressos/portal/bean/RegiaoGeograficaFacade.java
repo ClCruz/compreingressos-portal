@@ -5,10 +5,13 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.RegiaoGeografica;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.RegiaoGeografica;
 
 /**
  *
@@ -27,6 +30,16 @@ public class RegiaoGeograficaFacade extends AbstractFacade<RegiaoGeografica> {
 
     public RegiaoGeograficaFacade() {
         super(RegiaoGeografica.class);
+    }
+    
+    public boolean findDs(String descricao){
+    	List<RegiaoGeografica> lista = em.createNamedQuery("RegiaoGeografica.findByDsRegiaoGeografica").setParameter("dsRegiaoGeografica", descricao).getResultList();
+    	return lista.size() > 0 ? false : true;
+    }
+    
+    public boolean findDsId(String descricao, int id){
+    	List<RegiaoGeografica> lista = em.createNamedQuery("RegiaoGeografica.findByDsRegiaoGeograficaId").setParameter("dsRegiaoGeografica", descricao).setParameter("idRegiaoGeografica", id).getResultList();
+    	return lista.size() > 0 ? false : true;
     }
     
 }

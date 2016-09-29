@@ -88,15 +88,19 @@ public class ContaContabilController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     if (persistAction == PersistAction.CREATE) {
-                        if(getFacade().findNumero(selected.getNrContaContabil()) > 0){
-                            JsfUtil.addErrorMessage("Já existe uma conta contábil cadastrada com esse número.");
-                        } else {
-                            getFacade().edit(selected);
+                        if(getFacade().findNumero(selected.getNrContaContabil())){
+                        	getFacade().edit(selected);
                             JsfUtil.addSuccessMessage(successMessage);
+                        } else {
+                        	JsfUtil.addErrorMessage("Já existe uma conta contábil cadastrada com esse número.");
                         }
-                    } else {
-                        getFacade().edit(selected);
-                        JsfUtil.addSuccessMessage(successMessage);
+                    } else if(persistAction == PersistAction.UPDATE) {
+                    	if(getFacade().findNumeroId(selected.getNrContaContabil(), selected.getIdContaContabil())){
+                    		getFacade().edit(selected);
+                            JsfUtil.addSuccessMessage(successMessage);
+                    	} else {
+                    		JsfUtil.addErrorMessage("Já existe uma conta contábil cadastrada com esse número.");
+                    	}
                     }
                 } else {
                     getFacade().remove(selected);

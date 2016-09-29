@@ -5,10 +5,10 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.LocalEvento;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +17,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
 import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.model.Estado;
+import br.com.intuiti.compreingressos.portal.model.LocalEvento;
+import br.com.intuiti.compreingressos.portal.model.Municipio;
 
 /**
  *
@@ -36,6 +41,10 @@ public class LocalEventoFacade extends AbstractFacade<LocalEvento> {
 
     public LocalEventoFacade() {
         super(LocalEvento.class);
+    }
+    
+    public List<Municipio> findAll(Estado estado){
+    	return em.createNamedQuery("LocalEvento.findAllMunicipio").setParameter("idEstado", estado).getResultList();
     }
     
     public List<LocalEvento> findAllOrderByDs(){

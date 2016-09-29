@@ -99,7 +99,7 @@ public class ModalidadeCobranca implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.ModalidadeCobranca[ idModalidadeCobranca=" + idModalidadeCobranca + " ]";
+        return dsModalidadeCobranca;
     }
     
 }

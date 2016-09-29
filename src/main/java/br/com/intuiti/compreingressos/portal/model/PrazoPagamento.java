@@ -53,11 +53,11 @@ public class PrazoPagamento implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_dia_semana")
-    private int inDiaSemana;
+    private Integer inDiaSemana;
     @Basic(optional = false)
     @NotNull
     @Column(name = "qt_dias_prazo")
-    private int qtDiasPrazo;
+    private Integer qtDiasPrazo;
     @Size(max = 20)
     @Column(name = "ds_dias_fixos")
     private String dsDiasFixos;
@@ -69,7 +69,7 @@ public class PrazoPagamento implements Serializable {
         this.idPrazoPagamento = idPrazoPagamento;
     }
 
-    public PrazoPagamento(Integer idPrazoPagamento, int inDiaSemana, int qtDiasPrazo) {
+    public PrazoPagamento(Integer idPrazoPagamento, Integer inDiaSemana, Integer qtDiasPrazo) {
         this.idPrazoPagamento = idPrazoPagamento;
         this.inDiaSemana = inDiaSemana;
         this.qtDiasPrazo = qtDiasPrazo;
@@ -91,19 +91,19 @@ public class PrazoPagamento implements Serializable {
         this.dsPrazoPagamento = dsPrazoPagamento;
     }
 
-    public int getInDiaSemana() {
+    public Integer getInDiaSemana() {
         return inDiaSemana;
     }
 
-    public void setInDiaSemana(int inDiaSemana) {
+    public void setInDiaSemana(Integer inDiaSemana) {
         this.inDiaSemana = inDiaSemana;
     }
 
-    public int getQtDiasPrazo() {
+    public Integer getQtDiasPrazo() {
         return qtDiasPrazo;
     }
 
-    public void setQtDiasPrazo(int qtDiasPrazo) {
+    public void setQtDiasPrazo(Integer qtDiasPrazo) {
         this.qtDiasPrazo = qtDiasPrazo;
     }
 
@@ -137,7 +137,7 @@ public class PrazoPagamento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.PrazoPagamento[ idPrazoPagamento=" + idPrazoPagamento + " ]";
+        return dsPrazoPagamento;
     }
 
     @XmlTransient

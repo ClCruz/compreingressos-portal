@@ -5,10 +5,13 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.SegmentoEvento;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.SegmentoEvento;
 
 /**
  *
@@ -27,6 +30,16 @@ public class SegmentoEventoFacade extends AbstractFacade<SegmentoEvento> {
 
     public SegmentoEventoFacade() {
         super(SegmentoEvento.class);
+    }
+    
+    public boolean findDs(String descricao){
+    	List<SegmentoEvento> lista = em.createNamedQuery("SegmentoEvento.findByDsSegmentoEvento").setParameter("dsSegmentoEvento", descricao).getResultList();
+    	return lista.size() > 0 ? false : true;
+    }
+    
+    public boolean findDsId(String descricao, int id){
+    	List<SegmentoEvento> lista = em.createNamedQuery("SegmentoEvento.findByDsSegmentoEventoId").setParameter("dsSegmentoEvento", descricao).setParameter("idSegmentoEvento", id).getResultList();
+    	return lista.size() > 0 ? false : true;
     }
     
 }

@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="UsuarioListForm">
+                        <p:dataTable id="datalist" value="#{usuarioController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                     selection="#{usuarioController.selected}" selectionMode="single"
+                                     paginator="true"
+                                     rows="10" paginatorPosition="bottom"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     lazy="true"
+                                     widgetVar="usuarioTable"
+                                     >
+                            <f:facet name="header">
+                            #{Login.retornaNome()}
+                                <!-- #{bundle.ListUsuarioTitle} -->
+                            </f:facet>
+                            
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <p:column sortBy="#{item.cdLogin}" headerText="#{bundle.ListUsuarioTitle_cdLogin}"
+                                      filterBy="#{item.cdLogin}" filterMatchMode="contains">
+                                <h:outputText value="#{item.cdLogin}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.dsNome}" headerText="#{bundle.ListUsuarioTitle_dsNome}"
+                                      filterBy="#{item.dsNome}" filterMatchMode="contains">
+                                <h:outputText value="#{item.dsNome}"/>
+                            </p:column>
+    <!--                        <p:column sortBy="#{item.cdPww}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUsuarioTitle_cdPww}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cdPww}"/>
+                            </p:column>-->
+                            <p:column sortBy="#{item.dsEmail}" headerText="#{bundle.ListUsuarioTitle_dsEmail}"
+                                      filterBy="#{item.dsEmail}" filterMatchMode="contains">
+                                <h:outputText value="#{item.dsEmail}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.inAtivo}" headerText="#{bundle.ListUsuarioTitle_inAtivo}"
+                                      filterBy="#{item.inAtivo}" filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('usuarioTable').filter()">
+                                        <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Ativo" itemValue="1" />
+                                        <f:selectItem itemLabel="Inativo" itemValue="0" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText rendered="#{item.inAtivo == 1}" value="Ativo"/>
+                                <h:outputText rendered="#{item.inAtivo == 0}" value="Inativo" />
+                            </p:column>
+                            <p:column sortBy="#{item.inAdmin}" headerText="#{bundle.ListUsuarioTitle_inAdmin}"
+                                      filterBy="#{item.inAdmin}" filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('usuarioTable').filter()">
+                                        <f:selectItem itemLabel="Sim e Não" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Sim" itemValue="1" />
+                                        <f:selectItem itemLabel="Não" itemValue="0" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="Sim" rendered="#{item.inAdmin == 1}"/>
+                                <h:outputText value="Não" rendered="#{item.inAdmin == 0}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.inTelemarketing}" headerText="#{bundle.ListUsuarioTitle_inTelemarketing}"
+                                      filterBy="#{item.inTelemarketing}" filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('usuarioTable').filter()">
+                                        <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Ativo" itemValue="1" />
+                                        <f:selectItem itemLabel="Inativo" itemValue="0" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="Ativo" rendered="#{item.inTelemarketing == 1}"/>
+                                <h:outputText value="Inativo" rendered="#{item.inTelemarketing == 0}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.inPdv}" headerText="#{bundle.ListUsuarioTitle_inPdv}"
+                                      filterBy="#{item.inPdv}" filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('usuarioTable').filter()">
+                                        <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Ativo" itemValue="1" />
+                                        <f:selectItem itemLabel="Inativo" itemValue="0" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="Ativo" rendered="#{item.inPdv == 1}"/>
+                                <h:outputText value="Inativo" rendered="#{item.inPdv == 0}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.inPos}" headerText="#{bundle.ListUsuarioTitle_inPos}"
+                                      filterBy="#{item.inPos}" filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('usuarioTable').filter()">
+                                        <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Ativo" itemValue="1" />
+                                        <f:selectItem itemLabel="Inativo" itemValue="0" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="Ativo" rendered="#{item.inPos == 1}"/>
+                                <h:outputText value="Inativo" rendered="#{item.inPos == 0}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{usuarioController.destroy}" update=":growl,datalist" disabled="#{empty usuarioController.selected}">
+                                    <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="overflow-y:hidden!important;">
+                                    <p:commandButton value="#{bundle.Delete}" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                    <p:commandButton value="#{bundle.Close}" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                                </p:confirmDialog>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+    </ui:define>
+</ui:composition>

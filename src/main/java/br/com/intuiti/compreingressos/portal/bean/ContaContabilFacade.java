@@ -30,9 +30,22 @@ public class ContaContabilFacade extends AbstractFacade<ContaContabil> {
         super(ContaContabil.class);
     }
     
-    public int findNumero(String numero){
+    public boolean findNumero(String numero){
         List<ContaContabil> lista = em.createNamedQuery("ContaContabil.findByNrContaContabil").setParameter("nrContaContabil", numero).getResultList();
-        return lista.size();
+        if(lista.size() > 0){
+        	return false;
+        } else {
+        	return true;
+        }
+    }
+    
+    public boolean findNumeroId(String numero, int id){
+        List<ContaContabil> lista = em.createNamedQuery("ContaContabil.findByNrContaContabilId").setParameter("nrContaContabil", numero).setParameter("idContaContabil", id).getResultList();
+        if(lista.size() > 0){
+        	return false;
+        } else {
+        	return true;
+        }
     }
     
 }

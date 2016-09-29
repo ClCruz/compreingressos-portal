@@ -5,10 +5,13 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.TipoContrato;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.TipoContrato;
 
 /**
  *
@@ -28,5 +31,15 @@ public class TipoContratoFacade extends AbstractFacade<TipoContrato> {
     public TipoContratoFacade() {
         super(TipoContrato.class);
     }
+    
+    public boolean findDs(String descricao){
+    	List<TipoContrato> lista = em.createNamedQuery("TipoContrato.findByDsTipoContrato").setParameter("dsTipoContrato", descricao).getResultList();
+    	return lista.size() > 0 ? false : true;
+    }
+
+	public boolean findDsId(String dsTipoContrato, Integer idTipoContrato) {
+		List<TipoContrato> lista = em.createNamedQuery("TipoContrato.findByDsTipoContratoId").setParameter("dsTipoContrato", dsTipoContrato).setParameter("idTipoContrato", idTipoContrato).getResultList();
+    	return lista.size() > 0 ? false : true;
+	}
     
 }

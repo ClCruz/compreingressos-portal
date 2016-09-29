@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -71,7 +73,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Contratante.findByCdContaBancaria", query = "SELECT c FROM Contratante c WHERE c.cdContaBancaria = :cdContaBancaria"),
     @NamedQuery(name = "Contratante.findByDvContaBancaria", query = "SELECT c FROM Contratante c WHERE c.dvContaBancaria = :dvContaBancaria"),
     @NamedQuery(name = "Contratante.findByNmTitularContaRepasse", query = "SELECT c FROM Contratante c WHERE c.nmTitularContaRepasse = :nmTitularContaRepasse"),
-    @NamedQuery(name = "Contratante.findByCdCpfCnpjTitularConta", query = "SELECT c FROM Contratante c WHERE c.cdCpfCnpjTitularConta = :cdCpfCnpjTitularConta")})
+    @NamedQuery(name = "Contratante.findByCdCpfCnpjTitularConta", query = "SELECT c FROM Contratante c WHERE c.cdCpfCnpjTitularConta = :cdCpfCnpjTitularConta"),
+    @NamedQuery(name = "Contratante.findAllMunicipio", query = "SELECT m FROM Municipio m WHERE m.idEstado = :idEstado ORDER BY m.dsMunicipio")})
 public class Contratante implements Serializable {
 
     @OneToMany(mappedBy = "idContratante")
@@ -198,8 +201,12 @@ public class Contratante implements Serializable {
     @JoinColumn(name = "id_municipio_repres_legal", referencedColumnName = "id_municipio")
     @ManyToOne
     private Municipio idMunicipioRepresLegal;
+    @Transient
+    private Estado idEstado;
+    @Transient
+    private Estado idEstadoRepresLegal;
 
-    public Contratante() {
+	public Contratante() {
         idBanco = new Banco();
         idMunicipio = new Municipio();
         idMunicipioRepresLegal = new Municipio();
@@ -519,6 +526,22 @@ public class Contratante implements Serializable {
     public void setIdMunicipioRepresLegal(Municipio idMunicipioRepresLegal) {
         this.idMunicipioRepresLegal = idMunicipioRepresLegal;
     }
+    
+    public Estado getIdEstado() {
+		return idEstado;
+	}
+
+	public void setIdEstado(Estado idEstado) {
+		this.idEstado = idEstado;
+	}
+	
+	public Estado getIdEstadoRepresLegal() {
+		return idEstadoRepresLegal;
+	}
+
+	public void setIdEstadoRepresLegal(Estado idEstadoRepresLegal) {
+		this.idEstadoRepresLegal = idEstadoRepresLegal;
+	}
 
     @Override
     public int hashCode() {
@@ -542,7 +565,7 @@ public class Contratante implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Contratante[ idContratante=" + idContratante + " ]";
+        return nmRazaoSocial;
     }
 
     @XmlTransient

@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,20 +29,19 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vendedor.findByInAtivo", query = "SELECT v FROM Vendedor v WHERE v.inAtivo = :inAtivo")})
 public class Vendedor implements Serializable {
 
-    @OneToMany(mappedBy = "idVendedor")
-    private Collection<ContratoCliente> contratoClienteCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_vendedor", columnDefinition = "integer")
     private Integer idVendedor;
-    @Lob
+    @Basic(optional = false)
     @Column(name = "ds_vendedor")
     private String dsVendedor;
     @Column(name = "in_ativo")
     private Boolean inAtivo;
+    @OneToMany(mappedBy = "idVendedor")
+    private Collection<ContratoCliente> contratoClienteCollection;
 
     public Vendedor() {
     }
@@ -101,7 +96,7 @@ public class Vendedor implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.Vendedor[ idVendedor=" + idVendedor + " ]";
+        return dsVendedor;
     }
 
     @XmlTransient

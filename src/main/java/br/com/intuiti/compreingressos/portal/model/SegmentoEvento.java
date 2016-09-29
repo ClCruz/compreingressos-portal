@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SegmentoEvento.findAll", query = "SELECT s FROM SegmentoEvento s"),
     @NamedQuery(name = "SegmentoEvento.findByIdSegmentoEvento", query = "SELECT s FROM SegmentoEvento s WHERE s.idSegmentoEvento = :idSegmentoEvento"),
     @NamedQuery(name = "SegmentoEvento.findByDsSegmentoEvento", query = "SELECT s FROM SegmentoEvento s WHERE s.dsSegmentoEvento = :dsSegmentoEvento"),
+    @NamedQuery(name = "SegmentoEvento.findByDsSegmentoEventoId", query = "SELECT s FROM SegmentoEvento s WHERE s.dsSegmentoEvento = :dsSegmentoEvento AND s.idSegmentoEvento <> :idSegmentoEvento"),
     @NamedQuery(name = "SegmentoEvento.findByInAtivo", query = "SELECT s FROM SegmentoEvento s WHERE s.inAtivo = :inAtivo")})
 public class SegmentoEvento implements Serializable {
 
@@ -55,7 +56,7 @@ public class SegmentoEvento implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_ativo")
-    private boolean inAtivo;
+    private boolean inAtivo = true;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
@@ -138,7 +139,7 @@ public class SegmentoEvento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.SegmentoEvento[ idSegmentoEvento=" + idSegmentoEvento + " ]";
+        return dsSegmentoEvento;
     }
 
     @XmlTransient
