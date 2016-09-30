@@ -33,6 +33,7 @@ public class FormaPagamentoFacade extends AbstractFacade<FormaPagamento> {
 		super(FormaPagamento.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean findDsMp(String dsFormaPagamento,
 			TipoMeioPagamento inTipoMeioPagamento) {
 		List<FormaPagamento> lista = em
@@ -43,6 +44,7 @@ public class FormaPagamentoFacade extends AbstractFacade<FormaPagamento> {
 		return lista.size() > 0 ? false : true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean findDsMpId(String dsFormaPagamento,
 			TipoMeioPagamento inTipoMeioPagamento, Integer idFormaPagamento) {
 		List<FormaPagamento> lista = em

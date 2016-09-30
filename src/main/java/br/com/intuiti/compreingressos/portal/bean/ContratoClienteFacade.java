@@ -1,14 +1,15 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.Base;
-import br.com.intuiti.compreingressos.portal.model.ContratoCliente;
-import br.com.intuiti.compreingressos.portal.model.Evento;
-import br.com.intuiti.compreingressos.portal.model.LocalEvento;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TemporalType;
+
+import br.com.intuiti.compreingressos.portal.model.Base;
+import br.com.intuiti.compreingressos.portal.model.ContratoCliente;
+import br.com.intuiti.compreingressos.portal.model.Evento;
 
 /**
  *
@@ -32,6 +33,7 @@ public class ContratoClienteFacade extends AbstractFacade<ContratoCliente> {
     public ContratoCliente update(ContratoCliente entity) {
         return (ContratoCliente) getEntityManager().merge(entity);
     }
+    
     
     public List<Evento> findAll(Base base) {
         return em.createNamedQuery("Evento.findByBase", Evento.class).setParameter("idBase", base).setParameter("data", new java.util.Date(), TemporalType.TIMESTAMP).getResultList();

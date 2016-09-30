@@ -34,7 +34,8 @@ public class ContratanteFacade extends AbstractFacade<Contratante> {
         super(Contratante.class);
     }
     
-    public List<Municipio> findAll(Estado estado){
+    @SuppressWarnings("unchecked")
+	public List<Municipio> findAll(Estado estado){
     	return em.createNamedQuery("Contratante.findAllMunicipio").setParameter("idEstado", estado).getResultList();
     }
     

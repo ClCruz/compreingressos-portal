@@ -32,12 +32,14 @@ public class RegiaoGeograficaFacade extends AbstractFacade<RegiaoGeografica> {
         super(RegiaoGeografica.class);
     }
     
-    public boolean findDs(String descricao){
+    @SuppressWarnings("unchecked")
+	public boolean findDs(String descricao){
     	List<RegiaoGeografica> lista = em.createNamedQuery("RegiaoGeografica.findByDsRegiaoGeografica").setParameter("dsRegiaoGeografica", descricao).getResultList();
     	return lista.size() > 0 ? false : true;
     }
     
-    public boolean findDsId(String descricao, int id){
+    @SuppressWarnings("unchecked")
+	public boolean findDsId(String descricao, int id){
     	List<RegiaoGeografica> lista = em.createNamedQuery("RegiaoGeografica.findByDsRegiaoGeograficaId").setParameter("dsRegiaoGeografica", descricao).setParameter("idRegiaoGeografica", id).getResultList();
     	return lista.size() > 0 ? false : true;
     }

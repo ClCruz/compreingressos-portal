@@ -32,6 +32,7 @@ public class TipoLocalFacade extends AbstractFacade<TipoLocal> {
 		super(TipoLocal.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean findDs(String descricao) {
 		List<TipoLocal> lista = em
 				.createNamedQuery("TipoLocal.findByDsTipoLocal")
@@ -39,6 +40,7 @@ public class TipoLocalFacade extends AbstractFacade<TipoLocal> {
 		return lista.size() > 0 ? false : true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean findDsId(String descricao, Integer id) {
 		List<TipoLocal> lista = em
 				.createNamedQuery("TipoLocal.findByDsTipoLocalId")

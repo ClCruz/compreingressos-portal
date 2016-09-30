@@ -7,7 +7,9 @@ package br.com.intuiti.compreingressos.portal.bean;
 
 import br.com.intuiti.compreingressos.portal.model.Estado;
 import br.com.intuiti.compreingressos.portal.model.Municipio;
+
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,7 +33,8 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
         super(Municipio.class);
     }
     
-    public int findDesc(Estado estado, String descricao){
+    @SuppressWarnings("unchecked")
+	public int findDesc(Estado estado, String descricao){
         List<Municipio> lista = em.createNamedQuery("Municipio.findDesc").setParameter("idEstado", estado).setParameter("dsMunicipio", descricao).getResultList();
         return lista.size();
     }

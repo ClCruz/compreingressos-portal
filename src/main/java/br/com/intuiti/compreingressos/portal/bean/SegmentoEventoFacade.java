@@ -32,12 +32,14 @@ public class SegmentoEventoFacade extends AbstractFacade<SegmentoEvento> {
         super(SegmentoEvento.class);
     }
     
-    public boolean findDs(String descricao){
+    @SuppressWarnings("unchecked")
+	public boolean findDs(String descricao){
     	List<SegmentoEvento> lista = em.createNamedQuery("SegmentoEvento.findByDsSegmentoEvento").setParameter("dsSegmentoEvento", descricao).getResultList();
     	return lista.size() > 0 ? false : true;
     }
     
-    public boolean findDsId(String descricao, int id){
+    @SuppressWarnings("unchecked")
+	public boolean findDsId(String descricao, int id){
     	List<SegmentoEvento> lista = em.createNamedQuery("SegmentoEvento.findByDsSegmentoEventoId").setParameter("dsSegmentoEvento", descricao).setParameter("idSegmentoEvento", id).getResultList();
     	return lista.size() > 0 ? false : true;
     }

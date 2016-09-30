@@ -8,12 +8,14 @@ package br.com.intuiti.compreingressos.portal.bean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
 import org.primefaces.model.SortOrder;
 
 /**
@@ -50,6 +52,7 @@ public abstract class AbstractFacade<T> {
 		return (getEntityManager().find(entityClass, s) == null);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<T> findAll() {
 		javax.persistence.criteria.CriteriaQuery cq = getEntityManager()
 				.getCriteriaBuilder().createQuery();
@@ -57,6 +60,7 @@ public abstract class AbstractFacade<T> {
 		return getEntityManager().createQuery(cq).getResultList();
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<T> findAll(int inicio, int tamanho, String sortFilter,
 			SortOrder sortOrder, Map<String, Object> filters) {
 		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
@@ -90,6 +94,7 @@ public abstract class AbstractFacade<T> {
 				.setMaxResults(tamanho).getResultList();
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public int count(int inicio, int tamanho, String sortFilter,
 			SortOrder sortOrder, Map<String, Object> filters) {
 		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
@@ -123,6 +128,7 @@ public abstract class AbstractFacade<T> {
 		return (result == null) ? 0 : result.size();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<T> findRange(int[] range) {
 		javax.persistence.criteria.CriteriaQuery cq = getEntityManager()
 				.getCriteriaBuilder().createQuery();
@@ -133,6 +139,7 @@ public abstract class AbstractFacade<T> {
 		return q.getResultList();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public int count() {
 		javax.persistence.criteria.CriteriaQuery cq = getEntityManager()
 				.getCriteriaBuilder().createQuery();

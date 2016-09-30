@@ -33,11 +33,13 @@ public class ModalidadeContratoFacade extends AbstractFacade<ModalidadeContrato>
     }
     
     
-    public boolean findDs(String descricao){
+    @SuppressWarnings("unchecked")
+	public boolean findDs(String descricao){
     	List<ModalidadeContrato> lista = em.createNamedQuery("ModalidadeContrato.findByDsModalidadeContrato").setParameter("dsModalidadeContrato", descricao).getResultList();
     	return lista.size() > 0 ? false : true;
     }
 
+	@SuppressWarnings("unchecked")
 	public boolean findDsId(String dsModalidadeContrato,
 			Integer idModalidadeContrato) {
 		List<ModalidadeContrato> lista = em.createNamedQuery("ModalidadeContrato.findByDsModalidadeContratoId").setParameter("dsModalidadeContrato", dsModalidadeContrato).setParameter("idModalidadeContrato", idModalidadeContrato).getResultList();

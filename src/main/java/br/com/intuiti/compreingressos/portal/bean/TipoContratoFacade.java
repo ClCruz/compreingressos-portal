@@ -32,11 +32,13 @@ public class TipoContratoFacade extends AbstractFacade<TipoContrato> {
         super(TipoContrato.class);
     }
     
-    public boolean findDs(String descricao){
+    @SuppressWarnings("unchecked")
+	public boolean findDs(String descricao){
     	List<TipoContrato> lista = em.createNamedQuery("TipoContrato.findByDsTipoContrato").setParameter("dsTipoContrato", descricao).getResultList();
     	return lista.size() > 0 ? false : true;
     }
 
+	@SuppressWarnings("unchecked")
 	public boolean findDsId(String dsTipoContrato, Integer idTipoContrato) {
 		List<TipoContrato> lista = em.createNamedQuery("TipoContrato.findByDsTipoContratoId").setParameter("dsTipoContrato", dsTipoContrato).setParameter("idTipoContrato", idTipoContrato).getResultList();
     	return lista.size() > 0 ? false : true;

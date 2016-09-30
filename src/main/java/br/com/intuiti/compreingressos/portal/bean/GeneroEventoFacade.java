@@ -33,6 +33,7 @@ public class GeneroEventoFacade extends AbstractFacade<GeneroEvento> {
 		super(GeneroEvento.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean findDsSg(String dsGeneroEvento,
 			SegmentoEvento idSegmentoEvento) {
 		List<GeneroEvento> lista = em.createNamedQuery("GeneroEvento.findDsSg")
@@ -42,6 +43,7 @@ public class GeneroEventoFacade extends AbstractFacade<GeneroEvento> {
 		return lista.size() > 0 ? false : true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean findDsSgId(String dsGeneroEvento,
 			SegmentoEvento idSegmentoEvento, Integer idGeneroEvento) {
 		List<GeneroEvento> lista = em.createNamedQuery("GeneroEvento.findDsSgId")

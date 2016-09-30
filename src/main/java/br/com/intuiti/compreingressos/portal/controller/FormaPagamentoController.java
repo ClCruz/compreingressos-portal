@@ -23,11 +23,9 @@ import javax.naming.NamingException;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-import br.com.intuiti.compreingressos.portal.bean.ContaContabilFacade;
 import br.com.intuiti.compreingressos.portal.bean.FormaPagamentoFacade;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.model.ContaContabil;
 import br.com.intuiti.compreingressos.portal.model.FormaPagamento;
 
 @ManagedBean(name = "formaPagamentoController")

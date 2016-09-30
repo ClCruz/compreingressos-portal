@@ -171,9 +171,9 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 				Context ctx = new javax.naming.InitialContext();
 				LocalEventoFacade localFacade = (LocalEventoFacade) ctx
 						.lookup("java:global/compreingressos-portal/LocalEventoFacade!br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade");
-				localEvento = localFacade.findLazy(first, pageSize, sortField,
+				localEvento = localFacade.findAll(first, pageSize, sortField,
 						sortOrder, filters);
-				setRowCount(localFacade.countLocal(first, pageSize, sortField,
+				setRowCount(localFacade.count(first, pageSize, sortField,
 						sortOrder, filters));
 				setPageSize(pageSize);
 			} catch (NamingException ex) {

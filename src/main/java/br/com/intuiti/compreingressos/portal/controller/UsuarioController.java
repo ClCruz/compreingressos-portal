@@ -177,9 +177,9 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 				Context ctx = new javax.naming.InitialContext();
 				UsuarioFacade usuarioFacade = (UsuarioFacade) ctx
 						.lookup("java:global/compreingressos-portal/UsuarioFacade!br.com.intuiti.compreingressos.portal.bean.UsuarioFacade");
-				usuarios = usuarioFacade.findLazy(first, pageSize, sortField,
+				usuarios = usuarioFacade.findAll(first, pageSize, sortField,
 						sortOrder, filters);
-				setRowCount(usuarioFacade.countUsuarios(first, pageSize,
+				setRowCount(usuarioFacade.count(first, pageSize,
 						sortField, sortOrder, filters));
 				setPageSize(pageSize);
 			} catch (NamingException ex) {
