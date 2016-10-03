@@ -80,7 +80,7 @@
      </mime-mapping> 
      <error-page> 
          <error-code>404</error-code> 
-         <location>/WEB-INF/404.xhtml</location> 
+         <location>/faces/error.xhtml</location> 
      </error-page>
      
       <security-constraint>
@@ -97,7 +97,7 @@
         <auth-method>FORM</auth-method>
         <form-login-config>
             <form-login-page>/faces/login.xhtml</form-login-page>
-            <form-error-page>/faces/loginError.html</form-error-page>
+            <form-error-page>/faces/loginError.xhtml</form-error-page>
         </form-login-config>
     </login-config>
     

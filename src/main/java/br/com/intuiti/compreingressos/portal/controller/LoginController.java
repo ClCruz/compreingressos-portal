@@ -22,7 +22,6 @@ public class LoginController {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		usuario = (Usuario) session.getAttribute("usuario");
-		System.out.println(usuario.getDsNome());
 	}
 	
 	public String logout(){

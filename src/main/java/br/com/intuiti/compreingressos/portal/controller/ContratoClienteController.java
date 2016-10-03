@@ -60,65 +60,18 @@ public class ContratoClienteController implements Serializable {
 
     @ManagedProperty(name = "contratoClienteTipoLancamentoController", value = "#{contratoClienteTipoLancamentoController}")
     private ContratoClienteTipoLancamentoController contratoClienteTipoLancamentoController = new ContratoClienteTipoLancamentoController();
-
-    @PostConstruct
-    public void init() {
-        selectedPP = new ContratoClientePrazoPagamento();
-        selectedTL = new ContratoClienteTipoLancamento();
-        selectedB = new Base();
-    }
-
-    public void listaItens() {
-        if (selected.getIdContratoCliente() != null) {
-            itemsEditPP = new ArrayList<>();
-            List<ContratoClientePrazoPagamento> listaTemporariaE = getContratoClientePrazoPagamentoController().getFacade().findAll(new ContratoCliente(selected.getIdContratoCliente()));
-            if (listaTemporariaE != null) {
-                for (ContratoClientePrazoPagamento lista : listaTemporariaE) {
-                    itemsEditPP.add(new ContratoClientePrazoPagamento(lista.getIdContratoClientePrazoPagamento(), lista.getIdPrazoPagamento(), lista.getIdFormaPagamento()));
-                }
-            }
-            
-            itemsEditTL = new ArrayList<>();
-            List<ContratoClienteTipoLancamento> listaTemporariaTLE = getContratoClienteTipoLancamentoController().getFacade().findAll(new ContratoCliente(selected.getIdContratoCliente()));
-            if(listaTemporariaTLE != null){
-                for(ContratoClienteTipoLancamento listaTL : listaTemporariaTLE){
-                    itemsEditTL.add(new ContratoClienteTipoLancamento(listaTL.getIdTipoLancamento(), listaTL.getDtVigencia(), listaTL.getVlAplicacaoTipoLancamento(), listaTL.getVlMinimoTipoLancamento(), listaTL.getIdEvento()));
-                }
-            }
-        }
-    }
-
+    
     public ContratoClienteController() {
         itemsPP = new ArrayList<>();
         itemsTL = new ArrayList<>();
         itemsEditPP = new ArrayList<>();
     }
-
-    public void addPP() {
-        itemsPP.add(new ContratoClientePrazoPagamento(selectedPP.getIdPrazoPagamento(), selectedPP.getIdFormaPagamento()));
-    }
-
-    public void addEditPP() {
-        itemsEditPP.add(new ContratoClientePrazoPagamento(selectedPP.getIdPrazoPagamento(), selectedPP.getIdFormaPagamento()));
-    }
     
-    public void removeEditPP(ContratoClientePrazoPagamento p){
-        itemsEditPP.remove(p);
-    }
-
-    public void addTL() {
-        itemsTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdEvento()));
-    }
-    
-    public void addEditTL(){
-        itemsEditTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdEvento()));
-    }
-
-    public String mostraData() {
-        Calendar data1 = Calendar.getInstance();
-        data1.add(Calendar.DAY_OF_MONTH, 1);
-        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-        return formatoData.format(data1.getTime());
+    @PostConstruct
+    public void init() {
+        selectedPP = new ContratoClientePrazoPagamento();
+        selectedTL = new ContratoClienteTipoLancamento();
+        selectedB = new Base();
     }
 
     protected void setEmbeddableKeys() {
@@ -146,6 +99,53 @@ public class ContratoClienteController implements Serializable {
     public ContratoClientePrazoPagamentoController getContratoClientePrazoPagamentoController() {
         return contratoClientePrazoPagamentoController;
     }
+    
+    public void listaItens() {
+        if (selected.getIdContratoCliente() != null) {
+            itemsEditPP = new ArrayList<>();
+            List<ContratoClientePrazoPagamento> listaTemporariaE = getContratoClientePrazoPagamentoController().getFacade().findAll(new ContratoCliente(selected.getIdContratoCliente()));
+            if (listaTemporariaE != null) {
+                for (ContratoClientePrazoPagamento lista : listaTemporariaE) {
+                    itemsEditPP.add(new ContratoClientePrazoPagamento(lista.getIdContratoClientePrazoPagamento(), lista.getIdPrazoPagamento(), lista.getIdFormaPagamento()));
+                }
+            }
+            
+            itemsEditTL = new ArrayList<>();
+            List<ContratoClienteTipoLancamento> listaTemporariaTLE = getContratoClienteTipoLancamentoController().getFacade().findAll(new ContratoCliente(selected.getIdContratoCliente()));
+            if(listaTemporariaTLE != null){
+                for(ContratoClienteTipoLancamento listaTL : listaTemporariaTLE){
+                    itemsEditTL.add(new ContratoClienteTipoLancamento(listaTL.getIdTipoLancamento(), listaTL.getDtVigencia(), listaTL.getVlAplicacaoTipoLancamento(), listaTL.getVlMinimoTipoLancamento(), listaTL.getIdEvento()));
+                }
+            }
+        }
+    }
+
+    public void addPP() {
+        itemsPP.add(new ContratoClientePrazoPagamento(selectedPP.getIdPrazoPagamento(), selectedPP.getIdFormaPagamento()));
+    }
+
+    public void addEditPP() {
+        itemsEditPP.add(new ContratoClientePrazoPagamento(selectedPP.getIdPrazoPagamento(), selectedPP.getIdFormaPagamento()));
+    }
+    
+    public void addTL() {
+        itemsTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdEvento()));
+    }
+    
+    public void addEditTL(){
+        itemsEditTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdEvento()));
+    }
+    
+    public void removeEditPP(ContratoClientePrazoPagamento p){
+        itemsEditPP.remove(p);
+    }
+
+    public String mostraData() {
+        Calendar data1 = Calendar.getInstance();
+        data1.add(Calendar.DAY_OF_MONTH, 1);
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+        return formatoData.format(data1.getTime());
+    }
 
     public List<ContratoClienteTipoLancamento> getItemsTL() {
         return itemsTL;
@@ -166,6 +166,10 @@ public class ContratoClienteController implements Serializable {
     public List<ContratoClientePrazoPagamento> getItemsPP() {
         return itemsPP;
     }
+    
+    public void setItemsPP(List<ContratoClientePrazoPagamento> itemsPP) {
+        this.itemsPP = itemsPP;
+    }
 
     public ContratoClientePrazoPagamento getSelectedPP() {
         return selectedPP;
@@ -185,10 +189,6 @@ public class ContratoClienteController implements Serializable {
 
     public void setSelected(ContratoCliente selected) {
         this.selected = selected;
-    }
-
-    public void setItemsPP(List<ContratoClientePrazoPagamento> itemsPP) {
-        this.itemsPP = itemsPP;
     }
 
     public List<ContratoClientePrazoPagamento> getItemsEditPP() {
@@ -370,7 +370,6 @@ public class ContratoClienteController implements Serializable {
         public Object getRowKey(ContratoCliente ob) {
             return ob.getIdContratoCliente();
         }
-
     }
     
     @FacesConverter(forClass = ContratoCliente.class)
