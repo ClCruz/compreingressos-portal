@@ -8,6 +8,7 @@ package br.com.intuiti.compreingressos.portal.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ContratoClienteTipoLancamento.findAll", query = "SELECT c FROM ContratoClienteTipoLancamento c"),
     @NamedQuery(name = "ContratoClienteTipoLancamento.findByIdContratoCliente", query = "SELECT c FROM ContratoClienteTipoLancamento c WHERE c.idContratoCliente = :idContrato"),
     @NamedQuery(name = "ContratoClienteTipoLancamento.findByIdContratoClienteTipoLancamento", query = "SELECT c FROM ContratoClienteTipoLancamento c WHERE c.idContratoClienteTipoLancamento = :idContratoClienteTipoLancamento"),
-    @NamedQuery(name = "ContratoClienteTipoLancamento.findByDtInativacao", query = "SELECT c FROM ContratoClienteTipoLancamento c WHERE c.dtInativacao = :dtInativacao"),
     @NamedQuery(name = "ContratoClienteTipoLancamento.findByVlAplicacaoTipoLancamento", query = "SELECT c FROM ContratoClienteTipoLancamento c WHERE c.vlAplicacaoTipoLancamento = :vlAplicacaoTipoLancamento"),
     @NamedQuery(name = "ContratoClienteTipoLancamento.findByVlMinimoTipoLancamento", query = "SELECT c FROM ContratoClienteTipoLancamento c WHERE c.vlMinimoTipoLancamento = :vlMinimoTipoLancamento")})
 public class ContratoClienteTipoLancamento implements Serializable {
@@ -45,9 +44,6 @@ public class ContratoClienteTipoLancamento implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_contrato_cliente_tipo_lancamento")
     private Integer idContratoClienteTipoLancamento;
-    @Column(name = "dt_inativacao")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dtInativacao;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "vl_aplicacao_tipo_lancamento")
     private BigDecimal vlAplicacaoTipoLancamento;
@@ -56,9 +52,6 @@ public class ContratoClienteTipoLancamento implements Serializable {
     @JoinColumn(name = "id_contrato_cliente", referencedColumnName = "id_contrato_cliente")
     @ManyToOne(optional = false)
     private ContratoCliente idContratoCliente;
-    @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
-    @ManyToOne
-    private Evento idEvento;
     @JoinColumn(name = "id_modalidade_cobranca", referencedColumnName = "id_modalidade_cobranca")
     @ManyToOne
     private ModalidadeCobranca idModalidadeCobranca;
@@ -68,21 +61,18 @@ public class ContratoClienteTipoLancamento implements Serializable {
     @JoinColumn(name = "id_usuario_insert", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuarioInsert;
-    @JoinColumn(name = "id_usuario_inativacao", referencedColumnName = "id_usuario")
-    @ManyToOne
-    private Usuario idUsuarioInativacao;
     @Transient
     private Base idBase;
     @Column(name="dt_inicio_vigencia")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dtVigencia;
 
-    public ContratoClienteTipoLancamento(TipoLancamento idTipoLancamento, Date dtVigencia, BigDecimal vlAplicacaoTipoLancamento, BigDecimal vlMinimoTipoLancamento, Evento idEvento) {
+    public ContratoClienteTipoLancamento(TipoLancamento idTipoLancamento, Date dtVigencia, BigDecimal vlAplicacaoTipoLancamento, BigDecimal vlMinimoTipoLancamento, ModalidadeCobranca idModalidadeCobranca) {
         this.idTipoLancamento = idTipoLancamento;
         this.dtVigencia = dtVigencia;
         this.vlAplicacaoTipoLancamento = vlAplicacaoTipoLancamento;
         this.vlMinimoTipoLancamento = vlMinimoTipoLancamento;
-        this.idEvento = idEvento;
+        this.idModalidadeCobranca = idModalidadeCobranca;
     }
 
     
@@ -118,14 +108,6 @@ public class ContratoClienteTipoLancamento implements Serializable {
         this.dtVigencia = dtVigencia;
     }
 
-    public Date getDtInativacao() {
-        return dtInativacao;
-    }
-    
-    public void setDtInativacao(Date dtInativacao) {
-        this.dtInativacao = dtInativacao;
-    }
-
     public BigDecimal getVlAplicacaoTipoLancamento() {
         return vlAplicacaoTipoLancamento;
     }
@@ -150,14 +132,6 @@ public class ContratoClienteTipoLancamento implements Serializable {
         this.idContratoCliente = idContratoCliente;
     }
 
-    public Evento getIdEvento() {
-        return idEvento;
-    }
-
-    public void setIdEvento(Evento idEvento) {
-        this.idEvento = idEvento;
-    }
-
     public ModalidadeCobranca getIdModalidadeCobranca() {
         return idModalidadeCobranca;
     }
@@ -180,14 +154,6 @@ public class ContratoClienteTipoLancamento implements Serializable {
 
     public void setIdUsuarioInsert(Usuario idUsuarioInsert) {
         this.idUsuarioInsert = idUsuarioInsert;
-    }
-
-    public Usuario getIdUsuarioInativacao() {
-        return idUsuarioInativacao;
-    }
-
-    public void setIdUsuarioInativacao(Usuario idUsuarioInativacao) {
-        this.idUsuarioInativacao = idUsuarioInativacao;
     }
 
     @Override

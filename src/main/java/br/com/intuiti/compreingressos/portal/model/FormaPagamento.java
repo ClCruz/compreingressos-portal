@@ -123,6 +123,6 @@ public class FormaPagamento implements Serializable {
 
     @Override
     public String toString() {
-        return dsFormaPagamento;
+        return "br.com.intuiti.compreingressos.portal.model.FormaPagamento[ idFormaPagamento=" + idFormaPagamento + " ]";
     }
 }

@@ -3,6 +3,7 @@ package br.com.intuiti.compreingressos.portal.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,7 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ContratoCliente.findByDtTerminoVigencia", query = "SELECT c FROM ContratoCliente c WHERE c.dtTerminoVigencia = :dtTerminoVigencia"),
     @NamedQuery(name = "ContratoCliente.findByDsObsAprovador", query = "SELECT c FROM ContratoCliente c WHERE c.dsObsAprovador = :dsObsAprovador"),
     @NamedQuery(name = "ContratoCliente.findByDsObsVendedor", query = "SELECT c FROM ContratoCliente c WHERE c.dsObsVendedor = :dsObsVendedor"),
-    @NamedQuery(name = "ContratoCliente.findByIcStatusContrato", query = "SELECT c FROM ContratoCliente c WHERE c.icStatusContrato = :icStatusContrato"),
+    @NamedQuery(name = "ContratoCliente.findByInStatusContrato", query = "SELECT c FROM ContratoCliente c WHERE c.inStatusContrato = :inStatusContrato"),
     @NamedQuery(name = "ContratoCliente.findByDsMotivoInativacao", query = "SELECT c FROM ContratoCliente c WHERE c.dsMotivoInativacao = :dsMotivoInativacao")})
 public class ContratoCliente implements Serializable {
 
@@ -93,8 +94,8 @@ public class ContratoCliente implements Serializable {
     @Column(name = "ds_obs_vendedor")
     private String dsObsVendedor;
     @Size(max = 20)
-    @Column(name = "ic_status_contrato")
-    private String icStatusContrato;
+    @Column(name = "in_status_contrato")
+    private String inStatusContrato;
     @Size(max = 250)
     @Column(name = "ds_motivo_inativacao")
     private String dsMotivoInativacao;
@@ -229,12 +230,12 @@ public class ContratoCliente implements Serializable {
         this.dsObsVendedor = dsObsVendedor;
     }
 
-    public String getIcStatusContrato() {
-        return icStatusContrato;
+    public String getInStatusContrato() {
+        return inStatusContrato;
     }
 
-    public void setIcStatusContrato(String icStatusContrato) {
-        this.icStatusContrato = icStatusContrato;
+    public void setInStatusContrato(String inStatusContrato) {
+        this.inStatusContrato = inStatusContrato;
     }
 
     public String getDsMotivoInativacao() {

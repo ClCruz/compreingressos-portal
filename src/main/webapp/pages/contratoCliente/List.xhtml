@@ -39,8 +39,12 @@
                                 <h:outputText value="#{item.idContratante.nmRazaoSocial}"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListContratoClienteTitle_icStatusContrato}"
-                                      sortBy="#{item.icStatusContrato}">
-                                <h:outputText value="#{item.icStatusContrato}"/>
+                                      sortBy="#{item.inStatusContrato}">
+                                <h:outputText value="Em preenchimento" rendered="#{item.inStatusContrato == 'P'}"/>
+                                <h:outputText value="Enviado para aprovação" rendered="#{item.inStatusContrato == 'E'}" />
+                                <h:outputText value="Aprovado" rendered="#{item.inStatusContrato == 'A'}" style="color:green; font-style:bold;" />
+                                <h:outputText value="Reprovado" rendered="#{item.inStatusContrato == 'R'}" style="color:red; font-style:bold;" />
+                                <h:outputText value="Finalizado" rendered="#{item.inStatusContrato == 'F'}" />
                             </p:column>
                             <p:column headerText="#{bundle.ListContratoClienteTitle_idVendedor}"
                                       sortBy="#{item.idVendedor.dsVendedor}">

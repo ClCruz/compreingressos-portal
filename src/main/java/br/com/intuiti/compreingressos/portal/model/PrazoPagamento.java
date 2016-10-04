@@ -137,7 +137,7 @@ public class PrazoPagamento implements Serializable {
 
     @Override
     public String toString() {
-        return dsPrazoPagamento;
+        return "br.com.intuiti.compreingressos.portal.model.PrazoPagamento[ idPrazoPagamento=" + idPrazoPagamento + " ]";
     }
 
     @XmlTransient

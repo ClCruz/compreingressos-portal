@@ -4,9 +4,9 @@
         <!--<jta-data-source>java:app/dsCompreingressos-portal</jta-data-source>-->
         <jta-data-source>java:jboss/datasources/dsCompreingressos-portal</jta-data-source>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <!--    <properties>
+        <properties>
             <property name="eclipselink.logging.level" value="FINE"/>
             <property name="eclipselink.logging.parameters" value="true"/>
-        </properties>-->
+        </properties>
     </persistence-unit>
 </persistence>

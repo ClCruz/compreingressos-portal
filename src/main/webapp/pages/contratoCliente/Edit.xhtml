@@ -102,9 +102,6 @@
                                 <p:column headerText="#{bundle.ListContratoClientePrazoPagamentoTitle_idPrazoPagamento}">
                                     <h:outputText value="#{itemsCCPP.idPrazoPagamento.dsPrazoPagamento}" />
                                 </p:column>
-                                <p:column headerText="Remover" >
-                                    <p:commandButton value="Remover" actionListener="#{contratoClienteController.removeEditPP(itemsCCPP)}" update="listaCCPP"/>
-                                </p:column>
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Regras">
@@ -125,20 +122,12 @@
                                 <p:inputText id="vlMinimoTipoLancamento" value="#{contratoClienteController.selectedTL.vlMinimoTipoLancamento}" title="#{bundleNv.CreateContratoClienteTipoLancamentoTitle_vlMinimoTipoLancamento}"  style="width:312px!important;"/>
                             </p:panelGrid>
                             <p:panelGrid columns="2" rendered="#{contratoClienteController.selected != null}">
-                                <p:outputLabel value="Local do Evento" for="dsLocalEvento" />
-                                <p:selectOneMenu id="dsLocalEvento" value="#{contratoClienteController.selectedTL.idBase}" style="width:746px!important;">
-                                    <p:ajax listener="#{contratoClienteController.listaEventos()}" update="idEvento" />
-                                    <f:selectItems value="#{baseController.itemsAvailableSelectOne}"
-                                                   var="idBaseItem"
-                                                   itemValue="#{idBaseItem}" />
-                                </p:selectOneMenu>
-                                <p:outputLabel value="#{bundle.CreateContratoClienteTipoLancamentoLabel_idEvento}" for="idEvento" />
-                                <p:selectOneMenu id="idEvento" value="#{contratoClienteController.selectedTL.idEvento}"  style="width:746px!important;">
-                                    <f:selectItem itemLabel="Selecione um Local" />
-                                    <f:selectItems value="#{contratoClienteController.listaEventos()}"
-                                                   var="idEventoItem"
-                                                   itemValue="#{idEventoItem}"/>
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{bundle.CreateContratoClienteTipoLancamentoLabel_idModalidadeCobranca}" for="idModalidadeCobranca" />
+		                        <p:selectOneMenu id="idModalidadeCobranca" value="#{contratoClienteController.selectedTL.idModalidadeCobranca}" >
+		                            <f:selectItems value="#{modalidadeCobrancaController.itemsAvailableSelectOne}"
+		                                           var="idModalidadeCobrancaItem"
+		                                           itemValue="#{idModalidadeCobrancaItem}"/>
+		                        </p:selectOneMenu>
                                 <p:commandButton actionListener="#{contratoClienteController.addEditTL()}" icon="fa fa-check" update="listCCTL" value="Adicionar"/>
                             </p:panelGrid><br />
                             <p:dataTable id="listCCTL" style="width:960px;" emptyMessage="Cadastre os tipos de lançamento abaixo"
@@ -158,7 +147,7 @@
                                     <h:outputText value="#{itemCCTL.vlMinimoTipoLancamento}" />
                                 </p:column>
                                 <p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idEvento}" >
-                                    <h:outputText value="#{itemCCTL.idEvento.dsEvento}" />
+                                    <h:outputText value="#{itemCCTL.idModalidadeCobranca.dsModalidadeCobranca}" />
                                 </p:column>
                             </p:dataTable>
                         </p:tab>

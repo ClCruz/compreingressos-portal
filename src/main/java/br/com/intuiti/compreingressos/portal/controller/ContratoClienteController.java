@@ -23,6 +23,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.naming.Context;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -54,6 +55,7 @@ public class ContratoClienteController implements Serializable {
     private ContratoClienteTipoLancamento selectedTL;
     private Base selectedB;
     private final Map<String, Object> filtros = new HashMap<>();
+    private Usuario usuario;
     
     @ManagedProperty(name = "contratoClientePrazoPagamentoController", value = "#{contratoClientePrazoPagamentoController}")
     private ContratoClientePrazoPagamentoController contratoClientePrazoPagamentoController = new ContratoClientePrazoPagamentoController();
@@ -65,6 +67,10 @@ public class ContratoClienteController implements Serializable {
         itemsPP = new ArrayList<>();
         itemsTL = new ArrayList<>();
         itemsEditPP = new ArrayList<>();
+        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		usuario = (Usuario) session.getAttribute("usuario");
     }
     
     @PostConstruct
@@ -114,7 +120,7 @@ public class ContratoClienteController implements Serializable {
             List<ContratoClienteTipoLancamento> listaTemporariaTLE = getContratoClienteTipoLancamentoController().getFacade().findAll(new ContratoCliente(selected.getIdContratoCliente()));
             if(listaTemporariaTLE != null){
                 for(ContratoClienteTipoLancamento listaTL : listaTemporariaTLE){
-                    itemsEditTL.add(new ContratoClienteTipoLancamento(listaTL.getIdTipoLancamento(), listaTL.getDtVigencia(), listaTL.getVlAplicacaoTipoLancamento(), listaTL.getVlMinimoTipoLancamento(), listaTL.getIdEvento()));
+                    itemsEditTL.add(new ContratoClienteTipoLancamento(listaTL.getIdTipoLancamento(), listaTL.getDtVigencia(), listaTL.getVlAplicacaoTipoLancamento(), listaTL.getVlMinimoTipoLancamento(), listaTL.getIdModalidadeCobranca()));
                 }
             }
         }
@@ -129,15 +135,11 @@ public class ContratoClienteController implements Serializable {
     }
     
     public void addTL() {
-        itemsTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdEvento()));
+        itemsTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdModalidadeCobranca()));
     }
     
     public void addEditTL(){
-        itemsEditTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdEvento()));
-    }
-    
-    public void removeEditPP(ContratoClientePrazoPagamento p){
-        itemsEditPP.remove(p);
+        itemsEditTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdModalidadeCobranca()));
     }
 
     public String mostraData() {
@@ -240,7 +242,9 @@ public class ContratoClienteController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                	selected.setInStatusContrato("P");
                     selected = getFacade().update(selected);
+                    
                     persist();
                 } else {
                     getFacade().remove(selected);
@@ -269,6 +273,7 @@ public class ContratoClienteController implements Serializable {
             if (itemsPP != null) {
                 for (ContratoClientePrazoPagamento ccpp : itemsPP) {
                     ccpp.setIdContratoCliente(selected);
+                    System.out.println(ccpp.getIdFormaPagamento());
                     getContratoClientePrazoPagamentoController().getFacade().edit(ccpp);
                 }
             }
@@ -283,7 +288,7 @@ public class ContratoClienteController implements Serializable {
 
             if (itemsTL != null) {
                 for (ContratoClienteTipoLancamento cctl : itemsTL) {
-                    cctl.setIdUsuarioInsert(new Usuario(555));
+                    cctl.setIdUsuarioInsert(usuario);
                     cctl.setIdContratoCliente(selected);
                     getContratoClienteTipoLancamentoController().getFacade().edit(cctl);
                 }
@@ -292,7 +297,7 @@ public class ContratoClienteController implements Serializable {
             if(itemsEditTL != null){
                 getContratoClienteTipoLancamentoController().getFacade().delete(selected);
                 for(ContratoClienteTipoLancamento cccte : itemsEditTL){
-                    cccte.setIdUsuarioInsert(new Usuario(555));
+                    cccte.setIdUsuarioInsert(usuario);
                     cccte.setIdContratoCliente(selected);
                     getContratoClienteTipoLancamentoController().getFacade().edit(cccte);
                 }
