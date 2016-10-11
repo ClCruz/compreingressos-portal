@@ -71,6 +71,10 @@ public class Empresa implements Serializable {
     public Integer getIdEmpresa() {
         return idEmpresa;
     }
+    
+    public Integer getId() {
+        return idEmpresa;
+    }
 
     public void setIdEmpresa(Integer idEmpresa) {
         this.idEmpresa = idEmpresa;
@@ -101,7 +105,6 @@ public class Empresa implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Empresa)) {
             return false;
         }

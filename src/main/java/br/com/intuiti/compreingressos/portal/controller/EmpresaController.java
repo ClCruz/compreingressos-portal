@@ -190,9 +190,8 @@ public class EmpresaController implements Serializable {
         public Object getRowKey(Empresa ob) {
             return ob.getIdEmpresa();
         }
-
     }
-
+    
     @FacesConverter(forClass = Empresa.class)
     public static class EmpresaControllerConverter implements Converter {
 

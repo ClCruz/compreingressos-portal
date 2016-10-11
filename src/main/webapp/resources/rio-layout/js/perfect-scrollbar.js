@@ -396,9 +396,6 @@
         }
 
         function mousewheelHandler(e) {
-          // FIXME: this is a quick fix for the select problem in FF and IE.
-          // If there comes an effective way to deal with the problem,
-          // this lines should be removed.
           if (!isWebkit && $this.find('select:focus').length > 0) {
             return;
           }

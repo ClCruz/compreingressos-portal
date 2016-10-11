@@ -29,7 +29,7 @@ public class LoginController {
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		session.setAttribute("usuario", null);
 		session.invalidate();
-		return "/faces/login.xhtml";
+		return "/pages/index?faces-redirect=true";
 	}
 
 	public Usuario getUsuario() {

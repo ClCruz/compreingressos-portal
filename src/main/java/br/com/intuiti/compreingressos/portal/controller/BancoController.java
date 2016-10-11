@@ -1,6 +1,7 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -23,7 +26,6 @@ import org.primefaces.model.SortOrder;
 import br.com.intuiti.compreingressos.portal.bean.BancoFacade;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.lazy.Lazy;
 import br.com.intuiti.compreingressos.portal.model.Banco;
 
 @ManagedBean(name = "bancoController")
@@ -87,7 +89,7 @@ public class BancoController implements Serializable {
 
     public LazyDataModel<Banco> getItems() {
         if (items == null) {
-            items = new Lazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new BancoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
         }
         return items;
     }
@@ -130,6 +132,47 @@ public class BancoController implements Serializable {
 
     public List<Banco> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public class BancoLazy extends LazyDataModel<Banco> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Banco> objList = null;
+
+        public BancoLazy(List<Banco> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Banco> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                BancoFacade objFacade = (BancoFacade) ctx.lookup("java:global/compreingressos-portal/BancoFacade!br.com.intuiti.compreingressos.portal.bean.BancoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Banco getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Banco obj : objList) {
+                if (id.equals(obj.getIdBanco())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(Banco ob) {
+            return ob.getIdBanco();
+        }
     }
 
     @FacesConverter(forClass = Banco.class)
