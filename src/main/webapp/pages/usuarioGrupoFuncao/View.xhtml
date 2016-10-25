@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioGrupoFuncaoViewDlg" widgetVar="UsuarioGrupoFuncaoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.ViewUsuarioGrupoFuncaoTitle}">
+            <h:form id="UsuarioGrupoFuncaoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioGrupoFuncaoController.selected != null}">
+                        <h:outputText value="#{bundle3.ViewUsuarioGrupoFuncaoLabel_idUsuarioGrupoFuncao}"/>
+                        <h:outputText value="#{usuarioGrupoFuncaoController.selected.idUsuarioGrupoFuncao}" title="#{bundle3.ViewUsuarioGrupoFuncaoTitle_idUsuarioGrupoFuncao}"/>
+                        <h:outputText value="#{bundle3.ViewUsuarioGrupoFuncaoLabel_idGrupoFuncao}"/>
+                        <h:outputText value="#{usuarioGrupoFuncaoController.selected.idGrupoFuncao}" title="#{bundle3.ViewUsuarioGrupoFuncaoTitle_idGrupoFuncao}"/>
+                        <h:outputText value="#{bundle3.ViewUsuarioGrupoFuncaoLabel_idUsuario}"/>
+                        <h:outputText value="#{usuarioGrupoFuncaoController.selected.idUsuario}" title="#{bundle3.ViewUsuarioGrupoFuncaoTitle_idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle3.Close}" onclick="PF('UsuarioGrupoFuncaoViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

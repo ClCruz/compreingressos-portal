@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="FuncaoSistemaListForm">
+                        <p:dataTable id="datalist"
+                                     value="#{funcaoSistemaController.items}" var="item"
+                                     selectionMode="single"
+                                     selection="#{funcaoSistemaController.selected}" paginator="true"
+                                     rowKey="#{item.idFuncaoSistema}" rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50">
+
+                            <p:ajax event="rowSelect" update="createButton viewButton editButton deleteButton" />
+                            <p:ajax event="rowUnselect"	update="createButton viewButton editButton deleteButton" />
+
+                            <f:facet name="header">
+                                #{bundle3.ListFuncaoSistemaTitle}
+                            </f:facet>
+                            <p:column headerText="#{bundle.ListFuncaoSistemaTitle_idFuncaoSistema}" sortBy="#{item.idFuncaoSistema}">
+                                <h:outputText value="#{item.idFuncaoSistema}" />
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFuncaoSistemaTitle_dsPrograma}" sortBy="#{item.dsPrograma}">
+                                <h:outputText value="#{item.dsPrograma}" />
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFuncaoSistemaTitle_dsIcone}" sortBy="#{item.dsIcone}">
+                                <center><i class="#{item.dsIcone}" /></center>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFuncaoSistemaTitle_idOrdemExibicao}" sortBy="#{item.idOrdemExibicao}">
+                                <h:outputText value="#{item.idOrdemExibicao}" />
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFuncaoSistemaTitle_dsUrl}" sortBy="#{item.dsUrl}">
+                                <h:outputText value="#{item.dsUrl}" />
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFuncaoSistemaTitle_idParent}" sortBy="#{item.idParent.dsPrograma}">
+                                <h:outputText value="#{item.idParent.dsPrograma}" />
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="fa fa-plus" value="#{bundle.Create}" actionListener="#{funcaoSistemaController.prepareCreate}" update=":FuncaoSistemaCreateForm" oncomplete="PF('FuncaoSistemaCreateDialog').show()" />
+                                <p:commandButton id="viewButton" icon="fa fa-search" value="#{bundle.View}" update=":FuncaoSistemaViewForm" oncomplete="PF('FuncaoSistemaViewDialog').show()" disabled="#{empty funcaoSistemaController.selected}" />
+                                <p:commandButton id="editButton" icon="fa fa-edit" value="#{bundle.Edit}" update=":FuncaoSistemaEditForm" oncomplete="PF('FuncaoSistemaEditDialog').show()" disabled="#{empty funcaoSistemaController.selected}" />
+                                <p:commandButton id="deleteButton" icon="fa fa-trash" value="#{bundle.Delete}" actionListener="#{funcaoSistemaController.destroy}" update=":growl,datalist" disabled="#{empty funcaoSistemaController.selected}" />
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml" />
+        <ui:include src="Edit.xhtml" />
+        <ui:include src="View.xhtml" />
+    </ui:define>
+</ui:composition>

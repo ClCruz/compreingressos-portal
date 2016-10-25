@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GrupoAcessoEditDlg" widgetVar="GrupoAcessoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.EditGrupoAcessoTitle}">
+            <h:form id="GrupoAcessoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{grupoAcessoController.selected != null}">
+                        <p:outputLabel value="#{bundle3.EditGrupoAcessoLabel_idGrupoAcesso}" for="idGrupoAcesso" />
+                        <p:inputText id="idGrupoAcesso" value="#{grupoAcessoController.selected.idGrupoAcesso}" title="#{bundle3.EditGrupoAcessoTitle_idGrupoAcesso}" required="true" requiredMessage="#{bundle3.EditGrupoAcessoRequiredMessage_idGrupoAcesso}"/>
+                        <p:outputLabel value="#{bundle3.EditGrupoAcessoLabel_dsGrupo}" for="dsGrupo" />
+                        <p:inputText id="dsGrupo" value="#{grupoAcessoController.selected.dsGrupo}" title="#{bundle3.EditGrupoAcessoTitle_dsGrupo}" required="true" requiredMessage="#{bundle3.EditGrupoAcessoRequiredMessage_dsGrupo}"/>
+                        <p:outputLabel value="#{bundle3.EditGrupoAcessoLabel_inAtivo}" for="inAtivo" />
+                        <p:selectBooleanCheckbox id="inAtivo" value="#{grupoAcessoController.selected.inAtivo}" required="true" requiredMessage="#{bundle3.EditGrupoAcessoRequiredMessage_inAtivo}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{grupoAcessoController.update}" value="#{bundle3.Save}" update="display,:GrupoAcessoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GrupoAcessoEditDialog');"/>
+                    <p:commandButton value="#{bundle3.Cancel}" onclick="PF('GrupoAcessoEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

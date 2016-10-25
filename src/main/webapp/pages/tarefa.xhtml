@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect">
+					<br />
+					<h:form id="TarefasListForm">
+						<p:dataTable id="datalist" value="#{tarefaController.tarefas}"
+							var="item" rowKey="#{item.id}" paginator="true" rows="10"
+							rowsPerPageTemplate="10,20,30,40,50" paginatorPosition="bottom"
+							widgetVar="tarefasTable"
+							emptyMessage="Nenhuma Tarefa Encontrada.">
+
+							<f:facet name="header">
+								Tarefas
+                             </f:facet>
+
+							<p:column headerText="Fase do Processo" sortBy="#{item.name}">
+								<h:outputText value="#{item.name}" />
+							</p:column>
+							<p:column sortBy="#{item.dataCriacao}"
+								styleClass="ui-align-center">
+								<f:facet name="header">
+									<h:outputText value="Data Criação" />
+								</f:facet>
+								<h:outputText value="#{item.dataCriacao}">
+									<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+								</h:outputText>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect">
+					<br />
+					<h:form id="grupoUsuarioCreateForm">
+						<h:outputLabel value="#{bundle.CreateGrupoUsuarioLabel_idUsuario}"
+							for="idUsuario" />
+						<br />
+						<p:selectOneMenu id="idUsuario"
+							value="#{grupoUsuarioController.usuario}" required="true"
+							requiredMessage="#{bundle.CreateGrupoUsuarioRequiredMessage_idUsuario}"
+							valueChangeListener="#{grupoUsuarioController.changeUsuario}">
+							<f:selectItem itemLabel="Selecione o usuário" />
+							<f:selectItems
+								value="#{usuarioController.itemsAvailableSelectOne}"
+								var="idUsuarioItem" itemValue="#{idUsuarioItem}" />
+							<p:ajax event="change" update="datalist" />
+						</p:selectOneMenu>
+						<br />
+						<br />
+
+						<p:dataTable id="datalist" var="item"
+							value="#{grupoUsuarioController.items}" paginator="true"
+							rows="10" paginatorPosition="bottom"
+							rowsPerPageTemplate="10,20,30,40,50"
+							emptyMessage="Nenhum resultado encontrado">
+
+							<f:facet name="header">
+								<h:outputText value="Grupo de Usuários" />
+							</f:facet>
+							
+							<p:column headerText="Grupo" >
+								<h:outputText value="#{item.nmGrupo}" />
+							</p:column>
+							<p:column width="100" style="text-align: center;">
+                            <f:facet name="header">
+                                <p:selectBooleanCheckbox id="todos" value="#{grupoUsuarioController.todos}">
+                                    <p:ajax event="change" listener="#{grupoUsuarioController.save}" update=":growl, datalist"/>
+                                </p:selectBooleanCheckbox>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.selected}">
+                                <p:ajax event="change" listener="#{grupoUsuarioController.change(item)}" update=":growl, datalist"/>
+                            </p:selectBooleanCheckbox>
+                        </p:column>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

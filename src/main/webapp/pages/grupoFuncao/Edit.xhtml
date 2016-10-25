@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GrupoFuncaoEditDlg" widgetVar="GrupoFuncaoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.EditGrupoFuncaoTitle}">
+            <h:form id="GrupoFuncaoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{grupoFuncaoController.selected != null}">
+                        <p:outputLabel value="#{bundle3.EditGrupoFuncaoLabel_idGrupoFuncao}" for="idGrupoFuncao" />
+                        <p:inputText id="idGrupoFuncao" value="#{grupoFuncaoController.selected.idGrupoFuncao}" title="#{bundle3.EditGrupoFuncaoTitle_idGrupoFuncao}" required="true" requiredMessage="#{bundle3.EditGrupoFuncaoRequiredMessage_idGrupoFuncao}"/>
+                        <p:outputLabel value="#{bundle3.EditGrupoFuncaoLabel_idFuncaoSistema}" for="idFuncaoSistema" />
+                        <p:selectOneMenu id="idFuncaoSistema" value="#{grupoFuncaoController.selected.idFuncaoSistema}" >
+                            <f:selectItem itemLabel="#{bundle3.SelectOneMessage}"/>
+                            <f:selectItems value="#{funcaoSistemaController.itemsAvailableSelectOne}"
+                                           var="idFuncaoSistemaItem"
+                                           itemValue="#{idFuncaoSistemaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle3.EditGrupoFuncaoLabel_idGrupoAcesso}" for="idGrupoAcesso" />
+                        <p:selectOneMenu id="idGrupoAcesso" value="#{grupoFuncaoController.selected.idGrupoAcesso}" required="true" requiredMessage="#{bundle3.EditGrupoFuncaoRequiredMessage_idGrupoAcesso}">
+                            <f:selectItem itemLabel="#{bundle3.SelectOneMessage}"/>
+                            <f:selectItems value="#{grupoAcessoController.itemsAvailableSelectOne}"
+                                           var="idGrupoAcessoItem"
+                                           itemValue="#{idGrupoAcessoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{grupoFuncaoController.update}" value="#{bundle3.Save}" update="display,:GrupoFuncaoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GrupoFuncaoEditDialog');"/>
+                    <p:commandButton value="#{bundle3.Cancel}" onclick="PF('GrupoFuncaoEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

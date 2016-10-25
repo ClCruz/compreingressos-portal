@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioGrupoFuncaoCreateDlg" widgetVar="UsuarioGrupoFuncaoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.CreateUsuarioGrupoFuncaoTitle}">
+            <h:form id="UsuarioGrupoFuncaoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioGrupoFuncaoController.selected != null}">
+                        <p:outputLabel value="#{bundle3.CreateUsuarioGrupoFuncaoLabel_idUsuarioGrupoFuncao}" for="idUsuarioGrupoFuncao" />
+                        <p:inputText id="idUsuarioGrupoFuncao" value="#{usuarioGrupoFuncaoController.selected.idUsuarioGrupoFuncao}" title="#{bundle3.CreateUsuarioGrupoFuncaoTitle_idUsuarioGrupoFuncao}" required="true" requiredMessage="#{bundle3.CreateUsuarioGrupoFuncaoRequiredMessage_idUsuarioGrupoFuncao}"/>
+                        <p:outputLabel value="#{bundle3.CreateUsuarioGrupoFuncaoLabel_idGrupoFuncao}" for="idGrupoFuncao" />
+                        <p:selectOneMenu id="idGrupoFuncao" value="#{usuarioGrupoFuncaoController.selected.idGrupoFuncao}" >
+                            <f:selectItems value="#{grupoFuncaoController.itemsAvailableSelectOne}"
+                                           var="idGrupoFuncaoItem"
+                                           itemValue="#{idGrupoFuncaoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle3.CreateUsuarioGrupoFuncaoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{usuarioGrupoFuncaoController.selected.idUsuario}" >
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioGrupoFuncaoController.create}" value="#{bundle3.Save}" update="display,:UsuarioGrupoFuncaoListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioGrupoFuncaoCreateDialog');"/>
+                    <p:commandButton value="#{bundle3.Cancel}" onclick="PF('UsuarioGrupoFuncaoCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
