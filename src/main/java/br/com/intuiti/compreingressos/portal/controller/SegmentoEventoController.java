@@ -168,7 +168,7 @@ public class SegmentoEventoController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                SegmentoEventoFacade objFacade = (SegmentoEventoFacade) ctx.lookup("java:global/compreingressos-portal/SegmentoEventoFacade!br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade");
+                SegmentoEventoFacade objFacade = (SegmentoEventoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/SegmentoEventoFacade!br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

@@ -273,7 +273,6 @@ public class ContratoClienteController implements Serializable {
             if (itemsPP != null) {
                 for (ContratoClientePrazoPagamento ccpp : itemsPP) {
                     ccpp.setIdContratoCliente(selected);
-                    System.out.println(ccpp.getIdFormaPagamento());
                     getContratoClientePrazoPagamentoController().getFacade().edit(ccpp);
                 }
             }
@@ -350,7 +349,7 @@ public class ContratoClienteController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                ContratoClienteFacade objFacade = (ContratoClienteFacade) ctx.lookup("java:global/compreingressos-portal/ContratoClienteFacade!br.com.intuiti.compreingressos.portal.bean.ContratoClienteFacade");
+                ContratoClienteFacade objFacade = (ContratoClienteFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/ContratoClienteFacade!br.com.intuiti.compreingressos.portal.bean.ContratoClienteFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

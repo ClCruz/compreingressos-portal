@@ -155,7 +155,7 @@ public class TipoLancamentoController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                TipoLancamentoFacade objFacade = (TipoLancamentoFacade) ctx.lookup("java:global/compreingressos-portal/TipoLancamentoFacade!br.com.intuiti.compreingressos.portal.bean.TipoLancamentoFacade");
+                TipoLancamentoFacade objFacade = (TipoLancamentoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/TipoLancamentoFacade!br.com.intuiti.compreingressos.portal.bean.TipoLancamentoFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

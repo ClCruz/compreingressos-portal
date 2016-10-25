@@ -11,9 +11,10 @@
 	<name>compreingressos-portal</name>
 
 	<properties>
-		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<!-- <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+		<jbpm.version>6.4.0.Final</jbpm.version>
+ 	</properties>
 
 	<dependencies>
 		<dependency>
@@ -58,8 +59,31 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- jBPM Dependencies -->
+        <dependency>
+            <groupId>org.kie.remote</groupId>
+            <artifactId>kie-remote-client</artifactId>
+            <version>${jbpm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.2.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.1</version>
+            <scope>compile</scope>
+        </dependency>        
+        <!-- Dependencia util JSF -->
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>2.1</version>
+        </dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -69,9 +93,9 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-					<compilerArguments>
+					<!-- <compilerArguments>
 						<endorseddirs>${endorsed.dir}</endorseddirs>
-					</compilerArguments>
+					</compilerArguments> -->
 				</configuration>
 			</plugin>
 			<plugin>

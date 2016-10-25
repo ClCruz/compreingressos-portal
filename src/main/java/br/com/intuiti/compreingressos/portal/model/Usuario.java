@@ -1,7 +1,11 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,12 +17,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.security.*;
-import java.math.*;
 
 /**
  *
@@ -30,6 +33,7 @@ import java.math.*;
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findLazy", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.findAsc", query = "SELECT u FROM Usuario u ORDER BY u.dsNome"),
     @NamedQuery(name = "Usuario.findAllRow", query = "SELECT COUNT(u) FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
     @NamedQuery(name = "Usuario.findByCdLogin", query = "SELECT u FROM Usuario u WHERE u.cdLogin = :cdLogin"),
@@ -88,7 +92,7 @@ public class Usuario implements Serializable {
     private Collection<SegmentoEvento> segmentoEventoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<GeneroEvento> generoEventoCollection;
-
+   
     public Usuario() {
     }
 

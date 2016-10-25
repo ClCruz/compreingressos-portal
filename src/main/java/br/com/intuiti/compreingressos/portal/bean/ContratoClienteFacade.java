@@ -35,6 +35,14 @@ public class ContratoClienteFacade extends AbstractFacade<ContratoCliente> {
     }
     
     
+    public Long exist(Long id){
+    	return (Long) em.createNamedQuery("ContratoCliente.exist").setParameter("id", id.intValue()).getSingleResult();
+    }
+    
+    public String findSituacao(Object id){
+    	return (String) em.createNamedQuery("ContratoCliente.findSituacao").setParameter("id", Integer.parseInt(id.toString())).getSingleResult();
+    }
+    
     public List<Evento> findAll(Base base) {
         return em.createNamedQuery("Evento.findByBase", Evento.class).setParameter("idBase", base).setParameter("data", new java.util.Date(), TemporalType.TIMESTAMP).getResultList();
     }

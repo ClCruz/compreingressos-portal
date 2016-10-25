@@ -170,7 +170,7 @@ public class TipoContratoController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                TipoContratoFacade objFacade = (TipoContratoFacade) ctx.lookup("java:global/compreingressos-portal/TipoContratoFacade!br.com.intuiti.compreingressos.portal.bean.TipoContratoFacade");
+                TipoContratoFacade objFacade = (TipoContratoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/TipoContratoFacade!br.com.intuiti.compreingressos.portal.bean.TipoContratoFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

@@ -156,7 +156,7 @@ public class EstadoController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                EstadoFacade objFacade = (EstadoFacade) ctx.lookup("java:global/compreingressos-portal/EstadoFacade!br.com.intuiti.compreingressos.portal.bean.EstadoFacade");
+                EstadoFacade objFacade = (EstadoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/EstadoFacade!br.com.intuiti.compreingressos.portal.bean.EstadoFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

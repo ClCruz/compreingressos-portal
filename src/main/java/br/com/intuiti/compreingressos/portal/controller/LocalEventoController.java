@@ -170,7 +170,7 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 			try {
 				Context ctx = new javax.naming.InitialContext();
 				LocalEventoFacade localFacade = (LocalEventoFacade) ctx
-						.lookup("java:global/compreingressos-portal/LocalEventoFacade!br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade");
+						.lookup("java:global/compreingressos-portal-1.0.0/LocalEventoFacade!br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade");
 				localEvento = localFacade.findAll(first, pageSize, sortField,
 						sortOrder, filters);
 				setRowCount(localFacade.count(first, pageSize, sortField,

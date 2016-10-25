@@ -148,7 +148,7 @@ public class BancoController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                BancoFacade objFacade = (BancoFacade) ctx.lookup("java:global/compreingressos-portal/BancoFacade!br.com.intuiti.compreingressos.portal.bean.BancoFacade");
+                BancoFacade objFacade = (BancoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/BancoFacade!br.com.intuiti.compreingressos.portal.bean.BancoFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

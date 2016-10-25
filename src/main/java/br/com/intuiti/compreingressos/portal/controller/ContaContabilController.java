@@ -160,7 +160,7 @@ public class ContaContabilController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                ContaContabilFacade objFacade = (ContaContabilFacade) ctx.lookup("java:global/compreingressos-portal/ContaContabilFacade!br.com.intuiti.compreingressos.portal.bean.ContaContabilFacade");
+                ContaContabilFacade objFacade = (ContaContabilFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/ContaContabilFacade!br.com.intuiti.compreingressos.portal.bean.ContaContabilFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

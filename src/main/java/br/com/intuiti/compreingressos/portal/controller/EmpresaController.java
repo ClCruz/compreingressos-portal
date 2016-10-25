@@ -165,7 +165,7 @@ public class EmpresaController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                EmpresaFacade objFacade = (EmpresaFacade) ctx.lookup("java:global/compreingressos-portal/EmpresaFacade!br.com.intuiti.compreingressos.portal.bean.EmpresaFacade");
+                EmpresaFacade objFacade = (EmpresaFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/EmpresaFacade!br.com.intuiti.compreingressos.portal.bean.EmpresaFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

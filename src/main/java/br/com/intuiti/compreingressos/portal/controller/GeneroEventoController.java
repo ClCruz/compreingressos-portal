@@ -175,7 +175,7 @@ public class GeneroEventoController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                GeneroEventoFacade objFacade = (GeneroEventoFacade) ctx.lookup("java:global/compreingressos-portal/GeneroEventoFacade!br.com.intuiti.compreingressos.portal.bean.GeneroEventoFacade");
+                GeneroEventoFacade objFacade = (GeneroEventoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/GeneroEventoFacade!br.com.intuiti.compreingressos.portal.bean.GeneroEventoFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

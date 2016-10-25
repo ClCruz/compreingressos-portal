@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<jboss-web>
-    <!-- Links with JBoss the Realm to use -->
-    <security-domain>LoginJSFRealm</security-domain>
+<jboss-web xmlns="http://www.jboss.com/xml/ns/javaee">
+  <!-- Links with JBoss the Realm to use -->
+  <context-root>/compreingressos-portal</context-root>
+  <security-domain>LoginJSFRealm</security-domain>
 </jboss-web>

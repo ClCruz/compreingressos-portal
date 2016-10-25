@@ -1,11 +1,15 @@
 package br.com.intuiti.compreingressos.portal.controller.util;
 
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
+
+import br.com.intuiti.compreingressos.portal.model.Usuario;
 
 public class JsfUtil {
 
@@ -65,5 +69,11 @@ public class JsfUtil {
         CREATE,
         DELETE,
         UPDATE
+    }
+    
+    public static Usuario getLogin(){
+    	FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		return (Usuario) session.getAttribute("usuario");
     }
 }

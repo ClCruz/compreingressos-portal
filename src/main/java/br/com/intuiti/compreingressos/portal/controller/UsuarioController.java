@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -23,8 +24,11 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.naming.Context;
 import javax.naming.NamingException;
+
+import org.eclipse.persistence.internal.jpa.parsing.SetNode;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+
 import static org.primefaces.model.SortOrder.UNSORTED;
 
 @ManagedBean(name = "usuarioController")
@@ -138,7 +142,7 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 	}
 
 	public List<Usuario> getItemsAvailableSelectOne() {
-		return getFacade().findAll();
+		return getFacade().findAsc();
 	}
 
 	public class UsuarioLazyModel extends LazyDataModel<Usuario> {
@@ -176,7 +180,7 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 			try {
 				Context ctx = new javax.naming.InitialContext();
 				UsuarioFacade usuarioFacade = (UsuarioFacade) ctx
-						.lookup("java:global/compreingressos-portal/UsuarioFacade!br.com.intuiti.compreingressos.portal.bean.UsuarioFacade");
+						.lookup("java:global/compreingressos-portal-1.0.0/UsuarioFacade!br.com.intuiti.compreingressos.portal.bean.UsuarioFacade");
 				usuarios = usuarioFacade.findAll(first, pageSize, sortField,
 						sortOrder, filters);
 				setRowCount(usuarioFacade.count(first, pageSize,

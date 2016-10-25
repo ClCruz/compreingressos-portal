@@ -32,6 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ContratoCliente.findAll", query = "SELECT c FROM ContratoCliente c"),
+    @NamedQuery(name = "ContratoCliente.exist", query = "SELECT c FROM ContratoCliente c WHERE c.idContratoCliente = :id"),
+    @NamedQuery(name = "ContratoCliente.findSituacao", query = "SELECT c.inStatusContrato FROM ContratoCliente c WHERE c.idContratoCliente = :id"),
     @NamedQuery(name = "ContratoCliente.findByLocalEmpresaContratante", query = "SELECT c.idContratoCliente FROM ContratoCliente c WHERE c.idLocalEvento = :idLocalEvento and c.idEmpresa = :idEmpresa and c.idContratante = :idContratante ORDER BY c.idContratoCliente DESC"),
     @NamedQuery(name = "ContratoCliente.findByIdContratoCliente", query = "SELECT c FROM ContratoCliente c WHERE c.idContratoCliente = :idContratoCliente"),
     @NamedQuery(name = "ContratoCliente.findByDsHorarioBilheteria", query = "SELECT c FROM ContratoCliente c WHERE c.dsHorarioBilheteria = :dsHorarioBilheteria"),

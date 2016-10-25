@@ -168,7 +168,7 @@ public class CanalVendaController implements Serializable {
         	listaObj = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                CanalVendaFacade objetoFacade = (CanalVendaFacade) ctx.lookup("java:global/compreingressos-portal/CanalVendaFacade!br.com.intuiti.compreingressos.portal.bean.CanalVendaFacade");
+                CanalVendaFacade objetoFacade = (CanalVendaFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/CanalVendaFacade!br.com.intuiti.compreingressos.portal.bean.CanalVendaFacade");
                 listaObj = objetoFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objetoFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

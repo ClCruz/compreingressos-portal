@@ -333,7 +333,8 @@ body {
 }
 .layout-menu > li > a > i {
   display: block;
-  font-size: 23px;
+  font-size: 20px;
+  margin-top:5px;
   float: left;
   margin-right: 4px;
   line-height: 0.7;

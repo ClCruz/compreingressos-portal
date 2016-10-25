@@ -156,7 +156,7 @@ public class MunicipioController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                MunicipioFacade objFacade = (MunicipioFacade) ctx.lookup("java:global/compreingressos-portal/MunicipioFacade!br.com.intuiti.compreingressos.portal.bean.MunicipioFacade");
+                MunicipioFacade objFacade = (MunicipioFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/MunicipioFacade!br.com.intuiti.compreingressos.portal.bean.MunicipioFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

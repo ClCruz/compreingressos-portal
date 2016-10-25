@@ -9,7 +9,10 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
-
+        <resource-bundle>
+            <base-name>/Bundle3</base-name>
+            <var>bundle3</var>
+        </resource-bundle>
     </application>
      <component> 
          <component-type>org.primefaces.component.RioMenu</component-type> 

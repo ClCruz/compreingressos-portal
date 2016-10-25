@@ -146,7 +146,7 @@ public class TipoMeioPagamentoController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                TipoMeioPagamentoFacade objFacade = (TipoMeioPagamentoFacade) ctx.lookup("java:global/compreingressos-portal/TipoMeioPagamentoFacade!br.com.intuiti.compreingressos.portal.bean.TipoMeioPagamentoFacade");
+                TipoMeioPagamentoFacade objFacade = (TipoMeioPagamentoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/TipoMeioPagamentoFacade!br.com.intuiti.compreingressos.portal.bean.TipoMeioPagamentoFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

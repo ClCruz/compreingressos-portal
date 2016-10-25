@@ -15,52 +15,14 @@
                 </a>
                 <ul>
                 <h:form>
-                    <!-- <li><a href="#" class="menulink ripplelink"><i class="icon-user158 Fs16"></i> Perfil</a></li>
-                    <li><a href="#" class="menulink ripplelink"><i class="icon-two385 Fs16"></i> Trocar Usuário</a></li>
-                    <li><a href="#" class="menulink ripplelink"><i class="icon-settings49 Fs16"></i> Configurações</a></li> -->
                     <li><p:commandLink id="ajax" action="#{loginController.logout()}"><i class="icon-thermostat1 Fs16"></i> Sair</p:commandLink></li>
                 </h:form>
                 </ul>
             </li>
         </ul>
         <div class="Separator"></div>
-
-        <pr:menu>
-            <p:menuitem id="rm_index" value="Inicio" icon="fa fa-home" outcome="/pages/index"/>
-            <p:submenu id="rm_params" label="Parâmetros" icon="icon-settings49">
-                <p:menuitem id="rm_empresa" value="Empresa" icon="icon-web37" outcome="/faces/pages/empresa/List.xhtml"/>
-                <p:menuitem id="rm_banco" value="Banco" icon="icon-credit98" outcome="/faces/pages/banco/List.xhtml"/>
-                <p:menuitem id="rm_canalVenda" value="Canal de Venda" icon="icon-chat75" outcome="/faces/pages/canalVenda/List.xhtml"/>
-                <p:menuitem id="rm_contaContabil" value="Conta Contábil" icon="fa fa-slack" outcome="/faces/pages/contaContabil/List.xhtml"/>
-                <p:menuitem id="rm_tipoMeioPagamento" value="Tipo de Meio de Pagamento" icon="fa fa-money" outcome="/faces/pages/tipoMeioPagamento/List.xhtml"/>
-                <p:submenu id="rm_geografia" label="Geografia" icon="icon-world96">
-                    <p:menuitem id="rm_regiaoGeografica" value="Região Geográfica" icon="fa fa-map-marker" outcome="/faces/pages/regiaoGeografica/List.xhtml"/>
-                    <p:menuitem id="rm_estado" value="Estados" icon="fa fa-sitemap" outcome="/faces/pages/estado/List.xhtml"/>
-                    <p:menuitem id="rm_municipio" value="Municipio" icon="fa fa-location-arrow" outcome="/faces/pages/municipio/List.xhtml"/>
-                </p:submenu>
-                <p:submenu id="rm_contratos1" label="Contratos" icon="icon-copy31">
-                    <p:menuitem id="rm_segmentoEvento" value="Segmento do Evento" icon="icon-share39" outcome="/faces/pages/segmentoEvento/List.xhtml"/>
-                    <p:menuitem id="rm_generoEvento" value="Gênero de Evento" icon="icon-swap2" outcome="/faces/pages/generoEvento/List.xhtml"/>
-                    <p:menuitem id="rm_modalidadeContrato" value="Modalidade de Contrato" icon="icon-waving" outcome="/faces/pages/modalidadeContrato/List.xhtml"/>
-                    <p:menuitem id="rm_tipoContrato" value="Tipo de Contrato" icon="fa fa-book" outcome="/faces/pages/tipoContrato/List.xhtml"/>
-                    <p:menuitem id="rm_tipoLancamento" value="Tipo de Lançamento" icon="fa fa-tags" outcome="/faces/pages/tipoLancamento/List.xhtml"/>
-                    <p:menuitem id="rm_tipoLocal" value="Tipo de Local" icon="icon-google128" outcome="/faces/pages/tipoLocal/List.xhtml"/>
-                    <p:menuitem id="rm_formaPagamento" value="Forma de Pagamento" icon="fa fa-credit-card" outcome="/faces/pages/formaPagamento/List.xhtml"/>
-                    <p:menuitem id="rm_prazoPagamento" value="Prazo de Pagamento" icon="fa fa-calendar" outcome="/faces/pages/prazoPagamento/List.xhtml"/>
-                    <p:menuitem id="rm_vendedor" value="Vendedor" icon="icon-round58" outcome="/faces/pages/vendedor/List.xhtml"/>
-                </p:submenu>
-                <p:submenu id="rm_seguranca" label="Segurança" icon="icon-https">
-                    <p:menuitem id="rm_usuario" value="Usuários" icon="icon-user157" outcome="/faces/pages/usuario/List.xhtml"/>
-                </p:submenu>
-            </p:submenu>
-            <p:submenu id="rm_contratos" label="Contratos" icon="icon-copy31">
-                <p:menuitem id="rm_contratante" value="Contratantes" icon="fa fa-users" outcome="/faces/pages/contratante/List.xhtml"/>
-                <p:menuitem id="rm_contratoCliente" value="Contrato" icon="fa fa-file-text-o" outcome="/faces/pages/contratoCliente/List.xhtml"/>
-                <p:menuitem id="rm_localEvento" value="Local do Evento" icon="icon-city24" outcome="/faces/pages/localEvento/List.xhtml"/>
-            </p:submenu>
-            <p:separator />
-        </pr:menu>
-
+        <pr:menu model="#{loginController.menu}" />
+		
+       
     </div>
-
 </ui:composition>

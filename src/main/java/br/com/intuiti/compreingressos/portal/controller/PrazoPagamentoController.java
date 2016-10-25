@@ -146,7 +146,7 @@ public class PrazoPagamentoController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                PrazoPagamentoFacade objFacade = (PrazoPagamentoFacade) ctx.lookup("java:global/compreingressos-portal/PrazoPagamentoFacade!br.com.intuiti.compreingressos.portal.bean.PrazoPagamentoFacade");
+                PrazoPagamentoFacade objFacade = (PrazoPagamentoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/PrazoPagamentoFacade!br.com.intuiti.compreingressos.portal.bean.PrazoPagamentoFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

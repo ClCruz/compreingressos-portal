@@ -146,7 +146,7 @@ public class VendedorController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                VendedorFacade objFacade = (VendedorFacade) ctx.lookup("java:global/compreingressos-portal/VendedorFacade!br.com.intuiti.compreingressos.portal.bean.VendedorFacade");
+                VendedorFacade objFacade = (VendedorFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/VendedorFacade!br.com.intuiti.compreingressos.portal.bean.VendedorFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

@@ -155,7 +155,7 @@ public class ContratanteController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                ContratanteFacade objFacade = (ContratanteFacade) ctx.lookup("java:global/compreingressos-portal/ContratanteFacade!br.com.intuiti.compreingressos.portal.bean.ContratanteFacade");
+                ContratanteFacade objFacade = (ContratanteFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/ContratanteFacade!br.com.intuiti.compreingressos.portal.bean.ContratanteFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

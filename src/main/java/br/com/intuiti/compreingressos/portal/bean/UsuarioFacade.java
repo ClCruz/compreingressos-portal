@@ -1,5 +1,7 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,5 +33,10 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 		}catch(Exception e){
 			return null;
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> findAsc(){
+		return em.createNamedQuery("Usuario.findAsc").getResultList();
 	}
 }
