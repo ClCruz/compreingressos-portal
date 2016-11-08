@@ -77,10 +77,11 @@ public class ProcessDefinitionController {
         this.processDefinition = processDefinition;
     }
     
-    public void startProcess() throws MalformedURLException{
+    @SuppressWarnings("unused")
+	public void startProcess() throws MalformedURLException{
         String deploymentId = "compreingressos:gestao-contrato:1.0.0-SNAPSHOT";
         URL appUrl = new URL("http://200.155.9.201:8080/jbpm-console/");
-        String user = JsfUtil.getLogin().getDsNome();
+        String user = JsfUtil.getLogin().getCdLogin();
         String password = JsfUtil.getLogin().getCdPww();
 
 

@@ -19,7 +19,7 @@
                                      reflow="true"
                                      paginatorPosition="bottom"
                                      >
-                            <p:ajax event="rowSelect" update="createButton viewButton editButton deleteButton" />
+                            <p:ajax event="rowSelect" update="viewButton" />
                             <f:facet name="header">
                                 #{bundle.ListContratoClienteTitle}
                             </f:facet>
@@ -51,16 +51,7 @@
                                 <h:outputText value="#{item.idVendedor.dsVendedor}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{contratoClienteController.prepareCreate}" update=":ContratoClienteCreateForm" oncomplete="PF('ContratoClienteCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":ContratoClienteViewForm" oncomplete="PF('ContratoClienteViewDialog').show()" disabled="#{empty contratoClienteController.selected}"/>
-                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":ContratoClienteEditForm" oncomplete="PF('ContratoClienteEditDialog').show()" onclick="#{not empty contratoClienteController.listaItens()}" disabled="#{empty contratoClienteController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{contratoClienteController.destroy}" update=":growl,datalist" disabled="#{empty contratoClienteController.selected}">
-                                    <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
-                                </p:commandButton>
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="overflow-y:hidden!important;">
-                                    <p:commandButton value="#{bundle.Delete}" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
-                                    <p:commandButton value="#{bundle.Close}" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
-                                </p:confirmDialog>
+                                <p:commandButton id="viewButton" icon="fa fa-search" value="#{bundle.View}" update=":ContratoClienteViewForm" oncomplete="PF('ContratoClienteViewDialog').show()" disabled="#{empty contratoClienteController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

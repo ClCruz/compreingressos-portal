@@ -65,12 +65,6 @@ public class FuncaoSistema implements Serializable {
     private String dsIcone;
     @OneToMany(mappedBy = "idFuncaoSistema")
     private Collection<GrupoFuncao> grupoFuncaoCollection;
-    @OneToMany
-    private Collection<UsuarioGrupoFuncao> usuarioGrupoFuncaoCollection;
-    @OneToMany
-    private Collection<GrupoAcesso> grupoAcessoCollection;
-    @OneToMany
-    private Collection<Usuario> usuarioCollection;
 
     public FuncaoSistema() {
     }
@@ -158,32 +152,6 @@ public class FuncaoSistema implements Serializable {
     public void setDsIcone(String dsIcone) {
         this.dsIcone = dsIcone;
     }
-
-    @XmlTransient
-    @JsonIgnore
-    public Collection<UsuarioGrupoFuncao> getUsuarioGrupoFuncaoCollection() {
-        return usuarioGrupoFuncaoCollection;
-    }
-
-    public void setUsuarioGrupoFuncaoCollection(Collection<UsuarioGrupoFuncao> usuarioGrupoFuncaoCollection) {
-        this.usuarioGrupoFuncaoCollection = usuarioGrupoFuncaoCollection;
-    }
-
-    public Collection<GrupoAcesso> getGrupoAcessoCollection() {
-        return grupoAcessoCollection;
-    }
-
-    public void setGrupoAcessoCollection(Collection<GrupoAcesso> grupoAcessoCollection) {
-        this.grupoAcessoCollection = grupoAcessoCollection;
-    }
-
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
-    }
     
     @XmlTransient
     @JsonIgnore
@@ -204,7 +172,6 @@ public class FuncaoSistema implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof FuncaoSistema)) {
             return false;
         }

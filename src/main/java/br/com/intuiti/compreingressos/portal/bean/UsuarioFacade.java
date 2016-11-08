@@ -27,16 +27,16 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         super(Usuario.class);
     }
 
-	public Usuario findUsuario(String userName) {
-		try{
-			return (Usuario) em.createNamedQuery("Usuario.findByCdLogin").setParameter("cdLogin", userName).getSingleResult();
-		}catch(Exception e){
-			return null;
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Usuario> findAsc(){
-		return em.createNamedQuery("Usuario.findAsc").getResultList();
-	}
+    public Usuario findUsuario(String userName) {
+        try {
+            return (Usuario) em.createNamedQuery("Usuario.findByCdLogin").setParameter("cdLogin", userName).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Usuario> findAsc() {
+        return em.createNamedQuery("Usuario.findAsc").getResultList();
+    }
 }

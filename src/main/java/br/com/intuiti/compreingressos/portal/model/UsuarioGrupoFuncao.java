@@ -38,9 +38,9 @@ public class UsuarioGrupoFuncao implements Serializable {
     @NotNull
     @Column(name = "id_usuario_grupo_funcao")
     private Integer idUsuarioGrupoFuncao;
-    @JoinColumn(name = "id_grupo_funcao", referencedColumnName = "id_grupo_funcao")
+    @JoinColumn(name = "id_grupo_acesso", referencedColumnName = "id_grupo_acesso")
     @ManyToOne
-    private GrupoFuncao idGrupoFuncao;
+    private GrupoAcesso idGrupoAcesso;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuario idUsuario;
@@ -62,12 +62,12 @@ public class UsuarioGrupoFuncao implements Serializable {
         this.idUsuarioGrupoFuncao = idUsuarioGrupoFuncao;
     }
 
-    public GrupoFuncao getIdGrupoFuncao() {
-        return idGrupoFuncao;
+    public GrupoAcesso getIdGrupoAcesso() {
+        return idGrupoAcesso;
     }
 
-    public void setIdGrupoFuncao(GrupoFuncao idGrupoFuncao) {
-        this.idGrupoFuncao = idGrupoFuncao;
+    public void setIdGrupoAcesso(GrupoAcesso idGrupoAcesso) {
+        this.idGrupoAcesso = idGrupoAcesso;
     }
 
     public Usuario getIdUsuario() {
@@ -87,7 +87,6 @@ public class UsuarioGrupoFuncao implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof UsuarioGrupoFuncao)) {
             return false;
         }

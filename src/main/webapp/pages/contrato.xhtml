@@ -1,0 +1,296 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{contratoController.prepareCreate()}" />
+		<f:event type="preRenderView"
+			listener="#{contratoController.prepareCreatePP()}" />
+		<f:event type="preRenderView"
+			listener="#{contratoController.prepareCreateTL()}" />
+		<f:event type="preRenderView"
+			listener="#{contratoController.obtemContrato()}" />
+		<f:viewParam name="task" value="#{contratoController.tarefa}"
+			converter="taskConverter" />
+	</f:metadata>
+
+	<ui:define name="content">
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect">
+						<h:form id="ContratoClienteCreateForm">
+							<h:panelGroup id="display">
+								<p:panelGrid id="painel_principal">
+								<o:massAttribute target="javax.faces.component.UIInput"
+												 name="disabled" value="#{!contratoController.editavel}">
+									<p:row>
+										<p:column>
+											<p:outputLabel for="idEmpresa" value="Empresa:" />
+										</p:column>
+										<p:column>
+											<p:selectOneMenu id="idEmpresa"
+												
+												value="#{contratoController.selected.idEmpresa}"
+												required="true"
+												requiredMessage="#{bundle.CreateContratoClienteRequiredMessage_idEmpresa}">
+												<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+												<f:selectItems
+													value="#{empresaController.itemsAvailableSelectOne}"
+													var="idEmpresaItem" itemValue="#{idEmpresaItem}" />
+											</p:selectOneMenu>
+										</p:column>
+										<p:column rowspan="3">
+											<p:outputLabel for="dsResumida" value="Descrição Resumida:" />
+											<br />
+											<p:inputTextarea rows="5" id="dsResumida"
+												value="#{contratoController.selected.dsResumida}" />
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column>
+											<p:outputLabel for="idLocalEvento" value="Local do Evento:" />
+										</p:column>
+										<p:column>
+											<p:selectOneMenu id="idLocalEvento" required="true"
+												requiredMessage="#{bundle.CreateContratoClienteRequiredMessage_idLocalEvento}"
+												value="#{contratoController.selected.idLocalEvento}">
+												<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+												<f:selectItems
+													value="#{localEventoController.itemsAvailableSelectOneOrderBy}"
+													var="idLocalEventoItem" itemValue="#{idLocalEventoItem}" />
+											</p:selectOneMenu>
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column>
+											<p:outputLabel for="idContratante" value="Contratante:" />
+										</p:column>
+										<p:column>
+											<p:selectOneMenu id="idContratante" required="true"
+												requiredMessage="#{bundle.CreateContratoClienteRequiredMessage_idContratante}"
+												value="#{contratoController.selected.idContratante}">
+												<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+												<f:selectItems
+													value="#{contratanteController.itemsAvailableSelectOne}"
+													var="idContratanteItem" itemValue="#{idContratanteItem}" />
+											</p:selectOneMenu>
+										</p:column>
+									</p:row>
+									</o:massAttribute>
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Status" for="inStatusContrato"/>
+										</p:column>
+										<p:column>
+											<p:selectOneMenu id="inStatusContrato" rendered="#{contratoController.editavel eq false}"
+												value="#{contratoController.selected.inStatusContrato}">
+												<p:ajax listener="#{contratoController.setStatus()}" />
+												<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+												<f:selectItem itemLabel="Aprovado" itemValue="A" />
+												<f:selectItem itemLabel="Reprovado" itemValue="R" />
+											</p:selectOneMenu>
+											<p:outputLabel value="#{contratoController.selected.inStatusContrato}" rendered="#{contratoController.editavel eq true}" />
+										</p:column>
+									</p:row>
+								</p:panelGrid>
+								<br />
+								<o:massAttribute target="javax.faces.component.UIInput"
+												 name="disabled" value="#{!contratoController.editavel}">
+								<p:tabView>
+									<p:tab title="Dados do Contrato">
+										<p:panelGrid columns="4">
+											<p:outputLabel for="dsHorarioBilheteria"
+												value="Horário da Bilheteria:" />
+											<p:inputText id="dsHorarioBilheteria"
+												value="#{contratoController.selected.dsHorarioBilheteria}" />
+											<p:outputLabel for="dsHorarioCallcenter"
+												value="Horário do Callcenter:" />
+											<p:inputText id="dsHorarioCallcenter"
+												value="#{contratoController.selected.dsHorarioCallcenter}" />
+											<p:outputLabel for="dtInicioVigencia"
+												value="Data de Inicio do Contrato: " />
+											<p:calendar id="dtInicioVigencia" pattern="dd/MM/yyyy"
+												mindate="#{contratoClienteController.mostraData()}"
+												locale="pt"
+												value="#{contratoController.selected.dtInicioVigencia}"
+												showOn="button" />
+											<p:outputLabel for="cdSiglaProjeto" value="Sigla do Projeto" />
+											<p:inputText id="cdSiglaProjeto"
+												value="#{contratoController.selected.cdSiglaProjeto}" />
+											<p:outputLabel for="dtTerminoVigencia"
+												value="Data de Término do Contrato:" />
+											<p:calendar pattern="dd/MM/yyyy" id="dtTerminoVigencia"
+												mindate="#{contratoClienteController.mostraData()}"
+												locale="pt"
+												value="#{contratoController.selected.dtTerminoVigencia}"
+												showOn="button" />
+											<p:outputLabel for="dsObsVendedor"
+												value="Observação do Vendedor:" />
+											<p:inputText id="dsObsVendedor"
+												value="#{contratoController.selected.dsObsVendedor}" />
+											<p:outputLabel for="idModalidadeContrato"
+												value="Modalidade de Contrato:" />
+											<p:selectOneMenu id="idModalidadeContrato"
+												value="#{contratoController.selected.idModalidadeContrato}">
+												<f:selectItems
+													value="#{modalidadeContratoController.itemsAvailableSelectOne}"
+													var="idModalidadeContratoItem"
+													itemValue="#{idModalidadeContratoItem}" />
+											</p:selectOneMenu>
+											<p:outputLabel for="idSegmentoEvento"
+												value="Segmento do Evento" />
+											<p:selectOneMenu id="idSegmentoEvento"
+												value="#{contratoController.selected.idSegmentoEvento}">
+												<f:selectItems
+													value="#{segmentoEventoController.itemsAvailableSelectOne}"
+													var="idSegmentoEventoItem"
+													itemValue="#{idSegmentoEventoItem}" />
+											</p:selectOneMenu>
+											<p:outputLabel for="idTipoContrato"
+												value="Tipo de Contrato: " />
+											<p:selectOneMenu id="idTipoContrato"
+												value="#{contratoController.selected.idTipoContrato}">
+												<f:selectItems
+													value="#{tipoContratoController.itemsAvailableSelectOne}"
+													var="idTipoContratoItem" itemValue="#{idTipoContratoItem}" />
+											</p:selectOneMenu>
+											<p:outputLabel for="idVendedor" value="Vendedor:" />
+											<p:selectOneMenu id="idVendedor"
+												value="#{contratoController.selected.idVendedor}">
+												<f:selectItems
+													value="#{vendedorController.itemsAvailableSelectOne}"
+													var="idVendedorItem" itemValue="#{idVendedorItem}" />
+											</p:selectOneMenu>
+										</p:panelGrid>
+									</p:tab>
+									<p:tab title="Informações para repasse" id="tabInfoRepasse">
+										<p:panelGrid columns="5"
+											rendered="#{contratoController.selected != null}">
+											<p:outputLabel for="idFormaPagamento"
+												value="Forma de Pagamento:" />
+											<p:selectOneMenu id="idFormaPagamento"
+												value="#{contratoController.selectedPP.idFormaPagamento}">
+												<f:selectItem itemLabel="Selecione.." />
+												<f:selectItems
+													value="#{formaPagamentoController.itemsAvailableSelectOne}"
+													var="idFormaPagamentoItem"
+													itemValue="#{idFormaPagamentoItem}" />
+											</p:selectOneMenu>
+											<p:outputLabel for="idPrazoPagamento"
+												value="Prazo de Pagamento: " />
+											<p:selectOneMenu id="idPrazoPagamento"
+												value="#{contratoController.selectedPP.idPrazoPagamento}">
+												<f:selectItem itemLabel="Selecione.." />
+												<f:selectItems
+													value="#{prazoPagamentoController.itemsAvailableSelectOne}"
+													var="idPrazoPagamentoItem"
+													itemValue="#{idPrazoPagamentoItem}" />
+											</p:selectOneMenu>
+											<p:commandButton icon="fa fa-check" value="Adicionar"
+												actionListener="#{contratoController.addPP()}"
+												update="datatablePP" process="tabInfoRepasse" />
+										</p:panelGrid>
+										<br />
+										<p:dataTable id="datatablePP" style="width:830px"
+											emptyMessage="Cadastre as informações para repasse acima."
+											value="#{contratoController.itemsPP}" var="itemsPP">
+											<p:column headerText="Forma de Pagamento">
+												<h:outputText
+													value="#{itemsPP.idFormaPagamento.dsFormaPagamento}" />
+											</p:column>
+											<p:column headerText="Prazo de Pagamento">
+												<h:outputText
+													value="#{itemsPP.idPrazoPagamento.dsPrazoPagamento}" />
+											</p:column>
+										</p:dataTable>
+									</p:tab>
+									<p:tab title="Regras" id="tabRegras">
+										<p:panelGrid columns="4">
+											<p:outputLabel for="idTipoLancamento"
+												value="Tipo de Lançamento: " />
+											<p:selectOneMenu id="idTipoLancamento"
+												value="#{contratoController.selectedTL.idTipoLancamento}">
+												<f:selectItems
+													value="#{tipoLancamentoController.itemsAvailableSelectOne}"
+													var="idTipoLancamentoItem"
+													itemValue="#{idTipoLancamentoItem}" />
+											</p:selectOneMenu>
+											<p:outputLabel for="dtInicioVigencia"
+												value="Data de Vigência: " />
+											<p:calendar id="dtVigencia" pattern="dd/MM/yyyy"
+												value="#{contratoController.selectedTL.dtInicioVigencia}"
+												showOn="button" />
+											<p:outputLabel for="vlAplicacaoTipoLancamento"
+												value="Valor de Aplicação:" />
+											<p:inputText id="vlAplicacaoTipoLancamento"
+												value="#{contratoController.selectedTL.vlAplicacaoTipoLancamento}" />
+											<p:outputLabel for="vlMinimoTipoLancamento"
+												value="Valor Mínimo:" />
+											<p:inputText id="vlMinimoTipoLancamento"
+												value="#{contratoController.selectedTL.vlMinimoTipoLancamento}" />
+											<p:outputLabel for="idModalidadeCobranca"
+												value="Modalidade da Cobrança:" />
+											<p:selectOneMenu id="idModalidadeCobranca"
+												value="#{contratoController.selectedTL.idModalidadeCobranca}">
+												<f:selectItems
+													value="#{modalidadeCobrancaController.itemsAvailableSelectOne}"
+													var="idModalidadeCobrancaItem"
+													itemValue="#{idModalidadeCobrancaItem}" />
+											</p:selectOneMenu>
+											<p:outputLabel value="" />
+											<p:commandButton icon="fa fa-check" value="Adicionar"
+												actionListener="#{contratoController.addTL()}"
+												update="datatableTL" process="tabRegras" />
+										</p:panelGrid>
+										<br />
+										<p:dataTable id="datatableTL" style="width:830px"
+											emptyMessage="Cadastre as regras acima."
+											value="#{contratoController.itemsTL}" var="itemsTL">
+											<p:column headerText="Tipo de Lançamento">
+												<h:outputText
+													value="#{itemsTL.idTipoLancamento.dsTipoLancamento}" />
+											</p:column>
+											<p:column headerText="Data de Vigência">
+												<h:outputText value="#{itemsTL.dtInicioVigencia}">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</h:outputText>
+											</p:column>
+											<p:column headerText="Valor de Aplicação">
+												<h:outputText value="#{itemsTL.vlAplicacaoTipoLancamento}" />
+											</p:column>
+											<p:column headerText="Valor Minímo">
+												<h:outputText value="#{itemsTL.vlMinimoTipoLancamento}" />
+											</p:column>
+											<p:column headerText="Modalidade de Cobrança">
+												<h:outputText
+													value="#{itemsTL.idModalidadeCobranca.dsModalidadeCobranca}" />
+											</p:column>
+										</p:dataTable>
+									</p:tab>
+								</p:tabView>
+								</o:massAttribute>
+								<br />
+								<center>
+									<p:commandButton actionListener="#{contratoController.create}"
+										value="#{bundle.Save}" update="display,:growl"
+										oncomplete="handleSubmit(args,'ContratoClienteCreateDialog');" />
+									<p:commandButton value="Liberar" process="@this"
+										action="/pages/tarefa.xhtml"
+										actionListener="#{contratoController.releaseTask()}"
+										update=":growl" />
+									<p:commandButton value="Completar" process="@this"
+										action="/pages/tarefa.xhtml"
+										actionListener="#{contratoController.completeTask()}"
+										update=":growl" />
+								</center>
+							</h:panelGroup>
+						</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

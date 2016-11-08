@@ -8,7 +8,7 @@ import org.kie.services.client.api.RemoteRuntimeEngineFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.intuiti.compreingressos.portal.model.Usuario;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 
 /**
  *
@@ -22,14 +22,14 @@ public final class TaskBPM {
     private static final String deploymentId = "compreingressos:gestao-contrato:1.0.0-SNAPSHOT";
     private static RuntimeEngine engineFactory = null;    
     
-    public static RuntimeEngine getRuntimeEngine(Usuario usuario) {
+    public static RuntimeEngine getRuntimeEngine() {
         if (engineFactory == null) {
             try {
                 URL jbpmURL = new URL(URL);
                 engineFactory = RemoteRuntimeEngineFactory.newRestBuilder()
                         .addUrl(jbpmURL)
-                        .addUserName("admin")
-                        .addPassword("admin")
+                        .addUserName(JsfUtil.getLogin().getCdLogin())
+                        .addPassword(JsfUtil.getLogin().getCdPww())
                         .addDeploymentId(deploymentId)
                         .build();
             } catch (MalformedURLException ex) {
@@ -38,5 +38,4 @@ public final class TaskBPM {
         }
         return engineFactory;
     }
-    
 }

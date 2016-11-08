@@ -7,7 +7,6 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
         <p:dialog id="ContratoClienteViewDlg" widgetVar="ContratoClienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContratoClienteTitle}">
             <h:form id="ContratoClienteViewForm">
                 <h:panelGroup id="display">
@@ -67,7 +66,7 @@
                                     <h:outputText value="#{itemsCCTL.idTipoLancamento.dsTipoLancamento}" />
                                 </p:column>
                                 <p:column headerText="Data de Vigência" >
-                                    <h:outputText value="#{itemsCCTL.dtVigencia}" >
+                                    <h:outputText value="#{itemsCCTL.dtInicioVigencia}" >
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
                                 </p:column>
@@ -86,6 +85,5 @@
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>

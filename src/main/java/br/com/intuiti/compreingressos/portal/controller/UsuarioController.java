@@ -1,9 +1,6 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.Usuario;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.UsuarioFacade;
+import static org.primefaces.model.SortOrder.UNSORTED;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,11 +22,13 @@ import javax.faces.convert.FacesConverter;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.eclipse.persistence.internal.jpa.parsing.SetNode;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-import static org.primefaces.model.SortOrder.UNSORTED;
+import br.com.intuiti.compreingressos.portal.bean.UsuarioFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.Usuario;
 
 @ManagedBean(name = "usuarioController")
 @ViewScoped

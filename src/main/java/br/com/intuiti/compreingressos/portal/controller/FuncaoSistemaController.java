@@ -24,7 +24,8 @@ import br.com.intuiti.compreingressos.portal.model.FuncaoSistema;
 @ViewScoped
 public class FuncaoSistemaController implements Serializable {
 
-    @EJB
+	private static final long serialVersionUID = 1L;
+	@EJB
     private br.com.intuiti.compreingressos.portal.bean.FuncaoSistemaFacade ejbFacade;
     private List<FuncaoSistema> items = null;
     private FuncaoSistema selected;

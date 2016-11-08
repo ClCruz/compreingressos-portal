@@ -60,7 +60,7 @@ public class LoginController {
                 .getSession(false);
         session.setAttribute("usuario", null);
         session.invalidate();
-        return "/pages/index?faces-redirect=true";
+        return "/pages/tarefa?faces-redirect=true";
     }
 
     public Usuario getUsuario() {

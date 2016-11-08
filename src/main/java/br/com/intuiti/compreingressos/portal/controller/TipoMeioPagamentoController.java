@@ -1,14 +1,15 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
+import br.com.intuiti.compreingressos.portal.model.TipoMeioPagamento;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.bean.TipoMeioPagamentoFacade;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -17,27 +18,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
-
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
-
-import br.com.intuiti.compreingressos.portal.bean.TipoMeioPagamentoFacade;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.model.TipoMeioPagamento;
 
 @ManagedBean(name = "tipoMeioPagamentoController")
 @ViewScoped
 public class TipoMeioPagamentoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-    @EJB
+	@EJB
     private br.com.intuiti.compreingressos.portal.bean.TipoMeioPagamentoFacade ejbFacade;
-    private LazyDataModel<TipoMeioPagamento> items = null;
+    private List<TipoMeioPagamento> items = null;
     private TipoMeioPagamento selected;
-    private final Map<String, Object> filtros = new HashMap<>();
 
     public TipoMeioPagamentoController() {
     }
@@ -85,9 +75,9 @@ public class TipoMeioPagamentoController implements Serializable {
         }
     }
 
-    public LazyDataModel<TipoMeioPagamento> getItems() {
+    public List<TipoMeioPagamento> getItems() {
         if (items == null) {
-            items = new TipoMeioPagamentoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = getFacade().findAll();
         }
         return items;
     }
@@ -130,47 +120,6 @@ public class TipoMeioPagamentoController implements Serializable {
 
     public List<TipoMeioPagamento> getItemsAvailableSelectOne() {
         return getFacade().findAll();
-    }
-    
-    public class TipoMeioPagamentoLazy extends LazyDataModel<TipoMeioPagamento> {
-    	
-    	private static final long serialVersionUID = 1L;
-        private List<TipoMeioPagamento> objList = null;
-
-        public TipoMeioPagamentoLazy(List<TipoMeioPagamento> objList) {
-            this.objList = objList;
-        }
-        
-        @Override
-        public List<TipoMeioPagamento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        	objList = new ArrayList<>();
-            try {
-                Context ctx = new javax.naming.InitialContext();
-                TipoMeioPagamentoFacade objFacade = (TipoMeioPagamentoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/TipoMeioPagamentoFacade!br.com.intuiti.compreingressos.portal.bean.TipoMeioPagamentoFacade");
-                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
-                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
-                setPageSize(pageSize);
-            } catch (NamingException ex) {
-                System.out.println(ex);
-            }
-            return objList;
-        }
-
-        @Override
-        public TipoMeioPagamento getRowData(String rowKey) {
-            Integer id = Integer.valueOf(rowKey);
-            for (TipoMeioPagamento obj : objList) {
-                if (id.equals(obj.getInTipoMeioPagamento())) {
-                    return obj;
-                }
-            }
-            return null;
-        }
-
-        @Override
-        public Object getRowKey(TipoMeioPagamento ob) {
-            return ob.getInTipoMeioPagamento();
-        }
     }
 
     @FacesConverter(forClass = TipoMeioPagamento.class)

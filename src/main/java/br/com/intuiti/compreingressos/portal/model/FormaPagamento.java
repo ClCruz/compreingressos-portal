@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -122,6 +123,6 @@ public class FormaPagamento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.FormaPagamento[ idFormaPagamento=" + idFormaPagamento + " ]";
+        return dsFormaPagamento;
     }
 }

@@ -7,6 +7,7 @@ package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
@@ -53,6 +55,8 @@ public class GrupoAcesso implements Serializable {
     private boolean inAtivo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGrupoAcesso")
     private Collection<GrupoFuncao> grupoFuncaoCollection;
+    @OneToMany(mappedBy = "idGrupoAcesso")
+    private Collection<UsuarioGrupoFuncao> usuarioGrupoFuncaoCollection;
 
     public GrupoAcesso() {
     }
@@ -100,8 +104,19 @@ public class GrupoAcesso implements Serializable {
     public void setGrupoFuncaoCollection(Collection<GrupoFuncao> grupoFuncaoCollection) {
         this.grupoFuncaoCollection = grupoFuncaoCollection;
     }
+    
+    @XmlTransient
+    @JsonIgnore
+    public Collection<UsuarioGrupoFuncao> getUsuarioGrupoFuncaoCollection() {
+		return usuarioGrupoFuncaoCollection;
+	}
 
-    @Override
+	public void setUsuarioGrupoFuncaoCollection(
+			Collection<UsuarioGrupoFuncao> usuarioGrupoFuncaoCollection) {
+		this.usuarioGrupoFuncaoCollection = usuarioGrupoFuncaoCollection;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idGrupoAcesso != null ? idGrupoAcesso.hashCode() : 0);
@@ -110,7 +125,6 @@ public class GrupoAcesso implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof GrupoAcesso)) {
             return false;
         }

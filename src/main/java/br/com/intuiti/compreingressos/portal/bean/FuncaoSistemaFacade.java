@@ -5,13 +5,14 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.FuncaoSistema;
-import br.com.intuiti.compreingressos.portal.model.Usuario;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+
+import br.com.intuiti.compreingressos.portal.model.FuncaoSistema;
+import br.com.intuiti.compreingressos.portal.model.Usuario;
 
 /**
  *
@@ -32,7 +33,8 @@ public class FuncaoSistemaFacade extends AbstractFacade<FuncaoSistema> {
         super(FuncaoSistema.class);
     }
     
-    public List<Object[]> findMenu(Usuario usuario){
+    @SuppressWarnings("unchecked")
+	public List<Object[]> findMenu(Usuario usuario){
         return getEntityManager().createNativeQuery("select fs.* from mw_funcao_sistema fs inner join mw_grupo_funcao gf on gf.id_funcao_sistema = fs.id_funcao_sistema inner join mw_grupo_acesso ga on ga.id_grupo_acesso = gf.id_grupo_acesso inner join mw_usuario_grupo_funcao ugf on ugf.id_grupo_acesso = gf.id_grupo_acesso inner join mw_usuario u on u.id_usuario = ugf.id_usuario where u.id_usuario = " + usuario.getIdUsuario() + " order by fs.id_ordem_exibicao ").getResultList();
     }
     

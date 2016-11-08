@@ -6,7 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -40,8 +37,6 @@ public class GrupoFuncao implements Serializable {
     @NotNull
     @Column(name = "id_grupo_funcao")
     private Integer idGrupoFuncao;
-    @OneToMany(mappedBy = "idGrupoFuncao")
-    private Collection<UsuarioGrupoFuncao> usuarioGrupoFuncaoCollection;
     @JoinColumn(name = "id_funcao_sistema", referencedColumnName = "id_funcao_sistema")
     @ManyToOne
     private FuncaoSistema idFuncaoSistema;
@@ -62,16 +57,6 @@ public class GrupoFuncao implements Serializable {
 
     public void setIdGrupoFuncao(Integer idGrupoFuncao) {
         this.idGrupoFuncao = idGrupoFuncao;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public Collection<UsuarioGrupoFuncao> getUsuarioGrupoFuncaoCollection() {
-        return usuarioGrupoFuncaoCollection;
-    }
-
-    public void setUsuarioGrupoFuncaoCollection(Collection<UsuarioGrupoFuncao> usuarioGrupoFuncaoCollection) {
-        this.usuarioGrupoFuncaoCollection = usuarioGrupoFuncaoCollection;
     }
 
     public FuncaoSistema getIdFuncaoSistema() {
@@ -99,7 +84,6 @@ public class GrupoFuncao implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof GrupoFuncao)) {
             return false;
         }

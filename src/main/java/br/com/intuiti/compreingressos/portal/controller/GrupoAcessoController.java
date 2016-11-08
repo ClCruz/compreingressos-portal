@@ -1,29 +1,31 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.GrupoAcesso;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.GrupoAcessoFacade;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("grupoAcessoController")
-@SessionScoped
+import br.com.intuiti.compreingressos.portal.bean.GrupoAcessoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.GrupoAcesso;
+
+@ManagedBean(name = "grupoAcessoController")
+@ViewScoped
 public class GrupoAcessoController implements Serializable {
 
-    @EJB
+	private static final long serialVersionUID = 1L;
+	@EJB
     private br.com.intuiti.compreingressos.portal.bean.GrupoAcessoFacade ejbFacade;
     private List<GrupoAcesso> items = null;
     private GrupoAcesso selected;

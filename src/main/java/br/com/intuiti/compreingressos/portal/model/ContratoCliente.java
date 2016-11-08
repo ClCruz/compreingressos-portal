@@ -48,7 +48,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ContratoCliente.findByDsObsAprovador", query = "SELECT c FROM ContratoCliente c WHERE c.dsObsAprovador = :dsObsAprovador"),
     @NamedQuery(name = "ContratoCliente.findByDsObsVendedor", query = "SELECT c FROM ContratoCliente c WHERE c.dsObsVendedor = :dsObsVendedor"),
     @NamedQuery(name = "ContratoCliente.findByInStatusContrato", query = "SELECT c FROM ContratoCliente c WHERE c.inStatusContrato = :inStatusContrato"),
-    @NamedQuery(name = "ContratoCliente.findByDsMotivoInativacao", query = "SELECT c FROM ContratoCliente c WHERE c.dsMotivoInativacao = :dsMotivoInativacao")})
+    @NamedQuery(name = "ContratoCliente.findByDsMotivoInativacao", query = "SELECT c FROM ContratoCliente c WHERE c.dsMotivoInativacao = :dsMotivoInativacao"),
+    @NamedQuery(name = "ContratoCliente.findByIdProcessoNum", query = "SELECT COUNT(c.idContratoCliente) FROM ContratoCliente c WHERE c.idProcesso = :idProcesso"),
+    @NamedQuery(name = "ContratoCliente.findByIdProcesso", query = "SELECT c FROM ContratoCliente c WHERE c.idProcesso = :idProcesso")})
 public class ContratoCliente implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idContratoCliente")
@@ -97,7 +99,7 @@ public class ContratoCliente implements Serializable {
     private String dsObsVendedor;
     @Size(max = 20)
     @Column(name = "in_status_contrato")
-    private String inStatusContrato;
+    private String inStatusContrato = "";
     @Size(max = 250)
     @Column(name = "ds_motivo_inativacao")
     private String dsMotivoInativacao;
@@ -128,6 +130,8 @@ public class ContratoCliente implements Serializable {
     @JoinColumn(name = "id_vendedor", referencedColumnName = "id_vendedor")
     @ManyToOne
     private Vendedor idVendedor;
+    @Column(name = "id_processo")
+    private Long idProcesso;
     
     public ContratoCliente() {
     }
@@ -319,8 +323,16 @@ public class ContratoCliente implements Serializable {
     public void setIdVendedor(Vendedor idVendedor) {
         this.idVendedor = idVendedor;
     }
+    
+    public Long getIdProcesso() {
+		return idProcesso;
+	}
 
-    @Override
+	public void setIdProcesso(Long idProcesso) {
+		this.idProcesso = idProcesso;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idContratoCliente != null ? idContratoCliente.hashCode() : 0);

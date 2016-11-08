@@ -7,6 +7,7 @@ package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -136,7 +137,7 @@ public class PrazoPagamento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.PrazoPagamento[ idPrazoPagamento=" + idPrazoPagamento + " ]";
+        return dsPrazoPagamento;
     }
 
     @XmlTransient

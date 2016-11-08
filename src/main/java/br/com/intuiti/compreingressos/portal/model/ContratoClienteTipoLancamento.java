@@ -65,11 +65,11 @@ public class ContratoClienteTipoLancamento implements Serializable {
     private Base idBase;
     @Column(name="dt_inicio_vigencia")
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dtVigencia;
+    private Date dtInicioVigencia;
 
-    public ContratoClienteTipoLancamento(TipoLancamento idTipoLancamento, Date dtVigencia, BigDecimal vlAplicacaoTipoLancamento, BigDecimal vlMinimoTipoLancamento, ModalidadeCobranca idModalidadeCobranca) {
+    public ContratoClienteTipoLancamento(TipoLancamento idTipoLancamento, Date dtInicioVigencia, BigDecimal vlAplicacaoTipoLancamento, BigDecimal vlMinimoTipoLancamento, ModalidadeCobranca idModalidadeCobranca) {
         this.idTipoLancamento = idTipoLancamento;
-        this.dtVigencia = dtVigencia;
+        this.dtInicioVigencia = dtInicioVigencia;
         this.vlAplicacaoTipoLancamento = vlAplicacaoTipoLancamento;
         this.vlMinimoTipoLancamento = vlMinimoTipoLancamento;
         this.idModalidadeCobranca = idModalidadeCobranca;
@@ -100,12 +100,12 @@ public class ContratoClienteTipoLancamento implements Serializable {
         this.idContratoClienteTipoLancamento = idContratoClienteTipoLancamento;
     }
     
-    public Date getDtVigencia() {
-        return dtVigencia;
+    public Date getDtInicioVigencia() {
+        return dtInicioVigencia;
     }
 
-    public void setDtVigencia(Date dtVigencia) {
-        this.dtVigencia = dtVigencia;
+    public void setDtInicioVigencia(Date dtInicioVigencia) {
+        this.dtInicioVigencia = dtInicioVigencia;
     }
 
     public BigDecimal getVlAplicacaoTipoLancamento() {

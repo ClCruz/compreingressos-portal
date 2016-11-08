@@ -7,11 +7,11 @@ import java.util.Date;
  *
  * @author edicarlosbarbosa
  */
-public class Tarefa implements Serializable{
+public class Tarefa implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private long id;
+    private static final long serialVersionUID = 1L;
+
+    private long id;
     private long processInstanceId;
     private String name;
     private String nomeEstabelecimento;
@@ -25,6 +25,7 @@ public class Tarefa implements Serializable{
     private String actualOwner;
     private String deploymentId;
     private String municipio;
+    private ContratoCliente idContrato;
 
     public Tarefa() {
     }
@@ -84,11 +85,11 @@ public class Tarefa implements Serializable{
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
     public String getMunicipio() {
         return municipio;
     }
-    
+
     public void setMunicipio(String municipio) {
         this.municipio = municipio;
     }
@@ -139,6 +140,16 @@ public class Tarefa implements Serializable{
 
     public void setDeploymentId(String deploymentId) {
         this.deploymentId = deploymentId;
-    }       
+    }
+
+	public ContratoCliente getIdContrato() {
+		return idContrato;
+	}
+
+	public void setIdContrato(ContratoCliente idContrato) {
+		this.idContrato = idContrato;
+	}
     
+    
+
 }

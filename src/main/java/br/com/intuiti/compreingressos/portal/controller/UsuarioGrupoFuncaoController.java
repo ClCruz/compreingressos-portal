@@ -1,29 +1,31 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.UsuarioGrupoFuncao;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.UsuarioGrupoFuncaoFacade;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("usuarioGrupoFuncaoController")
-@SessionScoped
+import br.com.intuiti.compreingressos.portal.bean.UsuarioGrupoFuncaoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.UsuarioGrupoFuncao;
+
+@ManagedBean(name = "usuarioGrupoFuncaoController")
+@ViewScoped
 public class UsuarioGrupoFuncaoController implements Serializable {
 
-    @EJB
+	private static final long serialVersionUID = 1L;
+	@EJB
     private br.com.intuiti.compreingressos.portal.bean.UsuarioGrupoFuncaoFacade ejbFacade;
     private List<UsuarioGrupoFuncao> items = null;
     private UsuarioGrupoFuncao selected;

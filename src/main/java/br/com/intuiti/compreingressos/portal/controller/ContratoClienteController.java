@@ -75,6 +75,7 @@ public class ContratoClienteController implements Serializable {
     
     @PostConstruct
     public void init() {
+        
         selectedPP = new ContratoClientePrazoPagamento();
         selectedTL = new ContratoClienteTipoLancamento();
         selectedB = new Base();
@@ -120,7 +121,7 @@ public class ContratoClienteController implements Serializable {
             List<ContratoClienteTipoLancamento> listaTemporariaTLE = getContratoClienteTipoLancamentoController().getFacade().findAll(new ContratoCliente(selected.getIdContratoCliente()));
             if(listaTemporariaTLE != null){
                 for(ContratoClienteTipoLancamento listaTL : listaTemporariaTLE){
-                    itemsEditTL.add(new ContratoClienteTipoLancamento(listaTL.getIdTipoLancamento(), listaTL.getDtVigencia(), listaTL.getVlAplicacaoTipoLancamento(), listaTL.getVlMinimoTipoLancamento(), listaTL.getIdModalidadeCobranca()));
+                    itemsEditTL.add(new ContratoClienteTipoLancamento(listaTL.getIdTipoLancamento(), listaTL.getDtInicioVigencia(), listaTL.getVlAplicacaoTipoLancamento(), listaTL.getVlMinimoTipoLancamento(), listaTL.getIdModalidadeCobranca()));
                 }
             }
         }
@@ -135,11 +136,11 @@ public class ContratoClienteController implements Serializable {
     }
     
     public void addTL() {
-        itemsTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdModalidadeCobranca()));
+        itemsTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtInicioVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdModalidadeCobranca()));
     }
     
     public void addEditTL(){
-        itemsEditTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdModalidadeCobranca()));
+        itemsEditTL.add(new ContratoClienteTipoLancamento(selectedTL.getIdTipoLancamento(), selectedTL.getDtInicioVigencia(), selectedTL.getVlAplicacaoTipoLancamento(), selectedTL.getVlMinimoTipoLancamento(), selectedTL.getIdModalidadeCobranca()));
     }
 
     public String mostraData() {
