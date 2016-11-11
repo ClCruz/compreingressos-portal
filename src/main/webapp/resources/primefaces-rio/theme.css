@@ -5076,7 +5076,8 @@ hr.ui-widget-header {
 }
 /*Style For UI CommandLink --------------------------------------------------------------------------------------*/
 .ui-commandlink {
-  color: #0091EA !important;
+  color: #A5061F !important;
+  font-weight: bold;
 }
 /*Style For UI Link --------------------------------------------------------------------------------------*/
 .ui-link {

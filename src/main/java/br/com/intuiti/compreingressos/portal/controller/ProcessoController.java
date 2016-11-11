@@ -5,11 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -131,24 +128,6 @@ public class ProcessoController implements Serializable {
 		processo = new Processo();
 		return processo;
 	}
-
-//	public void obtemProcesso(){
-//		if(tarefa != null){
-//			try{
-//				Long processInstanceId = tarefa.getProcessInstanceId();
-//				Long qtd = getFacade().exist(processInstanceId);
-//				if(qtd > 0){
-//					processo = getFacade().find(processInstanceId.intValue());
-//				} else {
-//					processo = new Processo(processInstanceId.intValue());
-//				}
-//			} catch(EJBException ex){
-//				Logger.getLogger(this.getClass().getName()).log(Level.INFO, "EJB do Processo indisponível", ex);
-//			} catch(Exception ex){
-//				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-//			}
-//		}
-//	}
 
 	public void releaseTask() {
 		TaskService taskService = TaskBPM.getRuntimeEngine().getTaskService();

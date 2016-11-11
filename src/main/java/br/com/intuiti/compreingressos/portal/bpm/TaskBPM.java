@@ -32,10 +32,15 @@ public final class TaskBPM {
                         .addPassword(JsfUtil.getLogin().getCdPww())
                         .addDeploymentId(deploymentId)
                         .build();
+                	
             } catch (MalformedURLException ex) {
                 logger.error("Error when build URL for jBPM: " + URL, ex);
             }
         }
         return engineFactory;
+    }
+    
+    public static void clearFactory(){
+    	engineFactory = null;
     }
 }

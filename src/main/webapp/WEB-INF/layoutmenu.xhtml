@@ -11,18 +11,16 @@
             <li>
                 <a class="menulink ripplelink">
                     <i class="icon-round58 Fs40"></i>
-                    <span class="Fs18"><h:outputText value="#{loginController.usuario.dsNome}" /><i class="icon-downwards Fright Fs20"></i><br /><span class="Fs12 FontRobotoLight">Produtor</span></span>
+                    <span class="Fs18"><h:outputText value="#{request.getUserPrincipal().getName()}" /><i class="icon-downwards Fright Fs20"></i><br /><span class="Fs12 FontRobotoLight">Produtor</span></span>
                 </a>
                 <ul>
                 <h:form>
-                    <li><p:commandLink id="ajax" action="#{loginController.logout()}"><i class="icon-thermostat1 Fs16"></i> Sair</p:commandLink></li>
+                    <li><h:outputLink rendered="#{request.getUserPrincipal() != null}" value="#{request.contextPath}/logoutServlet" ><i class="fa fa-power-off"></i> Sair</h:outputLink></li>
                 </h:form>
                 </ul>
             </li>
         </ul>
         <div class="Separator"></div>
         <pr:menu model="#{loginController.menu}" />
-		
-       
     </div>
 </ui:composition>

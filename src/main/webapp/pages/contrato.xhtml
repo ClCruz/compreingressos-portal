@@ -4,6 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 	<f:metadata>
 		<f:event type="preRenderView"
@@ -22,17 +23,15 @@
 		<div class="Container100">
 			<div class="ContainerIndent">
 				<div class="Card ShadowEffect">
+						<br/><h3>#{contratoController.tarefa.name}</h3><br/>
 						<h:form id="ContratoClienteCreateForm">
 							<h:panelGroup id="display">
 								<p:panelGrid id="painel_principal">
 								<o:massAttribute target="javax.faces.component.UIInput"
 												 name="disabled" value="#{!contratoController.editavel}">
-									<p:row>
-										<p:column>
-											<p:outputLabel for="idEmpresa" value="Empresa:" />
-										</p:column>
-										<p:column>
-											<p:selectOneMenu id="idEmpresa"
+									<p:panelGrid columns="4">
+										<p:outputLabel for="idEmpresa" value="Empresa:" />
+										<p:selectOneMenu id="idEmpresa"
 												
 												value="#{contratoController.selected.idEmpresa}"
 												required="true"
@@ -42,19 +41,7 @@
 													value="#{empresaController.itemsAvailableSelectOne}"
 													var="idEmpresaItem" itemValue="#{idEmpresaItem}" />
 											</p:selectOneMenu>
-										</p:column>
-										<p:column rowspan="3">
-											<p:outputLabel for="dsResumida" value="Descrição Resumida:" />
-											<br />
-											<p:inputTextarea rows="5" id="dsResumida"
-												value="#{contratoController.selected.dsResumida}" />
-										</p:column>
-									</p:row>
-									<p:row>
-										<p:column>
 											<p:outputLabel for="idLocalEvento" value="Local do Evento:" />
-										</p:column>
-										<p:column>
 											<p:selectOneMenu id="idLocalEvento" required="true"
 												requiredMessage="#{bundle.CreateContratoClienteRequiredMessage_idLocalEvento}"
 												value="#{contratoController.selected.idLocalEvento}">
@@ -63,13 +50,7 @@
 													value="#{localEventoController.itemsAvailableSelectOneOrderBy}"
 													var="idLocalEventoItem" itemValue="#{idLocalEventoItem}" />
 											</p:selectOneMenu>
-										</p:column>
-									</p:row>
-									<p:row>
-										<p:column>
 											<p:outputLabel for="idContratante" value="Contratante:" />
-										</p:column>
-										<p:column>
 											<p:selectOneMenu id="idContratante" required="true"
 												requiredMessage="#{bundle.CreateContratoClienteRequiredMessage_idContratante}"
 												value="#{contratoController.selected.idContratante}">
@@ -78,14 +59,14 @@
 													value="#{contratanteController.itemsAvailableSelectOne}"
 													var="idContratanteItem" itemValue="#{idContratanteItem}" />
 											</p:selectOneMenu>
-										</p:column>
-									</p:row>
+											<p:outputLabel for="dsResumida" value="Descrição Resumida:" />
+											<p:inputText id="dsResumida" value="#{contratoController.selected.dsResumida}" />
+											
+									</p:panelGrid>
+									
 									</o:massAttribute>
-									<p:row>
-										<p:column>
-											<p:outputLabel value="Status" for="inStatusContrato"/>
-										</p:column>
-										<p:column>
+									<p:panelGrid columns="4">
+											<p:outputLabel value="Status" for="inStatusContrato" />
 											<p:selectOneMenu id="inStatusContrato" rendered="#{contratoController.editavel eq false}"
 												value="#{contratoController.selected.inStatusContrato}">
 												<p:ajax listener="#{contratoController.setStatus()}" />
@@ -93,9 +74,13 @@
 												<f:selectItem itemLabel="Aprovado" itemValue="A" />
 												<f:selectItem itemLabel="Reprovado" itemValue="R" />
 											</p:selectOneMenu>
-											<p:outputLabel value="#{contratoController.selected.inStatusContrato}" rendered="#{contratoController.editavel eq true}" />
-										</p:column>
-									</p:row>
+											
+											<p:outputLabel value="Em Preenchimento" rendered="#{contratoController.selected.inStatusContrato == '' and contratoContoller.editavel == null}"/>
+											<p:outputLabel value="Em Preenchimento" rendered="#{contratoController.selected.inStatusContrato == '' and contratoContoller.editavel eq true}"/>
+											<p:outputLabel value="Em Preenchimento" rendered="#{contratoController.selected.inStatusContrato == 'P' and contratoContoller.editavel eq true}}"/>
+											<p:outputLabel value="Aprovado" rendered="#{contratoController.selected.inStatusContrato == 'A' and contratoContoller.editavel eq true}}"/>
+											<p:outputLabel value="Reprovado" rendered="#{contratoController.selected.inStatusContrato == 'R' and contratoContoller.editavel eq true}}" />
+									</p:panelGrid>
 								</p:panelGrid>
 								<br />
 								<o:massAttribute target="javax.faces.component.UIInput"
