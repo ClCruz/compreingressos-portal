@@ -4,9 +4,10 @@
         <!--<jta-data-source>java:app/dsCompreingressos-portal</jta-data-source>-->
         <jta-data-source>java:jboss/datasources/dsCompreingressos-portal</jta-data-source>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <!-- <properties>
-            <property name="eclipselink.logging.level" value="FINE"/>
-            <property name="eclipselink.logging.parameters" value="true"/>
-        </properties> -->
+         <properties>
+            <!-- <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/> -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+        </properties> 
     </persistence-unit>
 </persistence>
