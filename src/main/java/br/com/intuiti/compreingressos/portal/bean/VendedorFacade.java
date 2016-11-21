@@ -5,10 +5,13 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.Vendedor;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.Vendedor;
 
 /**
  *
@@ -27,6 +30,18 @@ public class VendedorFacade extends AbstractFacade<Vendedor> {
 
     public VendedorFacade() {
         super(Vendedor.class);
+    }
+    
+    @SuppressWarnings("unchecked")
+	public boolean findDsVendedor(String nome){
+    	List<Vendedor> lista = getEntityManager().createNamedQuery("Vendedor.findByDsVendedor").setParameter("dsVendedor", nome).getResultList();
+    	return lista.size() > 0 ? false : true;
+    }
+   
+    @SuppressWarnings("unchecked")
+    public boolean findDsVendedorId(Integer id, String nome){
+		List<Vendedor> lista = getEntityManager().createNamedQuery("Vendedor.findByDsVendedorId").setParameter("idVendedor", id).setParameter("dsVendedor", nome).getResultList();
+    	return lista.size() > 0 ? false : true;
     }
     
 }

@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v"),
+    @NamedQuery(name = "Vendedor.findByDsVendedor", query = "SELECT v FROM Vendedor v WHERE v.dsVendedor = :dsVendedor"),
+    @NamedQuery(name = "Vendedor.findByDsVendedorId", query = "SELECT v FROM Vendedor v WHERE v.dsVendedor = :dsVendedor AND v.idVendedor <> :idVendedor"),
     @NamedQuery(name = "Vendedor.findByIdVendedor", query = "SELECT v FROM Vendedor v WHERE v.idVendedor = :idVendedor"),
     @NamedQuery(name = "Vendedor.findByInAtivo", query = "SELECT v FROM Vendedor v WHERE v.inAtivo = :inAtivo")})
 public class Vendedor implements Serializable {

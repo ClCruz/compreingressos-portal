@@ -97,11 +97,27 @@ public class VendedorController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                	String mensagemE = "Já existe um vendedor cadastrado com esse nome";
+                	if(persistAction == PersistAction.CREATE){
+                		if(getFacade().findDsVendedor(selected.getDsVendedor())){
+                			getFacade().edit(selected);
+                			JsfUtil.addSuccessMessage(successMessage);
+                		} else {
+                			JsfUtil.addErrorMessage(mensagemE);
+                		}
+                	} else {
+                		if(getFacade().findDsVendedorId(selected.getIdVendedor(), selected.getDsVendedor())){
+                			getFacade().edit(selected);
+                			JsfUtil.addSuccessMessage(successMessage);
+                		} else {
+                			JsfUtil.addErrorMessage(mensagemE);
+                		}
+                	}
                 } else {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
+                
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

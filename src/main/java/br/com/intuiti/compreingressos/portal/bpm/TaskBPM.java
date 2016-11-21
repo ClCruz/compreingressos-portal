@@ -16,7 +16,7 @@ import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
  */
 public final class TaskBPM {
 
-    private static final String URL = System.getenv("JBPM_URL");
+    private static final String URL = "http://200.155.9.201:8080/jbpm-console";
     private static final Logger logger = LoggerFactory.getLogger(TaskBPM.class);
 
     private static final String deploymentId = "compreingressos:gestao-contrato:1.0.0-SNAPSHOT";

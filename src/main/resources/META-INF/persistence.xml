@@ -7,7 +7,7 @@
          <properties>
             <!-- <property name="eclipselink.logging.level" value="FINE"/>
             <property name="eclipselink.logging.parameters" value="true"/> -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
-        </properties> 
+<!--             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+ -->        </properties> 
     </persistence-unit>
 </persistence>
