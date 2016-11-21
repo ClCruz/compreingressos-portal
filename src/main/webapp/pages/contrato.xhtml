@@ -30,56 +30,55 @@
 								<o:massAttribute target="javax.faces.component.UIInput"
 												 name="disabled" value="#{!contratoController.editavel}">
 									<p:panelGrid columns="4">
-										<p:outputLabel for="idEmpresa" value="Empresa:" />
+										<p:outputLabel for="idEmpresa" value="#{bundle.CreateContratoClienteLabel_idEmpresa}" />
 										<p:selectOneMenu id="idEmpresa"
-												
 												value="#{contratoController.selected.idEmpresa}"
 												required="true"
 												requiredMessage="#{bundle.CreateContratoClienteRequiredMessage_idEmpresa}">
-												<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+												<f:selectItem itemLabel="#{bundle.SelectOneMessage}" itemValue="#{null}" />
 												<f:selectItems
 													value="#{empresaController.itemsAvailableSelectOne}"
 													var="idEmpresaItem" itemValue="#{idEmpresaItem}" />
 											</p:selectOneMenu>
-											<p:outputLabel for="idLocalEvento" value="Local do Evento:" />
+											<p:outputLabel for="idLocalEvento" value="#{bundle.CreateContratoClienteLabel_idLocalEvento}" />
 											<p:selectOneMenu id="idLocalEvento" required="true"
 												requiredMessage="#{bundle.CreateContratoClienteRequiredMessage_idLocalEvento}"
 												value="#{contratoController.selected.idLocalEvento}">
-												<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+												<f:selectItem itemLabel="#{bundle.SelectOneMessage}" itemValue="#{null}" />
 												<f:selectItems
 													value="#{localEventoController.itemsAvailableSelectOneOrderBy}"
 													var="idLocalEventoItem" itemValue="#{idLocalEventoItem}" />
 											</p:selectOneMenu>
-											<p:outputLabel for="idContratante" value="Contratante:" />
+											<p:outputLabel for="idContratante" value="#{bundle.CreateContratoClienteLabel_idContratante}" />
 											<p:selectOneMenu id="idContratante" required="true"
 												requiredMessage="#{bundle.CreateContratoClienteRequiredMessage_idContratante}"
 												value="#{contratoController.selected.idContratante}">
-												<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+												<f:selectItem itemLabel="#{bundle.SelectOneMessage}" itemValue="#{null}" />
 												<f:selectItems
 													value="#{contratanteController.itemsAvailableSelectOne}"
 													var="idContratanteItem" itemValue="#{idContratanteItem}" />
 											</p:selectOneMenu>
-											<p:outputLabel for="dsResumida" value="Descrição Resumida:" />
+											<p:outputLabel for="dsResumida" value="#{bundle.CreateContratoClienteLabel_dsResumida}" />
 											<p:inputText id="dsResumida" value="#{contratoController.selected.dsResumida}" />
 											
 									</p:panelGrid>
 									
 									</o:massAttribute>
 									<p:panelGrid columns="4">
-											<p:outputLabel value="Status" for="inStatusContrato" />
+											<p:outputLabel value="#{bundle.CreateContratoClienteLabel_icStatusContrato}" for="inStatusContrato" style="margin-right:37px;"/>
 											<p:selectOneMenu id="inStatusContrato" rendered="#{contratoController.editavel eq false}"
-												value="#{contratoController.selected.inStatusContrato}">
+												value="#{contratoController.selected.inStatusContrato}" style="margin-left:10px;">
 												<p:ajax listener="#{contratoController.setStatus()}" />
-												<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-												<f:selectItem itemLabel="Aprovado" itemValue="A" />
-												<f:selectItem itemLabel="Reprovado" itemValue="R" />
+												<f:selectItem itemLabel="#{bundle.SelectOneMessage}" itemValue="#{null}" />
+												<f:selectItem itemLabel="#{bundle.StatusContratoCliente_Aprovado}" itemValue="A" />
+												<f:selectItem itemLabel="#{bundle.StatusContratoCliente_Reprovado}" itemValue="R" />
 											</p:selectOneMenu>
 											
-											<p:outputLabel value="Em Preenchimento" rendered="#{contratoController.selected.inStatusContrato == '' and contratoContoller.editavel == null}"/>
-											<p:outputLabel value="Em Preenchimento" rendered="#{contratoController.selected.inStatusContrato == '' and contratoContoller.editavel eq true}"/>
-											<p:outputLabel value="Em Preenchimento" rendered="#{contratoController.selected.inStatusContrato == 'P' and contratoContoller.editavel eq true}}"/>
-											<p:outputLabel value="Aprovado" rendered="#{contratoController.selected.inStatusContrato == 'A' and contratoContoller.editavel eq true}}"/>
-											<p:outputLabel value="Reprovado" rendered="#{contratoController.selected.inStatusContrato == 'R' and contratoContoller.editavel eq true}}" />
+											<p:outputLabel value="#{bundle.StatusContratoCliente_EmPreenchimento}" rendered="#{contratoController.selected.inStatusContrato == '' and contratoContoller.editavel == null}" style="margin-left: 10px;" />
+											<p:outputLabel value="#{bundle.StatusContratoCliente_EmPreenchimento}" rendered="#{contratoController.selected.inStatusContrato == '' and contratoContoller.editavel eq true}" style="margin-left: 10px;" />
+											<p:outputLabel value="#{bundle.StatusContratoCliente_EmPreenchimento}" rendered="#{contratoController.selected.inStatusContrato == 'P' and contratoContoller.editavel eq true}}" style="margin-left: 10px;" />
+											<p:outputLabel value="#{bundle.StatusContratoCliente_Aprovado}" rendered="#{contratoController.selected.inStatusContrato == 'A' and contratoContoller.editavel eq true}}" style="margin-left: 10px;" />
+											<p:outputLabel value="#{bundle.StatusContratoCliente_Reprovado}" rendered="#{contratoController.selected.inStatusContrato == 'R' and contratoContoller.editavel eq true}}" style="margin-left: 10px;" />
 									</p:panelGrid>
 								</p:panelGrid>
 								<br />
@@ -89,36 +88,36 @@
 									<p:tab title="Dados do Contrato">
 										<p:panelGrid columns="4">
 											<p:outputLabel for="dsHorarioBilheteria"
-												value="Horário da Bilheteria:" />
+												value="#{bundle.CreateContratoClienteLabel_dsHorarioBilheteria}" />
 											<p:inputText id="dsHorarioBilheteria"
 												value="#{contratoController.selected.dsHorarioBilheteria}" />
 											<p:outputLabel for="dsHorarioCallcenter"
-												value="Horário do Callcenter:" />
+												value="#{bundle.CreateContratoClienteLabel_dsHorarioCallcenter}" />
 											<p:inputText id="dsHorarioCallcenter"
 												value="#{contratoController.selected.dsHorarioCallcenter}" />
 											<p:outputLabel for="dtInicioVigencia"
-												value="Data de Inicio do Contrato: " />
+												value="#{bundle.CreateContratoClienteLabel_dtInicioVigencia}" />
 											<p:calendar id="dtInicioVigencia" pattern="dd/MM/yyyy"
 												mindate="#{contratoClienteController.mostraData()}"
 												locale="pt"
 												value="#{contratoController.selected.dtInicioVigencia}"
 												showOn="button" />
-											<p:outputLabel for="cdSiglaProjeto" value="Sigla do Projeto" />
+											<p:outputLabel for="cdSiglaProjeto" value="#{bundle.CreateContratoClienteLabel_cdSiglaProjeto}" />
 											<p:inputText id="cdSiglaProjeto"
 												value="#{contratoController.selected.cdSiglaProjeto}" />
 											<p:outputLabel for="dtTerminoVigencia"
-												value="Data de Término do Contrato:" />
+												value="#{bundle.CreateContratoClienteLabel_dtTerminoVigencia}" />
 											<p:calendar pattern="dd/MM/yyyy" id="dtTerminoVigencia"
 												mindate="#{contratoClienteController.mostraData()}"
 												locale="pt"
 												value="#{contratoController.selected.dtTerminoVigencia}"
 												showOn="button" />
 											<p:outputLabel for="dsObsVendedor"
-												value="Observação do Vendedor:" />
+												value="#{bundle.CreateContratoClienteLabel_dsObsVendedor}" />
 											<p:inputText id="dsObsVendedor"
 												value="#{contratoController.selected.dsObsVendedor}" />
 											<p:outputLabel for="idModalidadeContrato"
-												value="Modalidade de Contrato:" />
+												value="#{bundle.CreateContratoClienteLabel_idModalidadeContrato}" />
 											<p:selectOneMenu id="idModalidadeContrato"
 												value="#{contratoController.selected.idModalidadeContrato}">
 												<f:selectItems
@@ -127,7 +126,7 @@
 													itemValue="#{idModalidadeContratoItem}" />
 											</p:selectOneMenu>
 											<p:outputLabel for="idSegmentoEvento"
-												value="Segmento do Evento" />
+												value="#{bundle.CreateContratoClienteLabel_idSegmentoEvento}" />
 											<p:selectOneMenu id="idSegmentoEvento"
 												value="#{contratoController.selected.idSegmentoEvento}">
 												<f:selectItems
@@ -136,14 +135,14 @@
 													itemValue="#{idSegmentoEventoItem}" />
 											</p:selectOneMenu>
 											<p:outputLabel for="idTipoContrato"
-												value="Tipo de Contrato: " />
+												value="#{bundle.CreateContratoClienteLabel_idTipoContrato}" />
 											<p:selectOneMenu id="idTipoContrato"
 												value="#{contratoController.selected.idTipoContrato}">
 												<f:selectItems
 													value="#{tipoContratoController.itemsAvailableSelectOne}"
 													var="idTipoContratoItem" itemValue="#{idTipoContratoItem}" />
 											</p:selectOneMenu>
-											<p:outputLabel for="idVendedor" value="Vendedor:" />
+											<p:outputLabel for="idVendedor" value="#{bundle.CreateContratoClienteLabel_idVendedor}" />
 											<p:selectOneMenu id="idVendedor"
 												value="#{contratoController.selected.idVendedor}">
 												<f:selectItems
@@ -156,7 +155,7 @@
 										<p:panelGrid columns="5"
 											rendered="#{contratoController.selected != null}">
 											<p:outputLabel for="idFormaPagamento"
-												value="Forma de Pagamento:" />
+												value="#{bundle.CreateContratoClientePrazoPagamentoLabel_idFormaPagamento}" />
 											<p:selectOneMenu id="idFormaPagamento"
 												value="#{contratoController.selectedPP.idFormaPagamento}">
 												<f:selectItem itemLabel="Selecione.." />
@@ -166,7 +165,7 @@
 													itemValue="#{idFormaPagamentoItem}" />
 											</p:selectOneMenu>
 											<p:outputLabel for="idPrazoPagamento"
-												value="Prazo de Pagamento: " />
+												value="#{bundle.CreateContratoClientePrazoPagamentoLabel_idPrazoPagamento} " />
 											<p:selectOneMenu id="idPrazoPagamento"
 												value="#{contratoController.selectedPP.idPrazoPagamento}">
 												<f:selectItem itemLabel="Selecione.." />
@@ -183,11 +182,11 @@
 										<p:dataTable id="datatablePP" style="width:830px"
 											emptyMessage="Cadastre as informações para repasse acima."
 											value="#{contratoController.itemsPP}" var="itemsPP">
-											<p:column headerText="Forma de Pagamento">
+											<p:column headerText="#{bundle.CreateContratoClientePrazoPagamentoTitle_idFormaPagamento}">
 												<h:outputText
 													value="#{itemsPP.idFormaPagamento.dsFormaPagamento}" />
 											</p:column>
-											<p:column headerText="Prazo de Pagamento">
+											<p:column headerText="#{bundle.CreateContratoClientePrazoPagamentoTitle_idPrazoPagamento}">
 												<h:outputText
 													value="#{itemsPP.idPrazoPagamento.dsPrazoPagamento}" />
 											</p:column>
@@ -196,7 +195,7 @@
 									<p:tab title="Regras" id="tabRegras">
 										<p:panelGrid columns="4">
 											<p:outputLabel for="idTipoLancamento"
-												value="Tipo de Lançamento: " />
+												value="#{bundle.CreateContratoClienteTipoLancamentoLabel_idTipoLancamento}" />
 											<p:selectOneMenu id="idTipoLancamento"
 												value="#{contratoController.selectedTL.idTipoLancamento}">
 												<f:selectItems
@@ -205,20 +204,20 @@
 													itemValue="#{idTipoLancamentoItem}" />
 											</p:selectOneMenu>
 											<p:outputLabel for="dtInicioVigencia"
-												value="Data de Vigência: " />
+												value="#{bundle.CreateContratoClienteTipoLancamentoLabel_dtVigencia}" />
 											<p:calendar id="dtVigencia" pattern="dd/MM/yyyy"
 												value="#{contratoController.selectedTL.dtInicioVigencia}"
 												showOn="button" />
 											<p:outputLabel for="vlAplicacaoTipoLancamento"
-												value="Valor de Aplicação:" />
+												value="#{bundle.CreateContratoClienteTipoLancamentoLabel_vlAplicacaoTipoLancamento}" />
 											<p:inputText id="vlAplicacaoTipoLancamento"
 												value="#{contratoController.selectedTL.vlAplicacaoTipoLancamento}" />
 											<p:outputLabel for="vlMinimoTipoLancamento"
-												value="Valor Mínimo:" />
+												value="#{bundle.CreateContratoClienteTipoLancamentoLabel_vlMinimoTipoLancamento}" />
 											<p:inputText id="vlMinimoTipoLancamento"
 												value="#{contratoController.selectedTL.vlMinimoTipoLancamento}" />
 											<p:outputLabel for="idModalidadeCobranca"
-												value="Modalidade da Cobrança:" />
+												value="#{bundle.CreateContratoClienteTipoLancamentoLabel_idModalidadeCobranca}" />
 											<p:selectOneMenu id="idModalidadeCobranca"
 												value="#{contratoController.selectedTL.idModalidadeCobranca}">
 												<f:selectItems
@@ -235,22 +234,22 @@
 										<p:dataTable id="datatableTL" style="width:830px"
 											emptyMessage="Cadastre as regras acima."
 											value="#{contratoController.itemsTL}" var="itemsTL">
-											<p:column headerText="Tipo de Lançamento">
+											<p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idTipoLancamento}">
 												<h:outputText
 													value="#{itemsTL.idTipoLancamento.dsTipoLancamento}" />
 											</p:column>
-											<p:column headerText="Data de Vigência">
+											<p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_dtVigencia}">
 												<h:outputText value="#{itemsTL.dtInicioVigencia}">
 													<f:convertDateTime pattern="dd/MM/yyyy" />
 												</h:outputText>
 											</p:column>
-											<p:column headerText="Valor de Aplicação">
+											<p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_vlAplicacaoTipoLancamento}">
 												<h:outputText value="#{itemsTL.vlAplicacaoTipoLancamento}" />
 											</p:column>
-											<p:column headerText="Valor Minímo">
+											<p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idTipoLancamento}">
 												<h:outputText value="#{itemsTL.vlMinimoTipoLancamento}" />
 											</p:column>
-											<p:column headerText="Modalidade de Cobrança">
+											<p:column headerText="#{bundle.CreateContratoClienteTipoLancamentoTitle_idModalidadeCobranca}">
 												<h:outputText
 													value="#{itemsTL.idModalidadeCobranca.dsModalidadeCobranca}" />
 											</p:column>

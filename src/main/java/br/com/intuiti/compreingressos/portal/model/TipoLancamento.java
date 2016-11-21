@@ -60,7 +60,7 @@ public class TipoLancamento implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "in_ativo")
-    private boolean inAtivo;
+    private boolean inAtivo = true;
     @Column(name = "dt_insert")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtInsert;

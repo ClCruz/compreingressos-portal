@@ -98,21 +98,25 @@ public class EstadoController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     if(persistAction == PersistAction.CREATE){
-                        if(getFacade().findES(selected.getDsEstado(), selected.getSgEstado()) == 0){
+                        if(getFacade().findES(selected.getDsEstado(), selected.getSgEstado())){
                             getFacade().edit(selected);
                             JsfUtil.addSuccessMessage(successMessage);
                         } else {
-                            JsfUtil.addErrorMessage("Já existe um estado cadastrado com essa descrição e sigla.");
+                            JsfUtil.addErrorMessage("J· existe um estado cadastrado com essa descriÁ„o e sigla.");
                         }
-                    } else {
+                    } else if (persistAction == PersistAction.UPDATE){
+                    	if(getFacade().findES(selected.getDsEstado(), selected.getSgEstado())){
                         getFacade().edit(selected);
                         JsfUtil.addSuccessMessage(successMessage);
+                    } else {
+                    	JsfUtil.addErrorMessage("J· existe um estado cadastrado com essa descriÁ„o e sigla.");
                     }
-                } else {
+                 }
+               }else {
                     getFacade().remove(selected);
                     JsfUtil.addSuccessMessage(successMessage);
                 }
-            } catch (EJBException ex) {
+            }catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
                 if (cause != null) {
@@ -128,7 +132,7 @@ public class EstadoController implements Serializable {
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
-    }
+      }
 
     public Estado getEstado(java.lang.Short id) {
         return getFacade().find(id);

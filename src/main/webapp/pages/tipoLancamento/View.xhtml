@@ -11,7 +11,7 @@
         <p:dialog id="TipoLancamentoViewDlg" widgetVar="TipoLancamentoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTipoLancamentoTitle}">
             <h:form id="TipoLancamentoViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{tipoLancamentoController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{tipoLancamentoController.selected != null}">
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_dsTipoLancamento}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.dsTipoLancamento}" title="#{bundle.ViewTipoLancamentoTitle_dsTipoLancamento}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_inAtivo}"/>
@@ -43,9 +43,11 @@
                         <h:outputText value="Acrescenta" title="#{bundle.ViewTipoLancamentoTitle_inAcrescentaSubstrai}" rendered="#{tipoLancamentoController.selected.inAcrescentaSubstrai == 'A'}"/>
                         <h:outputText value="Subtrai" title="#{bundle.ViewTipoLancamentoTitle_inAcrescentaSubstrai}" rendered="#{tipoLancamentoController.selected.inAcrescentaSubstrai == 'S'}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_idFormaPagamento}"/>
-                        <h:outputText value="#{tipoLancamentoController.selected.idFormaPagamento.dsFormaPagamento}" title="#{bundle.ViewTipoLancamentoTitle_idFormaPagamento}"/>
+                        <h:outputText value="Não se aplica" title="#{bundle.ViewTipoLancamentoTitle_idFormaPagamento}" rendered="#{tipoLancamentoController.selected.idFormaPagamento.dsFormaPagamento eq null}"/>
+                        <h:outputText value="#{tipoLancamentoController.selected.idFormaPagamento.dsFormaPagamento}" title="#{bundle.ViewTipoLancamentoTitle_idFormaPagamento}" rendered="#{tipoLancamentoController.selected.idFormaPagamento.dsFormaPagamento != null}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_idCanalVenda}"/>
-                        <h:outputText value="#{tipoLancamentoController.selected.idCanalVenda.dsCanalVenda}" title="#{bundle.ViewTipoLancamentoTitle_idCanalVenda}"/>
+                        <h:outputText value="Não se aplica" title="#{bundle.ViewTipoLancamentoTitle_idCanalVenda}" rendered="#{tipoLancamentoController.selected.idCanalVenda.dsCanalVenda eq null}"/>
+                        <h:outputText value="#{tipoLancamentoController.selected.idCanalVenda.dsCanalVenda}" title="#{bundle.ViewTipoLancamentoTitle_idCanalVenda}" rendered="#{tipoLancamentoController.selected.idCanalVenda.dsCanalVenda != null}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_idContaContabilDeb}"/>
                         <h:outputText value="#{tipoLancamentoController.selected.idContaContabilDeb.dsContaContabil}" title="#{bundle.ViewTipoLancamentoTitle_idContaContabilDeb}"/>
                         <h:outputText value="#{bundle.ViewTipoLancamentoLabel_idContaContabilCre}"/>

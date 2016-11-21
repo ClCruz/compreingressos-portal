@@ -52,28 +52,6 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy" locale="pt" />
                                 </h:outputText>
                             </p:column>
-                            <p:column sortBy="#{item.dtUpdate}" headerText="#{bundle.ListTipoLancamentoTitle_dtUpdate}"
-                                      filterBy="#{item.dtUpdate}" filterMatchMode="exact">
-                                <f:facet name="filter">
-                                    <p:calendar onchange="PF('tipoLancamentoTable').filter()"/>  
-                                </f:facet>
-                                <h:outputText value="#{item.dtUpdate}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </h:outputText>
-                            </p:column>
-                            <p:column sortBy="#{item.inPcValor}" headerText="#{bundle.ListTipoLancamentoTitle_inPcValor}"
-                                      filterBy="#{item.inPcValor}" filterMatchMode="contains"
-                                      >
-                                <h:outputText value="Percentual" rendered="#{item.inPcValor == 'P'}"/>
-                                <h:outputText value="Valor" rendered="#{item.inPcValor == 'V'}"/>
-                            </p:column>
-                            <p:column sortBy="#{item.inAplicacaoRegra}" headerText="#{bundle.ListTipoLancamentoTitle_inAplicacaoRegra}"
-                                      filterBy="#{item.inAplicacaoRegra}" filterMatchMode="contains">
-                                <h:outputText value="Cada bilhete emitido" rendered="#{item.inAplicacaoRegra == 'B'}"/>
-                                <h:outputText value="Cada apresentação" rendered="#{item.inAplicacaoRegra == 'A'}"/>
-                                <h:outputText value="Por mês fechado a 30 dias a partir da data de inicio de vigencia" rendered="#{item.inAplicacaoRegra == 'M'}"/>
-                                <h:outputText value="Por pedido de venda" rendered="#{item.inAplicacaoRegra == 'P'}"/>
-                            </p:column>
                             <p:column sortBy="#{item.inValidoBordero}" headerText="#{bundle.ListTipoLancamentoTitle_inValidoBordero}"
                                       filterBy="#{item.inValidoBordero}" filterMatchMode="exact">
                                 <f:facet name="filter">
@@ -100,31 +78,10 @@
                                 <h:outputText value="Ativo" rendered="#{item.inValidoExtrato eq true}" />
                                 <h:outputText value="Inativo" rendered="#{item.inValidoExtrato eq false}" />
                             </p:column>
-                            <p:column sortBy="#{item.inAcrescentaSubstrai}" headerText="#{bundle.ListTipoLancamentoTitle_inAcrescentaSubstrai}"
-                                      filterBy="#{item.inAcrescentaSubstrai}" filterMatchMode="contains">
-                                <h:outputText value="Acrescenta" rendered="#{item.inAcrescentaSubstrai == 'A'}"/>
-                                <h:outputText value="Subtrai" rendered="#{item.inAcrescentaSubstrai == 'S'}"/>
-                            </p:column>
-                            <p:column sortBy="#{item.idFormaPagamento}" headerText="#{bundle.ListTipoLancamentoTitle_idFormaPagamento}"
-                                      filterBy="#{item.idFormaPagamento}" filterMatchMode="contains">
-                                <h:outputText value="#{item.idFormaPagamento.dsFormaPagamento}"/>
-                            </p:column>
-                            <p:column sortBy="#{item.idCanalVenda.dsCanalVenda}" headerText="#{bundle.ListTipoLancamentoTitle_idCanalVenda}" 
-                                      filterBy="#{item.idCanalVenda.dsCanalVenda}" filterMatchMode="contains">
-                                <h:outputText value="#{item.idCanalVenda.dsCanalVenda}"/>
-                            </p:column>
-                            <p:column sortBy="#{item.idContaContabilDeb.dsContaContabil}" headerText="#{bundle.ListTipoLancamentoTitle_idContaContabilDeb}"
-                                      filterBy="#{item.idContaContabilDeb.dsContaContabil}" filterMatchMode="contains">
-                                <h:outputText value="#{item.idContaContabilDeb.dsContaContabil}"/>
-                            </p:column>
-                            <p:column sortBy="#{item.idContaContabilCre.dsContaContabil}" headerText="#{bundle.ListTipoLancamentoTitle_idContaContabilCre}"
-                                      filterBy="#{item.idContaContabilCre.dsContaContabil}" filterMatchMode="contains">
-                                <h:outputText value="#{item.idContaContabilCre.dsContaContabil}"/>
-                            </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{tipoLancamentoController.prepareCreate}" update=":TipoLancamentoCreateForm" oncomplete="PF('TipoLancamentoCreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":TipoLancamentoViewForm" oncomplete="PF('TipoLancamentoViewDialog').show()" disabled="#{empty tipoLancamentoController.selected}"/>
-                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":TipoLancamentoEditForm" oncomplete="PF('TipoLancamentoEditDialog').show()" disabled="#{empty tipoLancamentoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" actionListener="#{tipoLancamentoController.getDataVl()}" update=":TipoLancamentoEditForm" oncomplete="PF('TipoLancamentoEditDialog').show()" disabled="#{empty tipoLancamentoController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{tipoLancamentoController.destroy}" update=":growl,datalist" disabled="#{empty tipoLancamentoController.selected}">
                                     <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
                                 </p:commandButton>

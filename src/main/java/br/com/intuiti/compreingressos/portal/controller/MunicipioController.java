@@ -26,6 +26,7 @@ import org.primefaces.model.SortOrder;
 import br.com.intuiti.compreingressos.portal.bean.MunicipioFacade;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.Estado;
 import br.com.intuiti.compreingressos.portal.model.Municipio;
 
 @ManagedBean(name = "municipioController")
@@ -84,6 +85,24 @@ public class MunicipioController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    
+    public boolean verificaMunicipio(Estado estado, String municipio){
+    	if(getFacade().findDesc(estado, municipio)){
+    		return true;
+    	} else {
+    		selected = null;
+    		return false;
+    	}
+    }
+    
+    public boolean verificaMunicipio(Estado estado, String municipio, Integer id){
+    	if(getFacade().findDesc(estado, municipio, id)){
+    		return true;
+    	} else {
+    		selected = null;
+    		return false;
+    	}
+    }
 
     public LazyDataModel<Municipio> getItems() {
         if (items == null) {
@@ -98,15 +117,19 @@ public class MunicipioController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     if (persistAction == PersistAction.CREATE) {
-                        if (getFacade().findDesc(selected.getIdEstado(), selected.getDsMunicipio()) == 0) {
-                            getFacade().edit(selected);
+                        if(verificaMunicipio(selected.getIdEstado(), selected.getDsMunicipio())){
+                        	getFacade().edit(selected);
                             JsfUtil.addSuccessMessage(successMessage);
                         } else {
-                            JsfUtil.addErrorMessage("Já existe uma empresa cadastrada com essa descrição.");
+                        	JsfUtil.addErrorMessage("Já existe uma empresa cadastrada com essa descrição.");
                         }
                     } else {
-                        getFacade().edit(selected);
-                        JsfUtil.addSuccessMessage(successMessage);
+                    	if(verificaMunicipio(selected.getIdEstado(), selected.getDsMunicipio(), selected.getIdMunicipio())){
+                        	getFacade().edit(selected);
+                            JsfUtil.addSuccessMessage(successMessage);
+                        } else {
+                        	JsfUtil.addErrorMessage("Já existe uma empresa cadastrada com essa descrição.");
+                        }
                     }
                 } else {
                     getFacade().remove(selected);

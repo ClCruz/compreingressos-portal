@@ -160,7 +160,7 @@ public class ModalidadeContratoController implements Serializable {
         	objList = new ArrayList<>();
             try {
                 Context ctx = new javax.naming.InitialContext();
-                ModalidadeContratoFacade objFacade = (ModalidadeContratoFacade) ctx.lookup("java:global/compreingressos-portal/ModalidadeContratoFacade!br.com.intuiti.compreingressos.portal.bean.ModalidadeContratoFacade");
+                ModalidadeContratoFacade objFacade = (ModalidadeContratoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/ModalidadeContratoFacade!br.com.intuiti.compreingressos.portal.bean.ModalidadeContratoFacade");
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);

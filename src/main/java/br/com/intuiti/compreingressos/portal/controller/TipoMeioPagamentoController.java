@@ -81,17 +81,33 @@ public class TipoMeioPagamentoController implements Serializable {
         }
         return items;
     }
+    
+    public boolean verificaMP(String inTipoMeioPagamento, String dsTipoMeioPagamento){
+    	if(getFacade().findTipoMeio(inTipoMeioPagamento, dsTipoMeioPagamento)){
+    		return true;
+    	} else {
+    		selected = null;
+    		return false;
+    	}
+    }
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                	if(getFacade().findTipoMeio(selected.getInTipoMeioPagamento(), selected.getDsTipoMeioPagamento())){
+                		getFacade().edit(selected);
+                		JsfUtil.addSuccessMessage(successMessage);
+                	} else {
+                		JsfUtil.addErrorMessage("Já existe um tipo de meio de pagamento cadastrado com essa descrição");
+                	}
+                    
                 } else {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
+                
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

@@ -4,6 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+	  xmlns:of="http://omnifaces.org/functions"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
@@ -12,13 +14,18 @@
             <h:form id="TipoLancamentoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{tipoLancamentoController.selected != null}">
+                    <o:massAttribute target="javax.faces.component.UIInput"
+												 name="disabled" value="#{!tipoLancamentoController.editavel}">
                         <p:outputLabel value="#{bundle.EditTipoLancamentoLabel_dsTipoLancamento}" for="dsTipoLancamento" />
                         <p:inputText id="dsTipoLancamento" value="#{tipoLancamentoController.selected.dsTipoLancamento}" title="#{bundle.EditTipoLancamentoTitle_dsTipoLancamento}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_dsTipoLancamento}" />
+                        </o:massAttribute>
                         <p:outputLabel value="#{bundle.EditTipoLancamentoLabel_inAtivo}" for="inAtivo" />
                         <p:selectOneMenu id="inAtivo" value="#{tipoLancamentoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditTipoLancamentoRequiredMessage_inAtivo}" >
                             <f:selectItem itemLabel="Ativo" itemValue="true" />
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
+                        <o:massAttribute target="javax.faces.component.UIInput"
+												 name="disabled" value="#{!tipoLancamentoController.editavel}">
                         <p:outputLabel value="#{bundle.EditTipoLancamentoLabel_dtInsert}" for="dtInsert" />
                         <p:calendar id="dtInsert" pattern="dd/MM/yyyy"  value="#{tipoLancamentoController.selected.dtInsert}" title="#{bundle.EditTipoLancamentoTitle_dtInsert}"  showOn="button" required="true" locale="pt" readonly="#{facesContext.renderResponse}" mindate="#{tipoLancamentoController.getNextDate()}" requiredMessage="#{bundle.CreateTipoLancamentoRequiredMessage_dtInsert}"/>
                         <p:outputLabel value="#{bundle.EditTipoLancamentoLabel_inPcValor}" for="inPcValor" />
@@ -70,6 +77,7 @@
                                            var="idContaContabilCreItem"
                                            itemValue="#{idContaContabilCreItem}"/>
                         </p:selectOneMenu>
+                        </o:massAttribute>
                     </p:panelGrid>
                     <p:separator />
                     <p:commandButton actionListener="#{tipoLancamentoController.update}" value="#{bundle.Save}" update="display,:TipoLancamentoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoLancamentoEditDialog');"/>

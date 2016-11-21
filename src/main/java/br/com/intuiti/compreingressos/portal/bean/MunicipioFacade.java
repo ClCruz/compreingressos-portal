@@ -34,9 +34,15 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
     }
     
     @SuppressWarnings("unchecked")
-	public int findDesc(Estado estado, String descricao){
+	public boolean findDesc(Estado estado, String descricao){
         List<Municipio> lista = em.createNamedQuery("Municipio.findDesc").setParameter("idEstado", estado).setParameter("dsMunicipio", descricao).getResultList();
-        return lista.size();
+        return lista.size() > 0 ? false : true ;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public boolean findDesc(Estado estado, String descricao, Integer id){
+    	List<Municipio> lista = getEntityManager().createNamedQuery("Municipio.findDescId").setParameter("idEstado", estado).setParameter("dsMunicipio", descricao).setParameter("idMunicipio", id).getResultList();
+    	return lista.size() > 0 ? false : true;
     }
     
 }

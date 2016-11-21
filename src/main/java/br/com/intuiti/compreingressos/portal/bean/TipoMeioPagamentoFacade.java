@@ -5,10 +5,13 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.TipoMeioPagamento;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.TipoMeioPagamento;
 
 /**
  *
@@ -27,6 +30,12 @@ public class TipoMeioPagamentoFacade extends AbstractFacade<TipoMeioPagamento> {
 
     public TipoMeioPagamentoFacade() {
         super(TipoMeioPagamento.class);
+    }
+    
+    @SuppressWarnings("unchecked")
+	public boolean findTipoMeio(String inTipoMeioPagamento, String dsTipoMeioPagamento){
+    	List<TipoMeioPagamento> lista = getEntityManager().createNamedQuery("TipoMeioPagamento.findByInDs").setParameter("inTipoMeioPagamento", inTipoMeioPagamento).setParameter("dsTipoMeioPagamento", dsTipoMeioPagamento).getResultList();
+    	return lista.size() > 0 ? false : true;
     }
     
 }

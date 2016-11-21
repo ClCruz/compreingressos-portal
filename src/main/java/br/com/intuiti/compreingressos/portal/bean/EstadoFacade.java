@@ -33,9 +33,9 @@ public class EstadoFacade extends AbstractFacade<Estado> {
     }
     
     @SuppressWarnings("unchecked")
-	public int findES(String estado, String sigla){
+	public boolean findES(String estado, String sigla){
         List<Estado> lista = em.createNamedQuery("Estado.findES").setParameter("estado", estado).setParameter("sigla", sigla).getResultList();
-        return lista.size();
+        return lista.size() > 0 ? false : true;
     }
         
 }

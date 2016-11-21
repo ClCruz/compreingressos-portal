@@ -167,6 +167,15 @@ public class ContratoController implements Serializable {
 	public void addTL() {
 		itemsTL.add(selectedTL);
 	}
+	
+	public void removePP(){
+		System.out.println("Chamou o método de remover");
+		itemsPP.remove(selectedPP);
+	}
+	
+	public void removeTL(){
+		itemsTL.remove(selectedTL);
+	}
 
 	// Métodos do BPM
 	@SuppressWarnings("unchecked")

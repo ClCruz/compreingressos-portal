@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ public class TipoLancamentoController implements Serializable {
     private LazyDataModel<TipoLancamento> items = null;
     private TipoLancamento selected;
     private final Map<String, Object> filtros = new HashMap<>();
+    private boolean editavel = true;
 
     public TipoLancamentoController() {
     }
@@ -80,11 +82,16 @@ public class TipoLancamentoController implements Serializable {
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TipoLancamentoDeleted"));
-        if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
+    	if(selected.getDtInsert().compareTo(new Date()) <= 0){
+    		JsfUtil.addErrorMessage("Não é possível remover esse tipo de lançamento, pois a data de validade é menor que a data atual.");
+    	} else {
+    		persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TipoLancamentoDeleted"));
+            if (!JsfUtil.isValidationFailed()) {
+                selected = null; // Remove selection
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+    	}
+        
     }
 
     public LazyDataModel<TipoLancamento> getItems() {
@@ -94,11 +101,23 @@ public class TipoLancamentoController implements Serializable {
         return items;
     }
     
+    public boolean isEditavel() {
+		return editavel;
+	}
+    
     public String getNextDate(){
         Calendar data1 = Calendar.getInstance();
         data1.add(Calendar.DAY_OF_MONTH, 1);
         SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
         return formatoData.format(data1.getTime());
+    }
+    
+    public void getDataVl(){
+    	if(selected.getDtInsert().compareTo(new Date()) <= 0){
+    		editavel = false;
+    	} else {
+    		editavel = true;
+    	}
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
