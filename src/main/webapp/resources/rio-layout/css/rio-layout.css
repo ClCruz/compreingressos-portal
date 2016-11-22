@@ -1222,4 +1222,10 @@ i {
 .BorderAll {
   border: solid 1px #E0E0E0;
 }
+h2{
+	text-align:center;
+	color:white;
+	padding:20px;
+	font-family: 'roboto_condensedlight';
+}
 
