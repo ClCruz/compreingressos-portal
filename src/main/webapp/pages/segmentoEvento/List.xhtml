@@ -18,6 +18,8 @@
                                      widgetVar="segmentoEventoTable"
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      reflow="true"
+                                     sortBy="#{item.dsSegmentoEvento}"
+                                     sortOrder="ASCENDING"
                                      >
 
                             <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>

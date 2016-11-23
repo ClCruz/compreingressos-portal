@@ -1,7 +1,5 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import static org.primefaces.model.SortOrder.UNSORTED;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,7 +93,7 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 	public LazyDataModel<LocalEvento> getItems() {
 		if (items == null) {
 			items = new localEventoLazy(getFacade().findAll(0, 10, null,
-					UNSORTED, filtros));
+					SortOrder.ASCENDING, filtros));
 		}
 		return items;
 	}

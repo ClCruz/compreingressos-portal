@@ -87,7 +87,7 @@ public class EstadoController implements Serializable {
 
     public LazyDataModel<Estado> getItems() {
         if (items == null) {
-            items = new EstadoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new EstadoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

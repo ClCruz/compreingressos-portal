@@ -17,6 +17,8 @@
                                      rows="10" paginatorPosition="bottom"
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      reflow="true"
+                                     sortBy="#{item.dsRegiaoGeografica}"
+                                     sortOrder="ASCENDING"
                                      >
 
                             <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>

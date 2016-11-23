@@ -19,6 +19,8 @@
                                      paginatorPosition="bottom"
                                      reflow="true"
                                      emptyMessage="#{bundle.ListContratanteEmpty}"
+                                     sortBy="#{item.nmRazaoSocial}"
+                                     sortOrder="ASCENDING"
                                      >
 
                             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>

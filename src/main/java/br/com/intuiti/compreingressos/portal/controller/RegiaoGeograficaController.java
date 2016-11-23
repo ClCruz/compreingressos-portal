@@ -87,7 +87,7 @@ public class RegiaoGeograficaController implements Serializable {
 
     public LazyDataModel<RegiaoGeografica> getItems() {
         if (items == null) {
-            items = new RegiaoGeograficaLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new RegiaoGeograficaLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

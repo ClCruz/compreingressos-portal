@@ -90,7 +90,7 @@ public class SegmentoEventoController implements Serializable {
 
     public LazyDataModel<SegmentoEvento> getItems() {
         if (items == null) {
-            items = new SegmentoEventoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new SegmentoEventoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

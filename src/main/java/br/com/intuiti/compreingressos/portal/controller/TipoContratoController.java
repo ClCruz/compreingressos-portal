@@ -91,7 +91,7 @@ public class TipoContratoController implements Serializable {
 
 	public LazyDataModel<TipoContrato> getItems() {
 		if (items == null) {
-			items = new TipoContratoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+			items = new TipoContratoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
 		}
 		return items;
 	}

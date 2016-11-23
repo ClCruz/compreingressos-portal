@@ -96,7 +96,7 @@ public class GeneroEventoController implements Serializable {
 
 	public LazyDataModel<GeneroEvento> getItems() {
 		if (items == null) {
-			items = new GeneroEventoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+			items = new GeneroEventoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
 		}
 		return items;
 	}

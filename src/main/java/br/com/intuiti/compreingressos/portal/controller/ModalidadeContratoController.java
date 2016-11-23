@@ -87,7 +87,7 @@ public class ModalidadeContratoController implements Serializable {
 
     public LazyDataModel<ModalidadeContrato> getItems() {
         if (items == null) {
-            items = new ModalidadeContratoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new ModalidadeContratoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

@@ -90,7 +90,7 @@ public class CanalVendaController implements Serializable {
 
 	public LazyDataModel<CanalVenda> getItems() {
 		if (items == null) {
-			items = new CanalVendaLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+			items = new CanalVendaLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
 		}
 		return items;
 	}

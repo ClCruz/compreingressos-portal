@@ -106,7 +106,7 @@ public class MunicipioController implements Serializable {
 
     public LazyDataModel<Municipio> getItems() {
         if (items == null) {
-            items = new MunicipioLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new MunicipioLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

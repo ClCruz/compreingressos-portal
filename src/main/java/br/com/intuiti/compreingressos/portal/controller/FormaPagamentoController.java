@@ -90,7 +90,7 @@ public class FormaPagamentoController implements Serializable {
 
 	public LazyDataModel<FormaPagamento> getItems() {
 		if (items == null) {
-			items = new FormaPagamentoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+			items = new FormaPagamentoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
 		}
 		return items;
 	}

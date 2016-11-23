@@ -87,7 +87,7 @@ public class ContaContabilController implements Serializable {
 
     public LazyDataModel<ContaContabil> getItems() {
         if (items == null) {
-            items = new ContaContabilLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new ContaContabilLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

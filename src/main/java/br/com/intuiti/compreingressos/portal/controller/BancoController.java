@@ -89,7 +89,7 @@ public class BancoController implements Serializable {
 
     public LazyDataModel<Banco> getItems() {
         if (items == null) {
-            items = new BancoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new BancoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

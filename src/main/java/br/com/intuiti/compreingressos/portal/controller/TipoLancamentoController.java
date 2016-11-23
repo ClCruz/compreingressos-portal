@@ -96,7 +96,7 @@ public class TipoLancamentoController implements Serializable {
 
     public LazyDataModel<TipoLancamento> getItems() {
         if (items == null) {
-            items = new TipoLancamentoLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new TipoLancamentoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

@@ -13,7 +13,8 @@
                         <p:dataTable id="datalist" var="item" value="#{canalVendaController.items}" selectionMode="single" selection="#{canalVendaController.selected}" rowKey="#{item.idCanalVenda}"
                                      rows="10" paginator="true" lazy="true"
                                      rowsPerPageTemplate="5,10,20,30,40,50" paginatorPosition="bottom"
-                                     emptyMessage="Nenhum canal de venda encontrado" reflow="true">
+                                     emptyMessage="Nenhum canal de venda encontrado" reflow="true"
+                                     sortBy="#{item.dsCanalVenda}" sortOrder="ASCENDING">
                             
                             <p:ajax event="rowSelect" update="createButton editButton deleteButton" />
                             <p:ajax event="rowUnselect" update="createButton editButton deleteButton" />

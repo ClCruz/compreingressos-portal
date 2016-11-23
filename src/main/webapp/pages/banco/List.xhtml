@@ -19,6 +19,8 @@
                                      emptyMessage="#{bundle.ListBancoEmpty}"
                                      widgetVar="bancoTable"
                                      reflow="true"
+                                     sortBy="#{item.nmBanco}"
+                                     sortOrder="ASCENDING"
                                      >
 
                             <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>

@@ -90,7 +90,7 @@ public class TipoLocalController implements Serializable {
 
 	public LazyDataModel<TipoLocal> getItems() {
 		if (items == null) {
-			items = new TipoLocalLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+			items = new TipoLocalLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
 		}
 		return items;
 	}

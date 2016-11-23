@@ -233,7 +233,7 @@ public class ContratoClienteController implements Serializable {
 
     public LazyDataModel<ContratoCliente> getItems() {
         if (items == null) {
-            items = new ContratoClienteLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new ContratoClienteLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

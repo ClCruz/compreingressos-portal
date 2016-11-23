@@ -88,7 +88,7 @@ public class ContratanteController implements Serializable {
 
     public LazyDataModel<Contratante> getItems() {
         if (items == null) {
-            items = new ContratanteLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new ContratanteLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

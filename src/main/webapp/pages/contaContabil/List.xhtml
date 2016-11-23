@@ -16,7 +16,7 @@
                                      lazy="true"
                                      widgetVar="contabilTable" paginatorPosition="bottom"
                                      rowsPerPageTemplate="5,10,20,30,40,50" emptyMessage="Nenhum registro encontrado" reflow="true"
-                                     >
+                                     sortBy="#{item.dsContaContabil}" sortOrder="ASCENDING">
                             <p:ajax event="rowSelect" update="createButton editButton deleteButton" />
                             <p:ajax event="rowUnselect" update="createButton editButton deleteButton" />
 

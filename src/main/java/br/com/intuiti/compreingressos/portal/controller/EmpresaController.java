@@ -87,7 +87,7 @@ public class EmpresaController implements Serializable {
 
     public LazyDataModel<Empresa> getItems() {
         if (items == null) {
-            items = new EmpresaLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new EmpresaLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

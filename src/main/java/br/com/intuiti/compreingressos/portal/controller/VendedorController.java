@@ -87,7 +87,7 @@ public class VendedorController implements Serializable {
 
     public LazyDataModel<Vendedor> getItems() {
         if (items == null) {
-            items = new VendedorLazy(getFacade().findAll(0, 10, null, SortOrder.UNSORTED, filtros));
+            items = new VendedorLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
         }
         return items;
     }

@@ -1,7 +1,5 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import static org.primefaces.model.SortOrder.UNSORTED;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,7 +92,7 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 	public LazyDataModel<Usuario> getItems() {
 		if (items == null) {
 			items = new UsuarioLazyModel(getFacade().findAll(0, 10, null,
-					UNSORTED, filtros));
+					SortOrder.ASCENDING, filtros));
 		}
 		return items;
 	}
