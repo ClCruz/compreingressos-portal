@@ -52,60 +52,25 @@
                                 <f:facet name="filter">
                                     <p:selectOneMenu onchange="PF('usuarioTable').filter()">
                                         <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
-                                        <f:selectItem itemLabel="Ativo" itemValue="1" />
-                                        <f:selectItem itemLabel="Inativo" itemValue="0" />
+                                        <f:selectItem itemLabel="Ativo" itemValue="1"/>
+                                        <f:selectItem itemLabel="Inativo" itemValue="0"/>
                                     </p:selectOneMenu>
                                 </f:facet>
                                 <h:outputText rendered="#{item.inAtivo == 1}" value="Ativo"/>
                                 <h:outputText rendered="#{item.inAtivo == 0}" value="Inativo" />
                             </p:column>
                             <p:column sortBy="#{item.inAdmin}" headerText="#{bundle.ListUsuarioTitle_inAdmin}"
-                                      filterBy="#{item.inAdmin}" filterMatchMode="exact">
+                                      filterBy="#{item.inAdmin}" filterMatchMode="contains">
                                 <f:facet name="filter">
-                                    <p:selectOneMenu onchange="PF('usuarioTable').filter()">
-                                        <f:selectItem itemLabel="Sim e Não" itemValue="#{null}" />
+                                    <p:selectOneMenu id="filter" onchange="PF('usuarioTable').filter()">
+                                    	<f:converter converterId="javax.faces.Integer" />
+                                        <f:selectItem itemLabel="Sim e Não" itemValue="" />
                                         <f:selectItem itemLabel="Sim" itemValue="1" />
                                         <f:selectItem itemLabel="Não" itemValue="0" />
                                     </p:selectOneMenu>
                                 </f:facet>
                                 <h:outputText value="Sim" rendered="#{item.inAdmin == 1}"/>
                                 <h:outputText value="Não" rendered="#{item.inAdmin == 0}"/>
-                            </p:column>
-                            <p:column sortBy="#{item.inTelemarketing}" headerText="#{bundle.ListUsuarioTitle_inTelemarketing}"
-                                      filterBy="#{item.inTelemarketing}" filterMatchMode="exact">
-                                <f:facet name="filter">
-                                    <p:selectOneMenu onchange="PF('usuarioTable').filter()">
-                                        <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
-                                        <f:selectItem itemLabel="Ativo" itemValue="1" />
-                                        <f:selectItem itemLabel="Inativo" itemValue="0" />
-                                    </p:selectOneMenu>
-                                </f:facet>
-                                <h:outputText value="Ativo" rendered="#{item.inTelemarketing == 1}"/>
-                                <h:outputText value="Inativo" rendered="#{item.inTelemarketing == 0}"/>
-                            </p:column>
-                            <p:column sortBy="#{item.inPdv}" headerText="#{bundle.ListUsuarioTitle_inPdv}"
-                                      filterBy="#{item.inPdv}" filterMatchMode="exact">
-                                <f:facet name="filter">
-                                    <p:selectOneMenu onchange="PF('usuarioTable').filter()">
-                                        <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
-                                        <f:selectItem itemLabel="Ativo" itemValue="1" />
-                                        <f:selectItem itemLabel="Inativo" itemValue="0" />
-                                    </p:selectOneMenu>
-                                </f:facet>
-                                <h:outputText value="Ativo" rendered="#{item.inPdv == 1}"/>
-                                <h:outputText value="Inativo" rendered="#{item.inPdv == 0}"/>
-                            </p:column>
-                            <p:column sortBy="#{item.inPos}" headerText="#{bundle.ListUsuarioTitle_inPos}"
-                                      filterBy="#{item.inPos}" filterMatchMode="exact">
-                                <f:facet name="filter">
-                                    <p:selectOneMenu onchange="PF('usuarioTable').filter()">
-                                        <f:selectItem itemLabel="Ativo e Inativo" itemValue="#{null}" />
-                                        <f:selectItem itemLabel="Ativo" itemValue="1" />
-                                        <f:selectItem itemLabel="Inativo" itemValue="0" />
-                                    </p:selectOneMenu>
-                                </f:facet>
-                                <h:outputText value="Ativo" rendered="#{item.inPos == 1}"/>
-                                <h:outputText value="Inativo" rendered="#{item.inPos == 0}"/>
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>

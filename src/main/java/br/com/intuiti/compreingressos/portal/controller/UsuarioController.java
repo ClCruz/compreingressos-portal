@@ -97,38 +97,51 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 		return items;
 	}
 
-	private void persist(PersistAction persistAction, String successMessage) {
-		if (selected != null) {
-			setEmbeddableKeys();
-			try {
-				if (persistAction != PersistAction.DELETE) {
-					getFacade().edit(selected);
-				} else {
-					getFacade().remove(selected);
+	 private void persist(PersistAction persistAction, String successMessage) {
+			if (selected != null) {
+				setEmbeddableKeys();
+				try {
+					if (persistAction != PersistAction.DELETE) {
+						if(persistAction == PersistAction.CREATE){
+							if(getFacade().findCdLogin(selected.getCdLogin())){
+								getFacade().edit(selected);
+								JsfUtil.addSuccessMessage(successMessage);
+							} else {
+								JsfUtil.addErrorMessage("Já existe um Login cadastrado com esse nome.");
+							}
+						} else if (persistAction == PersistAction.UPDATE){
+							if(getFacade().findCdLogin(selected.getCdLogin())){
+								getFacade().edit(selected);
+								JsfUtil.addSuccessMessage(successMessage);
+							} else {
+								JsfUtil.addErrorMessage("Já existe um Login cadastrado com esse nome.");
+							}
+						}
+					} else {
+						getFacade().remove(selected);
+					}
+				} catch (EJBException ex) {
+					String msg = "";
+					Throwable cause = ex.getCause();
+					if (cause != null) {
+						msg = cause.getLocalizedMessage();
+					}
+					if (msg.length() > 0) {
+						JsfUtil.addErrorMessage(msg);
+					} else {
+						JsfUtil.addErrorMessage(
+								ex,
+								ResourceBundle.getBundle("/Bundle").getString(
+										"PersistenceErrorOccured"));
+					}
+				} catch (Exception ex) {
+					Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
+							null, ex);
+					JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle")
+							.getString("PersistenceErrorOccured"));
 				}
-				JsfUtil.addSuccessMessage(successMessage);
-			} catch (EJBException ex) {
-				String msg = "";
-				Throwable cause = ex.getCause();
-				if (cause != null) {
-					msg = cause.getLocalizedMessage();
-				}
-				if (msg.length() > 0) {
-					JsfUtil.addErrorMessage(msg);
-				} else {
-					JsfUtil.addErrorMessage(
-							ex,
-							ResourceBundle.getBundle("/Bundle").getString(
-									"PersistenceErrorOccured"));
-				}
-			} catch (Exception ex) {
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
-						null, ex);
-				JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle")
-						.getString("PersistenceErrorOccured"));
 			}
 		}
-	}
 
 	public Usuario getUsuario(java.lang.Integer id) {
 		return getFacade().find(id);
