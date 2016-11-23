@@ -27,6 +27,7 @@
                         <p:inputNumber id="qtDiasPrazo" value="#{prazoPagamentoController.selected.qtDiasPrazo}" title="#{bundle.EditPrazoPagamentoTitle_qtDiasPrazo}" required="true" requiredMessage="#{bundle.EditPrazoPagamentoRequiredMessage_qtDiasPrazo}"/>
                         <p:outputLabel value="#{bundle.EditPrazoPagamentoLabel_dsDiasFixos}" for="dsDiasFixos" />
                         <p:inputNumber id="dsDiasFixos" value="#{prazoPagamentoController.selected.dsDiasFixos}" title="#{bundle.EditPrazoPagamentoTitle_dsDiasFixos}" />
+                    	<p:watermark for="dsDiasFixos" value="Ex.: 5,15 e 25"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{prazoPagamentoController.update}" value="#{bundle.Save}" update="display,:PrazoPagamentoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PrazoPagamentoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('PrazoPagamentoEditDialog').hide()"/>

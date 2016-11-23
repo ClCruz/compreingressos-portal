@@ -13,8 +13,10 @@
             <h:form id="ContaContabilEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{contaContabilController.selected != null}" layout='grid' styleClass="ui-panelgrid-blank">
+                    	<p:outputLabel value="#{bundle.EditContaContabilLabel_nrContaContabil}" for="nrContaContabil" />
+                        <h:outputText id="nrContaContabil" value="#{contaContabilController.selected.nrContaContabil}" title="#{bundle.CreateContaContabilTitle_nrContaContabil}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_nrContaContabil}" converterMessage="Informe apenas números."/>
                         <p:outputLabel value="#{bundle.EditContaContabilLabel_dsContaContabil}" for="dsContaContabil" />
-                        <p:inputNumber id="dsContaContabil" value="#{contaContabilController.selected.dsContaContabil}" title="#{bundle.EditContaContabilTitle_dsContaContabil}" required="true" requiredMessage="#{bundle.EditContaContabilRequiredMessage_dsContaContabil}"/>
+                        <p:inputText id="dsContaContabil" value="#{contaContabilController.selected.dsContaContabil}" title="#{bundle.EditContaContabilTitle_dsContaContabil}" required="true" requiredMessage="#{bundle.EditContaContabilRequiredMessage_dsContaContabil}"/>
                         <p:outputLabel value="#{bundle.EditContaContabilLabel_inAtivo}" for="inAtivo" />
                         <p:selectOneMenu id='inAtivo' value='#{contaContabilController.selected.inAtivo}' required='true' requiredMessage='#{bundle.EditContaContabilRequiredMessage_inAtivo}' >
                             <f:selectItem itemLabel="Ativo" itemValue="true" />
