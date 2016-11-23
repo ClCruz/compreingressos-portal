@@ -131,8 +131,8 @@ public class Usuario implements Serializable {
 		this.cdLogin = cdLogin;
 	}
 
-	public String getDsNome() throws UnsupportedEncodingException {
-		return (new String(dsNome.getBytes("ISO-8859-1"), "UTF-8"));
+	public String getDsNome() {
+		return dsNome;
 	}
 
 	public void setDsNome(String dsNome) {
