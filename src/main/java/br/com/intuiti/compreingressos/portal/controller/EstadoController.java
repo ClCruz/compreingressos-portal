@@ -33,7 +33,7 @@ import br.com.intuiti.compreingressos.portal.model.Estado;
 public class EstadoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-    @EJB
+	@EJB
     private br.com.intuiti.compreingressos.portal.bean.EstadoFacade ejbFacade;
     private LazyDataModel<Estado> items = null;
     private Estado selected;
@@ -91,32 +91,51 @@ public class EstadoController implements Serializable {
         }
         return items;
     }
+    
+    public boolean validaEstado(String descricao, String sigla){
+    	if(getFacade().findES(descricao, sigla)){
+    		return true;
+    	} else {
+    		selected = null;
+    		return false;
+    	}
+    }
+    
+    public boolean validaEstado(String descricao, String sigla, Short id){
+    	if(getFacade().findES(descricao, sigla, id)){
+    		return true;
+    	} else {
+    		selected = null;
+    		return false;
+    	}
+    }
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    if(persistAction == PersistAction.CREATE){
-                        if(getFacade().findES(selected.getDsEstado(), selected.getSgEstado())){
-                            getFacade().edit(selected);
-                            JsfUtil.addSuccessMessage(successMessage);
-                        } else {
-                            JsfUtil.addErrorMessage("J· existe um estado cadastrado com essa descriÁ„o e sigla.");
-                        }
-                    } else if (persistAction == PersistAction.UPDATE){
-                    	if(getFacade().findES(selected.getDsEstado(), selected.getSgEstado())){
-                        getFacade().edit(selected);
-                        JsfUtil.addSuccessMessage(successMessage);
-                    } else {
-                    	JsfUtil.addErrorMessage("J· existe um estado cadastrado com essa descriÁ„o e sigla.");
-                    }
-                 }
-               }else {
+                	if(persistAction == PersistAction.CREATE){
+                		if(validaEstado(selected.getDsEstado(), selected.getSgEstado())){
+                    		getFacade().edit(selected);
+                    		JsfUtil.addSuccessMessage(successMessage);
+                    	} else {
+                    		JsfUtil.addErrorMessage("Já existe um estado cadastrado com essa sigla e descrição");
+                    	}
+                	} else {
+                		if(validaEstado(selected.getDsEstado(), selected.getSgEstado(), selected.getIdEstado())){
+                    		getFacade().edit(selected);
+                    		JsfUtil.addSuccessMessage(successMessage);
+                    	} else {
+                    		JsfUtil.addErrorMessage("Já existe um estado cadastrado com essa sigla e descrição");
+                    	}
+                	}
+                } else {
                     getFacade().remove(selected);
                     JsfUtil.addSuccessMessage(successMessage);
                 }
-            }catch (EJBException ex) {
+                
+            } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
                 if (cause != null) {
@@ -132,7 +151,7 @@ public class EstadoController implements Serializable {
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
-      }
+    }
 
     public Estado getEstado(java.lang.Short id) {
         return getFacade().find(id);
@@ -146,7 +165,7 @@ public class EstadoController implements Serializable {
         return getFacade().findAll();
     }
     
-    public class EstadoLazy extends LazyDataModel<Estado> {
+public class EstadoLazy extends LazyDataModel<Estado> {
     	
     	private static final long serialVersionUID = 1L;
         private List<Estado> objList = null;
@@ -164,7 +183,6 @@ public class EstadoController implements Serializable {
                 objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
                 setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
                 setPageSize(pageSize);
-                System.out.println(filters);
             } catch (NamingException ex) {
                 System.out.println(ex);
             }
@@ -175,7 +193,7 @@ public class EstadoController implements Serializable {
         public Estado getRowData(String rowKey) {
             Integer id = Integer.valueOf(rowKey);
             for (Estado obj : objList) {
-                if (id.equals(obj.getIdEstado())) {
+                if (id.equals(obj.getIdEstado().intValue())) {
                     return obj;
                 }
             }

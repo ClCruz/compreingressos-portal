@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
     @NamedQuery(name = "Estado.findES", query = "SELECT e FROM Estado e WHERE e.dsEstado = :estado AND e.sgEstado = :sigla"),
+    @NamedQuery(name = "Estado.findESID", query = "SELECT e FROM Estado e WHERE e.dsEstado = :estado AND e.sgEstado = :sigla AND e.idEstado <> :id"),
     @NamedQuery(name = "Estado.findByIdEstado", query = "SELECT e FROM Estado e WHERE e.idEstado = :idEstado"),
     @NamedQuery(name = "Estado.findByDsEstado", query = "SELECT e FROM Estado e WHERE e.dsEstado = :dsEstado"),
     @NamedQuery(name = "Estado.findBySgEstado", query = "SELECT e FROM Estado e WHERE e.sgEstado = :sgEstado")})

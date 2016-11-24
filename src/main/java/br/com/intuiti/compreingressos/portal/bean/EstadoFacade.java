@@ -37,5 +37,11 @@ public class EstadoFacade extends AbstractFacade<Estado> {
         List<Estado> lista = em.createNamedQuery("Estado.findES").setParameter("estado", estado).setParameter("sigla", sigla).getResultList();
         return lista.size() > 0 ? false : true;
     }
+    
+    @SuppressWarnings("unchecked")
+	public boolean findES(String estado, String sigla, Short id){
+        List<Estado> lista = em.createNamedQuery("Estado.findESID").setParameter("estado", estado).setParameter("sigla", sigla).setParameter("id", id).getResultList();
+        return lista.size() > 0 ? false : true;
+    }
         
 }
