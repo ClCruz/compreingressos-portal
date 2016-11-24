@@ -24,8 +24,8 @@
                                 #{bundle.ListEstadoTitle}
                             </f:facet>
 
-                            <p:ajax event="rowSelect" update="createButton editButton deleteButton" />
-                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton" />
+                            <p:ajax event="rowSelect" update="createButton deleteButton" />
+                            <p:ajax event="rowUnselect" update="createButton deleteButton" />
 
                             <p:column sortBy="#{item.idEstado}" headerText="#{bundle.ListEstadoTitle_idEstado}"
                                       filterBy="#{item.idEstado}"
@@ -53,7 +53,6 @@
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>
-                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":EstadoEditForm" oncomplete="PF('EstadoEditDialog').show()" disabled="#{empty estadoController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{estadoController.destroy}" update=":growl,datalist" disabled="#{empty estadoController.selected}">
                                     <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
                                 </p:commandButton>
@@ -69,6 +68,5 @@
             </div>
         </div>
         <ui:include src="Create.xhtml"/>
-        <ui:include src="Edit.xhtml"/>
     </ui:define>
 </ui:composition>
