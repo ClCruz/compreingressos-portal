@@ -8,19 +8,21 @@
 
     <ui:composition>
 
-        <p:dialog id="GrupoAcessoCreateDlg" widgetVar="GrupoAcessoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.CreateGrupoAcessoTitle}">
+        <p:dialog id="GrupoAcessoCreateDlg" widgetVar="GrupoAcessoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGrupoAcessoTitle}">
             <h:form id="GrupoAcessoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{grupoAcessoController.selected != null}">
-                        <p:outputLabel value="#{bundle3.CreateGrupoAcessoLabel_idGrupoAcesso}" for="idGrupoAcesso" />
-                        <p:inputText id="idGrupoAcesso" value="#{grupoAcessoController.selected.idGrupoAcesso}" title="#{bundle3.CreateGrupoAcessoTitle_idGrupoAcesso}" required="true" requiredMessage="#{bundle3.CreateGrupoAcessoRequiredMessage_idGrupoAcesso}"/>
-                        <p:outputLabel value="#{bundle3.CreateGrupoAcessoLabel_dsGrupo}" for="dsGrupo" />
-                        <p:inputText id="dsGrupo" value="#{grupoAcessoController.selected.dsGrupo}" title="#{bundle3.CreateGrupoAcessoTitle_dsGrupo}" required="true" requiredMessage="#{bundle3.CreateGrupoAcessoRequiredMessage_dsGrupo}"/>
-                        <p:outputLabel value="#{bundle3.CreateGrupoAcessoLabel_inAtivo}" for="inAtivo" />
-                        <p:selectBooleanCheckbox id="inAtivo" value="#{grupoAcessoController.selected.inAtivo}" required="true" requiredMessage="#{bundle3.EditGrupoAcessoRequiredMessage_inAtivo}"/>
+                        <p:outputLabel value="#{bundle.CreateGrupoAcessoLabel_dsGrupo}" for="dsGrupo" />
+                        <p:inputText id="dsGrupo" value="#{grupoAcessoController.selected.dsGrupo}" title="#{bundle.CreateGrupoAcessoTitle_dsGrupo}" required="true" requiredMessage="#{bundle.CreateGrupoAcessoRequiredMessage_dsGrupo}"/>
+                        <p:outputLabel value="#{bundle.CreateGrupoAcessoLabel_inAtivo}" for="inAtivo" />
+                        <p:selectOneMenu id="inAtivo" value="#{grupoAcessoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditGrupoAcessoRequiredMessage_inAtivo}" >
+                        	<f:selectItem itemValue="true" itemLabel="Ativo" />
+                        	<f:selectItem itemValue="false" itemLabel="Inativo" />
+                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{grupoAcessoController.create}" value="#{bundle3.Save}" update="display,:GrupoAcessoListForm:datalist,:growl" oncomplete="handleSubmit(args,'GrupoAcessoCreateDialog');"/>
-                    <p:commandButton value="#{bundle3.Cancel}" onclick="PF('GrupoAcessoCreateDialog').hide()"/>
+                    <p:separator />
+                    <p:commandButton actionListener="#{grupoAcessoController.create}" value="#{bundle.Save}" update="display,:GrupoAcessoListForm:datalist,:growl" oncomplete="handleSubmit(args,'GrupoAcessoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('GrupoAcessoCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

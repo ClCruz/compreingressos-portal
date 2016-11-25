@@ -169,6 +169,7 @@ public class ContratoController implements Serializable {
 	}
 	
 	public void removePP(ContratoClientePrazoPagamento itemCCPP){
+		System.out.println(itemCCPP);
 		itemsPP.remove(itemCCPP);
 	}
 	

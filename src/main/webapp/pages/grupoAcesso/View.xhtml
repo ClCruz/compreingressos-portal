@@ -8,21 +8,20 @@
 
     <ui:composition>
 
-        <p:dialog id="GrupoAcessoViewDlg" widgetVar="GrupoAcessoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.ViewGrupoAcessoTitle}">
+        <p:dialog id="GrupoAcessoViewDlg" widgetVar="GrupoAcessoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGrupoAcessoTitle}">
             <h:form id="GrupoAcessoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{grupoAcessoController.selected != null}">
-                        <h:outputText value="#{bundle3.ViewGrupoAcessoLabel_idGrupoAcesso}"/>
-                        <h:outputText value="#{grupoAcessoController.selected.idGrupoAcesso}" title="#{bundle3.ViewGrupoAcessoTitle_idGrupoAcesso}"/>
-                        <h:outputText value="#{bundle3.ViewGrupoAcessoLabel_dsGrupo}"/>
-                        <h:outputText value="#{grupoAcessoController.selected.dsGrupo}" title="#{bundle3.ViewGrupoAcessoTitle_dsGrupo}"/>
-                        <h:outputText value="#{bundle3.ViewGrupoAcessoLabel_inAtivo}"/>
-                        <p:selectBooleanCheckbox value="#{grupoAcessoController.selected.inAtivo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewGrupoAcessoLabel_idGrupoAcesso}"/>
+                        <h:outputText value="#{grupoAcessoController.selected.idGrupoAcesso}" title="#{bundle.ViewGrupoAcessoTitle_idGrupoAcesso}"/>
+                        <h:outputText value="#{bundle.ViewGrupoAcessoLabel_dsGrupo}"/>
+                        <h:outputText value="#{grupoAcessoController.selected.dsGrupo}" title="#{bundle.ViewGrupoAcessoTitle_dsGrupo}"/>
+                        <h:outputText value="#{bundle.ViewGrupoAcessoLabel_inAtivo}"/>
+                        <h:outputText value="Ativo" rendered="#{grupoAcessoController.selected.inAtivo eq true}" />
+                        <h:outputText value="Inativo" rendered="#{grupoAcessoController.selected.inAtivo eq false}" />
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle3.Close}" onclick="PF('GrupoAcessoViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>
