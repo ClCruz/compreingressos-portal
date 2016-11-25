@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoEstornoEditDlg" widgetVar="TipoEstornoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.EditTipoEstornoTitle}">
+            <h:form id="TipoEstornoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoEstornoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTipoEstornoLabel_idTipoEstorno}" for="idTipoEstorno" />
+                        <p:inputText id="idTipoEstorno" value="#{tipoEstornoController.selected.idTipoEstorno}" title="#{bundle.EditTipoEstornoTitle_idTipoEstorno}" required="true" requiredMessage="#{bundle.EditTipoEstornoRequiredMessage_idTipoEstorno}"/>
+                        <p:outputLabel value="#{bundle.EditTipoEstornoLabel_dsTipoEstorno}" for="dsTipoEstorno" />
+                        <p:inputText id="dsTipoEstorno" value="#{tipoEstornoController.selected.dsTipoEstorno}" title="#{bundle.EditTipoEstornoTitle_dsTipoEstorno}" required="true" requiredMessage="#{bundle.EditTipoEstornoRequiredMessage_dsTipoEstorno}" />
+                    </p:panelGrid>
+                    <p:separator />
+                    <p:commandButton actionListener="#{tipoEstornoController.update}" value="#{bundle.Save}" update="display,:TipoEstornoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoEstornoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('TipoEstornoEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

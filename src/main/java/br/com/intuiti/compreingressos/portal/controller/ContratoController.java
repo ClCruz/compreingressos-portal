@@ -168,9 +168,8 @@ public class ContratoController implements Serializable {
 		itemsTL.add(selectedTL);
 	}
 	
-	public void removePP(){
-		System.out.println("Chamou o método de remover");
-		itemsPP.remove(selectedPP);
+	public void removePP(ContratoClientePrazoPagamento itemCCPP){
+		itemsPP.remove(itemCCPP);
 	}
 	
 	public void removeTL(){

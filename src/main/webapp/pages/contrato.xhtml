@@ -190,6 +190,9 @@
 												<h:outputText
 													value="#{itemsPP.idPrazoPagamento.dsPrazoPagamento}" />
 											</p:column>
+											<p:column >
+												<p:commandButton icon="fa fa-trash" actionListener="#{contratoController.removePP(itemsPP)}" update="datatablePP" />
+											</p:column>
 										</p:dataTable>
 									</p:tab>
 									<p:tab title="Regras" id="tabRegras">

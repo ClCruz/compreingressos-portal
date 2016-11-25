@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect">
+					<h:form id="TipoEstornoListForm">
+						<p:dataTable id="datalist" value="#{tipoEstornoController.items}"
+							var="item" selectionMode="single" lazy="true"
+							selection="#{tipoEstornoController.selected}" paginator="true"
+							rowKey="#{item.idTipoEstorno}" rows="10"
+							rowsPerPageTemplate="10,20,30,40,50"
+							emptyMessage="#{bundle.ListTipoEstornoEmpty}"
+							paginatorPosition="bottom">
+
+							<p:ajax event="rowSelect"
+								update="createButton viewButton editButton deleteButton" />
+							<p:ajax event="rowUnselect"
+								update="createButton viewButton editButton deleteButton" />
+							<f:facet name="header">
+                                #{bundle.ListTipoEstornoTitle}
+                            </f:facet>
+
+							<p:column headerText="#{bundle.ListTipoEstornoTitle_dsTipoEstorno}" sortBy="#{item.dsTipoEstorno}"
+										filterBy="#{item.dsTipoEstorno}" filterMatchMode="contains">
+								<h:outputText value="#{item.dsTipoEstorno}" />
+							</p:column>
+							<f:facet name="footer">
+								<p:commandButton id="createButton" icon="fa fa-plus"
+									value="#{bundle.Create}"
+									actionListener="#{tipoEstornoController.prepareCreate}"
+									update=":TipoEstornoCreateForm"
+									oncomplete="PF('TipoEstornoCreateDialog').show()" />
+								<p:commandButton id="viewButton" icon="fa fa-search"
+									value="#{bundle.View}" update=":TipoEstornoViewForm"
+									oncomplete="PF('TipoEstornoViewDialog').show()"
+									disabled="#{empty tipoEstornoController.selected}" />
+								<p:commandButton id="editButton" icon="fa fa-pencil"
+									value="#{bundle.Edit}" update=":TipoEstornoEditForm"
+									oncomplete="PF('TipoEstornoEditDialog').show()"
+									disabled="#{empty tipoEstornoController.selected}" />
+								<p:commandButton id="deleteButton" icon="fa fa-trash"
+									value="#{bundle.Delete}"
+									actionListener="#{tipoEstornoController.destroy}"
+									update=":growl,datalist"
+									disabled="#{empty tipoEstornoController.selected}" >
+										<p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
+									</p:commandButton>
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="overflow-y:hidden!important;">
+                                    	<p:commandButton value="#{bundle.Delete}" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                    	<p:commandButton value="#{bundle.Close}" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                                	</p:confirmDialog>
+							</f:facet>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+		<ui:include src="Create.xhtml" />
+		<ui:include src="Edit.xhtml" />
+		<ui:include src="View.xhtml" />
+	</ui:define>
+</ui:composition>
