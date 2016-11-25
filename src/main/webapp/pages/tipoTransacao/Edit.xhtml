@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+             <p:dialog id="TipoTransacaoEditDlg" widgetVar="TipoTransacaoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTipoTransacaoTitle}" style="overflow-y:hidden!important;">
+            	<h:form id="TipoTransacaoEditForm">
+                	<h:panelGroup id="display">
+                    	<p:panelGrid columns="2" rendered="#{tipoTransacaoController.selected != null}">
+                    		<p:outputLabel value="#{bundle.EditTipoTransacaoLabel_idTipoTransacao}" for="idTipoTransacao" />
+                    		<p:inputText id="idTipoTransacao" value="#{tipoTransacaoController.selected.idTipoTransacao}" title="#{bundle.EditTipoTransacaoTitle_idTipoTransacao}" required="true" requiredMessage="#{bundle.EditTipoTransacaoRequiredMessage_idTipoTransacao}"/>
+                    		<p:outputLabel value="#{bundle.EditTipoTransacaoLabel_dsTipoTransacao}" for="dsTipoTransacao" />
+                    		<p:inputText id="dsTipoTransacao" value="#{tipoTransacaoController.selected.dsTipoTransacao}" title="#{bundle.EditTipoTransacaoTitle_dsTipoTransacao}" />
+                		</p:panelGrid>
+                		<p:separator />
+                    <p:commandButton actionListener="#{tipoTransacaoController.update}" value="#{bundle.Save}" update="display,:TipoTransacaoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoTransacaoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('TipoTransacaoEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+                
