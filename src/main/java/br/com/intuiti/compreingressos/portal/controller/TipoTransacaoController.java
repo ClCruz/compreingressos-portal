@@ -26,10 +26,9 @@ import org.primefaces.model.SortOrder;
 import br.com.intuiti.compreingressos.portal.bean.TipoTransacaoFacade;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.model.Municipio;
 import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 
-	@ManagedBean(name = "TipoTransacaoController")
+	@ManagedBean(name = "tipoTransacaoController")
 	@ViewScoped
 	public class TipoTransacaoController implements Serializable {
 

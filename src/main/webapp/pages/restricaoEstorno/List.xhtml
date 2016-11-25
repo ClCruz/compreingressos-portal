@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h:form id="RestricaoEstornoListForm">
+                        <p:dataTable id="datalist" value="#{restricaoEstornoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
+                                     selectionMode="single" selection="#{restricaoEstornoController.selected}"
+                                     paginator="true" lazy="true"
+                                     rowKey="#{item.idTipoEstorno}"
+                                     rows="10" paginatorPosition="bottom"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     sortBy="#{item.idTipoEstorno}"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
+                            <f:facet name="header">
+                                #{bundle.ListRestricaoEstornoTitle}
+                            </f:facet>
+                            <p:column sortBy="#{item.idTipoEstorno}" headerText="#{bundle.ListRestricaoEstornoTitle_idTipoEstorno}"
+                                      filterBy="#{item.idTipoEstorno.dsTipoEstorno}" filterMatchMode="contains"
+                                      filterStyle="width:50%">
+                                <h:outputText value="#{item.idTipoEstorno.dsTipoEstorno}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.idTipoLancamento}" filterBy="#{item.idTipoLancamento}" filterMatchMode="contains"
+                                      headerText="#{bundle.ListRestricaoEstornoTitle_idTipoLancamento}"
+                                      filterStyle="width:50%">
+
+                                <h:outputText value="#{item.idTipoLancamento.dsTipoLancamento}"/>
+                            </p:column>
+                            
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{restricaoEstornoController.prepareCreate}" update=":RestricaoEstornoCreateForm" oncomplete="PF('RestricaoEstornoCreateDialog').show()"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":RestricaoEstornoEditForm" oncomplete="PF('RestricaoEstornoEditDialog').show()" disabled="#{empty restricaoEstornoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{restricaoEstornoController.destroy}" update=":growl,datalist" disabled="#{empty restricaoEstornoController.selected}">
+                                    <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="overflow-y:hidden!important;">
+                                    <p:commandButton value="#{bundle.Delete}" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                    <p:commandButton value="#{bundle.Close}" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                                </p:confirmDialog>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+    </ui:define>
+</ui:composition>

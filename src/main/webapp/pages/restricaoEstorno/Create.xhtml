@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RestricaoEstornoCreateDlg" widgetVar="RestricaoEstornoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRestricaoEstornoTitle}" style="overflow-y:hidden!important;">
+            <h:form id="RestricaoEstornoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{restricaoEstornoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRestricaoEstornoLabel_idTipoEstorno}" for="idTipoEstorno" />
+                        <p:selectOneMenu id="idTipoEstorno" value="#{restricaoEstornoController.selected.idTipoEstorno}" required="true " requiredMessage="#{bundle.CreateRestricaoEstornoRequiredMessage_idTipoEstorno}">
+                        	<f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                        	<f:selectItems value="#{tipoEstornoController.itemsAvailableSelectOne}"
+                        					vat="idTipoEstornoItem"
+                        					itemValue="#{idTipoEstornoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateRestricaoEstornoLabel_idTipoLancamento}" for="idTipoLancamento" />
+                        <p:selectOneMenu id="idTipoEstorno" value="#{restricaoEstornoController.selected.idTipoLancamento}" required="true " requiredMessage="#{bundle.CreateRestricaoEstornoRequiredMessage_idTipoLancamento}">
+                        	<f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                        	<f:selectItems value="#{tipoLancamentoController.itemsAvailableSelectOne}"
+                        					vat="idTipoLancamentoItem"
+                        					itemValue="#{idTipoLancamentoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:separator />
+                    <p:commandButton actionListener="#{restricaoEstornoController.create}" value="#{bundle.Save}" update="display,:RestricaoEstornoListForm:datalist,:growl" oncomplete="handleSubmit(args,'RestricaoLancamentoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('RestricaoLancamentoCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
