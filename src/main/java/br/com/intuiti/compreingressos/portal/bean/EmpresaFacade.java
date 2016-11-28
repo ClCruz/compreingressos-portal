@@ -44,4 +44,9 @@ public class EmpresaFacade extends AbstractFacade<Empresa> {
         return lista.size();
     }
     
+    @SuppressWarnings("unchecked")
+	public List<Empresa> findAtivo(){
+    	return getEntityManager().createNamedQuery("Empresa.findByInAtivo").setParameter("inAtivo", true).getResultList();
+    }
+    
 }

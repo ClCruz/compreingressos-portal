@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "LocalEvento.findAll", query = "SELECT l FROM LocalEvento l"),
-    @NamedQuery(name = "LocalEvento.findAllOrderBy", query = "SELECT l FROM LocalEvento l ORDER BY l.dsLocalEvento"),
+    @NamedQuery(name = "LocalEvento.findAllOrderBy", query = "SELECT l FROM LocalEvento l WHERE l.inAtivo = :inAtivo ORDER BY l.dsLocalEvento"),
     @NamedQuery(name = "LocalEvento.findByIdLocalEvento", query = "SELECT l FROM LocalEvento l WHERE l.idLocalEvento = :idLocalEvento"),
     @NamedQuery(name = "LocalEvento.findByDsLocalEvento", query = "SELECT l FROM LocalEvento l WHERE l.dsLocalEvento = :dsLocalEvento"),
     @NamedQuery(name = "LocalEvento.findByDsEndereco", query = "SELECT l FROM LocalEvento l WHERE l.dsEndereco = :dsEndereco"),

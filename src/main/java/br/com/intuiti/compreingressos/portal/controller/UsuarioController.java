@@ -152,7 +152,7 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 	}
 
 	public List<Usuario> getItemsAvailableSelectOne() {
-		return getFacade().findAsc();
+		return getFacade().findAtivo();
 	}
 
 	public class UsuarioLazyModel extends LazyDataModel<Usuario> {

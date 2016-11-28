@@ -157,7 +157,7 @@ public class TipoLancamentoController implements Serializable {
     }
 
     public List<TipoLancamento> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findAtivo();
     }
     
     public class TipoLancamentoLazy extends LazyDataModel<TipoLancamento> {

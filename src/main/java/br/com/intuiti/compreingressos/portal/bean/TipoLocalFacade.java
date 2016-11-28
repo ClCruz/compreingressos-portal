@@ -48,5 +48,9 @@ public class TipoLocalFacade extends AbstractFacade<TipoLocal> {
 				.setParameter("idTipoLocal", id).getResultList();
 		return lista.size() > 0 ? false : true;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<TipoLocal> findAtivo(){
+		return getEntityManager().createNamedQuery("TipoLocal.findByInAtivo").setParameter("inAtivo", true).getResultList();
+	}
 }

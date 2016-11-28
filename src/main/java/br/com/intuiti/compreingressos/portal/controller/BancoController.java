@@ -131,7 +131,7 @@ public class BancoController implements Serializable {
     }
 
     public List<Banco> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findAtivo();
     }
     
     public class BancoLazy extends LazyDataModel<Banco> {

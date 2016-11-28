@@ -52,4 +52,9 @@ public class ContaContabilFacade extends AbstractFacade<ContaContabil> {
         }
     }
     
+    @SuppressWarnings("unchecked")
+	public List<ContaContabil> findAtivo(){
+    	return getEntityManager().createNamedQuery("ContaContabil.findByInAtivo").setParameter("inAtivo", true).getResultList();
+    }
+    
 }

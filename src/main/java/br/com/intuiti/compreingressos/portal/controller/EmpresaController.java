@@ -148,7 +148,7 @@ public class EmpresaController implements Serializable {
     }
 
     public List<Empresa> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findAtivo();
     }
     
     public class EmpresaLazy extends LazyDataModel<Empresa> {

@@ -145,7 +145,7 @@ public class VendedorController implements Serializable {
     }
 
     public List<Vendedor> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findAtivo();
     }
 
     public class VendedorLazy extends LazyDataModel<Vendedor> {

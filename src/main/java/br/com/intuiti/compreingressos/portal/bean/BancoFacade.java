@@ -1,9 +1,12 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.Banco;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.Banco;
 
 /**
  *
@@ -22,5 +25,10 @@ public class BancoFacade extends AbstractFacade<Banco> {
 
     public BancoFacade() {
         super(Banco.class);
+    }
+    
+    @SuppressWarnings("unchecked")
+	public List<Banco> findAtivo(){
+    	return getEntityManager().createNamedQuery("Banco.findByInAtivo").setParameter("inAtivo", true).getResultList();
     }
 }

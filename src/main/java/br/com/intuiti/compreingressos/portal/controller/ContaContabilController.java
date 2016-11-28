@@ -143,7 +143,7 @@ public class ContaContabilController implements Serializable {
     }
 
     public List<ContaContabil> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findAtivo();
     }
     
     public class ContaContabilLazy extends LazyDataModel<ContaContabil> {

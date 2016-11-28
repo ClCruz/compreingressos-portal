@@ -44,4 +44,8 @@ public class VendedorFacade extends AbstractFacade<Vendedor> {
     	return lista.size() > 0 ? false : true;
     }
     
+    @SuppressWarnings("unchecked")
+	public List<Vendedor> findAtivo(){
+    	return getEntityManager().createNamedQuery("Vendedor.findByInAtivo").setParameter("inAtivo", true).getResultList();
+    }
 }

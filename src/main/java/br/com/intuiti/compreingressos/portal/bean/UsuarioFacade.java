@@ -44,5 +44,10 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
    	public boolean findCdLogin(String cdLogin){
            List<Usuario> lista = em.createNamedQuery("Usuario.findCdLogin").setParameter("cdLogin", cdLogin).getResultList();
            return lista.size() > 0 ? false : true;
-       }
+    }
+    
+    @SuppressWarnings("unchecked")
+	public List<Usuario> findAtivo(){
+    	return getEntityManager().createNamedQuery("Usuario.findAtivo").setParameter("inAtivo", 1).getResultList();
+    }
 }

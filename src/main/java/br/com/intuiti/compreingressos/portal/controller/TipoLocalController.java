@@ -152,7 +152,7 @@ public class TipoLocalController implements Serializable {
 	}
 
 	public List<TipoLocal> getItemsAvailableSelectOne() {
-		return getFacade().findAll();
+		return getFacade().findAtivo();
 	}
 	
     public class TipoLocalLazy extends LazyDataModel<TipoLocal> {

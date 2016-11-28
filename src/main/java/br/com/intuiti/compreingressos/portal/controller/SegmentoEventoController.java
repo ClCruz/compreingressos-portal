@@ -151,7 +151,7 @@ public class SegmentoEventoController implements Serializable {
     }
 
     public List<SegmentoEvento> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findAtivo();
     }
     
     public class SegmentoEventoLazy extends LazyDataModel<SegmentoEvento> {

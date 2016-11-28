@@ -5,10 +5,13 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.TipoLancamento;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.TipoLancamento;
 
 /**
  *
@@ -29,4 +32,8 @@ public class TipoLancamentoFacade extends AbstractFacade<TipoLancamento> {
         super(TipoLancamento.class);
     }
     
+    @SuppressWarnings("unchecked")
+	public List<TipoLancamento> findAtivo(){
+    	return getEntityManager().createNamedQuery("TipoLancamento.findByInAtivo").setParameter("inAtivo", true).getResultList();
+    }
 }

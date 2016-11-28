@@ -55,4 +55,9 @@ public class FormaPagamentoFacade extends AbstractFacade<FormaPagamento> {
 				.getResultList();
 		return lista.size() > 0 ? false : true;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<FormaPagamento> findAtivo(){
+		return getEntityManager().createNamedQuery("FormaPagamento.findByInAtivo").setParameter("inAtivo", true).getResultList();
+	}
 }

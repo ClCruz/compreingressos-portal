@@ -44,4 +44,9 @@ public class SegmentoEventoFacade extends AbstractFacade<SegmentoEvento> {
     	return lista.size() > 0 ? false : true;
     }
     
+    @SuppressWarnings("unchecked")
+	public List<SegmentoEvento> findAtivo(){
+    	return getEntityManager().createNamedQuery("SegmentoEvento.findByInAtivo").setParameter("inAtivo", true).getResultList();
+    }
+    
 }

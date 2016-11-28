@@ -156,7 +156,7 @@ public class FormaPagamentoController implements Serializable {
 	}
 
 	public List<FormaPagamento> getItemsAvailableSelectOne() {
-		return getFacade().findAll();
+		return getFacade().findAtivo();
 	}
 	
     public class FormaPagamentoLazy extends LazyDataModel<FormaPagamento> {
