@@ -38,7 +38,7 @@
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{tipoMeioPagamentoController.prepareCreate}" update=":TipoMeioPagamentoCreateForm" oncomplete="PF('TipoMeioPagamentoCreateDialog').show()"/>
-                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":TipoMeioPagamentoEditForm" oncomplete="PF('TipoMeioPagamentoEditDialog').show()" disabled="#{empty tipoMeioPagamentoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" immediate="true" update=":TipoMeioPagamentoEditForm" oncomplete="PF('TipoMeioPagamentoEditDialog').show()" disabled="#{empty tipoMeioPagamentoController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{tipoMeioPagamentoController.destroy}" update=":growl,datalist" disabled="#{empty tipoMeioPagamentoController.selected}">
                                     <p:confirm header="#{bundle.ConfirmDelete}" message="#{bundle.ConfirmDeleteRow}" />
                                 </p:commandButton>
