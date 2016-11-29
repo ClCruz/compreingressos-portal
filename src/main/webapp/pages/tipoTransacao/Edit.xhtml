@@ -11,8 +11,6 @@
             	<h:form id="TipoTransacaoEditForm">
                 	<h:panelGroup id="display">
                     	<p:panelGrid columns="2" rendered="#{tipoTransacaoController.selected != null}">
-                    		<p:outputLabel value="#{bundle.EditTipoTransacaoLabel_idTipoTransacao}" for="idTipoTransacao" />
-                    		<p:inputText id="idTipoTransacao" value="#{tipoTransacaoController.selected.idTipoTransacao}" title="#{bundle.EditTipoTransacaoTitle_idTipoTransacao}" required="true" requiredMessage="#{bundle.EditTipoTransacaoRequiredMessage_idTipoTransacao}"/>
                     		<p:outputLabel value="#{bundle.EditTipoTransacaoLabel_dsTipoTransacao}" for="dsTipoTransacao" />
                     		<p:inputText id="dsTipoTransacao" value="#{tipoTransacaoController.selected.dsTipoTransacao}" title="#{bundle.EditTipoTransacaoTitle_dsTipoTransacao}" />
                 		</p:panelGrid>

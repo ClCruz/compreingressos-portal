@@ -1,15 +1,17 @@
 package br.com.intuiti.compreingressos.portal.model;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,9 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TipoTransacao.findByDsTipoTransacao", query = "SELECT t FROM TipoTransacao t WHERE t.dsTipoTransacao = :dsTipoTransacao")})
 public class TipoTransacao implements Serializable {
 	 private static final long serialVersionUID = 1L;
-	    @Id
+	 	@Id @GeneratedValue(strategy = IDENTITY)
 	    @Basic(optional = false)
-	    @NotNull
 	    @Column(name = "id_tipo_transacao")
 	    private Integer idTipoTransacao;
 	    @Size(max = 30)

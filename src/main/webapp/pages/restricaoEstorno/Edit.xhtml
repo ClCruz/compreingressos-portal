@@ -16,15 +16,15 @@
                         <p:selectOneMenu id="idTipoEstorno" value="#{restricaoEstornoController.selected.idTipoEstorno}" required="true " requiredMessage="#{bundle.EditRestricaoEstornoRequiredMessage_idTipoEstorno}">
                         	<f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
                         	<f:selectItems value="#{tipoEstornoController.itemsAvailableSelectOne}"
-                        					vat="idTipoEstornoItem"
-                        					itemValue="#{idTipoEstornoItem}"/>
+                        					vat="tipoEstornoItem"
+                        					itemValue="#{tipoEstornoItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateRestricaoEstornoLabel_idTipoLancamento}" for="idTipoLancamento" />
-                        <p:selectOneMenu id="idTipoEstorno" value="#{restricaoEstornoController.selected.idTipoLancamento}" required="true " requiredMessage="#{bundle.EditRestricaoEstornoRequiredMessage_idTipoLancamento}">
+                        <p:selectOneMenu id="idTipoLancamento" value="#{restricaoEstornoController.selected.idTipoLancamento}" required="true " requiredMessage="#{bundle.EditRestricaoEstornoRequiredMessage_idTipoLancamento}">
                         	<f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
                         	<f:selectItems value="#{tipoLancamentoController.itemsAvailableSelectOne}"
-                        					vat="idTipoLancamentoItem"
-                        					itemValue="#{idTipoLancamentoItem}"/>
+                        					vat="tipoLancamentoItem"
+                        					itemValue="#{tipoLancamentoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:separator />

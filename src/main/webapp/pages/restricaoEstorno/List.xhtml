@@ -13,11 +13,10 @@
                         <p:dataTable id="datalist" value="#{restricaoEstornoController.items}" emptyMessage="Nenhum Registro Encontrado" var="item"
                                      selectionMode="single" selection="#{restricaoEstornoController.selected}"
                                      paginator="true" lazy="true"
-                                     rowKey="#{item.idTipoEstorno}"
+                                     rowKey="#{item.restricaoEstornoPK}"
                                      rows="10" paginatorPosition="bottom"
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      reflow="true"
-                                     sortBy="#{item.idTipoEstorno}"
                                      >
 
                             <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
@@ -28,12 +27,17 @@
                             <p:column sortBy="#{item.idTipoEstorno}" headerText="#{bundle.ListRestricaoEstornoTitle_idTipoEstorno}"
                                       filterBy="#{item.idTipoEstorno.dsTipoEstorno}" filterMatchMode="contains"
                                       filterStyle="width:50%">
+                                      <f:facet name="header">
+                                      	<h:outputText value="#{bundle.ListRestricaoEstornoTitle_idTipoEstorno}"/>
+                                      </f:facet>
                                 <h:outputText value="#{item.idTipoEstorno.dsTipoEstorno}"/>
                             </p:column>
                             <p:column sortBy="#{item.idTipoLancamento}" filterBy="#{item.idTipoLancamento}" filterMatchMode="contains"
                                       headerText="#{bundle.ListRestricaoEstornoTitle_idTipoLancamento}"
                                       filterStyle="width:50%">
-
+                                    <f:facet name="header">
+                                      <h:outputText value="#{bundle.ListRestricaoEstornoTitle_idTipoEstorno}"/>
+                                    </f:facet>
                                 <h:outputText value="#{item.idTipoLancamento.dsTipoLancamento}"/>
                             </p:column>
                             

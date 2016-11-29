@@ -1,10 +1,7 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,30 +14,24 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
-
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
 
 import br.com.intuiti.compreingressos.portal.bean.RestricaoEstornoFacade;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.model.RestricaoEstorno;
 
-@ManagedBean(name = "resticaoEstornoController")
+@ManagedBean(name = "restricaoEstornoController")
 @ViewScoped
 public class RestricaoEstornoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private br.com.intuiti.compreingressos.portal.bean.RestricaoEstornoFacade ejbFacade;
-	private LazyDataModel<RestricaoEstorno> items = null;
+	private List<RestricaoEstorno> items = null;
 	private RestricaoEstorno selected;
-	private final Map<String, Object> filtros = new HashMap<>();
 	
-	public RestricaoEstornoController(){
-	}
+	public RestricaoEstornoController() {
+    }
 
 	public RestricaoEstorno getSelected() {
 		return selected;
@@ -51,9 +42,12 @@ public class RestricaoEstornoController implements Serializable {
 	}
 
 	protected void setEmbeddableKeys() {
+		selected.getRestricaoEstornoPK().setIdTipoEstorno(selected.getIdTipoEstorno().getIdTipoEstorno());
+		selected.getRestricaoEstornoPK().setIdTipoLancamento(selected.getIdTipoLancamento().getIdTipoLancamento());
 	}
 	
 	protected void initializaEmbeddableKey() {
+		selected.setRestricaoEstornoPK(new br.com.intuiti.compreingressos.portal.model.RestricaoEstornoPK());
 	}
 	
 	private RestricaoEstornoFacade getFacade() {
@@ -85,9 +79,9 @@ public class RestricaoEstornoController implements Serializable {
         }
     }
     
-    public LazyDataModel<RestricaoEstorno> getItems() {
+    public List<RestricaoEstorno> getItems() {
     	if (items == null) {
-    		items = new RestricaoEstornoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
+    		items = getFacade().findAll();
     	}
     	return items;
     }
@@ -121,6 +115,10 @@ public class RestricaoEstornoController implements Serializable {
     
     }
 	
+    public RestricaoEstorno getRestricaoEstorno(br.com.intuiti.compreingressos.portal.model.RestricaoEstornoPK id){
+    	return getFacade().find(id);
+    }
+    
     public List<RestricaoEstorno> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -128,47 +126,53 @@ public class RestricaoEstornoController implements Serializable {
     public List<RestricaoEstorno> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-	
-    public class RestricaoEstornoLazy extends LazyDataModel<RestricaoEstorno> {
-    	
-    	private static final long serialVersionUID = 1L;
-    	private List<RestricaoEstorno> objList = null;
-    	
-    	public RestricaoEstornoLazy(List<RestricaoEstorno> objList){
-    		this.objList = objList;
-    	}
-    	
-    	@Override
-    	public List<RestricaoEstorno> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-    		objList = new ArrayList<>();
-    		try {
-    			Context ctx = new javax.naming.InitialContext();
-    			RestricaoEstornoFacade objFacade = (RestricaoEstornoFacade) ctx.lookup("java:global/compreigressos-portal-1.0.0/RestricaoEstornoFacade!br.com.intuiti.compreingressos.portal.bean.RestricaoEstornoFacade");
-    			objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
-    			setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
-    			setPageSize(pageSize);
-    		} catch (NamingException ex) {
-    			System.out.println(ex);
-    		}
-    		return objList;
-    	}
-    	
-    	@Override
-    	public RestricaoEstorno getRowData(String rowKey) {
-    		Integer id = Integer.valueOf(rowKey);
-    		for(RestricaoEstorno obj : objList) {
-    			if (id.equals(obj.getIdTipoEstorno().getDsTipoEstorno())) {
-    				return obj;
-    			}
-    		}
-    		return null;
-    	}
-    	
-    	@Override
-    	public Object getRowKey(RestricaoEstorno ob) {
-    		return ob.getIdTipoEstorno().getDsTipoEstorno();
-    	}
-    }
     
-	
+    @FacesConverter(forClass = RestricaoEstorno.class)
+    public static class RestricaoEstornoControllerConverter implements Converter {
+
+        private static final String SEPARATOR = "#";
+        private static final String SEPARATOR_ESCAPED = "\\#";
+
+        @Override
+        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            RestricaoEstornoController controller = (RestricaoEstornoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "restricaoEstornoController");
+            return controller.getRestricaoEstorno(getKey(value));
+        }
+
+        br.com.intuiti.compreingressos.portal.model.RestricaoEstornoPK getKey(String value) {
+            br.com.intuiti.compreingressos.portal.model.RestricaoEstornoPK key;
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new br.com.intuiti.compreingressos.portal.model.RestricaoEstornoPK();
+            key.setIdTipoEstorno(Integer.parseInt(values[0]));
+            key.setIdTipoLancamento(Integer.parseInt(values[1]));
+            return key;
+        }
+
+        String getStringKey(br.com.intuiti.compreingressos.portal.model.RestricaoEstornoPK value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value.getIdTipoEstorno());
+            sb.append(SEPARATOR);
+            sb.append(value.getIdTipoLancamento());
+            return sb.toString();
+        }
+
+        @Override
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+            if (object == null) {
+                return null;
+            }
+            if (object instanceof RestricaoEstorno) {
+                RestricaoEstorno o = (RestricaoEstorno) object;
+                return getStringKey(o.getRestricaoEstornoPK());
+            } else {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), RestricaoEstorno.class.getName()});
+                return null;
+            }
+		}
+		
+	}
 }

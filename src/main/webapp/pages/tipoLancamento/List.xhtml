@@ -36,14 +36,14 @@
                                 <f:facet name="filter">
                                     <p:selectOneMenu onchange="PF('tipoLancamentoTable').filter()" >
                                     	<f:converter converterId="javax.faces.Boolean" />
-                                        <f:selectItem itemValue="#{null}" itemLabel="Ativo e Inativo" />
+                                        <f:selectItem itemValue="" itemLabel="Ativo e Inativo" />
                                         <f:selectItem itemValue="true" itemLabel="Ativo" />
                                         <f:selectItem itemValue="false" itemLabel="Inativo" />  
                                     </p:selectOneMenu>
                                 </f:facet>
-                                <h:outputText value="Ativo" rendered="true" />
-                                <h:outputText value="Inativo" rendered="false" />
-                            </p:column >
+                                <h:outputText value="Ativo" rendered="#{item.inAtivo eq true}"/>
+                                <h:outputText value="Inativo" rendered="#{item.inAtivo eq false}"/>
+                            </p:column>
                             <p:column sortBy="#{item.dtInsert}" headerText="#{bundle.ListTipoLancamentoTitle_dtInsert}"
                                       filterBy="#{item.dtInsert}" filterMatchMode="exact"
                                       filterStyle="width:50%">

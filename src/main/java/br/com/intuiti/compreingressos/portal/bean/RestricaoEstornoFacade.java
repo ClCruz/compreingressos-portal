@@ -1,10 +1,9 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
+import br.com.intuiti.compreingressos.portal.model.RestricaoEstorno;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import br.com.intuiti.compreingressos.portal.model.RestricaoEstorno;
 
 
 @Stateless

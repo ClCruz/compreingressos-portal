@@ -8,28 +8,28 @@
 
     <ui:composition>
 
-        <p:dialog id="RestricaoEstornoCreateDlg" widgetVar="RestricaoEstornoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRestricaoEstornoTitle}" style="overflow-y:hidden!important;">
+        <p:dialog id="RestricaoEstornoCreateDlg" widgetVar="RestricaoEstornoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRestricaoEstornoTitle}"  style="overflow-y:hidden!important;">
             <h:form id="RestricaoEstornoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{restricaoEstornoController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateRestricaoEstornoLabel_idTipoEstorno}" for="idTipoEstorno" />
                         <p:selectOneMenu id="idTipoEstorno" value="#{restricaoEstornoController.selected.idTipoEstorno}" required="true " requiredMessage="#{bundle.CreateRestricaoEstornoRequiredMessage_idTipoEstorno}">
-                        	<f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                        	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                         	<f:selectItems value="#{tipoEstornoController.itemsAvailableSelectOne}"
-                        					vat="idTipoEstornoItem"
-                        					itemValue="#{idTipoEstornoItem}"/>
+                        					vat="tipoEstornoItem"
+                        					itemValue="#{tipoEstornoItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateRestricaoEstornoLabel_idTipoLancamento}" for="idTipoLancamento" />
-                        <p:selectOneMenu id="idTipoEstorno" value="#{restricaoEstornoController.selected.idTipoLancamento}" required="true " requiredMessage="#{bundle.CreateRestricaoEstornoRequiredMessage_idTipoLancamento}">
-                        	<f:selectItem value="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                        <p:selectOneMenu id="idTipoLancamento" value="#{restricaoEstornoController.selected.idTipoLancamento}" required="true " requiredMessage="#{bundle.CreateRestricaoEstornoRequiredMessage_idTipoLancamento}">
+                        	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                         	<f:selectItems value="#{tipoLancamentoController.itemsAvailableSelectOne}"
-                        					vat="idTipoLancamentoItem"
-                        					itemValue="#{idTipoLancamentoItem}"/>
+                        					vat="tipoLancamentoItem"
+                        					itemValue="#{tipoLancamentoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:separator />
-                    <p:commandButton actionListener="#{restricaoEstornoController.create}" value="#{bundle.Save}" update="display,:RestricaoEstornoListForm:datalist,:growl" oncomplete="handleSubmit(args,'RestricaoLancamentoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('RestricaoLancamentoCreateDialog').hide()"/>
+                    <p:commandButton actionListener="#{restricaoEstornoController.create}" value="#{bundle.Save}" update="display,:RestricaoEstornoListForm:datalist,:growl" oncomplete="handleSubmit(args,'RestricaoEstornoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('RestricaoEstornoCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
