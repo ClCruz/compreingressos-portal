@@ -1,14 +1,17 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -17,8 +20,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -42,6 +43,11 @@ public class MunicipioController implements Serializable {
 
     public MunicipioController() {
     }
+    
+    @PostConstruct
+    public void init(){
+    	items = new Lazy(getFacade().findAll());
+    }
 
     public Municipio getSelected() {
         return selected;
@@ -57,7 +63,7 @@ public class MunicipioController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MunicipioFacade getFacade() {
+    public MunicipioFacade getFacade() {
         return ejbFacade;
     }
 
@@ -106,7 +112,7 @@ public class MunicipioController implements Serializable {
 
     public LazyDataModel<Municipio> getItems() {
         if (items == null) {
-            items = new MunicipioLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
+            items = new Lazy(getFacade().findAll());
         }
         return items;
     }
@@ -165,45 +171,91 @@ public class MunicipioController implements Serializable {
         return getFacade().findAll();
     }
     
-    public class MunicipioLazy extends LazyDataModel<Municipio> {
-    	
+    public class Lazy extends LazyDataModel<Municipio> {
+
     	private static final long serialVersionUID = 1L;
-        private List<Municipio> objList = null;
+    	// private Class<T> entity;
+    	// private List<T> list = null;
+    	// private AbstractFacade<T> ejbFacade;
+    	//
+    	// public AbstractFacade<T> getFacade() {
+    	// return ejbFacade;
+    	// }
 
-        public MunicipioLazy(List<Municipio> objList) {
-            this.objList = objList;
-        }
-        
-        @Override
-        public List<Municipio> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        	objList = new ArrayList<>();
-            try {
-                Context ctx = new javax.naming.InitialContext();
-                MunicipioFacade objFacade = (MunicipioFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/MunicipioFacade!br.com.intuiti.compreingressos.portal.bean.MunicipioFacade");
-                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
-                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
-                setPageSize(pageSize);
-            } catch (NamingException ex) {
-                System.out.println(ex);
-            }
-            return objList;
-        }
+    	private List<Municipio> municipio = null;
 
-        @Override
-        public Municipio getRowData(String rowKey) {
-            Integer id = Integer.valueOf(rowKey);
-            for (Municipio obj : objList) {
-                if (id.equals(obj.getIdMunicipio())) {
-                    return obj;
-                }
-            }
-            return null;
-        }
+    	public Lazy(List<Municipio> municipio) {
+    		this.municipio = municipio;
+    	}
 
-        @Override
-        public Object getRowKey(Municipio ob) {
-            return ob.getIdMunicipio();
-        }
+    	@Override
+    	public List<Municipio> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+    			Map<String, Object> filters) {
+    		List<Municipio> data = new ArrayList<Municipio>();
+    		for(Municipio mun : municipio){
+    			
+    			boolean match = true;
+    			if(filters != null){
+    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
+    					try{
+    						String filterProperty = it.next();
+    						Object filterValue = filters.get(filterProperty);
+    						Field field = mun.getClass().getDeclaredField(filterProperty);
+    						field.setAccessible(true);
+    						String fieldValue = String.valueOf(field.get(mun));
+    						
+    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+    							match = true;
+    						} else {
+    							match = false;
+    							break;
+    						}
+    					} catch (Exception e) {
+    						e.printStackTrace();
+    						match = false;
+    					}
+    				}
+    			}
+    			
+    			if(match){
+    				data.add(mun);
+    			}
+    		}
+    		
+    		//sort
+    		
+    		
+    		//rowCount
+    		int dataSize = data.size();
+    		this.setRowCount(dataSize);
+    		
+    		//paginate
+    		if(dataSize > pageSize){
+    			try{
+    				return data.subList(first, first + pageSize);
+    			} catch (IndexOutOfBoundsException e) {
+    				return data.subList(first, first + (dataSize % pageSize));
+    			}
+    		} else {
+    			return data;
+    		}
+    	}
+    	
+    	@Override
+    	public Object getRowKey(Municipio object) {
+    		return object.getIdMunicipio();
+    	}
+    	
+    	@Override
+    	public Municipio getRowData(String rowKey) {
+    		Integer id = Integer.valueOf(rowKey);
+    		for(Municipio m : municipio){
+    			if(id.equals(m.getIdMunicipio())){
+    				return m;
+    			}
+    		}
+    		return null;
+    	}
     }
 
     @FacesConverter(forClass = Municipio.class)

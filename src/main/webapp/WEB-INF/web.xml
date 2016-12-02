@@ -83,13 +83,33 @@
          <location>/faces/error.xhtml</location> 
      </error-page>
      
-      <security-constraint>
+    <security-constraint>
         <web-resource-collection>
             <web-resource-name>Only admins</web-resource-name>
             <url-pattern>/faces/pages/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+	
+	<security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Only Diretoria</web-resource-name>
+            <url-pattern>/faces/pages/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Diretoria</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Only Comercial</web-resource-name>
+            <url-pattern>/faces/pages/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Comercial</role-name>
         </auth-constraint>
     </security-constraint>
     
@@ -103,6 +123,12 @@
     
     <security-role>
         <role-name>admin</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Diretoria</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Comercial</role-name>
     </security-role>
     
     <filter>

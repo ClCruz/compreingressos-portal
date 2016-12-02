@@ -13,32 +13,27 @@
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
         <title>Portal de Serviços - COMPREINGRESSOS</title>
+        <h:outputScript name="js/ripple-effect.js" library="rio-layout" />
+        <h:outputScript name="js/perfect-scrollbar.js" library="rio-layout" />
+        <h:outputScript name="js/layout.js" library="rio-layout" />
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <h:outputScript library="js" name="calendar_language.js"/>
         <ui:insert name="head" />
     </h:head>
     <h:body style="background-color: #7F0014">
-        <form id="formLogin" action="j_security_check" method="POST">
+        <h:form id="formEsqueciSenha">
+        <p:growl id="growl" showDetail="false" life="3500"/>
             <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
                 <div class="Wid33 MarAuto WidAutoOnMobile">
                     <h:graphicImage name="images/menu_logo2.png" library="rio-layout" style="width:30%; max-width:180px;"/>
                     <div class="EmptyBox30"></div>
                     <div class="Card ShadowEffect">
-                        <div class="EmptyBox20"></div>
+                    	<div class="EmptyBox20"></div>
                         <div class="Wid100 OvHidden BigTopic Fs30"><i class="fa fa-laptop" /> Portal de Serviços</div>
                         <div class="EmptyBox20"></div>
-                        <div class="Wid100"><input id="j_username" name="j_username" placeholder="Informe seu login" class="Wid80 TexAlCenter Fs18 ui-inputfield"/></div>
-                        <div class="EmptyBox10"></div>
-                        <div class="Wid100"><input id="j_password" name="j_password" type="password" placeholder="Informe sua senha" class="Wid80 TexAlCenter Fs18 ui-inputfield"/></div>
-                        <div class="EmptyBox10"></div>
-                        <div class="Separator"></div>
-                        <div class="EmptyBox10"></div>
-                        <div class="Wid100"><button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left RedButton Wid60 Fs18 White RaisedButton">
-                        	<span class="ui-button-icon-left ui-icon ui-c fa fa-check"></span>
-                        	<span class="ui-button-text ui-c">Entrar</span>
-                        </button>
-                        
-                        </div>
-                        <div class="EmptyBox5"></div>
-                        <div class="Wid100"><p:link outcome="esqueciSenha"><p:button value="Esqueceu sua senha?" icon="fa fa-lock" styleClass="RedButton Wid60 Fs18 White RaisedButton"/></p:link></div>
+                        <div class="Wid100"><p:inputText id="loginUsuario" placeholder="Informe seu login" style="width:300px;"  value="#{esqueciSenhaController.usuario}"/></div>
+                    	<div class="EmptyBox20"></div>
+                        <div class="Wid100"><p:commandButton actionListener="#{esqueciSenhaController.sendMail()}" value="Enviar" icon="fa fa-send"  styleClass="RedButton Wid60 Fs18 White RaisedButton" update="growl"/></div>
                         <div class="EmptyBox10"></div>
                     </div>
                     <div class="Wid100 TexAlCenter MarTop20 Fs14 FontRobotoRegular WhiteBlue">
@@ -46,12 +41,24 @@
                     </div>
                 </div>
             </div>
-        </form>
-        <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
+            <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+                    <f:facet name="start">
+                        <p:graphicImage name="images/preloader.gif" library="rio-layout"/>
+                    </f:facet>
+
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+        </h:form>
+    
+    <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
         <h:outputStylesheet name="css/animate.css" library="rio-layout" />
         <h:outputStylesheet name="css/rio-font.css" library="rio-layout" />
         <h:outputStylesheet name="css/ripple-effect.css" library="rio-layout" />
+        <h:outputStylesheet name="css/perfect-scrollbar.css" library="rio-layout" />
         <h:outputStylesheet name="css/font-awesome.css" library="rio-layout" />
         <h:outputStylesheet name="css/rio-layout.css" library="rio-layout" />
+        <h:outputStylesheet name="css/estilo.css" library="rio-layout" />
     </h:body>
 </html>

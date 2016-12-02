@@ -5,14 +5,14 @@
  */
 package br.com.intuiti.compreingressos.portal.bean;
 
-import br.com.intuiti.compreingressos.portal.model.Estado;
-import br.com.intuiti.compreingressos.portal.model.Municipio;
-
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.intuiti.compreingressos.portal.model.Estado;
+import br.com.intuiti.compreingressos.portal.model.Municipio;
 
 /**
  *
@@ -44,5 +44,4 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
     	List<Municipio> lista = getEntityManager().createNamedQuery("Municipio.findDescId").setParameter("idEstado", estado).setParameter("dsMunicipio", descricao).setParameter("idMunicipio", id).getResultList();
     	return lista.size() > 0 ? false : true;
     }
-    
 }
