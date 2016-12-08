@@ -32,7 +32,8 @@ public class ContaContabilFacade extends AbstractFacade<ContaContabil> {
         super(ContaContabil.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<ContaContabil> findAll(){
     	return getEntityManager().createNamedQuery("ContaContabil.findAll").getResultList();
     }

@@ -27,7 +27,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         super(Usuario.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Usuario> findAll(){
     	return getEntityManager().createNamedQuery("Usuario.findAll").getResultList();
     }

@@ -32,7 +32,8 @@ public class SegmentoEventoFacade extends AbstractFacade<SegmentoEvento> {
         super(SegmentoEvento.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<SegmentoEvento> findAll(){
     	return getEntityManager().createNamedQuery("SegmentoEvento.findAll").getResultList();
     }

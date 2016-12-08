@@ -8,19 +8,19 @@
 
     <ui:composition>
 
-        <p:dialog id="GrupoCreateDlg" widgetVar="GrupoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.CreateGrupoTitle}">
+        <p:dialog id="GrupoCreateDlg" widgetVar="GrupoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGrupoTitle}">
             <h:form id="GrupoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{grupoController.selected != null}">
-                        <p:outputLabel value="#{bundle2.CreateGrupoLabel_idGrupo}" for="idGrupo" />
-                        <p:inputText id="idGrupo" value="#{grupoController.selected.idGrupo}" title="#{bundle2.CreateGrupoTitle_idGrupo}" required="true" requiredMessage="#{bundle2.CreateGrupoRequiredMessage_idGrupo}"/>
-                        <p:outputLabel value="#{bundle2.CreateGrupoLabel_nmGrupo}" for="nmGrupo" />
-                        <p:inputText id="nmGrupo" value="#{grupoController.selected.nmGrupo}" title="#{bundle2.CreateGrupoTitle_nmGrupo}" required="true" requiredMessage="#{bundle2.CreateGrupoRequiredMessage_nmGrupo}"/>
-                        <p:outputLabel value="#{bundle2.CreateGrupoLabel_inAtivo}" for="inAtivo" />
-                        <p:selectBooleanCheckbox id="inAtivo" value="#{grupoController.selected.inAtivo}" required="true" requiredMessage="#{bundle2.EditGrupoRequiredMessage_inAtivo}"/>
+                        <p:outputLabel value="#{bundle.CreateGrupoLabel_idGrupo}" for="idGrupo" />
+                        <p:inputText id="idGrupo" value="#{grupoController.selected.idGrupo}" title="#{bundle.CreateGrupoTitle_idGrupo}" required="true" requiredMessage="#{bundle.CreateGrupoRequiredMessage_idGrupo}"/>
+                        <p:outputLabel value="#{bundle.CreateGrupoLabel_nmGrupo}" for="nmGrupo" />
+                        <p:inputText id="nmGrupo" value="#{grupoController.selected.nmGrupo}" title="#{bundle.CreateGrupoTitle_nmGrupo}" required="true" requiredMessage="#{bundle.CreateGrupoRequiredMessage_nmGrupo}"/>
+                        <p:outputLabel value="#{bundle.CreateGrupoLabel_inAtivo}" for="inAtivo" />
+                        <p:selectBooleanCheckbox id="inAtivo" value="#{grupoController.selected.inAtivo}" required="true" requiredMessage="#{bundle.EditGrupoRequiredMessage_inAtivo}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{grupoController.create}" value="#{bundle2.Save}" update="display,:GrupoListForm:datalist,:growl" oncomplete="handleSubmit(args,'GrupoCreateDialog');"/>
-                    <p:commandButton value="#{bundle2.Cancel}" onclick="PF('GrupoCreateDialog').hide()"/>
+                    <p:commandButton actionListener="#{grupoController.create}" value="#{bundle.Save}" update="display,:GrupoListForm:datalist,:growl" oncomplete="handleSubmit(args,'GrupoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('GrupoCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

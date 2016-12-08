@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,6 @@ public class FormaPagamentoController implements Serializable {
 	private br.com.intuiti.compreingressos.portal.bean.FormaPagamentoFacade ejbFacade;
 	private LazyDataModel<FormaPagamento> items = null;
 	private FormaPagamento selected;
-	private final Map<String, Object> filtros = new HashMap<>();
 
 	public FormaPagamentoController() {
 	}
@@ -248,6 +246,7 @@ public class FormaPagamentoController implements Serializable {
     	}
     }
     
+	
     public class LazySorter implements Comparator<FormaPagamento> {
     	private String sortField;
     	private SortOrder sortOrder;
@@ -257,6 +256,7 @@ public class FormaPagamentoController implements Serializable {
     		this.sortOrder = sortOrder;
     	}
     	
+    	@SuppressWarnings({ "unchecked", "rawtypes" })
     	public int compare(FormaPagamento object1, FormaPagamento  object2){
     		try {
     			Field field1 = object1.getClass().getDeclaredField(this.sortField);

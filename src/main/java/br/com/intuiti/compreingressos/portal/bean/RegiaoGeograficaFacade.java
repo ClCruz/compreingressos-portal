@@ -32,7 +32,8 @@ public class RegiaoGeograficaFacade extends AbstractFacade<RegiaoGeografica> {
         super(RegiaoGeografica.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<RegiaoGeografica> findAll(){
     	return getEntityManager().createNamedQuery("RegiaoGeografica.findAll").getResultList();
     }

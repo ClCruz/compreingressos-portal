@@ -34,7 +34,8 @@ public class LocalEventoFacade extends AbstractFacade<LocalEvento> {
         super(LocalEvento.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<LocalEvento> findAll(){
     	return getEntityManager().createNamedQuery("LocalEvento.findAll").getResultList();
     }

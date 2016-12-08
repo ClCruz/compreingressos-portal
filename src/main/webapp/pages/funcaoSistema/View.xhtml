@@ -8,24 +8,24 @@
 
     <ui:composition>
 
-        <p:dialog id="FuncaoSistemaViewDlg" widgetVar="FuncaoSistemaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.ViewFuncaoSistemaTitle}">
+        <p:dialog id="FuncaoSistemaViewDlg" widgetVar="FuncaoSistemaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFuncaoSistemaTitle}">
             <h:form id="FuncaoSistemaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{funcaoSistemaController.selected != null}">
-                        <h:outputText value="#{bundle3.ViewFuncaoSistemaLabel_idFuncaoSistema}"/>
-                        <h:outputText value="#{funcaoSistemaController.selected.idFuncaoSistema}" title="#{bundle3.ViewFuncaoSistemaTitle_idFuncaoSistema}"/>
-                        <h:outputText value="#{bundle3.ViewFuncaoSistemaLabel_dsPrograma}"/>
-                        <h:outputText value="#{funcaoSistemaController.selected.dsPrograma}" title="#{bundle3.ViewFuncaoSistemaTitle_dsPrograma}"/>
-                        <h:outputText value="#{bundle3.ViewFuncaoSistemaLabel_dsUrl}"/>
-                        <h:outputText value="#{funcaoSistemaController.selected.dsUrl}" title="#{bundle3.ViewFuncaoSistemaTitle_dsUrl}"/>
-                        <h:outputText value="#{bundle3.ViewFuncaoSistemaLabel_idOrdemExibicao}"/>
-                        <h:outputText value="#{funcaoSistemaController.selected.idOrdemExibicao}" title="#{bundle3.ViewFuncaoSistemaTitle_idOrdemExibicao}"/>
-                        <h:outputText value="#{bundle3.ViewFuncaoSistemaLabel_idParent}"/>
-                        <h:outputText value="#{funcaoSistemaController.selected.idParent}" title="#{bundle3.ViewFuncaoSistemaTitle_idParent}"/>
-                        <h:outputText value="#{bundle3.ViewFuncaoSistemaLabel_dsIcone}"/>
-                        <h:outputText value="#{funcaoSistemaController.selected.dsIcone}" title="#{bundle3.ViewFuncaoSistemaTitle_dsIcone}"/>
+                        <h:outputText value="#{bundle.ViewFuncaoSistemaLabel_idFuncaoSistema}"/>
+                        <h:outputText value="#{funcaoSistemaController.selected.idFuncaoSistema}" title="#{bundle.ViewFuncaoSistemaTitle_idFuncaoSistema}"/>
+                        <h:outputText value="#{bundle.ViewFuncaoSistemaLabel_dsPrograma}"/>
+                        <h:outputText value="#{funcaoSistemaController.selected.dsPrograma}" title="#{bundle.ViewFuncaoSistemaTitle_dsPrograma}"/>
+                        <h:outputText value="#{bundle.ViewFuncaoSistemaLabel_dsUrl}"/>
+                        <h:outputText value="#{funcaoSistemaController.selected.dsUrl}" title="#{bundle.ViewFuncaoSistemaTitle_dsUrl}"/>
+                        <h:outputText value="#{bundle.ViewFuncaoSistemaLabel_idOrdemExibicao}"/>
+                        <h:outputText value="#{funcaoSistemaController.selected.idOrdemExibicao}" title="#{bundle.ViewFuncaoSistemaTitle_idOrdemExibicao}"/>
+                        <h:outputText value="#{bundle.ViewFuncaoSistemaLabel_idParent}"/>
+                        <h:outputText value="#{funcaoSistemaController.selected.idParent}" title="#{bundle.ViewFuncaoSistemaTitle_idParent}"/>
+                        <h:outputText value="#{bundle.ViewFuncaoSistemaLabel_dsIcone}"/>
+                        <h:outputText value="#{funcaoSistemaController.selected.dsIcone}" title="#{bundle.ViewFuncaoSistemaTitle_dsIcone}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle3.Close}" onclick="PF('FuncaoSistemaViewDialog').hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('FuncaoSistemaViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

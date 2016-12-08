@@ -32,19 +32,18 @@ public class CanalVendaFacade extends AbstractFacade<CanalVenda> {
         super(CanalVenda.class);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<CanalVenda> findAll() {
     	return getEntityManager().createNamedQuery("CanalVenda.findAll").getResultList();
     }
     
-    @SuppressWarnings("unchecked")
     public boolean findDesc(String descricao) {
         List<CanalVenda> lista = em.createNamedQuery("CanalVenda.findByDsCanalVenda", CanalVenda.class).setParameter("dsCanalVenda", descricao).getResultList();
         return lista.size() > 0 ? false : true;
     }
 
-    @SuppressWarnings("unchecked")
-	public boolean findDescId(String dsCanalVenda, Integer idCanalVenda) {
+    public boolean findDescId(String dsCanalVenda, Integer idCanalVenda) {
         List<CanalVenda> lista = em.createNamedQuery("CanalVenda.findByDsCanalVendaId", CanalVenda.class).setParameter("dsCanalVenda", dsCanalVenda).setParameter("idCanalVenda", idCanalVenda).getResultList();
 		return lista.size() > 0 ? false : true;
 	}

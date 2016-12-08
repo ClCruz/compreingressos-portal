@@ -32,7 +32,8 @@ public class TipoMeioPagamentoFacade extends AbstractFacade<TipoMeioPagamento> {
         super(TipoMeioPagamento.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<TipoMeioPagamento> findAll(){
     	return getEntityManager().createNamedQuery("TipoMeioPagamento.findAll").getResultList();
     }

@@ -32,7 +32,8 @@ public class TipoContratoFacade extends AbstractFacade<TipoContrato> {
         super(TipoContrato.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<TipoContrato> findAll(){
     	return getEntityManager().createNamedQuery("TipoContrato.findAll").getResultList();
     }

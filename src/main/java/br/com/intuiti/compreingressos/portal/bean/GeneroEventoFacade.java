@@ -33,6 +33,7 @@ public class GeneroEventoFacade extends AbstractFacade<GeneroEvento> {
 		super(GeneroEvento.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<GeneroEvento> findAll(){
 		return getEntityManager().createNamedQuery("GeneroEvento.findAll").getResultList();
@@ -60,7 +61,7 @@ public class GeneroEventoFacade extends AbstractFacade<GeneroEvento> {
 	}
 	
 	public void remove(GeneroEvento generoEvento){
-		getEntityManager().createNamedQuery("delete FROM mw_genero_evento WHERE id_genero_evento = " + generoEvento.getIdGeneroEvento()).executeUpdate();
+		getEntityManager().createNativeQuery("delete FROM mw_genero_evento WHERE id_genero_evento = " + generoEvento.getIdGeneroEvento()).executeUpdate();
 	}
 
 }

@@ -8,18 +8,18 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioGrupoFuncaoViewDlg" widgetVar="UsuarioGrupoFuncaoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.ViewUsuarioGrupoFuncaoTitle}">
+        <p:dialog id="UsuarioGrupoFuncaoViewDlg" widgetVar="UsuarioGrupoFuncaoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioGrupoFuncaoTitle}">
             <h:form id="UsuarioGrupoFuncaoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioGrupoFuncaoController.selected != null}">
-                        <h:outputText value="#{bundle3.ViewUsuarioGrupoFuncaoLabel_idUsuarioGrupoFuncao}"/>
-                        <h:outputText value="#{usuarioGrupoFuncaoController.selected.idUsuarioGrupoFuncao}" title="#{bundle3.ViewUsuarioGrupoFuncaoTitle_idUsuarioGrupoFuncao}"/>
-                        <h:outputText value="#{bundle3.ViewUsuarioGrupoFuncaoLabel_idGrupoFuncao}"/>
-                        <h:outputText value="#{usuarioGrupoFuncaoController.selected.idGrupoFuncao}" title="#{bundle3.ViewUsuarioGrupoFuncaoTitle_idGrupoFuncao}"/>
-                        <h:outputText value="#{bundle3.ViewUsuarioGrupoFuncaoLabel_idUsuario}"/>
-                        <h:outputText value="#{usuarioGrupoFuncaoController.selected.idUsuario}" title="#{bundle3.ViewUsuarioGrupoFuncaoTitle_idUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioGrupoFuncaoLabel_idUsuarioGrupoFuncao}"/>
+                        <h:outputText value="#{usuarioGrupoFuncaoController.selected.idUsuarioGrupoFuncao}" title="#{bundle.ViewUsuarioGrupoFuncaoTitle_idUsuarioGrupoFuncao}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioGrupoFuncaoLabel_idGrupoFuncao}"/>
+                        <h:outputText value="#{usuarioGrupoFuncaoController.selected.idGrupoFuncao}" title="#{bundle.ViewUsuarioGrupoFuncaoTitle_idGrupoFuncao}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioGrupoFuncaoLabel_idUsuario}"/>
+                        <h:outputText value="#{usuarioGrupoFuncaoController.selected.idUsuario}" title="#{bundle.ViewUsuarioGrupoFuncaoTitle_idUsuario}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle3.Close}" onclick="PF('UsuarioGrupoFuncaoViewDialog').hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('UsuarioGrupoFuncaoViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

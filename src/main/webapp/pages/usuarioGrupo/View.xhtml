@@ -8,18 +8,18 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioGrupoViewDlg" widgetVar="UsuarioGrupoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.ViewUsuarioGrupoTitle}">
+        <p:dialog id="UsuarioGrupoViewDlg" widgetVar="UsuarioGrupoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioGrupoTitle}">
             <h:form id="UsuarioGrupoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioGrupoController.selected != null}">
-                        <h:outputText value="#{bundle2.ViewUsuarioGrupoLabel_idUsuarioGrupo}"/>
-                        <h:outputText value="#{usuarioGrupoController.selected.idUsuarioGrupo}" title="#{bundle2.ViewUsuarioGrupoTitle_idUsuarioGrupo}"/>
-                        <h:outputText value="#{bundle2.ViewUsuarioGrupoLabel_idGrupo}"/>
-                        <h:outputText value="#{usuarioGrupoController.selected.idGrupo}" title="#{bundle2.ViewUsuarioGrupoTitle_idGrupo}"/>
-                        <h:outputText value="#{bundle2.ViewUsuarioGrupoLabel_idUsuario}"/>
-                        <h:outputText value="#{usuarioGrupoController.selected.idUsuario}" title="#{bundle2.ViewUsuarioGrupoTitle_idUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioGrupoLabel_idUsuarioGrupo}"/>
+                        <h:outputText value="#{usuarioGrupoController.selected.idUsuarioGrupo}" title="#{bundle.ViewUsuarioGrupoTitle_idUsuarioGrupo}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioGrupoLabel_idGrupo}"/>
+                        <h:outputText value="#{usuarioGrupoController.selected.idGrupo}" title="#{bundle.ViewUsuarioGrupoTitle_idGrupo}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioGrupoLabel_idUsuario}"/>
+                        <h:outputText value="#{usuarioGrupoController.selected.idUsuario}" title="#{bundle.ViewUsuarioGrupoTitle_idUsuario}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle2.Close}" onclick="PF('UsuarioGrupoViewDialog').hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('UsuarioGrupoViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

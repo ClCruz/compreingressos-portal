@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +21,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -42,7 +39,6 @@ public class BancoController implements Serializable {
     private br.com.intuiti.compreingressos.portal.bean.BancoFacade ejbFacade;
     private LazyDataModel<Banco> items = null;
     private Banco selected;
-    private final Map<String, Object> filtros = new HashMap<>();
 
     public BancoController() {
     }
@@ -229,7 +225,8 @@ public class BancoController implements Serializable {
     		this.sortOrder = sortOrder;
     	}
     	
-    	public int compare(Banco object1, Banco object2){
+    	@SuppressWarnings({ "rawtypes", "unchecked" })
+		public int compare(Banco object1, Banco object2){
     		try{
     			Field field1 = object1.getClass().getDeclaredField(this.sortField);
     			Field field2 = object2.getClass().getDeclaredField(this.sortField);

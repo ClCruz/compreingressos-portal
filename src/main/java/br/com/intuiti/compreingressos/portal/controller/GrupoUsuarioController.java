@@ -19,10 +19,8 @@ import javax.faces.event.ValueChangeEvent;
 import br.com.intuiti.compreingressos.portal.bean.UsuarioGrupoFacade;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.model.Grupo;
-import br.com.intuiti.compreingressos.portal.model.GrupoAcesso;
 import br.com.intuiti.compreingressos.portal.model.Usuario;
 import br.com.intuiti.compreingressos.portal.model.UsuarioGrupo;
-import br.com.intuiti.compreingressos.portal.model.UsuarioGrupoFuncao;
 
 @ManagedBean(name = "grupoUsuarioController")
 @ViewScoped
@@ -32,7 +30,6 @@ public class GrupoUsuarioController implements Serializable {
 
 	@EJB
 	private UsuarioGrupoFacade ejbFacade;
-	private UsuarioGrupoFuncao usuarioGrupoFuncao;
 	private List<Grupo> items = null;
 	private Usuario usuario;
 	private List<UsuarioGrupo> selected = null;

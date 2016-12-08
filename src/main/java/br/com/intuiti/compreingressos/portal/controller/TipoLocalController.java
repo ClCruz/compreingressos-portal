@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,6 @@ public class TipoLocalController implements Serializable {
 	private br.com.intuiti.compreingressos.portal.bean.TipoLocalFacade ejbFacade;
 	private LazyDataModel<TipoLocal> items = null;
 	private TipoLocal selected;
-	private final Map<String, Object> filtros = new HashMap<>();
 
 	public TipoLocalController() {
 	}
@@ -49,7 +47,7 @@ public class TipoLocalController implements Serializable {
 	public void init() {
 		items = new Lazy(getFacade().findAll());
 	}
-	
+
 	public TipoLocal getSelected() {
 		return selected;
 	}
@@ -75,21 +73,18 @@ public class TipoLocalController implements Serializable {
 	}
 
 	public void create() {
-		persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle")
-				.getString("TipoLocalCreated"));
+		persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TipoLocalCreated"));
 		if (!JsfUtil.isValidationFailed()) {
 			items = null; // Invalidate list of items to trigger re-query.
 		}
 	}
 
 	public void update() {
-		persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle")
-				.getString("TipoLocalUpdated"));
+		persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TipoLocalUpdated"));
 	}
 
 	public void destroy() {
-		persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle")
-				.getString("TipoLocalDeleted"));
+		persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TipoLocalDeleted"));
 		if (!JsfUtil.isValidationFailed()) {
 			selected = null; // Remove selection
 			items = null; // Invalidate list of items to trigger re-query.
@@ -116,8 +111,7 @@ public class TipoLocalController implements Serializable {
 							JsfUtil.addErrorMessage("Já existe um tipo de local cadastrado com essa descrição.");
 						}
 					} else if (persistAction == PersistAction.UPDATE) {
-						if (getFacade().findDsId(selected.getDsTipoLocal(),
-								selected.getIdTipoLocal())) {
+						if (getFacade().findDsId(selected.getDsTipoLocal(), selected.getIdTipoLocal())) {
 							getFacade().edit(selected);
 							JsfUtil.addSuccessMessage(successMessage);
 						} else {
@@ -137,16 +131,12 @@ public class TipoLocalController implements Serializable {
 				if (msg.length() > 0) {
 					JsfUtil.addErrorMessage(msg);
 				} else {
-					JsfUtil.addErrorMessage(
-							ex,
-							ResourceBundle.getBundle("/Bundle").getString(
-									"PersistenceErrorOccured"));
+					JsfUtil.addErrorMessage(ex,
+							ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
 				}
 			} catch (Exception ex) {
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
-						null, ex);
-				JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle")
-						.getString("PersistenceErrorOccured"));
+				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
 			}
 		}
 	}
@@ -162,129 +152,125 @@ public class TipoLocalController implements Serializable {
 	public List<TipoLocal> getItemsAvailableSelectOne() {
 		return getFacade().findAtivo();
 	}
-	
+
 	public class Lazy extends LazyDataModel<TipoLocal> {
 
-    	private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
-    	private List<TipoLocal> tipoLocal = null;
+		private List<TipoLocal> tipoLocal = null;
 
-    	public Lazy(List<TipoLocal> tipoLocal) {
-    		this.tipoLocal = tipoLocal;
-    	}
+		public Lazy(List<TipoLocal> tipoLocal) {
+			this.tipoLocal = tipoLocal;
+		}
 
-    	@Override
-    	public List<TipoLocal> load(int first, int pageSize, String sortField, SortOrder sortOrder,
-    			Map<String, Object> filters) {
-    		List<TipoLocal> data = new ArrayList<TipoLocal>();
-    		for(TipoLocal tl : tipoLocal){
-    			
-    			boolean match = true;
-    			if(filters != null){
-    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
-    					try{
-    						String filterProperty = it.next();
-    						Object filterValue = filters.get(filterProperty);
-    						Field field = tl.getClass().getDeclaredField(filterProperty);
-    						field.setAccessible(true);
-    						String fieldValue = String.valueOf(field.get(tl));
-    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
-    							match = true;
-    						} else {
-    							match = false;
-    							break;
-    						}
-    					} catch (Exception e) {
-    						e.printStackTrace();
-    						match = false;
-    					}
-    				}
-    			}
-    			
-    			if(match){
-    				data.add(tl);
-    			}
-    		}
-    		
-    		//sort
-    		if(sortField != null) {
-    			Collections.sort(data, new LazySorter(sortField, sortOrder));
-    		}
-    		
-    		//rowCount
-    		int dataSize = data.size();
-    		this.setRowCount(dataSize);
-    		
-    		//paginate
-    		if(dataSize > pageSize){
-    			try{
-    				return data.subList(first, first + pageSize);
-    			} catch (IndexOutOfBoundsException e) {
-    				return data.subList(first, first + (dataSize % pageSize));
-    			}
-    		} else {
-    			return data;
-    		}
-    	}
-    	
-    	@Override
-    	public Object getRowKey(TipoLocal object) {
-    		return object.getIdTipoLocal();
-    	}
-    	
-    	@Override
-    	public TipoLocal getRowData(String rowKey) {
-    		Integer id = Integer.valueOf(rowKey);
-    		for(TipoLocal t : tipoLocal){
-    			if(id.equals(t.getIdTipoLocal())){
-    				return t;
-    			}
-    		}
-    		return null;
-    	}
-    }
-    
-    public class LazySorter implements Comparator<TipoLocal> {
-    	private String sortField;
-    	private SortOrder sortOrder;
-    	
-    	public LazySorter(String sortField, SortOrder sortOrder){
-    		this.sortField = sortField;
-    		this.sortOrder = sortOrder;
-    	}
-    	
-    	public int compare(TipoLocal object1, TipoLocal object2){
-    		try {
-    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
-    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
-    			field1.setAccessible(true);
-    			field2.setAccessible(true);
-    			Object value1 = field1.get(object1);
-    			Object value2 = field2.get(object2);
-    			
-    			int value = ((Comparable)value1).compareTo(value2);
-    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
-    		}
-    		catch(Exception e) {
-    			throw new RuntimeException();
-    		}
-    	}
-    }
+		@Override
+		public List<TipoLocal> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+				Map<String, Object> filters) {
+			List<TipoLocal> data = new ArrayList<TipoLocal>();
+			for (TipoLocal tl : tipoLocal) {
+
+				boolean match = true;
+				if (filters != null) {
+					for (Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {
+						try {
+							String filterProperty = it.next();
+							Object filterValue = filters.get(filterProperty);
+							Field field = tl.getClass().getDeclaredField(filterProperty);
+							field.setAccessible(true);
+							String fieldValue = String.valueOf(field.get(tl));
+							if (filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+								match = true;
+							} else {
+								match = false;
+								break;
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							match = false;
+						}
+					}
+				}
+
+				if (match) {
+					data.add(tl);
+				}
+			}
+
+			// sort
+			if (sortField != null) {
+				Collections.sort(data, new LazySorter(sortField, sortOrder));
+			}
+
+			// rowCount
+			int dataSize = data.size();
+			this.setRowCount(dataSize);
+
+			// paginate
+			if (dataSize > pageSize) {
+				try {
+					return data.subList(first, first + pageSize);
+				} catch (IndexOutOfBoundsException e) {
+					return data.subList(first, first + (dataSize % pageSize));
+				}
+			} else {
+				return data;
+			}
+		}
+
+		@Override
+		public Object getRowKey(TipoLocal object) {
+			return object.getIdTipoLocal();
+		}
+
+		@Override
+		public TipoLocal getRowData(String rowKey) {
+			Integer id = Integer.valueOf(rowKey);
+			for (TipoLocal t : tipoLocal) {
+				if (id.equals(t.getIdTipoLocal())) {
+					return t;
+				}
+			}
+			return null;
+		}
+	}
+
+	public class LazySorter implements Comparator<TipoLocal> {
+		private String sortField;
+		private SortOrder sortOrder;
+
+		public LazySorter(String sortField, SortOrder sortOrder) {
+			this.sortField = sortField;
+			this.sortOrder = sortOrder;
+		}
+
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		public int compare(TipoLocal object1, TipoLocal object2) {
+			try {
+				Field field1 = object1.getClass().getDeclaredField(this.sortField);
+				Field field2 = object2.getClass().getDeclaredField(this.sortField);
+				field1.setAccessible(true);
+				field2.setAccessible(true);
+				Object value1 = field1.get(object1);
+				Object value2 = field2.get(object2);
+
+				int value = ((Comparable) value1).compareTo(value2);
+				return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+			} catch (Exception e) {
+				throw new RuntimeException();
+			}
+		}
+	}
 
 	@FacesConverter(forClass = TipoLocal.class)
 	public static class TipoLocalControllerConverter implements Converter {
 
 		@Override
-		public Object getAsObject(FacesContext facesContext,
-				UIComponent component, String value) {
+		public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
 			if (value == null || value.length() == 0) {
 				return null;
 			}
-			TipoLocalController controller = (TipoLocalController) facesContext
-					.getApplication()
-					.getELResolver()
-					.getValue(facesContext.getELContext(), null,
-							"tipoLocalController");
+			TipoLocalController controller = (TipoLocalController) facesContext.getApplication().getELResolver()
+					.getValue(facesContext.getELContext(), null, "tipoLocalController");
 			return controller.getTipoLocal(getKey(value));
 		}
 
@@ -301,8 +287,7 @@ public class TipoLocalController implements Serializable {
 		}
 
 		@Override
-		public String getAsString(FacesContext facesContext,
-				UIComponent component, Object object) {
+		public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
 			if (object == null) {
 				return null;
 			}
@@ -310,11 +295,9 @@ public class TipoLocalController implements Serializable {
 				TipoLocal o = (TipoLocal) object;
 				return getStringKey(o.getIdTipoLocal());
 			} else {
-				Logger.getLogger(this.getClass().getName()).log(
-						Level.SEVERE,
+				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
 						"object {0} is of type {1}; expected type: {2}",
-						new Object[] { object, object.getClass().getName(),
-								TipoLocal.class.getName() });
+						new Object[] { object, object.getClass().getName(), TipoLocal.class.getName() });
 				return null;
 			}
 		}

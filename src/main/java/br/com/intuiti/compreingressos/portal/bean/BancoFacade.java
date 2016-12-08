@@ -27,7 +27,8 @@ public class BancoFacade extends AbstractFacade<Banco> {
         super(Banco.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Banco> findAll(){
     	return getEntityManager().createNamedQuery("Banco.findAll").getResultList();
     }

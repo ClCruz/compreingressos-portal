@@ -8,25 +8,25 @@
 
     <ui:composition>
 
-        <p:dialog id="FuncaoSistemaEditDlg" widgetVar="FuncaoSistemaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.EditFuncaoSistemaTitle}">
+        <p:dialog id="FuncaoSistemaEditDlg" widgetVar="FuncaoSistemaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFuncaoSistemaTitle}">
             <h:form id="FuncaoSistemaEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{funcaoSistemaController.selected != null}">
-                        <p:outputLabel value="#{bundle3.EditFuncaoSistemaLabel_idFuncaoSistema}" for="idFuncaoSistema" />
-                        <p:inputText id="idFuncaoSistema" value="#{funcaoSistemaController.selected.idFuncaoSistema}" title="#{bundle3.EditFuncaoSistemaTitle_idFuncaoSistema}" required="true" requiredMessage="#{bundle3.EditFuncaoSistemaRequiredMessage_idFuncaoSistema}"/>
-                        <p:outputLabel value="#{bundle3.EditFuncaoSistemaLabel_dsPrograma}" for="dsPrograma" />
-                        <p:inputText id="dsPrograma" value="#{funcaoSistemaController.selected.dsPrograma}" title="#{bundle3.EditFuncaoSistemaTitle_dsPrograma}" />
-                        <p:outputLabel value="#{bundle3.EditFuncaoSistemaLabel_dsUrl}" for="dsUrl" />
-                        <p:inputText id="dsUrl" value="#{funcaoSistemaController.selected.dsUrl}" title="#{bundle3.EditFuncaoSistemaTitle_dsUrl}" />
-                        <p:outputLabel value="#{bundle3.EditFuncaoSistemaLabel_idOrdemExibicao}" for="idOrdemExibicao" />
-                        <p:inputText id="idOrdemExibicao" value="#{funcaoSistemaController.selected.idOrdemExibicao}" title="#{bundle3.EditFuncaoSistemaTitle_idOrdemExibicao}" />
-                        <p:outputLabel value="#{bundle3.EditFuncaoSistemaLabel_idParent}" for="idParent" />
-                        <p:inputText id="idParent" value="#{funcaoSistemaController.selected.idParent}" title="#{bundle3.EditFuncaoSistemaTitle_idParent}" />
-                        <p:outputLabel value="#{bundle3.EditFuncaoSistemaLabel_dsIcone}" for="dsIcone" />
-                        <p:inputText id="dsIcone" value="#{funcaoSistemaController.selected.dsIcone}" title="#{bundle3.EditFuncaoSistemaTitle_dsIcone}" />
+                        <p:outputLabel value="#{bundle.EditFuncaoSistemaLabel_idFuncaoSistema}" for="idFuncaoSistema" />
+                        <p:inputText id="idFuncaoSistema" value="#{funcaoSistemaController.selected.idFuncaoSistema}" title="#{bundle.EditFuncaoSistemaTitle_idFuncaoSistema}" required="true" requiredMessage="#{bundle.EditFuncaoSistemaRequiredMessage_idFuncaoSistema}"/>
+                        <p:outputLabel value="#{bundle.EditFuncaoSistemaLabel_dsPrograma}" for="dsPrograma" />
+                        <p:inputText id="dsPrograma" value="#{funcaoSistemaController.selected.dsPrograma}" title="#{bundle.EditFuncaoSistemaTitle_dsPrograma}" />
+                        <p:outputLabel value="#{bundle.EditFuncaoSistemaLabel_dsUrl}" for="dsUrl" />
+                        <p:inputText id="dsUrl" value="#{funcaoSistemaController.selected.dsUrl}" title="#{bundle.EditFuncaoSistemaTitle_dsUrl}" />
+                        <p:outputLabel value="#{bundle.EditFuncaoSistemaLabel_idOrdemExibicao}" for="idOrdemExibicao" />
+                        <p:inputText id="idOrdemExibicao" value="#{funcaoSistemaController.selected.idOrdemExibicao}" title="#{bundle.EditFuncaoSistemaTitle_idOrdemExibicao}" />
+                        <p:outputLabel value="#{bundle.EditFuncaoSistemaLabel_idParent}" for="idParent" />
+                        <p:inputText id="idParent" value="#{funcaoSistemaController.selected.idParent}" title="#{bundle.EditFuncaoSistemaTitle_idParent}" />
+                        <p:outputLabel value="#{bundle.EditFuncaoSistemaLabel_dsIcone}" for="dsIcone" />
+                        <p:inputText id="dsIcone" value="#{funcaoSistemaController.selected.dsIcone}" title="#{bundle.EditFuncaoSistemaTitle_dsIcone}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{funcaoSistemaController.update}" value="#{bundle3.Save}" update="display,:FuncaoSistemaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FuncaoSistemaEditDialog');"/>
-                    <p:commandButton value="#{bundle3.Cancel}" onclick="PF('FuncaoSistemaEditDialog').hide()"/>
+                    <p:commandButton actionListener="#{funcaoSistemaController.update}" value="#{bundle.Save}" update="display,:FuncaoSistemaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FuncaoSistemaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('FuncaoSistemaEditDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

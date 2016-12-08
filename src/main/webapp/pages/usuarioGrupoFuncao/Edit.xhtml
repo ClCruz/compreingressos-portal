@@ -8,29 +8,29 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioGrupoFuncaoEditDlg" widgetVar="UsuarioGrupoFuncaoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.EditUsuarioGrupoFuncaoTitle}">
+        <p:dialog id="UsuarioGrupoFuncaoEditDlg" widgetVar="UsuarioGrupoFuncaoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioGrupoFuncaoTitle}">
             <h:form id="UsuarioGrupoFuncaoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioGrupoFuncaoController.selected != null}">
-                        <p:outputLabel value="#{bundle3.EditUsuarioGrupoFuncaoLabel_idUsuarioGrupoFuncao}" for="idUsuarioGrupoFuncao" />
-                        <p:inputText id="idUsuarioGrupoFuncao" value="#{usuarioGrupoFuncaoController.selected.idUsuarioGrupoFuncao}" title="#{bundle3.EditUsuarioGrupoFuncaoTitle_idUsuarioGrupoFuncao}" required="true" requiredMessage="#{bundle3.EditUsuarioGrupoFuncaoRequiredMessage_idUsuarioGrupoFuncao}"/>
-                        <p:outputLabel value="#{bundle3.EditUsuarioGrupoFuncaoLabel_idGrupoFuncao}" for="idGrupoFuncao" />
+                        <p:outputLabel value="#{bundle.EditUsuarioGrupoFuncaoLabel_idUsuarioGrupoFuncao}" for="idUsuarioGrupoFuncao" />
+                        <p:inputText id="idUsuarioGrupoFuncao" value="#{usuarioGrupoFuncaoController.selected.idUsuarioGrupoFuncao}" title="#{bundle.EditUsuarioGrupoFuncaoTitle_idUsuarioGrupoFuncao}" required="true" requiredMessage="#{bundle.EditUsuarioGrupoFuncaoRequiredMessage_idUsuarioGrupoFuncao}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioGrupoFuncaoLabel_idGrupoFuncao}" for="idGrupoFuncao" />
                         <p:selectOneMenu id="idGrupoFuncao" value="#{usuarioGrupoFuncaoController.selected.idGrupoFuncao}" >
-                            <f:selectItem itemLabel="#{bundle3.SelectOneMessage}"/>
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{grupoFuncaoController.itemsAvailableSelectOne}"
                                            var="idGrupoFuncaoItem"
                                            itemValue="#{idGrupoFuncaoItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle3.EditUsuarioGrupoFuncaoLabel_idUsuario}" for="idUsuario" />
+                        <p:outputLabel value="#{bundle.EditUsuarioGrupoFuncaoLabel_idUsuario}" for="idUsuario" />
                         <p:selectOneMenu id="idUsuario" value="#{usuarioGrupoFuncaoController.selected.idUsuario}" >
-                            <f:selectItem itemLabel="#{bundle3.SelectOneMessage}"/>
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioGrupoFuncaoController.update}" value="#{bundle3.Save}" update="display,:UsuarioGrupoFuncaoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioGrupoFuncaoEditDialog');"/>
-                    <p:commandButton value="#{bundle3.Cancel}" onclick="PF('UsuarioGrupoFuncaoEditDialog').hide()"/>
+                    <p:commandButton actionListener="#{usuarioGrupoFuncaoController.update}" value="#{bundle.Save}" update="display,:UsuarioGrupoFuncaoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioGrupoFuncaoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioGrupoFuncaoEditDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

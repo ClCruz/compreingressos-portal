@@ -13,9 +13,9 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoEstornoController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateTipoEstornoLabel_idTipoEstorno}" for="idTipoEstorno" />
-                        <p:inputText id="idTipoEstorno" value="#{tipoEstornoController.selected.idTipoEstorno}" title="#{bundle2.CreateTipoEstornoTitle_idTipoEstorno}" required="true" requiredMessage="#{bundle.CreateTipoEstornoRequiredMessage_idTipoEstorno}"/>
+                        <p:inputText id="idTipoEstorno" value="#{tipoEstornoController.selected.idTipoEstorno}" title="#{bundle.CreateTipoEstornoTitle_idTipoEstorno}" required="true" requiredMessage="#{bundle.CreateTipoEstornoRequiredMessage_idTipoEstorno}"/>
                         <p:outputLabel value="#{bundle.CreateTipoEstornoLabel_dsTipoEstorno}" for="dsTipoEstorno" />
-                        <p:inputText id="dsTipoEstorno" value="#{tipoEstornoController.selected.dsTipoEstorno}" title="#{bundle2.CreateTipoEstornoTitle_dsTipoEstorno}" required="true" requiredMessage="#{bundle.CreateTipoEstornoRequiredMessage_dsTipoEstorno}"/>
+                        <p:inputText id="dsTipoEstorno" value="#{tipoEstornoController.selected.dsTipoEstorno}" title="#{bundle.CreateTipoEstornoTitle_dsTipoEstorno}" required="true" requiredMessage="#{bundle.CreateTipoEstornoRequiredMessage_dsTipoEstorno}"/>
                     </p:panelGrid>
                     <p:separator />
                     <p:commandButton actionListener="#{tipoEstornoController.create}" value="#{bundle.Save}" update="display,:TipoEstornoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoEstornoCreateDialog');"/>

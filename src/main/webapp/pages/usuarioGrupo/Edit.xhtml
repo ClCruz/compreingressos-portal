@@ -8,29 +8,29 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioGrupoEditDlg" widgetVar="UsuarioGrupoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.EditUsuarioGrupoTitle}">
+        <p:dialog id="UsuarioGrupoEditDlg" widgetVar="UsuarioGrupoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioGrupoTitle}">
             <h:form id="UsuarioGrupoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioGrupoController.selected != null}">
-                        <p:outputLabel value="#{bundle2.EditUsuarioGrupoLabel_idUsuarioGrupo}" for="idUsuarioGrupo" />
-                        <p:inputText id="idUsuarioGrupo" value="#{usuarioGrupoController.selected.idUsuarioGrupo}" title="#{bundle2.EditUsuarioGrupoTitle_idUsuarioGrupo}" required="true" requiredMessage="#{bundle2.EditUsuarioGrupoRequiredMessage_idUsuarioGrupo}"/>
-                        <p:outputLabel value="#{bundle2.EditUsuarioGrupoLabel_idGrupo}" for="idGrupo" />
-                        <p:selectOneMenu id="idGrupo" value="#{usuarioGrupoController.selected.idGrupo}" required="true" requiredMessage="#{bundle2.EditUsuarioGrupoRequiredMessage_idGrupo}">
-                            <f:selectItem itemLabel="#{bundle2.SelectOneMessage}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioGrupoLabel_idUsuarioGrupo}" for="idUsuarioGrupo" />
+                        <p:inputText id="idUsuarioGrupo" value="#{usuarioGrupoController.selected.idUsuarioGrupo}" title="#{bundle.EditUsuarioGrupoTitle_idUsuarioGrupo}" required="true" requiredMessage="#{bundle.EditUsuarioGrupoRequiredMessage_idUsuarioGrupo}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioGrupoLabel_idGrupo}" for="idGrupo" />
+                        <p:selectOneMenu id="idGrupo" value="#{usuarioGrupoController.selected.idGrupo}" required="true" requiredMessage="#{bundle.EditUsuarioGrupoRequiredMessage_idGrupo}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{grupoController.itemsAvailableSelectOne}"
                                            var="idGrupoItem"
                                            itemValue="#{idGrupoItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle2.EditUsuarioGrupoLabel_idUsuario}" for="idUsuario" />
-                        <p:selectOneMenu id="idUsuario" value="#{usuarioGrupoController.selected.idUsuario}" required="true" requiredMessage="#{bundle2.EditUsuarioGrupoRequiredMessage_idUsuario}">
-                            <f:selectItem itemLabel="#{bundle2.SelectOneMessage}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioGrupoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{usuarioGrupoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioGrupoRequiredMessage_idUsuario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioGrupoController.update}" value="#{bundle2.Save}" update="display,:UsuarioGrupoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioGrupoEditDialog');"/>
-                    <p:commandButton value="#{bundle2.Cancel}" onclick="PF('UsuarioGrupoEditDialog').hide()"/>
+                    <p:commandButton actionListener="#{usuarioGrupoController.update}" value="#{bundle.Save}" update="display,:UsuarioGrupoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioGrupoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioGrupoEditDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

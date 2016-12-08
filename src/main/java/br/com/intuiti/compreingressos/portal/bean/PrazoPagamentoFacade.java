@@ -32,7 +32,8 @@ public class PrazoPagamentoFacade extends AbstractFacade<PrazoPagamento> {
         super(PrazoPagamento.class);
     }
  
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<PrazoPagamento> findAll(){
     	return getEntityManager().createNamedQuery("PrazoPagamento.findAll").getResultList();
     }

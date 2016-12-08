@@ -32,7 +32,8 @@ public class EstadoFacade extends AbstractFacade<Estado> {
         super(Estado.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Estado> findAll(){
     	return getEntityManager().createNamedQuery("Estado.findAll").getResultList();
     }

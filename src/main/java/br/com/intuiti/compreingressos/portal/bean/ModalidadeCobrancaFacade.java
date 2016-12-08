@@ -32,7 +32,8 @@ public class ModalidadeCobrancaFacade extends AbstractFacade<ModalidadeCobranca>
         super(ModalidadeCobranca.class);
     }
  
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<ModalidadeCobranca> findAll(){
     	return getEntityManager().createNamedQuery("ModalidadeCobranca.findAll").getResultList();
     }

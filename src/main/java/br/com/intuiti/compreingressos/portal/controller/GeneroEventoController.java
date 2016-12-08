@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,6 @@ public class GeneroEventoController implements Serializable {
 	private LazyDataModel<GeneroEvento> items = null;
 	private GeneroEvento selected;
 	private Usuario usuario;
-	private final Map<String, Object> filtros = new HashMap<>();
 
 	public GeneroEventoController() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -259,6 +257,7 @@ public class GeneroEventoController implements Serializable {
     		this.sortOrder = sortOrder;
     	}
     	
+    	@SuppressWarnings({ "unchecked", "rawtypes" })
     	public int compare(GeneroEvento object1, GeneroEvento  object2){
     		try {
     			Field field1 = object1.getClass().getDeclaredField(this.sortField);

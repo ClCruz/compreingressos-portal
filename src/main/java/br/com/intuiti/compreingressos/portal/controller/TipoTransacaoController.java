@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,6 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 		private br.com.intuiti.compreingressos.portal.bean.TipoTransacaoFacade ejbFacade;
 	    private LazyDataModel<TipoTransacao> items = null;
 	    private TipoTransacao selected;
-	    private final Map<String, Object> filtros = new HashMap<>();
 
 	    public TipoTransacaoController() {
 	    }
@@ -230,6 +228,7 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 	    		this.sortOrder = sortOrder;
 	    	}
 	    	
+	    	@SuppressWarnings({ "unchecked", "rawtypes" })
 	    	public int compare(TipoTransacao object1, TipoTransacao object2){
 	    		try {
 	    			Field field1 = object1.getClass().getDeclaredField(this.sortField);

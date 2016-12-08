@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,21 +33,19 @@ import br.com.intuiti.compreingressos.portal.model.Municipio;
 
 @ManagedBean(name = "localEventoController")
 @ViewScoped
-public class LocalEventoController extends LazyDataModel<LocalEvento> implements
-		Serializable {
+public class LocalEventoController extends LazyDataModel<LocalEvento> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private br.com.intuiti.compreingressos.portal.bean.LocalEventoFacade ejbFacade;
 	private LazyDataModel<LocalEvento> items = null;
 	private LocalEvento selected;
-	private final Map<String, Object> filtros = new HashMap<>();
 
 	public LocalEventoController() {
 	}
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		items = new Lazy(getFacade().findAll());
 	}
 
@@ -77,21 +74,18 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 	}
 
 	public void create() {
-		persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle")
-				.getString("LocalEventoCreated"));
+		persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LocalEventoCreated"));
 		if (!JsfUtil.isValidationFailed()) {
 			items = null; // Invalidate list of items to trigger re-query.
 		}
 	}
 
 	public void update() {
-		persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle")
-				.getString("LocalEventoUpdated"));
+		persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LocalEventoUpdated"));
 	}
 
 	public void destroy() {
-		persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle")
-				.getString("LocalEventoDeleted"));
+		persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("LocalEventoDeleted"));
 		if (!JsfUtil.isValidationFailed()) {
 			selected = null; // Remove selection
 			items = null; // Invalidate list of items to trigger re-query.
@@ -124,16 +118,12 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 				if (msg.length() > 0) {
 					JsfUtil.addErrorMessage(msg);
 				} else {
-					JsfUtil.addErrorMessage(
-							ex,
-							ResourceBundle.getBundle("/Bundle").getString(
-									"PersistenceErrorOccured"));
+					JsfUtil.addErrorMessage(ex,
+							ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
 				}
 			} catch (Exception ex) {
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
-						null, ex);
-				JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle")
-						.getString("PersistenceErrorOccured"));
+				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
 			}
 		}
 	}
@@ -153,133 +143,129 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 	public List<LocalEvento> getItemsAvailableSelectOneOrderBy() {
 		return getFacade().findAllOrderByDs();
 	}
-	
-	public List<Municipio> listaMunicipios(){
+
+	public List<Municipio> listaMunicipios() {
 		return getFacade().findAll(selected.getIdEstado());
 	}
 
 	public class Lazy extends LazyDataModel<LocalEvento> {
 
-    	private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
-    	private List<LocalEvento> localEvento = null;
+		private List<LocalEvento> localEvento = null;
 
-    	public Lazy(List<LocalEvento> localEvento) {
-    		this.localEvento = localEvento;
-    	}
+		public Lazy(List<LocalEvento> localEvento) {
+			this.localEvento = localEvento;
+		}
 
-    	@Override
-    	public List<LocalEvento> load(int first, int pageSize, String sortField, SortOrder sortOrder,
-    			Map<String, Object> filters) {
-    		List<LocalEvento> data = new ArrayList<LocalEvento>();
-    		for(LocalEvento le : localEvento){
-    			
-    			boolean match = true;
-    			if(filters != null){
-    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
-    					try{
-    						String filterProperty = it.next();
-    						Object filterValue = filters.get(filterProperty);
-    						Field field = le.getClass().getDeclaredField(filterProperty);
-    						field.setAccessible(true);
-    						String fieldValue = String.valueOf(field.get(le));
-    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
-    							match = true;
-    						} else {
-    							match = false;
-    							break;
-    						}
-    					} catch (Exception e) {
-    						e.printStackTrace();
-    						match = false;
-    					}
-    				}
-    			}
-    			
-    			if(match){
-    				data.add(le);
-    			}
-    		}
-    		
-    		//sort
-    		if(sortField != null) {
-    			Collections.sort(data, new LazySorter(sortField, sortOrder));
-    		}
-    		
-    		//rowCount
-    		int dataSize = data.size();
-    		this.setRowCount(dataSize);
-    		
-    		//paginate
-    		if(dataSize > pageSize){
-    			try{
-    				return data.subList(first, first + pageSize);
-    			} catch (IndexOutOfBoundsException e) {
-    				return data.subList(first, first + (dataSize % pageSize));
-    			}
-    		} else {
-    			return data;
-    		}
-    	}
-    	
-    	@Override
-    	public Object getRowKey(LocalEvento object) {
-    		return object.getIdLocalEvento();
-    	}
-    	
-    	@Override
-    	public LocalEvento getRowData(String rowKey) {
-    		Integer id = Integer.valueOf(rowKey);
-    		for(LocalEvento l : localEvento){
-    			if(id.equals(l.getIdLocalEvento())){
-    				return l;
-    			}
-    		}
-    		return null;
-    	}
-    }
-    
-    public class LazySorter implements Comparator<LocalEvento> {
-    	private String sortField;
-    	private SortOrder sortOrder;
-    	
-    	public LazySorter(String sortField, SortOrder sortOrder){
-    		this.sortField = sortField;
-    		this.sortOrder = sortOrder;
-    	}
-    	
-    	public int compare(LocalEvento object1, LocalEvento  object2){
-    		try {
-    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
-    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
-    			field1.setAccessible(true);
-    			field2.setAccessible(true);
-    			Object value1 = field1.get(object1);
-    			Object value2 = field2.get(object2);
-    			
-    			int value = ((Comparable)value1).compareTo(value2);
-    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
-    		}
-    		catch(Exception e) {
-    			throw new RuntimeException();
-    		}
-    	}
-    }
-	
+		@Override
+		public List<LocalEvento> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+				Map<String, Object> filters) {
+			List<LocalEvento> data = new ArrayList<LocalEvento>();
+			for (LocalEvento le : localEvento) {
+
+				boolean match = true;
+				if (filters != null) {
+					for (Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {
+						try {
+							String filterProperty = it.next();
+							Object filterValue = filters.get(filterProperty);
+							Field field = le.getClass().getDeclaredField(filterProperty);
+							field.setAccessible(true);
+							String fieldValue = String.valueOf(field.get(le));
+							if (filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+								match = true;
+							} else {
+								match = false;
+								break;
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							match = false;
+						}
+					}
+				}
+
+				if (match) {
+					data.add(le);
+				}
+			}
+
+			// sort
+			if (sortField != null) {
+				Collections.sort(data, new LazySorter(sortField, sortOrder));
+			}
+
+			// rowCount
+			int dataSize = data.size();
+			this.setRowCount(dataSize);
+
+			// paginate
+			if (dataSize > pageSize) {
+				try {
+					return data.subList(first, first + pageSize);
+				} catch (IndexOutOfBoundsException e) {
+					return data.subList(first, first + (dataSize % pageSize));
+				}
+			} else {
+				return data;
+			}
+		}
+
+		@Override
+		public Object getRowKey(LocalEvento object) {
+			return object.getIdLocalEvento();
+		}
+
+		@Override
+		public LocalEvento getRowData(String rowKey) {
+			Integer id = Integer.valueOf(rowKey);
+			for (LocalEvento l : localEvento) {
+				if (id.equals(l.getIdLocalEvento())) {
+					return l;
+				}
+			}
+			return null;
+		}
+	}
+
+	public class LazySorter implements Comparator<LocalEvento> {
+		private String sortField;
+		private SortOrder sortOrder;
+
+		public LazySorter(String sortField, SortOrder sortOrder) {
+			this.sortField = sortField;
+			this.sortOrder = sortOrder;
+		}
+
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		public int compare(LocalEvento object1, LocalEvento object2) {
+			try {
+				Field field1 = object1.getClass().getDeclaredField(this.sortField);
+				Field field2 = object2.getClass().getDeclaredField(this.sortField);
+				field1.setAccessible(true);
+				field2.setAccessible(true);
+				Object value1 = field1.get(object1);
+				Object value2 = field2.get(object2);
+
+				int value = ((Comparable) value1).compareTo(value2);
+				return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+			} catch (Exception e) {
+				throw new RuntimeException();
+			}
+		}
+	}
+
 	@FacesConverter(forClass = LocalEvento.class)
 	public static class LocalEventoControllerConverter implements Converter {
 
 		@Override
-		public Object getAsObject(FacesContext facesContext,
-				UIComponent component, String value) {
+		public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
 			if (value == null || value.length() == 0) {
 				return null;
 			}
-			LocalEventoController controller = (LocalEventoController) facesContext
-					.getApplication()
-					.getELResolver()
-					.getValue(facesContext.getELContext(), null,
-							"localEventoController");
+			LocalEventoController controller = (LocalEventoController) facesContext.getApplication().getELResolver()
+					.getValue(facesContext.getELContext(), null, "localEventoController");
 			return controller.getLocalEvento(getKey(value));
 		}
 
@@ -296,8 +282,7 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 		}
 
 		@Override
-		public String getAsString(FacesContext facesContext,
-				UIComponent component, Object object) {
+		public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
 			if (object == null) {
 				return null;
 			}
@@ -305,11 +290,9 @@ public class LocalEventoController extends LazyDataModel<LocalEvento> implements
 				LocalEvento o = (LocalEvento) object;
 				return getStringKey(o.getIdLocalEvento());
 			} else {
-				Logger.getLogger(this.getClass().getName()).log(
-						Level.SEVERE,
+				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
 						"object {0} is of type {1}; expected type: {2}",
-						new Object[] { object, object.getClass().getName(),
-								LocalEvento.class.getName() });
+						new Object[] { object, object.getClass().getName(), LocalEvento.class.getName() });
 				return null;
 			}
 		}

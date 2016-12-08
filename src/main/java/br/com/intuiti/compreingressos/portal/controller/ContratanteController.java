@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +40,6 @@ public class ContratanteController implements Serializable {
     private br.com.intuiti.compreingressos.portal.bean.ContratanteFacade ejbFacade;
     private LazyDataModel<Contratante> items = null;
     private Contratante selected;
-    private final Map<String, Object> filtros = new HashMap<>();
 
     public ContratanteController() {
     }
@@ -239,6 +237,7 @@ public class ContratanteController implements Serializable {
     		this.sortOrder = sortOrder;
     	}
     	
+    	@SuppressWarnings({ "unchecked", "rawtypes" })
     	public int compare(Contratante object1, Contratante  object2){
     		try {
     			Field field1 = object1.getClass().getDeclaredField(this.sortField);

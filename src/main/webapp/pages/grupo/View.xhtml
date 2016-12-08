@@ -8,18 +8,18 @@
 
     <ui:composition>
 
-        <p:dialog id="GrupoViewDlg" widgetVar="GrupoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.ViewGrupoTitle}">
+        <p:dialog id="GrupoViewDlg" widgetVar="GrupoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGrupoTitle}">
             <h:form id="GrupoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{grupoController.selected != null}">
-                        <h:outputText value="#{bundle2.ViewGrupoLabel_idGrupo}"/>
-                        <h:outputText value="#{grupoController.selected.idGrupo}" title="#{bundle2.ViewGrupoTitle_idGrupo}"/>
-                        <h:outputText value="#{bundle2.ViewGrupoLabel_nmGrupo}"/>
-                        <h:outputText value="#{grupoController.selected.nmGrupo}" title="#{bundle2.ViewGrupoTitle_nmGrupo}"/>
-                        <h:outputText value="#{bundle2.ViewGrupoLabel_inAtivo}"/>
+                        <h:outputText value="#{bundle.ViewGrupoLabel_idGrupo}"/>
+                        <h:outputText value="#{grupoController.selected.idGrupo}" title="#{bundle.ViewGrupoTitle_idGrupo}"/>
+                        <h:outputText value="#{bundle.ViewGrupoLabel_nmGrupo}"/>
+                        <h:outputText value="#{grupoController.selected.nmGrupo}" title="#{bundle.ViewGrupoTitle_nmGrupo}"/>
+                        <h:outputText value="#{bundle.ViewGrupoLabel_inAtivo}"/>
                         <p:selectBooleanCheckbox value="#{grupoController.selected.inAtivo}" disabled="true"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle2.Close}" onclick="PF('GrupoViewDialog').hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('GrupoViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

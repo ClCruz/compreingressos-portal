@@ -32,6 +32,7 @@ public class TipoLocalFacade extends AbstractFacade<TipoLocal> {
 		super(TipoLocal.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<TipoLocal> findAll(){
 		return getEntityManager().createNamedQuery("TipoLocal.findAll").getResultList();

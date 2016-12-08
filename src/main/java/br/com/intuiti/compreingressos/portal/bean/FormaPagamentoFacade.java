@@ -33,6 +33,7 @@ public class FormaPagamentoFacade extends AbstractFacade<FormaPagamento> {
 		super(FormaPagamento.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<FormaPagamento> findAll(){
 		return getEntityManager().createNamedQuery("FormaPagamento.findAll").getResultList();

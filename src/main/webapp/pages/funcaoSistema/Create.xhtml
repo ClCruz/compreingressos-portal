@@ -8,18 +8,18 @@
 
     <ui:composition>
 
-        <p:dialog id="FuncaoSistemaCreateDlg" widgetVar="FuncaoSistemaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.CreateFuncaoSistemaTitle}">
+        <p:dialog id="FuncaoSistemaCreateDlg" widgetVar="FuncaoSistemaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFuncaoSistemaTitle}">
             <h:form id="FuncaoSistemaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{funcaoSistemaController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateFuncaoSistemaLabel_idFuncaoSistema}" for="idFuncaoSistema" />
-                        <p:inputText id="idFuncaoSistema" value="#{funcaoSistemaController.selected.idFuncaoSistema}" title="#{bundle3.CreateFuncaoSistemaTitle_idFuncaoSistema}" required="true" requiredMessage="#{bundle3.CreateFuncaoSistemaRequiredMessage_idFuncaoSistema}"/>
+                        <p:inputText id="idFuncaoSistema" value="#{funcaoSistemaController.selected.idFuncaoSistema}" title="#{bundle.CreateFuncaoSistemaTitle_idFuncaoSistema}" required="true" requiredMessage="#{bundle.CreateFuncaoSistemaRequiredMessage_idFuncaoSistema}"/>
                         <p:outputLabel value="#{bundle.CreateFuncaoSistemaLabel_dsPrograma}" for="dsPrograma" />
-                        <p:inputText id="dsPrograma" value="#{funcaoSistemaController.selected.dsPrograma}" title="#{bundle3.CreateFuncaoSistemaTitle_dsPrograma}" />
+                        <p:inputText id="dsPrograma" value="#{funcaoSistemaController.selected.dsPrograma}" title="#{bundle.CreateFuncaoSistemaTitle_dsPrograma}" />
                         <p:outputLabel value="#{bundle.CreateFuncaoSistemaLabel_dsUrl}" for="dsUrl" />
-                        <p:inputText id="dsUrl" value="#{funcaoSistemaController.selected.dsUrl}" title="#{bundle3.CreateFuncaoSistemaTitle_dsUrl}" />
+                        <p:inputText id="dsUrl" value="#{funcaoSistemaController.selected.dsUrl}" title="#{bundle.CreateFuncaoSistemaTitle_dsUrl}" />
                         <p:outputLabel value="#{bundle.CreateFuncaoSistemaLabel_idOrdemExibicao}" for="idOrdemExibicao" />
-                        <p:inputText id="idOrdemExibicao" value="#{funcaoSistemaController.selected.idOrdemExibicao}" title="#{bundle3.CreateFuncaoSistemaTitle_idOrdemExibicao}" />
+                        <p:inputText id="idOrdemExibicao" value="#{funcaoSistemaController.selected.idOrdemExibicao}" title="#{bundle.CreateFuncaoSistemaTitle_idOrdemExibicao}" />
                         <p:outputLabel value="#{bundle.CreateFuncaoSistemaLabel_idParent}" for="idParent" />
                         <p:selectOneMenu id="idParent" value="#{funcaoSistemaController.selected.idParent}" title="{bundle.CreateFuncaoSistemaTitle_idParent}" >
         					<f:selectItem itemLabel="Nenhum" />
@@ -29,10 +29,10 @@
                                            />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateFuncaoSistemaLabel_dsIcone}" for="dsIcone" />
-                        <p:inputText id="dsIcone" value="#{funcaoSistemaController.selected.dsIcone}" title="#{bundle3.CreateFuncaoSistemaTitle_dsIcone}" />
+                        <p:inputText id="dsIcone" value="#{funcaoSistemaController.selected.dsIcone}" title="#{bundle.CreateFuncaoSistemaTitle_dsIcone}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{funcaoSistemaController.create}" value="#{bundle3.Save}" update="display,:FuncaoSistemaListForm:datalist,:growl" oncomplete="handleSubmit(args,'FuncaoSistemaCreateDialog');"/>
-                    <p:commandButton value="#{bundle3.Cancel}" onclick="PF('FuncaoSistemaCreateDialog').hide()"/>
+                    <p:commandButton actionListener="#{funcaoSistemaController.create}" value="#{bundle.Save}" update="display,:FuncaoSistemaListForm:datalist,:growl" oncomplete="handleSubmit(args,'FuncaoSistemaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('FuncaoSistemaCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

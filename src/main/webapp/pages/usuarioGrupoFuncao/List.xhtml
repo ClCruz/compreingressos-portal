@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle3.ListUsuarioGrupoFuncaoTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListUsuarioGrupoFuncaoTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="UsuarioGrupoFuncaoListForm">
-                <p:panel header="#{bundle3.ListUsuarioGrupoFuncaoTitle}">
+                <p:panel header="#{bundle.ListUsuarioGrupoFuncaoTitle}">
                     <p:dataTable id="datalist" value="#{usuarioGrupoFuncaoController.items}" var="item"
                                  selectionMode="single" selection="#{usuarioGrupoFuncaoController.selected}"
                                  paginator="true"
@@ -29,27 +29,27 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle3.ListUsuarioGrupoFuncaoTitle_idUsuarioGrupoFuncao}"/>
+                                <h:outputText value="#{bundle.ListUsuarioGrupoFuncaoTitle_idUsuarioGrupoFuncao}"/>
                             </f:facet>
                             <h:outputText value="#{item.idUsuarioGrupoFuncao}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle3.ListUsuarioGrupoFuncaoTitle_idGrupoFuncao}"/>
+                                <h:outputText value="#{bundle.ListUsuarioGrupoFuncaoTitle_idGrupoFuncao}"/>
                             </f:facet>
                             <h:outputText value="#{item.idGrupoFuncao}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle3.ListUsuarioGrupoFuncaoTitle_idUsuario}"/>
+                                <h:outputText value="#{bundle.ListUsuarioGrupoFuncaoTitle_idUsuario}"/>
                             </f:facet>
                             <h:outputText value="#{item.idUsuario}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle3.Create}" actionListener="#{usuarioGrupoFuncaoController.prepareCreate}" update=":UsuarioGrupoFuncaoCreateForm" oncomplete="PF('UsuarioGrupoFuncaoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle3.View}" update=":UsuarioGrupoFuncaoViewForm" oncomplete="PF('UsuarioGrupoFuncaoViewDialog').show()" disabled="#{empty usuarioGrupoFuncaoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle3.Edit}" update=":UsuarioGrupoFuncaoEditForm" oncomplete="PF('UsuarioGrupoFuncaoEditDialog').show()" disabled="#{empty usuarioGrupoFuncaoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle3.Delete}" actionListener="#{usuarioGrupoFuncaoController.destroy}" update=":growl,datalist" disabled="#{empty usuarioGrupoFuncaoController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioGrupoFuncaoController.prepareCreate}" update=":UsuarioGrupoFuncaoCreateForm" oncomplete="PF('UsuarioGrupoFuncaoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioGrupoFuncaoViewForm" oncomplete="PF('UsuarioGrupoFuncaoViewDialog').show()" disabled="#{empty usuarioGrupoFuncaoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioGrupoFuncaoEditForm" oncomplete="PF('UsuarioGrupoFuncaoEditDialog').show()" disabled="#{empty usuarioGrupoFuncaoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioGrupoFuncaoController.destroy}" update=":growl,datalist" disabled="#{empty usuarioGrupoFuncaoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

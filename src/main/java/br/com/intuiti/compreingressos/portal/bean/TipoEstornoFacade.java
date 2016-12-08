@@ -32,7 +32,8 @@ public class TipoEstornoFacade extends AbstractFacade<TipoEstorno> {
         super(TipoEstorno.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<TipoEstorno> findAll(){
     	return getEntityManager().createNamedQuery("TipoEstorno.findAll").getResultList();
     }

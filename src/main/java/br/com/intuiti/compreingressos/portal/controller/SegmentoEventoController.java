@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,6 @@ public class SegmentoEventoController implements Serializable {
     private LazyDataModel<SegmentoEvento> items = null;
     private SegmentoEvento selected;
     private Usuario usuario;
-    private final Map<String, Object> filtros = new HashMap<>();
 
     public SegmentoEventoController() {
     }
@@ -252,6 +250,7 @@ public class SegmentoEventoController implements Serializable {
     		this.sortOrder = sortOrder;
     	}
     	
+    	@SuppressWarnings({ "unchecked", "rawtypes" })
     	public int compare(SegmentoEvento object1, SegmentoEvento  object2){
     		try {
     			Field field1 = object1.getClass().getDeclaredField(this.sortField);

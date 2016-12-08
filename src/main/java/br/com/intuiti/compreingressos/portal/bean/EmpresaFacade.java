@@ -32,7 +32,8 @@ public class EmpresaFacade extends AbstractFacade<Empresa> {
         super(Empresa.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Empresa> findAll(){
     	return getEntityManager().createNamedQuery("Empresa.findAll").getResultList();
     }

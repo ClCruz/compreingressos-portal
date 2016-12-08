@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle2.ListGrupoTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListGrupoTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="GrupoListForm">
-                <p:panel header="#{bundle2.ListGrupoTitle}">
+                <p:panel header="#{bundle.ListGrupoTitle}">
                     <p:dataTable id="datalist" value="#{grupoController.items}" var="item"
                                  selectionMode="single" selection="#{grupoController.selected}"
                                  paginator="true"
@@ -29,27 +29,27 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle2.ListGrupoTitle_idGrupo}"/>
+                                <h:outputText value="#{bundle.ListGrupoTitle_idGrupo}"/>
                             </f:facet>
                             <h:outputText value="#{item.idGrupo}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle2.ListGrupoTitle_nmGrupo}"/>
+                                <h:outputText value="#{bundle.ListGrupoTitle_nmGrupo}"/>
                             </f:facet>
                             <h:outputText value="#{item.nmGrupo}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle2.ListGrupoTitle_inAtivo}"/>
+                                <h:outputText value="#{bundle.ListGrupoTitle_inAtivo}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.inAtivo}" disabled="true"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle2.Create}" actionListener="#{grupoController.prepareCreate}" update=":GrupoCreateForm" oncomplete="PF('GrupoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle2.View}" update=":GrupoViewForm" oncomplete="PF('GrupoViewDialog').show()" disabled="#{empty grupoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle2.Edit}" update=":GrupoEditForm" oncomplete="PF('GrupoEditDialog').show()" disabled="#{empty grupoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle2.Delete}" actionListener="#{grupoController.destroy}" update=":growl,datalist" disabled="#{empty grupoController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{grupoController.prepareCreate}" update=":GrupoCreateForm" oncomplete="PF('GrupoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GrupoViewForm" oncomplete="PF('GrupoViewDialog').show()" disabled="#{empty grupoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GrupoEditForm" oncomplete="PF('GrupoEditDialog').show()" disabled="#{empty grupoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{grupoController.destroy}" update=":growl,datalist" disabled="#{empty grupoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

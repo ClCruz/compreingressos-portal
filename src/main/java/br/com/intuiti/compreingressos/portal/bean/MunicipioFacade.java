@@ -33,7 +33,8 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
         super(Municipio.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Municipio> findAll(){
     	return getEntityManager().createNamedQuery("Municipio.findAll").getResultList();
     }

@@ -34,7 +34,8 @@ public class ContratanteFacade extends AbstractFacade<Contratante> {
         super(Contratante.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Contratante> findAll(){
     	return getEntityManager().createNamedQuery("Contratante.findAll").getResultList();
     }

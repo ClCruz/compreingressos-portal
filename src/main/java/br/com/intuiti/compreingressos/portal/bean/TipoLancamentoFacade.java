@@ -32,7 +32,8 @@ public class TipoLancamentoFacade extends AbstractFacade<TipoLancamento> {
         super(TipoLancamento.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<TipoLancamento> findAll(){
     	return getEntityManager().createNamedQuery("TipoLancamento.findAll").getResultList();
     }

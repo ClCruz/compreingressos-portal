@@ -8,27 +8,27 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioGrupoCreateDlg" widgetVar="UsuarioGrupoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.CreateUsuarioGrupoTitle}">
+        <p:dialog id="UsuarioGrupoCreateDlg" widgetVar="UsuarioGrupoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioGrupoTitle}">
             <h:form id="UsuarioGrupoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioGrupoController.selected != null}">
-                        <p:outputLabel value="#{bundle2.CreateUsuarioGrupoLabel_idUsuarioGrupo}" for="idUsuarioGrupo" />
-                        <p:inputText id="idUsuarioGrupo" value="#{usuarioGrupoController.selected.idUsuarioGrupo}" title="#{bundle2.CreateUsuarioGrupoTitle_idUsuarioGrupo}" required="true" requiredMessage="#{bundle2.CreateUsuarioGrupoRequiredMessage_idUsuarioGrupo}"/>
-                        <p:outputLabel value="#{bundle2.CreateUsuarioGrupoLabel_idGrupo}" for="idGrupo" />
-                        <p:selectOneMenu id="idGrupo" value="#{usuarioGrupoController.selected.idGrupo}" required="true" requiredMessage="#{bundle2.EditUsuarioGrupoRequiredMessage_idGrupo}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioGrupoLabel_idUsuarioGrupo}" for="idUsuarioGrupo" />
+                        <p:inputText id="idUsuarioGrupo" value="#{usuarioGrupoController.selected.idUsuarioGrupo}" title="#{bundle.CreateUsuarioGrupoTitle_idUsuarioGrupo}" required="true" requiredMessage="#{bundle.CreateUsuarioGrupoRequiredMessage_idUsuarioGrupo}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioGrupoLabel_idGrupo}" for="idGrupo" />
+                        <p:selectOneMenu id="idGrupo" value="#{usuarioGrupoController.selected.idGrupo}" required="true" requiredMessage="#{bundle.EditUsuarioGrupoRequiredMessage_idGrupo}">
                             <f:selectItems value="#{grupoController.itemsAvailableSelectOne}"
                                            var="idGrupoItem"
                                            itemValue="#{idGrupoItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle2.CreateUsuarioGrupoLabel_idUsuario}" for="idUsuario" />
-                        <p:selectOneMenu id="idUsuario" value="#{usuarioGrupoController.selected.idUsuario}" required="true" requiredMessage="#{bundle2.EditUsuarioGrupoRequiredMessage_idUsuario}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioGrupoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{usuarioGrupoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioGrupoRequiredMessage_idUsuario}">
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioGrupoController.create}" value="#{bundle2.Save}" update="display,:UsuarioGrupoListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioGrupoCreateDialog');"/>
-                    <p:commandButton value="#{bundle2.Cancel}" onclick="PF('UsuarioGrupoCreateDialog').hide()"/>
+                    <p:commandButton actionListener="#{usuarioGrupoController.create}" value="#{bundle.Save}" update="display,:UsuarioGrupoListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioGrupoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioGrupoCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

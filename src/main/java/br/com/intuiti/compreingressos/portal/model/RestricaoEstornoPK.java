@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class RestricaoEstornoPK implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "id_tipo_estorno")
@@ -23,7 +24,7 @@ public class RestricaoEstornoPK implements Serializable {
 		
 	}
 	
-	public RestricaoEstornoPK(int tipoEstorno, int tipoLancamento){
+	public RestricaoEstornoPK(int idTipoEstorno, int idTipoLancamento){
 		this.idTipoEstorno = idTipoEstorno;
 		this.idTipoLancamento = idTipoLancamento;
 	}

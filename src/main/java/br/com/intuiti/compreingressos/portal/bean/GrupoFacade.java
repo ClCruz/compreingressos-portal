@@ -32,7 +32,8 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
         super(Grupo.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Grupo> findAll(){
     	return getEntityManager().createNamedQuery("Grupo.findAll").getResultList();
     }

@@ -32,7 +32,8 @@ public class VendedorFacade extends AbstractFacade<Vendedor> {
         super(Vendedor.class);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Vendedor> findAll(){
     	return getEntityManager().createNamedQuery("Vendedor.findAll").getResultList();
     }
