@@ -1,17 +1,22 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -20,8 +25,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -44,6 +47,11 @@ public class TipoLancamentoController implements Serializable {
     private boolean editavel = true;
 
     public TipoLancamentoController() {
+    }
+    
+    @PostConstruct
+    public void init() {
+    	items = new Lazy(getFacade().findAll());
     }
 
     public TipoLancamento getSelected() {
@@ -96,7 +104,7 @@ public class TipoLancamentoController implements Serializable {
 
     public LazyDataModel<TipoLancamento> getItems() {
         if (items == null) {
-            items = new TipoLancamentoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
+            items = new Lazy(getFacade().findAll());
         }
         return items;
     }
@@ -160,45 +168,112 @@ public class TipoLancamentoController implements Serializable {
         return getFacade().findAtivo();
     }
     
-    public class TipoLancamentoLazy extends LazyDataModel<TipoLancamento> {
-    	
+    public class Lazy extends LazyDataModel<TipoLancamento> {
+
     	private static final long serialVersionUID = 1L;
-        private List<TipoLancamento> objList = null;
 
-        public TipoLancamentoLazy(List<TipoLancamento> objList) {
-            this.objList = objList;
-        }
-        
-        @Override
-        public List<TipoLancamento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        	objList = new ArrayList<>();
-            try {
-                Context ctx = new javax.naming.InitialContext();
-                TipoLancamentoFacade objFacade = (TipoLancamentoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/TipoLancamentoFacade!br.com.intuiti.compreingressos.portal.bean.TipoLancamentoFacade");
-                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
-                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
-                setPageSize(pageSize);
-            } catch (NamingException ex) {
-                System.out.println(ex);
-            }
-            return objList;
-        }
+    	private List<TipoLancamento> tipoLancamento = null;
 
-        @Override
-        public TipoLancamento getRowData(String rowKey) {
-            Integer id = Integer.valueOf(rowKey);
-            for (TipoLancamento obj : objList) {
-                if (id.equals(obj.getIdTipoLancamento())) {
-                    return obj;
-                }
-            }
-            return null;
-        }
+    	public Lazy(List<TipoLancamento> tipoLancamento) {
+    		this.tipoLancamento = tipoLancamento;
+    	}
 
-        @Override
-        public Object getRowKey(TipoLancamento ob) {
-            return ob.getIdTipoLancamento();
-        }
+    	@Override
+    	public List<TipoLancamento> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+    			Map<String, Object> filters) {
+    		List<TipoLancamento> data = new ArrayList<TipoLancamento>();
+    		for(TipoLancamento tl : tipoLancamento){
+    			
+    			boolean match = true;
+    			if(filters != null){
+    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
+    					try{
+    						String filterProperty = it.next();
+    						Object filterValue = filters.get(filterProperty);
+    						Field field = tl.getClass().getDeclaredField(filterProperty);
+    						field.setAccessible(true);
+    						String fieldValue = String.valueOf(field.get(tl));
+    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+    							match = true;
+    						} else {
+    							match = false;
+    							break;
+    						}
+    					} catch (Exception e) {
+    						e.printStackTrace();
+    						match = false;
+    					}
+    				}
+    			}
+    			
+    			if(match){
+    				data.add(tl);
+    			}
+    		}
+    		
+    		//sort
+    		if(sortField != null) {
+    			Collections.sort(data, new LazySorter(sortField, sortOrder));
+    		}
+    		
+    		//rowCount
+    		int dataSize = data.size();
+    		this.setRowCount(dataSize);
+    		
+    		//paginate
+    		if(dataSize > pageSize){
+    			try{
+    				return data.subList(first, first + pageSize);
+    			} catch (IndexOutOfBoundsException e) {
+    				return data.subList(first, first + (dataSize % pageSize));
+    			}
+    		} else {
+    			return data;
+    		}
+    	}
+    	
+    	@Override
+    	public Object getRowKey(TipoLancamento object) {
+    		return object.getIdTipoLancamento();
+    	}
+    	
+    	@Override
+    	public TipoLancamento getRowData(String rowKey) {
+    		Integer id = Integer.valueOf(rowKey);
+    		for(TipoLancamento t : tipoLancamento){
+    			if(id.equals(t.getIdTipoLancamento())){
+    				return t;
+    			}
+    		}
+    		return null;
+    	}
+    }
+    
+    public class LazySorter implements Comparator<TipoLancamento> {
+    	private String sortField;
+    	private SortOrder sortOrder;
+    	
+    	public LazySorter(String sortField, SortOrder sortOrder){
+    		this.sortField = sortField;
+    		this.sortOrder = sortOrder;
+    	}
+    	
+    	public int compare(TipoLancamento object1, TipoLancamento object2){
+    		try {
+    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
+    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
+    			field1.setAccessible(true);
+    			field2.setAccessible(true);
+    			Object value1 = field1.get(object1);
+    			Object value2 = field2.get(object2);
+    			
+    			int value = ((Comparable)value1).compareTo(value2);
+    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+    		}
+    		catch(Exception e) {
+    			throw new RuntimeException();
+    		}
+    	}
     }
 
     @FacesConverter(forClass = TipoLancamento.class)

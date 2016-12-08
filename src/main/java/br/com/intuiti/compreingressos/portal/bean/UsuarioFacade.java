@@ -26,6 +26,11 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
+    
+    @Override
+    public List<Usuario> findAll(){
+    	return getEntityManager().createNamedQuery("Usuario.findAll").getResultList();
+    }
 
     public Usuario findUsuario(String userName) {
         try {

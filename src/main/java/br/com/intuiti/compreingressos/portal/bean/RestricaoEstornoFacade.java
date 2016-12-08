@@ -20,5 +20,5 @@ public class RestricaoEstornoFacade extends AbstractFacade<RestricaoEstorno> {
     public RestricaoEstornoFacade() {
     	super(RestricaoEstorno.class);
     }
-
+    
 }

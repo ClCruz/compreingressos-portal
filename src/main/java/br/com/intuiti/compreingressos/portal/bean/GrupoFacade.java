@@ -6,6 +6,9 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
 import br.com.intuiti.compreingressos.portal.model.Grupo;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +30,11 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
 
     public GrupoFacade() {
         super(Grupo.class);
+    }
+    
+    @Override
+    public List<Grupo> findAll(){
+    	return getEntityManager().createNamedQuery("Grupo.findAll").getResultList();
     }
     
 }

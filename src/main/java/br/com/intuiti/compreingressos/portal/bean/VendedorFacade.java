@@ -32,6 +32,11 @@ public class VendedorFacade extends AbstractFacade<Vendedor> {
         super(Vendedor.class);
     }
     
+    @Override
+    public List<Vendedor> findAll(){
+    	return getEntityManager().createNamedQuery("Vendedor.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public boolean findDsVendedor(String nome){
     	List<Vendedor> lista = getEntityManager().createNamedQuery("Vendedor.findByDsVendedor").setParameter("dsVendedor", nome).getResultList();

@@ -1,14 +1,19 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -17,8 +22,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.LazyDataModel;
@@ -46,6 +49,11 @@ public class GeneroEventoController implements Serializable {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		usuario = (Usuario) session.getAttribute("usuario");
+	}
+	
+	@PostConstruct
+	public void initi() {
+		items = new Lazy(getFacade().findAll());
 	}
 
 	public GeneroEvento getSelected() {
@@ -96,7 +104,7 @@ public class GeneroEventoController implements Serializable {
 
 	public LazyDataModel<GeneroEvento> getItems() {
 		if (items == null) {
-			items = new GeneroEventoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
+			items = new Lazy(getFacade().findAll());
 		}
 		return items;
 	}
@@ -161,45 +169,112 @@ public class GeneroEventoController implements Serializable {
 		return getFacade().findAll();
 	}
 	
-    public class GeneroEventoLazy extends LazyDataModel<GeneroEvento> {
-    	
+	public class Lazy extends LazyDataModel<GeneroEvento> {
+
     	private static final long serialVersionUID = 1L;
-        private List<GeneroEvento> objList = null;
 
-        public GeneroEventoLazy(List<GeneroEvento> objList) {
-            this.objList = objList;
-        }
-        
-        @Override
-        public List<GeneroEvento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        	objList = new ArrayList<>();
-            try {
-                Context ctx = new javax.naming.InitialContext();
-                GeneroEventoFacade objFacade = (GeneroEventoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/GeneroEventoFacade!br.com.intuiti.compreingressos.portal.bean.GeneroEventoFacade");
-                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
-                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
-                setPageSize(pageSize);
-            } catch (NamingException ex) {
-                System.out.println(ex);
-            }
-            return objList;
-        }
+    	private List<GeneroEvento> generoEvento = null;
 
-        @Override
-        public GeneroEvento getRowData(String rowKey) {
-            Integer id = Integer.valueOf(rowKey);
-            for (GeneroEvento obj : objList) {
-                if (id.equals(obj.getIdGeneroEvento())) {
-                    return obj;
-                }
-            }
-            return null;
-        }
+    	public Lazy(List<GeneroEvento> generoEvento) {
+    		this.generoEvento = generoEvento;
+    	}
 
-        @Override
-        public Object getRowKey(GeneroEvento ob) {
-            return ob.getIdGeneroEvento();
-        }
+    	@Override
+    	public List<GeneroEvento> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+    			Map<String, Object> filters) {
+    		List<GeneroEvento> data = new ArrayList<GeneroEvento>();
+    		for(GeneroEvento ge : generoEvento){
+    			
+    			boolean match = true;
+    			if(filters != null){
+    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
+    					try{
+    						String filterProperty = it.next();
+    						Object filterValue = filters.get(filterProperty);
+    						Field field = ge.getClass().getDeclaredField(filterProperty);
+    						field.setAccessible(true);
+    						String fieldValue = String.valueOf(field.get(ge));
+    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+    							match = true;
+    						} else {
+    							match = false;
+    							break;
+    						}
+    					} catch (Exception e) {
+    						e.printStackTrace();
+    						match = false;
+    					}
+    				}
+    			}
+    			
+    			if(match){
+    				data.add(ge);
+    			}
+    		}
+    		
+    		//sort
+    		if(sortField != null) {
+    			Collections.sort(data, new LazySorter(sortField, sortOrder));
+    		}
+    		
+    		//rowCount
+    		int dataSize = data.size();
+    		this.setRowCount(dataSize);
+    		
+    		//paginate
+    		if(dataSize > pageSize){
+    			try{
+    				return data.subList(first, first + pageSize);
+    			} catch (IndexOutOfBoundsException e) {
+    				return data.subList(first, first + (dataSize % pageSize));
+    			}
+    		} else {
+    			return data;
+    		}
+    	}
+    	
+    	@Override
+    	public Object getRowKey(GeneroEvento object) {
+    		return object.getIdGeneroEvento();
+    	}
+    	
+    	@Override
+    	public GeneroEvento getRowData(String rowKey) {
+    		Integer id = Integer.valueOf(rowKey);
+    		for(GeneroEvento g : generoEvento){
+    			if(id.equals(g.getIdGeneroEvento())){
+    				return g;
+    			}
+    		}
+    		return null;
+    	}
+    }
+    
+    public class LazySorter implements Comparator<GeneroEvento> {
+    	private String sortField;
+    	private SortOrder sortOrder;
+    	
+    	public LazySorter(String sortField, SortOrder sortOrder){
+    		this.sortField = sortField;
+    		this.sortOrder = sortOrder;
+    	}
+    	
+    	public int compare(GeneroEvento object1, GeneroEvento  object2){
+    		try {
+    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
+    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
+    			field1.setAccessible(true);
+    			field2.setAccessible(true);
+    			Object value1 = field1.get(object1);
+    			Object value2 = field2.get(object2);
+    			
+    			int value = ((Comparable)value1).compareTo(value2);
+    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+    		}
+    		catch(Exception e) {
+    			throw new RuntimeException();
+    		}
+    	}
     }
 
 	@FacesConverter(forClass = GeneroEvento.class)

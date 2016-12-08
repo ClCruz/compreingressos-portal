@@ -35,7 +35,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Table(name = "mw_grupo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g"),
+    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g ORDER BY g.nmGrupo"),
     @NamedQuery(name = "Grupo.findByIdGrupo", query = "SELECT g FROM Grupo g WHERE g.idGrupo = :idGrupo"),
     @NamedQuery(name = "Grupo.findByNmGrupo", query = "SELECT g FROM Grupo g WHERE g.nmGrupo = :nmGrupo"),
     @NamedQuery(name = "Grupo.findByInAtivo", query = "SELECT g FROM Grupo g WHERE g.inAtivo = :inAtivo")})

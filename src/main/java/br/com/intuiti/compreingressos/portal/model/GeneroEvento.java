@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "mw_genero_evento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "GeneroEvento.findAll", query = "SELECT g FROM GeneroEvento g"),
+    @NamedQuery(name = "GeneroEvento.findAll", query = "SELECT g FROM GeneroEvento g ORDER BY g.dsGeneroEvento"),
     @NamedQuery(name = "GeneroEvento.findDsSg", query = "SELECT g FROM GeneroEvento g WHERE g.dsGeneroEvento = :dsGeneroEvento AND g.idSegmentoEvento = :idSegmentoEvento"),
     @NamedQuery(name = "GeneroEvento.findDsSgId", query = "SELECT g FROM GeneroEvento g WHERE g.dsGeneroEvento = :dsGeneroEvento AND g.idSegmentoEvento = :idSegmentoEvento AND g.idGeneroEvento <> :idGeneroEvento"),
     @NamedQuery(name = "GeneroEvento.findByIdGeneroEvento", query = "SELECT g FROM GeneroEvento g WHERE g.idGeneroEvento = :idGeneroEvento"),

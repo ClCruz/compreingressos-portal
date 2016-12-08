@@ -6,6 +6,9 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
 import br.com.intuiti.compreingressos.portal.model.PrazoPagamento;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +30,11 @@ public class PrazoPagamentoFacade extends AbstractFacade<PrazoPagamento> {
 
     public PrazoPagamentoFacade() {
         super(PrazoPagamento.class);
+    }
+ 
+    @Override
+    public List<PrazoPagamento> findAll(){
+    	return getEntityManager().createNamedQuery("PrazoPagamento.findAll").getResultList();
     }
     
 }

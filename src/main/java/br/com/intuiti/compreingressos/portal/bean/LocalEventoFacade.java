@@ -34,6 +34,11 @@ public class LocalEventoFacade extends AbstractFacade<LocalEvento> {
         super(LocalEvento.class);
     }
     
+    @Override
+    public List<LocalEvento> findAll(){
+    	return getEntityManager().createNamedQuery("LocalEvento.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
     public List<Municipio> findAll(Estado estado){
     	return getEntityManager().createNamedQuery("LocalEvento.findAllMunicipio").setParameter("idEstado", estado).getResultList();
@@ -43,4 +48,9 @@ public class LocalEventoFacade extends AbstractFacade<LocalEvento> {
 	public List<LocalEvento> findAllOrderByDs(){
         return getEntityManager().createNamedQuery("LocalEvento.findAllOrderBy").setParameter("inAtivo", true).getResultList();
     }
+    
+    public void remove(LocalEvento localEvento){
+    	getEntityManager().createNamedQuery("delete FROM mw_local_evento WHERE id_local_evento = " + localEvento.getIdLocalEvento()).executeUpdate();
+    }
+    
 }

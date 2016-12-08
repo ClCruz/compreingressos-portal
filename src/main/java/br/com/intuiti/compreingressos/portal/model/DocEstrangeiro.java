@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "mw_doc_estrangeiro")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "DocEstrangeiro.findAll", query = "SELECT d FROM DocEstrangeiro d"),
+    @NamedQuery(name = "DocEstrangeiro.findAll", query = "SELECT d FROM DocEstrangeiro d ORDER BY d.dsDocEstrangeiro"),
     @NamedQuery(name = "DocEstrangeiro.findByIdDocEstrangeiro", query = "SELECT d FROM DocEstrangeiro d WHERE d.idDocEstrangeiro = :idDocEstrangeiro"),
     @NamedQuery(name = "DocEstrangeiro.findByDsDocEstrangeiro", query = "SELECT d FROM DocEstrangeiro d WHERE d.dsDocEstrangeiro = :dsDocEstrangeiro")})
 public class DocEstrangeiro implements Serializable {

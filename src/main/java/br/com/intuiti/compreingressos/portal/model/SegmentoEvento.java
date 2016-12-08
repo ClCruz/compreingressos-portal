@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "mw_segmento_evento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SegmentoEvento.findAll", query = "SELECT s FROM SegmentoEvento s"),
+    @NamedQuery(name = "SegmentoEvento.findAll", query = "SELECT s FROM SegmentoEvento s ORDER BY s.dsSegmentoEvento"),
     @NamedQuery(name = "SegmentoEvento.findByIdSegmentoEvento", query = "SELECT s FROM SegmentoEvento s WHERE s.idSegmentoEvento = :idSegmentoEvento"),
     @NamedQuery(name = "SegmentoEvento.findByDsSegmentoEvento", query = "SELECT s FROM SegmentoEvento s WHERE s.dsSegmentoEvento = :dsSegmentoEvento"),
     @NamedQuery(name = "SegmentoEvento.findByDsSegmentoEventoId", query = "SELECT s FROM SegmentoEvento s WHERE s.dsSegmentoEvento = :dsSegmentoEvento AND s.idSegmentoEvento <> :idSegmentoEvento"),

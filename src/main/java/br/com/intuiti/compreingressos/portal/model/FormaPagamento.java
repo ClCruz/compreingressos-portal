@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "mw_forma_pagamento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "FormaPagamento.findAll", query = "SELECT f FROM FormaPagamento f"),
+    @NamedQuery(name = "FormaPagamento.findAll", query = "SELECT f FROM FormaPagamento f ORDER BY f.dsFormaPagamento"),
     @NamedQuery(name = "FormaPagamento.findByIdFormaPagamento", query = "SELECT f FROM FormaPagamento f WHERE f.idFormaPagamento = :idFormaPagamento"),
     @NamedQuery(name = "FormaPagamento.findByDsFormaPagamento", query = "SELECT f FROM FormaPagamento f WHERE f.dsFormaPagamento = :dsFormaPagamento"),
     @NamedQuery(name = "FormaPagamento.findByDsMp", query = "SELECT f FROM FormaPagamento f WHERE f.dsFormaPagamento = :dsFormaPagamento AND f.inTipoMeioPagamento = :inTipoMeioPagamento"),

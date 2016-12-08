@@ -1,15 +1,19 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.TipoMeioPagamento;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.TipoMeioPagamentoFacade;
-
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -19,6 +23,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+import br.com.intuiti.compreingressos.portal.bean.TipoMeioPagamentoFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.TipoMeioPagamento;
+
 @ManagedBean(name = "tipoMeioPagamentoController")
 @ViewScoped
 public class TipoMeioPagamentoController implements Serializable {
@@ -26,10 +38,16 @@ public class TipoMeioPagamentoController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private br.com.intuiti.compreingressos.portal.bean.TipoMeioPagamentoFacade ejbFacade;
-    private List<TipoMeioPagamento> items = null;
+    private LazyDataModel<TipoMeioPagamento> items = null;
     private TipoMeioPagamento selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public TipoMeioPagamentoController() {
+    }
+    
+    @PostConstruct
+    public void init() {
+    	items = new Lazy(getFacade().findAll());
     }
 
     public TipoMeioPagamento getSelected() {
@@ -78,13 +96,6 @@ public class TipoMeioPagamentoController implements Serializable {
         }
     }
 
-    public List<TipoMeioPagamento> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        return items;
-    }
-    
     public boolean verificaMP(String inTipoMeioPagamento, String dsTipoMeioPagamento){
     	if(getFacade().findTipoMeio(inTipoMeioPagamento, dsTipoMeioPagamento)){
     		return true;
@@ -94,6 +105,13 @@ public class TipoMeioPagamentoController implements Serializable {
     	}
     }
 
+    public LazyDataModel<TipoMeioPagamento> getItems() {
+        if (items == null) {
+            items = new Lazy(getFacade().findAll());
+        }
+        return items;
+    }
+    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -141,6 +159,113 @@ public class TipoMeioPagamentoController implements Serializable {
         return getFacade().findAll();
     }
 
+   public class Lazy extends LazyDataModel<TipoMeioPagamento> {
+	   
+	   private static final long serialVersionUID = 1L;
+	   
+	   private List<TipoMeioPagamento> tipoMeioPagamento = null;
+	   
+	   public Lazy(List<TipoMeioPagamento> tipoMeioPagamento) {
+		   this.tipoMeioPagamento = tipoMeioPagamento;
+	   }
+	   
+	   @Override
+	   public List<TipoMeioPagamento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters){
+		   List<TipoMeioPagamento> data = new ArrayList<TipoMeioPagamento>();
+		   for(TipoMeioPagamento tmp : tipoMeioPagamento){
+			   
+			   boolean match = true;
+			   if(filters != null){
+				   for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
+					   try{
+						   String filterProperty = it.next();
+						   Object filterValue = filters.get(filterProperty);
+						   Field field = tmp.getClass().getDeclaredField(filterProperty);
+						   field.setAccessible(true);
+						   String fieldValue = String.valueOf(field.get(tmp));
+						   if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+							   match = true;
+						   } else {
+							   match = false;
+							   break;
+						   }
+					   } catch (Exception e) {
+						   e.printStackTrace();
+						   match = false;
+					   }
+				   }
+			   }
+			   
+			   if(match){
+				   data.add(tmp);
+			   }
+		   }
+		   
+		   //sort
+		   if(sortField != null) {
+			   Collections.sort(data, new LazySorter(sortField, sortOrder));
+		   }
+		   
+		   //rowCount
+		   int dataSize = data.size();
+		   this.setRowCount(dataSize);
+		   
+		   //paginate
+		   if(dataSize > pageSize){
+			   try{
+				   return data.subList(first, first + pageSize);
+			   } catch (IndexOutOfBoundsException e) {
+				   return data.subList(first, first + (dataSize % pageSize));
+			   }
+		   } else {
+			   return data;
+		   }
+	   }
+	   
+	   @Override
+	   public Object getRowKey(TipoMeioPagamento object) {
+		   return object.getInTipoMeioPagamento();
+	   }
+	   
+	   @Override
+	   public TipoMeioPagamento getRowData(String rowKey){
+		   String id = String.valueOf(rowKey);
+		   for(TipoMeioPagamento t : tipoMeioPagamento){
+			   if(id.equals(t.getInTipoMeioPagamento())){
+				   return t;
+			   }
+		   }
+		   return null;
+	   }
+   }
+   
+   public class LazySorter implements Comparator<TipoMeioPagamento> {
+	   private String sortField;
+	   private SortOrder sortOrder;
+	   
+	   public LazySorter(String sortField, SortOrder sortOrder){
+		   this.sortField = sortField;
+		   this.sortOrder = sortOrder;
+	   }
+   
+    
+   public int compare(TipoMeioPagamento object1, TipoMeioPagamento object2){
+	   try{
+		   Field field1 = object1.getClass().getDeclaredField(this.sortField);
+		   Field field2 = object2.getClass().getDeclaredField(this.sortField);
+		   field1.setAccessible(true);
+		   field2.setAccessible(true);
+		   Object value1 = field1.get(object1);
+		   Object value2 = field2.get(object2);
+		   
+		   int value = ((Comparable)value1).compareTo(value2);
+		   return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+	   }
+	   catch(Exception e) {
+		   throw new RuntimeException();
+	   }
+   }
+ }
     @FacesConverter(forClass = TipoMeioPagamento.class)
     public static class TipoMeioPagamentoControllerConverter implements Converter {
 

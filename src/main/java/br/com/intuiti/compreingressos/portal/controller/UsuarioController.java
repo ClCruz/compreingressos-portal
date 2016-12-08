@@ -1,14 +1,19 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -17,8 +22,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -41,6 +44,11 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 	private final Map<String, Object> filtros = new HashMap<>();
 
 	public UsuarioController() {
+	}
+	
+	@PostConstruct
+	public void init() {
+		items = new Lazy(getFacade().findAll());
 	}
 
 	public Usuario getSelected() {
@@ -91,8 +99,7 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 
 	public LazyDataModel<Usuario> getItems() {
 		if (items == null) {
-			items = new UsuarioLazyModel(getFacade().findAll(0, 10, null,
-					SortOrder.ASCENDING, filtros));
+			items = new Lazy(getFacade().findAll());
 		}
 		return items;
 	}
@@ -155,54 +162,113 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 		return getFacade().findAtivo();
 	}
 
-	public class UsuarioLazyModel extends LazyDataModel<Usuario> {
+	public class Lazy extends LazyDataModel<Usuario> {
 
-		private static final long serialVersionUID = 1L;
-		private List<Usuario> usuarios = null;
+    	private static final long serialVersionUID = 1L;
 
-		public UsuarioLazyModel() {
-		}
+    	private List<Usuario> usuario = null;
 
-		public UsuarioLazyModel(List<Usuario> usuarios) {
-			this.usuarios = usuarios;
-		}
+    	public Lazy(List<Usuario> usuario) {
+    		this.usuario = usuario;
+    	}
 
-		@Override
-		public Usuario getRowData(String rowKey) {
-			Integer id = Integer.valueOf(rowKey);
-			for (Usuario user : usuarios) {
-				if (id.equals(user.getIdUsuario())) {
-					return user;
-				}
-			}
-			return null;
-		}
-
-		@Override
-		public Object getRowKey(Usuario usr) {
-			return usr.getIdUsuario();
-		}
-
-		@Override
-		public List<Usuario> load(int first, int pageSize, String sortField,
-				SortOrder sortOrder, Map<String, Object> filters) {
-			usuarios = new ArrayList<>();
-			try {
-				Context ctx = new javax.naming.InitialContext();
-				UsuarioFacade usuarioFacade = (UsuarioFacade) ctx
-						.lookup("java:global/compreingressos-portal-1.0.0/UsuarioFacade!br.com.intuiti.compreingressos.portal.bean.UsuarioFacade");
-				usuarios = usuarioFacade.findAll(first, pageSize, sortField,
-						sortOrder, filters);
-				setRowCount(usuarioFacade.count(first, pageSize,
-						sortField, sortOrder, filters));
-				setPageSize(pageSize);
-			} catch (NamingException ex) {
-				Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE,
-						null, ex);
-			}
-			return usuarios;
-		}
-	}
+    	@Override
+    	public List<Usuario> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+    			Map<String, Object> filters) {
+    		List<Usuario> data = new ArrayList<Usuario>();
+    		for(Usuario us : usuario){
+    			
+    			boolean match = true;
+    			if(filters != null){
+    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
+    					try{
+    						String filterProperty = it.next();
+    						Object filterValue = filters.get(filterProperty);
+    						Field field = us.getClass().getDeclaredField(filterProperty);
+    						field.setAccessible(true);
+    						String fieldValue = String.valueOf(field.get(us));
+    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+    							match = true;
+    						} else {
+    							match = false;
+    							break;
+    						}
+    					} catch (Exception e) {
+    						e.printStackTrace();
+    						match = false;
+    					}
+    				}
+    			}
+    			
+    			if(match){
+    				data.add(us);
+    			}
+    		}
+    		
+    		//sort
+    		if(sortField != null) {
+    			Collections.sort(data, new LazySorter(sortField, sortOrder));
+    		}
+    		
+    		//rowCount
+    		int dataSize = data.size();
+    		this.setRowCount(dataSize);
+    		
+    		//paginate
+    		if(dataSize > pageSize){
+    			try{
+    				return data.subList(first, first + pageSize);
+    			} catch (IndexOutOfBoundsException e) {
+    				return data.subList(first, first + (dataSize % pageSize));
+    			}
+    		} else {
+    			return data;
+    		}
+    	}
+    	
+    	@Override
+    	public Object getRowKey(Usuario object) {
+    		return object.getIdUsuario();
+    	}
+    	
+    	@Override
+    	public Usuario getRowData(String rowKey) {
+    		Integer id = Integer.valueOf(rowKey);
+    		for(Usuario u : usuario){
+    			if(id.equals(u.getIdUsuario())){
+    				return u;
+    			}
+    		}
+    		return null;
+    	}
+    }
+    
+    public class LazySorter implements Comparator<Usuario> {
+    	private String sortField;
+    	private SortOrder sortOrder;
+    	
+    	public LazySorter(String sortField, SortOrder sortOrder){
+    		this.sortField = sortField;
+    		this.sortOrder = sortOrder;
+    	}
+    	
+    	public int compare(Usuario object1, Usuario object2){
+    		try {
+    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
+    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
+    			field1.setAccessible(true);
+    			field2.setAccessible(true);
+    			Object value1 = field1.get(object1);
+    			Object value2 = field2.get(object2);
+    			
+    			int value = ((Comparable)value1).compareTo(value2);
+    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+    		}
+    		catch(Exception e) {
+    			throw new RuntimeException();
+    		}
+    	}
+    }
 
 	@FacesConverter(forClass = Usuario.class)
 	public static class UsuarioControllerConverter implements Converter {

@@ -3,6 +3,8 @@ package br.com.intuiti.compreingressos.portal.controller;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.jgroups.util.UUID;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -112,7 +115,7 @@ public class MunicipioController implements Serializable {
 
     public LazyDataModel<Municipio> getItems() {
         if (items == null) {
-            items = new Lazy(getFacade().findAll());
+        	 items = new Lazy(getFacade().findAll());
         }
         return items;
     }
@@ -138,6 +141,7 @@ public class MunicipioController implements Serializable {
                         }
                     }
                 } else {
+                	System.out.println("MUNICIPIO" + selected.getIdMunicipio());
                     getFacade().remove(selected);
                     JsfUtil.addSuccessMessage(successMessage);
                 }
@@ -203,7 +207,6 @@ public class MunicipioController implements Serializable {
     						Field field = mun.getClass().getDeclaredField(filterProperty);
     						field.setAccessible(true);
     						String fieldValue = String.valueOf(field.get(mun));
-    						
     						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
     							match = true;
     						} else {
@@ -223,7 +226,9 @@ public class MunicipioController implements Serializable {
     		}
     		
     		//sort
-    		
+    		if(sortField != null) {
+    			Collections.sort(data, new LazySorter(sortField, sortOrder));
+    		}
     		
     		//rowCount
     		int dataSize = data.size();
@@ -243,6 +248,7 @@ public class MunicipioController implements Serializable {
     	
     	@Override
     	public Object getRowKey(Municipio object) {
+    		System.out.println("idMunicipio" + object.getIdMunicipio());
     		return object.getIdMunicipio();
     	}
     	
@@ -257,6 +263,34 @@ public class MunicipioController implements Serializable {
     		return null;
     	}
     }
+    
+    public class LazySorter implements Comparator<Municipio> {
+    	private String sortField;
+    	private SortOrder sortOrder;
+    	
+    	public LazySorter(String sortField, SortOrder sortOrder){
+    		this.sortField = sortField;
+    		this.sortOrder = sortOrder;
+    	}
+    	
+    	public int compare(Municipio object1, Municipio object2){
+    		try {
+    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
+    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
+    			field1.setAccessible(true);
+    			field2.setAccessible(true);
+    			Object value1 = field1.get(object1);
+    			Object value2 = field2.get(object2);
+    			
+    			int value = ((Comparable)value1).compareTo(value2);
+    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+    		}
+    		catch(Exception e) {
+    			System.out.println(e.getMessage());
+    			return 0;
+    		}
+    	}
+        }
 
     @FacesConverter(forClass = Municipio.class)
     public static class MunicipioControllerConverter implements Converter {

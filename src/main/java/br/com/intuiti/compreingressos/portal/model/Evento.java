@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "mw_evento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Evento.findAll", query = "SELECT e FROM Evento e"),
+    @NamedQuery(name = "Evento.findAll", query = "SELECT e FROM Evento e ORDER BY e.dsEvento"),
     @NamedQuery(name = "Evento.findByBase", query = "SELECT e FROM Evento e WHERE exists(SELECT ap FROM Apresentacao ap WHERE ap.idEvento = e and ap.dtApresentacao < :data) and e.idBase = :idBase"),
     @NamedQuery(name = "Evento.findByIdEvento", query = "SELECT e FROM Evento e WHERE e.idEvento = :idEvento"),
     @NamedQuery(name = "Evento.findByDsEvento", query = "SELECT e FROM Evento e WHERE e.dsEvento = :dsEvento"),

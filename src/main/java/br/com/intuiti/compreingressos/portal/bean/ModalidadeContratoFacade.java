@@ -32,7 +32,6 @@ public class ModalidadeContratoFacade extends AbstractFacade<ModalidadeContrato>
         super(ModalidadeContrato.class);
     }
     
-    
     @SuppressWarnings("unchecked")
 	public boolean findDs(String descricao){
     	List<ModalidadeContrato> lista = em.createNamedQuery("ModalidadeContrato.findByDsModalidadeContrato").setParameter("dsModalidadeContrato", descricao).getResultList();

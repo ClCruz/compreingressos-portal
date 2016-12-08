@@ -1,5 +1,7 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,4 +27,9 @@ public class TipoTransacaoFacade extends AbstractFacade<TipoTransacao> {
         super(TipoTransacao.class);
     }
 	    
+    @Override
+    public List<TipoTransacao> findAll() {
+    	return getEntityManager().createNamedQuery("TipoTransacao.findAll").getResultList();
+    }
+    
 }

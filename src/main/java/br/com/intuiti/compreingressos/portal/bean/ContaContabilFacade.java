@@ -32,6 +32,11 @@ public class ContaContabilFacade extends AbstractFacade<ContaContabil> {
         super(ContaContabil.class);
     }
     
+    @Override
+    public List<ContaContabil> findAll(){
+    	return getEntityManager().createNamedQuery("ContaContabil.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public boolean findNumero(String numero){
         List<ContaContabil> lista = em.createNamedQuery("ContaContabil.findByNrContaContabil").setParameter("nrContaContabil", numero).getResultList();

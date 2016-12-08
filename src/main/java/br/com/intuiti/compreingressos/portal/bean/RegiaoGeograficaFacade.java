@@ -32,6 +32,11 @@ public class RegiaoGeograficaFacade extends AbstractFacade<RegiaoGeografica> {
         super(RegiaoGeografica.class);
     }
     
+    @Override
+    public List<RegiaoGeografica> findAll(){
+    	return getEntityManager().createNamedQuery("RegiaoGeografica.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public boolean findDs(String descricao){
     	List<RegiaoGeografica> lista = em.createNamedQuery("RegiaoGeografica.findByDsRegiaoGeografica").setParameter("dsRegiaoGeografica", descricao).getResultList();

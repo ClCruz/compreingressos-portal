@@ -32,6 +32,11 @@ public class TipoLocalFacade extends AbstractFacade<TipoLocal> {
 		super(TipoLocal.class);
 	}
 
+	@Override
+	public List<TipoLocal> findAll(){
+		return getEntityManager().createNamedQuery("TipoLocal.findAll").getResultList();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public boolean findDs(String descricao) {
 		List<TipoLocal> lista = em

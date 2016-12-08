@@ -27,6 +27,11 @@ public class BancoFacade extends AbstractFacade<Banco> {
         super(Banco.class);
     }
     
+    @Override
+    public List<Banco> findAll(){
+    	return getEntityManager().createNamedQuery("Banco.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public List<Banco> findAtivo(){
     	return getEntityManager().createNamedQuery("Banco.findByInAtivo").setParameter("inAtivo", true).getResultList();

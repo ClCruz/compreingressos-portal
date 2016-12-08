@@ -32,6 +32,11 @@ public class EmpresaFacade extends AbstractFacade<Empresa> {
         super(Empresa.class);
     }
     
+    @Override
+    public List<Empresa> findAll(){
+    	return getEntityManager().createNamedQuery("Empresa.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public int findName(String nome){
         List<Empresa> lista = em.createNamedQuery("Empresa.findByDsEmpresa").setParameter("dsEmpresa", nome).getResultList();

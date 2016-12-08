@@ -33,6 +33,11 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
         super(Municipio.class);
     }
     
+    @Override
+    public List<Municipio> findAll(){
+    	return getEntityManager().createNamedQuery("Municipio.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public boolean findDesc(Estado estado, String descricao){
         List<Municipio> lista = em.createNamedQuery("Municipio.findDesc").setParameter("idEstado", estado).setParameter("dsMunicipio", descricao).getResultList();
@@ -43,5 +48,9 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
     public boolean findDesc(Estado estado, String descricao, Integer id){
     	List<Municipio> lista = getEntityManager().createNamedQuery("Municipio.findDescId").setParameter("idEstado", estado).setParameter("dsMunicipio", descricao).setParameter("idMunicipio", id).getResultList();
     	return lista.size() > 0 ? false : true;
+    }
+    
+   public void remove(Municipio municipio) {
+    	getEntityManager().createNativeQuery("delete FROM mw_municipio WHERE id_municipio = " + municipio.getIdMunicipio()).executeUpdate();
     }
 }

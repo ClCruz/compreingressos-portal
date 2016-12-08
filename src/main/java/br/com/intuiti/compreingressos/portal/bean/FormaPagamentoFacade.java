@@ -33,6 +33,11 @@ public class FormaPagamentoFacade extends AbstractFacade<FormaPagamento> {
 		super(FormaPagamento.class);
 	}
 
+	@Override
+	public List<FormaPagamento> findAll(){
+		return getEntityManager().createNamedQuery("FormaPagamento.findAll").getResultList();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public boolean findDsMp(String dsFormaPagamento,
 			TipoMeioPagamento inTipoMeioPagamento) {
@@ -59,5 +64,9 @@ public class FormaPagamentoFacade extends AbstractFacade<FormaPagamento> {
 	@SuppressWarnings("unchecked")
 	public List<FormaPagamento> findAtivo(){
 		return getEntityManager().createNamedQuery("FormaPagamento.findByInAtivo").setParameter("inAtivo", true).getResultList();
+	}
+	
+	public void remove(FormaPagamento formaPagamento){
+		getEntityManager().createNamedQuery("delete FROM mw_forma_pagamento WHERE id_forma_pagamento = " + formaPagamento.getIdFormaPagamento()).executeUpdate();
 	}
 }

@@ -33,6 +33,11 @@ public class GeneroEventoFacade extends AbstractFacade<GeneroEvento> {
 		super(GeneroEvento.class);
 	}
 
+	@Override
+	public List<GeneroEvento> findAll(){
+		return getEntityManager().createNamedQuery("GeneroEvento.findAll").getResultList();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public boolean findDsSg(String dsGeneroEvento,
 			SegmentoEvento idSegmentoEvento) {
@@ -52,6 +57,10 @@ public class GeneroEventoFacade extends AbstractFacade<GeneroEvento> {
 				.setParameter("idGeneroEvento", idGeneroEvento)
 				.getResultList();
 		return lista.size() > 0 ? false : true;
+	}
+	
+	public void remove(GeneroEvento generoEvento){
+		getEntityManager().createNamedQuery("delete FROM mw_genero_evento WHERE id_genero_evento = " + generoEvento.getIdGeneroEvento()).executeUpdate();
 	}
 
 }

@@ -1,14 +1,19 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -17,8 +22,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -42,6 +45,11 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 	    public TipoTransacaoController() {
 	    }
 
+	    @PostConstruct
+	    public void init() {
+	    	items = new Lazy(getFacade().findAll());
+	    }
+	    
 	    public TipoTransacao getSelected() {
 	    	return selected;
 	    }
@@ -87,7 +95,7 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 	    
 	    public LazyDataModel<TipoTransacao> getItems() {
 	    	if (items == null) {
-	    		items = new TipoTransacaoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
+	    		items = new Lazy(getFacade().findAll());
 	    	}
 	    	return items;
 	    }
@@ -132,44 +140,111 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 	        return getFacade().findAll();
 	    }
 	    
-	    public class TipoTransacaoLazy extends LazyDataModel<TipoTransacao> {
-	    	
+	    public class Lazy extends LazyDataModel<TipoTransacao> {
+
 	    	private static final long serialVersionUID = 1L;
-	    	private List<TipoTransacao> objList = null;
-	    	
-	    	public TipoTransacaoLazy(List<TipoTransacao> objList){
-	    		this.objList = objList;
+
+	    	private List<TipoTransacao> tipoTransacao= null;
+
+	    	public Lazy(List<TipoTransacao> tipoTransacao) {
+	    		this.tipoTransacao = tipoTransacao;
+	    	}
+
+	    	@Override
+	    	public List<TipoTransacao> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+	    			Map<String, Object> filters) {
+	    		List<TipoTransacao> data = new ArrayList<TipoTransacao>();
+	    		for(TipoTransacao tt : tipoTransacao){
+	    			
+	    			boolean match = true;
+	    			if(filters != null){
+	    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
+	    					try{
+	    						String filterProperty = it.next();
+	    						Object filterValue = filters.get(filterProperty);
+	    						Field field = tt.getClass().getDeclaredField(filterProperty);
+	    						field.setAccessible(true);
+	    						String fieldValue = String.valueOf(field.get(tt));
+	    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+	    							match = true;
+	    						} else {
+	    							match = false;
+	    							break;
+	    						}
+	    					} catch (Exception e) {
+	    						e.printStackTrace();
+	    						match = false;
+	    					}
+	    				}
+	    			}
+	    			
+	    			if(match){
+	    				data.add(tt);
+	    			}
+	    		}
+	    		
+	    		//sort
+	    		if(sortField != null) {
+	    			Collections.sort(data, new LazySorter(sortField, sortOrder));
+	    		}
+	    		
+	    		//rowCount
+	    		int dataSize = data.size();
+	    		this.setRowCount(dataSize);
+	    		
+	    		//paginate
+	    		if(dataSize > pageSize){
+	    			try{
+	    				return data.subList(first, first + pageSize);
+	    			} catch (IndexOutOfBoundsException e) {
+	    				return data.subList(first, first + (dataSize % pageSize));
+	    			}
+	    		} else {
+	    			return data;
+	    		}
 	    	}
 	    	
 	    	@Override
-	    	public List<TipoTransacao> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-	    		objList = new ArrayList<>();
-	    		try {
-	    			Context ctx = new javax.naming.InitialContext();
-	    			TipoTransacaoFacade objFacade = (TipoTransacaoFacade) ctx.lookup("java:global/compreigressos-portal-1.0.0/TipoTransacaoFacade!br.com.intuiti.compreingressos.portal.bean.TipoTransacaoFacade");
-	    			objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
-	    			setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
-	    			setPageSize(pageSize);
-	    		} catch (NamingException ex) {
-	    			System.out.println(ex);
-	    		}
-	    		return objList;
+	    	public Object getRowKey(TipoTransacao object) {
+	    		return object.getIdTipoTransacao();
 	    	}
 	    	
 	    	@Override
 	    	public TipoTransacao getRowData(String rowKey) {
 	    		Integer id = Integer.valueOf(rowKey);
-	    		for(TipoTransacao obj : objList) {
-	    			if (id.equals(obj.getIdTipoTransacao())) {
-	    				return obj;
+	    		for(TipoTransacao t : tipoTransacao){
+	    			if(id.equals(t.getIdTipoTransacao())){
+	    				return t;
 	    			}
 	    		}
 	    		return null;
 	    	}
+	    }
+	    
+	    public class LazySorter implements Comparator<TipoTransacao> {
+	    	private String sortField;
+	    	private SortOrder sortOrder;
 	    	
-	    	@Override
-	    	public Object getRowKey(TipoTransacao ob) {
-	    		return ob.getIdTipoTransacao();
+	    	public LazySorter(String sortField, SortOrder sortOrder){
+	    		this.sortField = sortField;
+	    		this.sortOrder = sortOrder;
+	    	}
+	    	
+	    	public int compare(TipoTransacao object1, TipoTransacao object2){
+	    		try {
+	    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
+	    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
+	    			field1.setAccessible(true);
+	    			field2.setAccessible(true);
+	    			Object value1 = field1.get(object1);
+	    			Object value2 = field2.get(object2);
+	    			
+	    			int value = ((Comparable)value1).compareTo(value2);
+	    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+	    		}
+	    		catch(Exception e) {
+	    			throw new RuntimeException();
+	    		}
 	    	}
 	    }
 	    

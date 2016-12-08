@@ -47,8 +47,8 @@
                                 <h:outputText value="Ativo" rendered="#{item.inAtivo eq true}" />
                                 <h:outputText value="Inativo" rendered="#{item.inAtivo eq false}" />
                             </p:column>
-                            <p:column sortBy="#{item.idUsuario.dsNome}" headerText="#{bundle.ListSegmentoEventoTitle_idUsuario}"
-                                      filterBy="#{item.idUsuario.dsNome}" filterMatchMode="contains"
+                            <p:column headerText="#{bundle.ListSegmentoEventoTitle_idUsuario}"
+                                      filterBy="#{item.idUsuario}" filterMatchMode="contains"
                                       filterStyle="width:50%">
                                 <h:outputText value="#{item.idUsuario.dsNome}" />
                             </p:column>

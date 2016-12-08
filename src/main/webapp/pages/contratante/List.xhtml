@@ -49,8 +49,8 @@
                                 <h:outputText value="#{item.cdSapCardcode}" rendered="#{not empty item.cdSapCardcode}"/>
                                 <h:outputText value="Não informado" rendered="#{empty item.cdSapCardcode }" />
                             </p:column>
-                            <p:column sortBy="#{item.idMunicipio.dsMunicipio}" headerText="#{bundle.ListContratanteTitle_idMunicipio}"
-                                      filterBy="#{item.idMunicipio.dsMunicipio}" filterMatchMode="contains">
+                            <p:column headerText="#{bundle.ListContratanteTitle_idMunicipio}"
+                                      filterBy="#{item.idMunicipio}" filterMatchMode="contains">
                                 <h:outputText value="#{item.idMunicipio.dsMunicipio}"/>
                             </p:column>
                             <f:facet name="footer">

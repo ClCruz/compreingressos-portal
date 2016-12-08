@@ -25,18 +25,17 @@
                             <f:facet name="header">
                                 #{bundle.ListMunicipioTitle}
                             </f:facet>
-                            <p:column sortBy="#{item.idEstado}" headerText="#{bundle.ListMunicipioTitle_idEstado}"
-                                      filterBy="#{item.idEstado.dsEstado}" filterMatchMode="contains"
+                            <p:column headerText="#{bundle.ListMunicipioTitle_idEstado}"
+                                      filterBy="#{item.idEstado}" filterMatchMode="contains"
                                       filterStyle="width:50%">
                                 <h:outputText value="#{item.idEstado.dsEstado}"/>
                             </p:column>
-                            <p:column sortBy="#{item.dsMunicipio}" filterBy="#{item.dsMunicipio}" filterMatchMode="contains"
+                            <p:column filterBy="#{item.dsMunicipio}" filterMatchMode="contains"
                                       headerText="#{bundle.ListMunicipioTitle_dsMunicipio}"
                                       filterStyle="width:50%">
 
                                 <h:outputText value="#{item.dsMunicipio}"/>
                             </p:column>
-                            
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{municipioController.prepareCreate}" update=":MunicipioCreateForm" oncomplete="PF('MunicipioCreateDialog').show()"/>
                                 <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":MunicipioEditForm" oncomplete="PF('MunicipioEditDialog').show()" disabled="#{empty municipioController.selected}"/>

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "mw_tipo_estorno")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TipoEstorno.findAll", query = "SELECT t FROM TipoEstorno t")
+    @NamedQuery(name = "TipoEstorno.findAll", query = "SELECT t FROM TipoEstorno t ORDER BY t.dsTipoEstorno")
     , @NamedQuery(name = "TipoEstorno.findByIdTipoEstorno", query = "SELECT t FROM TipoEstorno t WHERE t.idTipoEstorno = :idTipoEstorno")
     , @NamedQuery(name = "TipoEstorno.findByDsTipoEstorno", query = "SELECT t FROM TipoEstorno t WHERE t.dsTipoEstorno = :dsTipoEstorno")
     , @NamedQuery(name = "TipoEstorno.findByDsIdTipoEstorno", query = "SELECT t FROM TipoEstorno t WHERE t.dsTipoEstorno = :dsTipoEstorno AND t.idTipoEstorno <> :idTipoEstorno")})

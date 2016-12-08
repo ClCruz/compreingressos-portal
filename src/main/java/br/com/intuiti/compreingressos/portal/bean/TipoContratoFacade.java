@@ -32,6 +32,11 @@ public class TipoContratoFacade extends AbstractFacade<TipoContrato> {
         super(TipoContrato.class);
     }
     
+    @Override
+    public List<TipoContrato> findAll(){
+    	return getEntityManager().createNamedQuery("TipoContrato.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public boolean findDs(String descricao){
     	List<TipoContrato> lista = em.createNamedQuery("TipoContrato.findByDsTipoContrato").setParameter("dsTipoContrato", descricao).getResultList();

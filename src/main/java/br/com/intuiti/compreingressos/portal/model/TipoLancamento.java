@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "mw_tipo_lancamento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TipoLancamento.findAll", query = "SELECT t FROM TipoLancamento t"),
+    @NamedQuery(name = "TipoLancamento.findAll", query = "SELECT t FROM TipoLancamento t ORDER BY t.dsTipoLancamento"),
     @NamedQuery(name = "TipoLancamento.findByIdTipoLancamento", query = "SELECT t FROM TipoLancamento t WHERE t.idTipoLancamento = :idTipoLancamento"),
     @NamedQuery(name = "TipoLancamento.findByDsTipoLancamento", query = "SELECT t FROM TipoLancamento t WHERE t.dsTipoLancamento = :dsTipoLancamento"),
     @NamedQuery(name = "TipoLancamento.findByInAtivo", query = "SELECT t FROM TipoLancamento t WHERE t.inAtivo = :inAtivo"),

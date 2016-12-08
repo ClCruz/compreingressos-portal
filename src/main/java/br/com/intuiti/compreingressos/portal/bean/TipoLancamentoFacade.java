@@ -32,8 +32,17 @@ public class TipoLancamentoFacade extends AbstractFacade<TipoLancamento> {
         super(TipoLancamento.class);
     }
     
+    @Override
+    public List<TipoLancamento> findAll(){
+    	return getEntityManager().createNamedQuery("TipoLancamento.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public List<TipoLancamento> findAtivo(){
     	return getEntityManager().createNamedQuery("TipoLancamento.findByInAtivo").setParameter("inAtivo", true).getResultList();
+    }
+    
+    public void remove(TipoLancamento tipoLancamento){
+    	getEntityManager().createNamedQuery("delete FROM mw_tipo_lancamento WHERE id_tipo_lancamento = " + tipoLancamento.getIdTipoLancamento()).executeUpdate();
     }
 }

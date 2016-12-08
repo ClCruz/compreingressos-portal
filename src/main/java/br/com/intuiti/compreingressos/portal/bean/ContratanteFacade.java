@@ -34,6 +34,11 @@ public class ContratanteFacade extends AbstractFacade<Contratante> {
         super(Contratante.class);
     }
     
+    @Override
+    public List<Contratante> findAll(){
+    	return getEntityManager().createNamedQuery("Contratante.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public List<Municipio> findAll(Estado estado){
     	return em.createNamedQuery("Contratante.findAllMunicipio").setParameter("idEstado", estado).getResultList();

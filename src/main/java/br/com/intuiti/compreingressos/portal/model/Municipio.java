@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,16 +35,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "mw_municipio")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Municipio.findAll", query = "SELECT m FROM Municipio m"),
+    @NamedQuery(name = "Municipio.findAll", query = "SELECT m FROM Municipio m ORDER BY m.dsMunicipio"),
     @NamedQuery(name = "Municipio.findDescId", query = "SELECT m FROM Municipio m WHERE m.idEstado = :idEstado AND m.dsMunicipio = :dsMunicipio AND m.idMunicipio <> :idMunicipio"),
     @NamedQuery(name = "Municipio.findDesc", query = "SELECT m FROM Municipio m WHERE m.idEstado = :idEstado AND m.dsMunicipio = :dsMunicipio"),
     @NamedQuery(name = "Municipio.findByIdMunicipio", query = "SELECT m FROM Municipio m WHERE m.idMunicipio = :idMunicipio"),
     @NamedQuery(name = "Municipio.findByDsMunicipio", query = "SELECT m FROM Municipio m WHERE m.dsMunicipio = :dsMunicipio")})
 public class Municipio implements Serializable {
 
-    @OneToMany(mappedBy = "idMunicipio")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMunicipio", fetch= FetchType.LAZY)
     private Collection<Contratante> contratanteCollection;
-    @OneToMany(mappedBy = "idMunicipioRepresLegal")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMunicipioRepresLegal", fetch= FetchType.LAZY)
     private Collection<Contratante> contratanteCollection1;
 
     private static final long serialVersionUID = 1L;
@@ -59,7 +60,7 @@ public class Municipio implements Serializable {
     @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
     @ManyToOne(optional = false)
     private Estado idEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMunicipio")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMunicipio", fetch= FetchType.LAZY)
     private Collection<LocalEvento> localEventoCollection;
 
     public Municipio() {

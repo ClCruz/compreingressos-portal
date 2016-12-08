@@ -49,8 +49,8 @@
                                 <h:outputText value="Ativo" rendered="#{item.inAtivo eq true}" />
                                 <h:outputText value="Inativo" rendered="#{item.inAtivo eq false}" />
                             </p:column>
-                            <p:column sortBy="#{item.inTipoMeioPagamento.inTipoMeioPagamento}" headerText="#{bundle.ListFormaPagamentoTitle_inTipoMeioPagamento}"
-                                      filterBy="#{item.inTipoMeioPagamento.inTipoMeioPagamento}"
+                            <p:column headerText="#{bundle.ListFormaPagamentoTitle_inTipoMeioPagamento}"
+                                      filterBy="#{item.inTipoMeioPagamento}"
                                       filterMatchMode="contains"
                                       filterStyle="width:50%">
                                 <h:outputText value="#{item.inTipoMeioPagamento.inTipoMeioPagamento}" />

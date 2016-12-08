@@ -6,6 +6,9 @@
 package br.com.intuiti.compreingressos.portal.bean;
 
 import br.com.intuiti.compreingressos.portal.model.ModalidadeCobranca;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +30,11 @@ public class ModalidadeCobrancaFacade extends AbstractFacade<ModalidadeCobranca>
 
     public ModalidadeCobrancaFacade() {
         super(ModalidadeCobranca.class);
+    }
+ 
+    @Override
+    public List<ModalidadeCobranca> findAll(){
+    	return getEntityManager().createNamedQuery("ModalidadeCobranca.findAll").getResultList();
     }
     
 }

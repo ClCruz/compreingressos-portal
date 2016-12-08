@@ -1,14 +1,19 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -17,8 +22,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -40,6 +43,11 @@ public class VendedorController implements Serializable {
     private final Map<String, Object> filtros = new HashMap<>();
     
     public VendedorController() {
+    }
+    
+    @PostConstruct
+    public void init() {
+    	items =  new Lazy(getFacade().findAll());
     }
 
     public Vendedor getSelected() {
@@ -87,7 +95,7 @@ public class VendedorController implements Serializable {
 
     public LazyDataModel<Vendedor> getItems() {
         if (items == null) {
-            items = new VendedorLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
+            items = new Lazy(getFacade().findAll());
         }
         return items;
     }
@@ -148,45 +156,112 @@ public class VendedorController implements Serializable {
         return getFacade().findAtivo();
     }
 
-    public class VendedorLazy extends LazyDataModel<Vendedor> {
-    	
+    public class Lazy extends LazyDataModel<Vendedor> {
+
     	private static final long serialVersionUID = 1L;
-        private List<Vendedor> objList = null;
 
-        public VendedorLazy(List<Vendedor> objList) {
-            this.objList = objList;
-        }
-        
-        @Override
-        public List<Vendedor> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        	objList = new ArrayList<>();
-            try {
-                Context ctx = new javax.naming.InitialContext();
-                VendedorFacade objFacade = (VendedorFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/VendedorFacade!br.com.intuiti.compreingressos.portal.bean.VendedorFacade");
-                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
-                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
-                setPageSize(pageSize);
-            } catch (NamingException ex) {
-                System.out.println(ex);
-            }
-            return objList;
-        }
+    	private List<Vendedor> vendedor = null;
 
-        @Override
-        public Vendedor getRowData(String rowKey) {
-            Integer id = Integer.valueOf(rowKey);
-            for (Vendedor obj : objList) {
-                if (id.equals(obj.getIdVendedor())) {
-                    return obj;
-                }
-            }
-            return null;
-        }
+    	public Lazy(List<Vendedor> vendedor) {
+    		this.vendedor = vendedor;
+    	}
 
-        @Override
-        public Object getRowKey(Vendedor ob) {
-            return ob.getIdVendedor();
-        }
+    	@Override
+    	public List<Vendedor> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+    			Map<String, Object> filters) {
+    		List<Vendedor> data = new ArrayList<Vendedor>();
+    		for(Vendedor ve : vendedor){
+    			
+    			boolean match = true;
+    			if(filters != null){
+    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
+    					try{
+    						String filterProperty = it.next();
+    						Object filterValue = filters.get(filterProperty);
+    						Field field = ve.getClass().getDeclaredField(filterProperty);
+    						field.setAccessible(true);
+    						String fieldValue = String.valueOf(field.get(ve));
+    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+    							match = true;
+    						} else {
+    							match = false;
+    							break;
+    						}
+    					} catch (Exception e) {
+    						e.printStackTrace();
+    						match = false;
+    					}
+    				}
+    			}
+    			
+    			if(match){
+    				data.add(ve);
+    			}
+    		}
+    		
+    		//sort
+    		if(sortField != null) {
+    			Collections.sort(data, new LazySorter(sortField, sortOrder));
+    		}
+    		
+    		//rowCount
+    		int dataSize = data.size();
+    		this.setRowCount(dataSize);
+    		
+    		//paginate
+    		if(dataSize > pageSize){
+    			try{
+    				return data.subList(first, first + pageSize);
+    			} catch (IndexOutOfBoundsException e) {
+    				return data.subList(first, first + (dataSize % pageSize));
+    			}
+    		} else {
+    			return data;
+    		}
+    	}
+    	
+    	@Override
+    	public Object getRowKey(Vendedor object) {
+    		return object.getIdVendedor();
+    	}
+    	
+    	@Override
+    	public Vendedor getRowData(String rowKey) {
+    		Integer id = Integer.valueOf(rowKey);
+    		for(Vendedor v : vendedor){
+    			if(id.equals(v.getIdVendedor())){
+    				return v;
+    			}
+    		}
+    		return null;
+    	}
+    }
+    
+    public class LazySorter implements Comparator<Vendedor> {
+    	private String sortField;
+    	private SortOrder sortOrder;
+    	
+    	public LazySorter(String sortField, SortOrder sortOrder){
+    		this.sortField = sortField;
+    		this.sortOrder = sortOrder;
+    	}
+    	
+    	public int compare(Vendedor object1, Vendedor object2){
+    		try {
+    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
+    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
+    			field1.setAccessible(true);
+    			field2.setAccessible(true);
+    			Object value1 = field1.get(object1);
+    			Object value2 = field2.get(object2);
+    			
+    			int value = ((Comparable)value1).compareTo(value2);
+    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+    		}
+    		catch(Exception e) {
+    			throw new RuntimeException();
+    		}
+    	}
     }
     
     @FacesConverter(forClass = Vendedor.class)

@@ -32,6 +32,11 @@ public class SegmentoEventoFacade extends AbstractFacade<SegmentoEvento> {
         super(SegmentoEvento.class);
     }
     
+    @Override
+    public List<SegmentoEvento> findAll(){
+    	return getEntityManager().createNamedQuery("SegmentoEvento.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public boolean findDs(String descricao){
     	List<SegmentoEvento> lista = em.createNamedQuery("SegmentoEvento.findByDsSegmentoEvento").setParameter("dsSegmentoEvento", descricao).getResultList();

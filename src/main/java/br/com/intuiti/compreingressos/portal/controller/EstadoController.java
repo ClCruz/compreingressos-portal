@@ -1,14 +1,19 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -17,8 +22,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -27,6 +30,7 @@ import br.com.intuiti.compreingressos.portal.bean.EstadoFacade;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.model.Estado;
+import br.com.intuiti.compreingressos.portal.model.RegiaoGeografica;
 
 @ManagedBean(name = "estadoController")
 @ViewScoped
@@ -40,6 +44,11 @@ public class EstadoController implements Serializable {
     private final Map<String, Object> filtros = new HashMap<>();
 
     public EstadoController() {
+    }
+    
+    @PostConstruct
+    public void init(){
+    	items = new Lazy(getFacade().findAll());
     }
 
     public Estado getSelected() {
@@ -87,7 +96,7 @@ public class EstadoController implements Serializable {
 
     public LazyDataModel<Estado> getItems() {
         if (items == null) {
-            items = new EstadoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
+            items = new Lazy(getFacade().findAll());
         }
         return items;
     }
@@ -131,7 +140,7 @@ public class EstadoController implements Serializable {
                     	}
                 	}
                 } else {
-                    getFacade().remove(selected);
+                	getFacade().remove(selected);
                     JsfUtil.addSuccessMessage(successMessage);
                 }
                 
@@ -165,47 +174,114 @@ public class EstadoController implements Serializable {
         return getFacade().findAll();
     }
     
-public class EstadoLazy extends LazyDataModel<Estado> {
-    	
+    public class Lazy extends LazyDataModel<Estado> {
+
     	private static final long serialVersionUID = 1L;
-        private List<Estado> objList = null;
 
-        public EstadoLazy(List<Estado> objList) {
-            this.objList = objList;
-        }
-        
-        @Override
-        public List<Estado> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        	objList = new ArrayList<>();
-            try {
-                Context ctx = new javax.naming.InitialContext();
-                EstadoFacade objFacade = (EstadoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/EstadoFacade!br.com.intuiti.compreingressos.portal.bean.EstadoFacade");
-                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
-                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
-                setPageSize(pageSize);
-            } catch (NamingException ex) {
-                System.out.println(ex);
-            }
-            return objList;
-        }
+    	private List<Estado> estado = null;
 
-        @Override
-        public Estado getRowData(String rowKey) {
-            Integer id = Integer.valueOf(rowKey);
-            for (Estado obj : objList) {
-                if (id.equals(obj.getIdEstado().intValue())) {
-                    return obj;
-                }
-            }
-            return null;
-        }
+    	public Lazy(List<Estado> estado) {
+    		this.estado = estado;
+    	}
 
-        @Override
-        public Object getRowKey(Estado ob) {
-            return ob.getIdEstado();
-        }
+    	@Override
+    	public List<Estado> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+    			Map<String, Object> filters) {
+    		List<Estado> data = new ArrayList<Estado>();
+    		for(Estado es : estado){
+    			
+    			boolean match = true;
+    			if(filters != null){
+    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
+    					try{
+    						String filterProperty = it.next();
+    						Object filterValue = filters.get(filterProperty);
+    						Field field = es.getClass().getDeclaredField(filterProperty);
+    						field.setAccessible(true);
+    						String fieldValue = String.valueOf(field.get(es));
+    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+    							match = true;
+    						} else {
+    							match = false;
+    							break;
+    						}
+    					} catch (Exception e) {
+    						e.printStackTrace();
+    						match = false;
+    					}
+    				}
+    			}
+    			
+    			if(match){
+    				data.add(es);
+    			}
+    		}
+    		
+    		//sort
+    		if(sortField != null) {
+    			Collections.sort(data, new LazySorter(sortField, sortOrder));
+    		}
+    		
+    		//rowCount
+    		int dataSize = data.size();
+    		this.setRowCount(dataSize);
+    		
+    		//paginate
+    		if(dataSize > pageSize){
+    			try{
+    				return data.subList(first, first + pageSize);
+    			} catch (IndexOutOfBoundsException e) {
+    				return data.subList(first, first + (dataSize % pageSize));
+    			}
+    		} else {
+    			return data;
+    		}
+    	}
+    	
+    	@Override
+    	public Object getRowKey(Estado object) {
+    		return (object.getIdEstado());
+    	}
+    	
+    	@Override
+    	public Estado getRowData(String rowKey) {
+    		Short id = Short.valueOf(rowKey);
+    		for(Estado est : estado){
+    			if(id.equals(est.getIdEstado())){
+    				return est;
+    			}
+    		}
+    		return null;
+    	}
     }
-
+    
+    public class LazySorter implements Comparator<Estado> {
+    	private String sortField;
+    	private SortOrder sortOrder;
+    	
+    	public LazySorter(String sortField, SortOrder sortOrder){
+    		this.sortField = sortField;
+    		this.sortOrder = sortOrder;
+    	}
+    	
+    	public int compare(Estado object1, Estado object2){
+    		try {
+    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
+    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
+    			field1.setAccessible(true);
+    			field2.setAccessible(true);
+    			Object value1 = field1.get(object1);
+    			Object value2 = field2.get(object2);
+    			
+    			int value = ((Comparable)value1).compareTo(value2);
+    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+    		}
+    		catch(Exception e) {
+    			throw new RuntimeException();
+    		}
+    	}
+    }
+    
     @FacesConverter(forClass = Estado.class)
     public static class EstadoControllerConverter implements Converter {
 

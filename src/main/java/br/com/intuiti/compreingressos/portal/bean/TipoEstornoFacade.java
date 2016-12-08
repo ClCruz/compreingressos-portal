@@ -32,6 +32,11 @@ public class TipoEstornoFacade extends AbstractFacade<TipoEstorno> {
         super(TipoEstorno.class);
     }
     
+    @Override
+    public List<TipoEstorno> findAll(){
+    	return getEntityManager().createNamedQuery("TipoEstorno.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
     public boolean findDsTipoEstorno(String dsTipoEstorno){
 		List<TipoEstorno> lista = getEntityManager().createNamedQuery("TipoEstorno.findByDsTipoEstorno").setParameter("dsTipoEstorno", dsTipoEstorno).getResultList();

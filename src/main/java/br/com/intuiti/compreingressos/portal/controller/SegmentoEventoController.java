@@ -1,14 +1,19 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -17,8 +22,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.LazyDataModel;
@@ -43,6 +46,11 @@ public class SegmentoEventoController implements Serializable {
     private final Map<String, Object> filtros = new HashMap<>();
 
     public SegmentoEventoController() {
+    }
+    
+    @PostConstruct
+    public void init() {
+    	items = new Lazy(getFacade().findAll());
     }
 
     public SegmentoEvento getSelected() {
@@ -90,7 +98,7 @@ public class SegmentoEventoController implements Serializable {
 
     public LazyDataModel<SegmentoEvento> getItems() {
         if (items == null) {
-            items = new SegmentoEventoLazy(getFacade().findAll(0, 10, null, SortOrder.ASCENDING, filtros));
+            items = new Lazy(getFacade().findAll());
         }
         return items;
     }
@@ -154,45 +162,112 @@ public class SegmentoEventoController implements Serializable {
         return getFacade().findAtivo();
     }
     
-    public class SegmentoEventoLazy extends LazyDataModel<SegmentoEvento> {
-    	
+    public class Lazy extends LazyDataModel<SegmentoEvento> {
+
     	private static final long serialVersionUID = 1L;
-        private List<SegmentoEvento> objList = null;
 
-        public SegmentoEventoLazy(List<SegmentoEvento> objList) {
-            this.objList = objList;
-        }
-        
-        @Override
-        public List<SegmentoEvento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        	objList = new ArrayList<>();
-            try {
-                Context ctx = new javax.naming.InitialContext();
-                SegmentoEventoFacade objFacade = (SegmentoEventoFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/SegmentoEventoFacade!br.com.intuiti.compreingressos.portal.bean.SegmentoEventoFacade");
-                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
-                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
-                setPageSize(pageSize);
-            } catch (NamingException ex) {
-                System.out.println(ex);
-            }
-            return objList;
-        }
+    	private List<SegmentoEvento> segmentoEvento = null;
 
-        @Override
-        public SegmentoEvento getRowData(String rowKey) {
-            Integer id = Integer.valueOf(rowKey);
-            for (SegmentoEvento obj : objList) {
-                if (id.equals(obj.getIdSegmentoEvento())) {
-                    return obj;
-                }
-            }
-            return null;
-        }
+    	public Lazy(List<SegmentoEvento> segmentoEvento) {
+    		this.segmentoEvento = segmentoEvento;
+    	}
 
-        @Override
-        public Object getRowKey(SegmentoEvento ob) {
-            return ob.getIdSegmentoEvento();
-        }
+    	@Override
+    	public List<SegmentoEvento> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+    			Map<String, Object> filters) {
+    		List<SegmentoEvento> data = new ArrayList<SegmentoEvento>();
+    		for(SegmentoEvento se : segmentoEvento){
+    			
+    			boolean match = true;
+    			if(filters != null){
+    				for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();){
+    					try{
+    						String filterProperty = it.next();
+    						Object filterValue = filters.get(filterProperty);
+    						Field field = se.getClass().getDeclaredField(filterProperty);
+    						field.setAccessible(true);
+    						String fieldValue = String.valueOf(field.get(se));
+    						if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+    							match = true;
+    						} else {
+    							match = false;
+    							break;
+    						}
+    					} catch (Exception e) {
+    						e.printStackTrace();
+    						match = false;
+    					}
+    				}
+    			}
+    			
+    			if(match){
+    				data.add(se);
+    			}
+    		}
+    		
+    		//sort
+    		if(sortField != null) {
+    			Collections.sort(data, new LazySorter(sortField, sortOrder));
+    		}
+    		
+    		//rowCount
+    		int dataSize = data.size();
+    		this.setRowCount(dataSize);
+    		
+    		//paginate
+    		if(dataSize > pageSize){
+    			try{
+    				return data.subList(first, first + pageSize);
+    			} catch (IndexOutOfBoundsException e) {
+    				return data.subList(first, first + (dataSize % pageSize));
+    			}
+    		} else {
+    			return data;
+    		}
+    	}
+    	
+    	@Override
+    	public Object getRowKey(SegmentoEvento object) {
+    		return object.getIdSegmentoEvento();
+    	}
+    	
+    	@Override
+    	public SegmentoEvento getRowData(String rowKey) {
+    		Integer id = Integer.valueOf(rowKey);
+    		for(SegmentoEvento s : segmentoEvento){
+    			if(id.equals(s.getIdSegmentoEvento())){
+    				return s;
+    			}
+    		}
+    		return null;
+    	}
+    }
+    
+    public class LazySorter implements Comparator<SegmentoEvento> {
+    	private String sortField;
+    	private SortOrder sortOrder;
+    	
+    	public LazySorter(String sortField, SortOrder sortOrder){
+    		this.sortField = sortField;
+    		this.sortOrder = sortOrder;
+    	}
+    	
+    	public int compare(SegmentoEvento object1, SegmentoEvento  object2){
+    		try {
+    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
+    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
+    			field1.setAccessible(true);
+    			field2.setAccessible(true);
+    			Object value1 = field1.get(object1);
+    			Object value2 = field2.get(object2);
+    			
+    			int value = ((Comparable)value1).compareTo(value2);
+    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
+    		}
+    		catch(Exception e) {
+    			throw new RuntimeException();
+    		}
+    	}
     }
 
     @FacesConverter(forClass = SegmentoEvento.class)

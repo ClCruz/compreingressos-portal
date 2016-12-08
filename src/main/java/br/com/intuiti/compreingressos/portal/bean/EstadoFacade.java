@@ -32,6 +32,11 @@ public class EstadoFacade extends AbstractFacade<Estado> {
         super(Estado.class);
     }
     
+    @Override
+    public List<Estado> findAll(){
+    	return getEntityManager().createNamedQuery("Estado.findAll").getResultList();
+    }
+    
     @SuppressWarnings("unchecked")
 	public boolean findES(String estado, String sigla){
         List<Estado> lista = em.createNamedQuery("Estado.findES").setParameter("estado", estado).setParameter("sigla", sigla).getResultList();
@@ -42,6 +47,10 @@ public class EstadoFacade extends AbstractFacade<Estado> {
 	public boolean findES(String estado, String sigla, Short id){
         List<Estado> lista = em.createNamedQuery("Estado.findESID").setParameter("estado", estado).setParameter("sigla", sigla).setParameter("id", id).getResultList();
         return lista.size() > 0 ? false : true;
+    }
+    
+    public void remove(Estado estado){
+    	getEntityManager().createNamedQuery("delete FROM mw_estado WHERE id_estado = " + estado.getIdEstado()).executeUpdate();
     }
         
 }

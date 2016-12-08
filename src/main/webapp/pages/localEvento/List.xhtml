@@ -19,14 +19,14 @@
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      reflow="true"
                                      sortBy="#{item.dsLocalEvento}"
-                                     sortOrder="ASCENDING"
                                      >
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        
                             <f:facet name="header">
                                 #{bundle.ListLocalEventoTitle}
                             </f:facet>
                             
-                             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                             <p:column headerText="#{bundle.ListLocalEventoTitle_dsLocalEvento}" 
                                       sortBy="#{item.dsLocalEvento}"
@@ -119,15 +119,13 @@
                                 <h:outputText value="#{item.cdUrlSite}" />
                             </p:column>-->
                             <p:column headerText="#{bundle.ListLocalEventoTitle_idMunicipio}"
-                                      sortBy="#{item.idMunicipio.dsMunicipio}"
-                                      filterBy="#{item.idMunicipio.dsMunicipio}"
+                                      filterBy="#{item.idMunicipio}"
                                       filterMatchMode="contains"
                                       filterStyle="width:50%">
                                 <h:outputText value="#{item.idMunicipio.dsMunicipio}" />
                             </p:column>
                             <p:column headerText="#{bundle.ListLocalEventoTitle_idTipoLocal}"
-                                      sortBy="#{item.idTipoLocal.dsTipoLocal}"
-                                      filterBy="#{item.idTipoLocal.dsTipoLocal}"
+                                      filterBy="#{item.idTipoLocal}"
                                       filterMatchMode="contains"
                                       filterStyle="width:50%">
                                 <h:outputText value="#{item.idTipoLocal.dsTipoLocal}" />
