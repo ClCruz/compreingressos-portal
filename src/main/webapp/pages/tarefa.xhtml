@@ -32,10 +32,10 @@
                                 </h:outputText>
                             </p:column>
                             <p:column headerText="Ação" >
-                                <p:commandButton id="searchButton" icon="fa fa-pencil" 
+                                <p:commandButton id="editButton" icon="fa fa-pencil" 
                                                  title="Editar Tarefa" ajax="false" rendered="#{item.actualOwner != null}"
                                                  action="#{tarefaController.redirect(item)}">
-                                                 <f:setPropertyActionListener target="#{contratoController.tarefa}" value="#{item}"/>
+                                                 <f:param name="tarefa" value="#{item.id}" />
                                 </p:commandButton>    
                                 <p:commandButton id="claimButton" icon="fa fa-unlock"
                                                  actionListener="#{tarefaController.startTask(item)}" 

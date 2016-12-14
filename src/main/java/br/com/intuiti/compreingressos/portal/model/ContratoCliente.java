@@ -57,7 +57,9 @@ public class ContratoCliente implements Serializable {
     private Collection<ContratoClientePrazoPagamento> contratoClientePrazoPagamentoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idContratoCliente")
     private Collection<ContratoClienteTipoLancamento> contratoClienteTipoLancamentoCollection;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idContrato")
+    private Collection<ContratoGed> contratoGedCollection;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -132,6 +134,8 @@ public class ContratoCliente implements Serializable {
     private Vendedor idVendedor;
     @Column(name = "id_processo")
     private Long idProcesso;
+    
+    
     
     public ContratoCliente() {
     }
@@ -372,6 +376,15 @@ public class ContratoCliente implements Serializable {
 
     public void setContratoClienteTipoLancamentoCollection(Collection<ContratoClienteTipoLancamento> contratoClienteTipoLancamentoCollection) {
         this.contratoClienteTipoLancamentoCollection = contratoClienteTipoLancamentoCollection;
+    }
+    
+    @XmlTransient
+    public Collection<ContratoGed> getContratoGedCollection() {
+    	return contratoGedCollection;
+    }
+    
+    public void setContratoGedCollection(Collection<ContratoGed> contratoGedCollection) {
+    	this.contratoGedCollection = contratoGedCollection;
     }
 
 }

@@ -38,4 +38,9 @@ public class ContratoClienteTipoLancamentoFacade extends AbstractFacade<Contrato
     public void delete(ContratoCliente id){
         em.createQuery("delete from ContratoClienteTipoLancamento c WHERE c.idContratoCliente = :id").setParameter("id", id).executeUpdate();
     }
+    
+    @Override
+    public void remove(ContratoClienteTipoLancamento id) {
+    	getEntityManager().createNativeQuery("delete FROM mw_contrato_cliente_tipo_lancamento WHERE id_contrato_cliente_tipo_lancamento = :id").setParameter("id", id).executeUpdate();
+    }
 }

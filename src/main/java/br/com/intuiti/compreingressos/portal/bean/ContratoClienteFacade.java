@@ -11,6 +11,7 @@ import br.com.intuiti.compreingressos.portal.model.Base;
 import br.com.intuiti.compreingressos.portal.model.ContratoCliente;
 import br.com.intuiti.compreingressos.portal.model.ContratoClientePrazoPagamento;
 import br.com.intuiti.compreingressos.portal.model.ContratoClienteTipoLancamento;
+import br.com.intuiti.compreingressos.portal.model.ContratoGed;
 import br.com.intuiti.compreingressos.portal.model.Evento;
 
 /**
@@ -50,6 +51,11 @@ public class ContratoClienteFacade extends AbstractFacade<ContratoCliente> {
     	return getEntityManager().createNamedQuery("ContratoClientePrazoPagamento.findByIdContratoCliente").setParameter("idContrato", contratoCliente).getResultList();
     }
     
+    @SuppressWarnings("unchecked")
+   	public List<ContratoGed> findProcessoCG(ContratoCliente idContrato){
+       	return getEntityManager().createNamedQuery("ContratoGed.findByIdContratoCliente").setParameter("idContrato", idContrato).getResultList();
+       }
+       
     
     public Long exist(Long id){
     	return (Long) getEntityManager().createNamedQuery("ContratoCliente.findByIdProcessoNum").setParameter("idProcesso", id).getSingleResult();

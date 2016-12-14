@@ -1,7 +1,14 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,27 +16,37 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.kie.api.runtime.manager.audit.AuditService;
 import org.kie.api.runtime.manager.audit.VariableInstanceLog;
 import org.kie.api.task.TaskService;
+import org.kie.api.task.model.Task;
+import org.primefaces.component.fileupload.FileUpload;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.com.intuiti.compreingressos.portal.bean.ContratoClienteFacade;
+import br.com.intuiti.compreingressos.portal.bean.ContratoGedFacade;
 import br.com.intuiti.compreingressos.portal.bpm.TaskBPM;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
 import br.com.intuiti.compreingressos.portal.model.ContratoCliente;
 import br.com.intuiti.compreingressos.portal.model.ContratoClientePrazoPagamento;
 import br.com.intuiti.compreingressos.portal.model.ContratoClienteTipoLancamento;
+import br.com.intuiti.compreingressos.portal.model.ContratoGed;
 import br.com.intuiti.compreingressos.portal.model.Tarefa;
 
 @ManagedBean(name = "contratoController")
@@ -39,6 +56,8 @@ public class ContratoController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private br.com.intuiti.compreingressos.portal.bean.ContratoClienteFacade ejbFacade;
+	@EJB
+	private br.com.intuiti.compreingressos.portal.bean.ContratoGedFacade ejbContratoGed;
 	private List<ContratoCliente> items = null;
 	private List<ContratoClientePrazoPagamento> itemsPP = null;
 	private List<ContratoClienteTipoLancamento> itemsTL = null;
@@ -48,6 +67,9 @@ public class ContratoController implements Serializable {
 	private Tarefa tarefa;
 	private boolean editavel = true;
 	private String stats = "P";
+	private ContratoGed contratoGed;
+	private List<ContratoGed> listaContratoGed;
+	private FileUpload dsArquivo;
 
 	@ManagedProperty(name = "contratoClientePrazoPagamentoController", value = "#{contratoClientePrazoPagamentoController}")
 	private ContratoClientePrazoPagamentoController contratoClientePrazoPagamentoController = new ContratoClientePrazoPagamentoController();
@@ -58,8 +80,25 @@ public class ContratoController implements Serializable {
 	public ContratoController() {
 		itemsPP = new ArrayList<>();
 		itemsTL = new ArrayList<>();
+		listaContratoGed = new ArrayList<>();
+		FacesContext f = FacesContext.getCurrentInstance();
+        Task task = TaskBPM.getRuntimeEngine().getTaskService().getTaskById(Long.valueOf(getTarefaParam(f)));
+        tarefa = new Tarefa();
+        tarefa.setId(task.getId());
+        tarefa.setProcessInstanceId(task.getTaskData().getProcessInstanceId());
+        tarefa.setName(task.getName());
 	}
-
+	
+	@PostConstruct
+	public void init() {
+		prepareCreate();
+	}
+	
+	public String getTarefaParam(FacesContext f) {
+		Map<String, String> params = f.getExternalContext().getRequestParameterMap();
+		return params.get("tarefa");
+	}
+	
 	protected void setEmbeddableKeys() {
 	}
 
@@ -68,22 +107,16 @@ public class ContratoController implements Serializable {
 
 	public ContratoCliente prepareCreate() {
 		selected = new ContratoCliente();
+		contratoGed = new ContratoGed();
+		selectedPP = new ContratoClientePrazoPagamento();
+		selectedTL = new ContratoClienteTipoLancamento();
+		obtemContrato();
 		initializeEmbeddableKey();
 		return selected;
 	}
 
-	public ContratoClientePrazoPagamento prepareCreatePP() {
-		selectedPP = new ContratoClientePrazoPagamento();
-		initializeEmbeddableKey();
-		return selectedPP;
-	}
-
-	public ContratoClienteTipoLancamento prepareCreateTL() {
-		selectedTL = new ContratoClienteTipoLancamento();
-		initializeEmbeddableKey();
-		return selectedTL;
-	}
-
+	
+	
 	// GETTERS E SETTERS
 	public ContratoClienteFacade getFacade() {
 		return ejbFacade;
@@ -158,6 +191,30 @@ public class ContratoController implements Serializable {
 	public void setStatus() {
 		this.stats = selected.getInStatusContrato();
 	}
+	
+	public ContratoGed getContratoGed() {
+		return contratoGed;
+	}
+
+	public void setContratoGed(ContratoGed contratoGed) {
+		this.contratoGed = contratoGed;
+	}
+
+	public List<ContratoGed> getListaContratoGed() {
+		return listaContratoGed;
+	}
+
+	public FileUpload getDsArquivo() {
+		return dsArquivo;
+	}
+
+	public void setDsArquivo(FileUpload dsArquivo) {
+		this.dsArquivo = dsArquivo;
+	}
+	
+	public ContratoGedFacade getContratoGedFacade() {
+		return ejbContratoGed;
+	}
 
 	// Métodos para adicionas nas listas.
 	public void addPP() {
@@ -168,15 +225,64 @@ public class ContratoController implements Serializable {
 		itemsTL.add(selectedTL);
 	}
 	
-	public void removePP(ContratoClientePrazoPagamento itemCCPP){
-		System.out.println(itemCCPP);
-		itemsPP.remove(itemCCPP);
-	}
-	
-	public void removeTL(){
-		itemsTL.remove(selectedTL);
+	public void addContratoGed() {
+		listaContratoGed.add(contratoGed);
+		contratoGed = new ContratoGed();
 	}
 
+	public void removePP(ContratoClientePrazoPagamento selectedPP){
+		itemsPP.remove(selectedPP);
+		if (selectedPP.getIdContratoCliente() != null) {
+			contratoClientePrazoPagamentoController.getFacade().remove(selectedPP);
+		}
+	}
+	
+	public void removeTL(ContratoClienteTipoLancamento selectedTL){
+		itemsTL.remove(selectedTL);
+		if (selectedTL.getIdContratoCliente() != null) {
+		contratoClienteTipoLancamentoController.getFacade().remove(selectedTL);
+		}
+	}
+	
+	public void removeContratoGed(ContratoGed contratoGed) {
+		listaContratoGed.remove(contratoGed);
+		if(contratoGed.getIdContrato() != null){
+			getContratoGedFacade().remove(contratoGed);
+		}
+	}
+	
+//	Método upload
+	public void upload(FileUploadEvent evento) throws IOException {
+		Date date = new Date();
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+		
+		FacesContext aFacesContext = FacesContext.getCurrentInstance();
+		ServletContext context = (ServletContext) aFacesContext.getExternalContext().getContext();
+		String fileName = date.getTime() + "-" + evento.getFile().getFileName();
+		
+		byte[] arq = evento.getFile().getContents();
+		saveFileDisk(evento.getFile(), fileName);
+		contratoGed.setDsArquivo(fileName);
+		listaContratoGed.add(contratoGed);
+	}
+	
+	public void saveFileDisk(UploadedFile file, String fileName) throws IOException {
+		String filePath = "/compreingressos-portal/uploads/";
+		InputStream in = file.getInputstream();
+		FileOutputStream out = new FileOutputStream(filePath + fileName);
+		int content;
+		while ((content = in.read()) > -1) {
+			out.write(content);
+		}
+		in.close();
+		out.close();
+	}
+	
+	public InputStream getArquivo() throws FileNotFoundException {
+		return new FileInputStream(new File("/compreingressos-portal/uploads/", contratoGed.getDsArquivo()));
+	}
+	
 	// Métodos do BPM
 	@SuppressWarnings("unchecked")
 	public String getVariable(Long processInstanceId, String variable) {
@@ -203,16 +309,23 @@ public class ContratoController implements Serializable {
 							.findProcessoPP(selected);
 					List<ContratoClienteTipoLancamento> listaContratoClienteTipoLancamento = getFacade()
 							.findProcessoTL(selected);
+					List<ContratoGed> listContratoGed = getFacade().findProcessoCG(selected);
 
-					itemsPP = new ArrayList<>();
-					for (ContratoClientePrazoPagamento listaCPP : listaContratoClientePrazoPagamento) {
-						itemsPP.add(listaCPP);
-					}
-
-					itemsTL = new ArrayList<>();
-					for (ContratoClienteTipoLancamento listaCTL : listaContratoClienteTipoLancamento) {
-						itemsTL.add(listaCTL);
-					}
+					/*if(selected.getIdContratoCliente() == null){*/
+						itemsPP = new ArrayList<>();
+						for (ContratoClientePrazoPagamento listaCPP : listaContratoClientePrazoPagamento) {
+							itemsPP.add(listaCPP);
+						}
+	
+						itemsTL = new ArrayList<>();
+						for (ContratoClienteTipoLancamento listaCTL : listaContratoClienteTipoLancamento) {
+							itemsTL.add(listaCTL);
+						}
+						listaContratoGed = new ArrayList<>();
+						for (ContratoGed listaCG : listContratoGed) {
+							listaContratoGed.add(listaCG);
+						}
+					
 
 				} else {
 					selected = new ContratoCliente();
@@ -296,6 +409,13 @@ public class ContratoController implements Serializable {
 				itl.setIdContratoCliente(selected);
 				itl.setIdUsuarioInsert(JsfUtil.getLogin());
 				contratoClienteTipoLancamentoController.getFacade().edit(itl);
+			}
+		}
+		
+		if(listaContratoGed.size() > 0) {
+			for (ContratoGed cGed : listaContratoGed) {
+				cGed.setIdContrato(selected);
+				getContratoGedFacade().edit(cGed);
 			}
 		}
 	}

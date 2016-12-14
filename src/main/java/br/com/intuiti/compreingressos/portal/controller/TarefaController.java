@@ -86,7 +86,7 @@ public class TarefaController implements Serializable {
             taskService.start(task.getId(), JsfUtil.getLogin().getCdLogin());
         }
         Map<String, Object> c = taskService.getTaskContent(task.getId());
-        return "/pages/" + c.get("TaskName").toString()+"?faces-redirect=true&amp;includeViewParams=true";
+        return "/pages/" + c.get("TaskName").toString()/*+"?faces-redirect=true&amp;includeViewParams=true"*/;
     }
 
     public void retrieveTasks() {
