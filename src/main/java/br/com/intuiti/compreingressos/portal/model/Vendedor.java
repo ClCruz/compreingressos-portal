@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -24,17 +26,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v ORDER BY v.dsVendedor"),
-    @NamedQuery(name = "Vendedor.findByDsVendedor", query = "SELECT v FROM Vendedor v WHERE v.dsVendedor = :dsVendedor"),
-    @NamedQuery(name = "Vendedor.findByDsVendedorId", query = "SELECT v FROM Vendedor v WHERE v.dsVendedor = :dsVendedor AND v.idVendedor <> :idVendedor"),
     @NamedQuery(name = "Vendedor.findByIdVendedor", query = "SELECT v FROM Vendedor v WHERE v.idVendedor = :idVendedor"),
+    @NamedQuery(name = "Vendedor.findByDsVendedor", query = "SELECT v FROM Vendedor v WHERE v.dsVendedor = :dsVendedor"),
     @NamedQuery(name = "Vendedor.findByInAtivo", query = "SELECT v FROM Vendedor v WHERE v.inAtivo = :inAtivo")})
 public class Vendedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_vendedor", columnDefinition = "integer")
+    @Column(name = "id_vendedor")
     private Integer idVendedor;
     @Basic(optional = false)
     @Column(name = "ds_vendedor")

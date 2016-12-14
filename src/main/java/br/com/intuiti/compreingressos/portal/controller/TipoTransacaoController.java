@@ -73,18 +73,18 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 	    }
 	    
 	    public void create() {
-	        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PaisCreated"));
+	        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TipoTransacaoCreated"));
 	        if (!JsfUtil.isValidationFailed()) {
 	            items = null;    // Invalidate list of items to trigger re-query.
 	        }
 	    }
 
 	    public void update() {
-	        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PaisUpdated"));
+	        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TipoTransacaoUpdated"));
 	    }
 
 	    public void destroy() {
-	        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PaisDeleted"));
+	        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TipoTransacaoDeleted"));
 	        if (!JsfUtil.isValidationFailed()) {
 	            selected = null; // Remove selection
 	            items = null;    // Invalidate list of items to trigger re-query.
@@ -104,10 +104,11 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 	    		try {
 	    			if (persistAction != PersistAction.DELETE) {
 	    				getFacade().edit(selected);
+	    				JsfUtil.addSuccessMessage(successMessage);
 	    			} else {
 	    				getFacade().remove(selected);
+	    				JsfUtil.addSuccessMessage(successMessage);
 	    			}
-	    			JsfUtil.addSuccessMessage(successMessage);
 	    		} catch (EJBException ex) {
 	                String msg = "";
 	                Throwable cause = ex.getCause();
@@ -181,11 +182,6 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 	    			}
 	    		}
 	    		
-	    		//sort
-	    		if(sortField != null) {
-	    			Collections.sort(data, new LazySorter(sortField, sortOrder));
-	    		}
-	    		
 	    		//rowCount
 	    		int dataSize = data.size();
 	    		this.setRowCount(dataSize);
@@ -216,34 +212,6 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 	    			}
 	    		}
 	    		return null;
-	    	}
-	    }
-	    
-	    public class LazySorter implements Comparator<TipoTransacao> {
-	    	private String sortField;
-	    	private SortOrder sortOrder;
-	    	
-	    	public LazySorter(String sortField, SortOrder sortOrder){
-	    		this.sortField = sortField;
-	    		this.sortOrder = sortOrder;
-	    	}
-	    	
-	    	@SuppressWarnings({ "unchecked", "rawtypes" })
-	    	public int compare(TipoTransacao object1, TipoTransacao object2){
-	    		try {
-	    			Field field1 = object1.getClass().getDeclaredField(this.sortField);
-	    			Field field2 = object2.getClass().getDeclaredField(this.sortField);
-	    			field1.setAccessible(true);
-	    			field2.setAccessible(true);
-	    			Object value1 = field1.get(object1);
-	    			Object value2 = field2.get(object2);
-	    			
-	    			int value = ((Comparable)value1).compareTo(value2);
-	    			return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
-	    		}
-	    		catch(Exception e) {
-	    			throw new RuntimeException();
-	    		}
 	    	}
 	    }
 	    
@@ -285,8 +253,5 @@ import br.com.intuiti.compreingressos.portal.model.TipoTransacao;
 	                return null;
 	            }
 	        }
-
 	    }
-	    
-	    
 	}

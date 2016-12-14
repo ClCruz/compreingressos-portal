@@ -31,7 +31,7 @@
                             </f:facet>
                             
                             <p:column headerText="#{bundle.ListBancoTitle_cdBanco}" sortBy="#{item.cdBanco}"
-                                      filterBy="#{item.cdBanco}" filterMatchMode="exact">
+                                      filterBy="#{item.cdBanco}" filterMatchMode="contains">
                                 <h:outputText value="#{item.cdBanco}"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListBancoTitle_nmBanco}" sortBy="#{item.nmBanco}"

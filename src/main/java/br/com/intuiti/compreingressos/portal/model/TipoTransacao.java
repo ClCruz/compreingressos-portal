@@ -1,13 +1,10 @@
 package br.com.intuiti.compreingressos.portal.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -24,10 +21,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TipoTransacao.findByIdTipoTransacao", query = "SELECT t FROM TipoTransacao t WHERE t.idTipoTransacao = :idTipoTransacao"),
     @NamedQuery(name = "TipoTransacao.findByDsTipoTransacao", query = "SELECT t FROM TipoTransacao t WHERE t.dsTipoTransacao = :dsTipoTransacao")})
 public class TipoTransacao implements Serializable {
+	
 	 private static final long serialVersionUID = 1L;
-	 	@Id @GeneratedValue(strategy = IDENTITY)
+	 	@Id
 	    @Basic(optional = false)
-	    @Column(name = "id_tipo_transacao")
+	    @Column(name = "id_tipo_transacao", columnDefinition = "integer")
 	    private Integer idTipoTransacao;
 	    @Size(max = 30)
 	    @Column(name = "ds_tipo_transacao")
@@ -36,6 +34,10 @@ public class TipoTransacao implements Serializable {
 	    public TipoTransacao() {
 	    }
 
+	    public TipoTransacao(Integer idTipoTransacao){
+	    	this.idTipoTransacao = idTipoTransacao;
+	    }
+	    
 	    public TipoTransacao(Integer idTipoTransacao, String dsTipoTransacao) {
 	        this.idTipoTransacao = idTipoTransacao;
 	        this.dsTipoTransacao = dsTipoTransacao;

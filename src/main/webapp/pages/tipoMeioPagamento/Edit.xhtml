@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoMeioPagamentoController.selected != null}">
                         <p:outputLabel value="#{bundle.EditTipoMeioPagamentoLabel_inTipoMeioPagamento}" for="inTipoMeioPagamento" />
-                        <p:inputText id="inTipoMeioPagamento" value="#{tipoMeioPagamentoController.selected.inTipoMeioPagamento}" title="#{bundle.EditTipoMeioPagamentoTitle_inTipoMeioPagamento}" required="true" requiredMessage="#{bundle.EditTipoMeioPagamentoRequiredMessage_inTipoMeioPagamento}"/>
+                        <h:outputText id="inTipoMeioPagamento" value="#{tipoMeioPagamentoController.selected.inTipoMeioPagamento}" title="#{bundle.EditTipoMeioPagamentoTitle_inTipoMeioPagamento}" required="true" requiredMessage="#{bundle.EditTipoMeioPagamentoRequiredMessage_inTipoMeioPagamento}"/>
                         <p:outputLabel value="#{bundle.EditTipoMeioPagamentoLabel_dsTipoMeioPagamento}" for="dsTipoMeioPagamento" />
                         <p:inputText id="dsTipoMeioPagamento" value="#{tipoMeioPagamentoController.selected.dsTipoMeioPagamento}" title="#{bundle.EditTipoMeioPagamentoTitle_dsTipoMeioPagamento}" required="true" requiredMessage="#{bundle.CreateTipoMeioPagamentoRequiredMessage_dsTipoMeioPagamento}"/>
                     </p:panelGrid>

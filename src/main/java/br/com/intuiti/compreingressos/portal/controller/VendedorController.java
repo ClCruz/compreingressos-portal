@@ -97,34 +97,32 @@ public class VendedorController implements Serializable {
         }
         return items;
     }
-
+    
+    public boolean validaVendedor(String dsVendedor) {
+    	if(getFacade().findByDsVendedor(dsVendedor)){
+    		return true;
+    	} else {
+    		selected = null;
+    		return false;
+    	}
+    }
+    
     private void persist(PersistAction persistAction, String successMessage) {
-        if (selected != null) {
-            setEmbeddableKeys();
-            try {
-                if (persistAction != PersistAction.DELETE) {
-                	String mensagemE = "Já existe um vendedor cadastrado com esse nome";
-                	if(persistAction == PersistAction.CREATE){
-                		if(getFacade().findDsVendedor(selected.getDsVendedor())){
-                			getFacade().edit(selected);
-                			JsfUtil.addSuccessMessage(successMessage);
-                		} else {
-                			JsfUtil.addErrorMessage(mensagemE);
-                		}
-                	} else {
-                		if(getFacade().findDsVendedorId(selected.getIdVendedor(), selected.getDsVendedor())){
-                			getFacade().edit(selected);
-                			JsfUtil.addSuccessMessage(successMessage);
-                		} else {
-                			JsfUtil.addErrorMessage(mensagemE);
-                		}
-                	}
-                } else {
-                    getFacade().remove(selected);
-                    JsfUtil.addSuccessMessage(successMessage);
-                }
-                
-            } catch (EJBException ex) {
+    	if (selected != null) {
+    		setEmbeddableKeys();
+    		try {
+    			if (persistAction != PersistAction.DELETE) {
+    				if(getFacade().findByDsVendedor(selected.getDsVendedor())){
+    					getFacade().edit(selected);
+    					JsfUtil.addSuccessMessage(successMessage);
+    				} else {
+    					JsfUtil.addErrorMessage("Já existe um vendedor cadastrado com o mesmo nome.");
+    				}
+    			} else {
+    				getFacade().remove(selected);
+    				JsfUtil.addSuccessMessage(successMessage);
+    			}
+    		} catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
                 if (cause != null) {
@@ -138,8 +136,8 @@ public class VendedorController implements Serializable {
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
-        }
+    		}
+    	}
     }
 
     public Vendedor getVendedor(java.lang.Integer id) {

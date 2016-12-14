@@ -94,8 +94,8 @@ public class TipoMeioPagamentoController implements Serializable {
 		}
 	}
 
-	public boolean verificaMP(String inTipoMeioPagamento, String dsTipoMeioPagamento) {
-		if (getFacade().findTipoMeio(inTipoMeioPagamento, dsTipoMeioPagamento)) {
+	public boolean verificaMP(String dsTipoMeioPagamento) {
+		if (getFacade().findByDsTipoMeioPagamento(dsTipoMeioPagamento)) {
 			return true;
 		} else {
 			selected = null;
@@ -115,8 +115,7 @@ public class TipoMeioPagamentoController implements Serializable {
 			setEmbeddableKeys();
 			try {
 				if (persistAction != PersistAction.DELETE) {
-					if (getFacade().findTipoMeio(selected.getInTipoMeioPagamento(),
-							selected.getDsTipoMeioPagamento())) {
+					if (getFacade().findByDsTipoMeioPagamento(selected.getDsTipoMeioPagamento())) {
 						getFacade().edit(selected);
 						JsfUtil.addSuccessMessage(successMessage);
 					} else {

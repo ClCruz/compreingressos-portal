@@ -12,6 +12,8 @@
             <h:form id="TipoTransacaoCreateForm">
             	<h:panelGroup id="display">
                 	<h:panelGrid columns="2" rendered="#{tipoTransacaoController.selected != null}">
+                		<p:outputLabel value="#{bundle.CreateTipoTransacaoLabel_idTipoTransacao}" for="idTipoTransacao" />
+                		<p:inputText id="idTipoTransacao" value="#{tipoTransacaoController.selected.idTipoTransacao}" title="#{bundle.CreateTipoTransacaoTitle_idTipoTransacao}"/>
                     	<p:outputLabel value="#{bundle.CreateTipoTransacaoLabel_dsTipoTransacao}" for="dsTipoTransacao" />
                     	<p:inputText id="dsTipoTransacao" value="#{tipoTransacaoController.selected.dsTipoTransacao}" title="#{bundle.CreateTipoTransacaoTitle_dsTipoTransacao}" />
                 	</h:panelGrid>

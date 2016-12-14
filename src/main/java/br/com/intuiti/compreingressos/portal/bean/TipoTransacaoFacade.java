@@ -26,11 +26,4 @@ public class TipoTransacaoFacade extends AbstractFacade<TipoTransacao> {
     public TipoTransacaoFacade() {
         super(TipoTransacao.class);
     }
-	    
-    @SuppressWarnings("unchecked")
-	@Override
-    public List<TipoTransacao> findAll() {
-    	return getEntityManager().createNamedQuery("TipoTransacao.findAll").getResultList();
-    }
-    
 }

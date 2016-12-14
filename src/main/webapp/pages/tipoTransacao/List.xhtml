@@ -28,7 +28,7 @@
                             </f:facet>
                             
                             <p:column sortBy="#{item.idTipoTransacao}" headerText="#{bundle.ListTipoTransacaoTitle_idTipoTransacao}"
-                                      filterBy="#{item.idTipoTransacao}" filterMatchMode="contains"
+                                      filterBy="#{item.idTipoTransacao}" filterMatchMode="exact"
                                       filterStyle="width:50%">
                                 <h:outputText value="#{item.idTipoTransacao}"/>
                             </p:column>

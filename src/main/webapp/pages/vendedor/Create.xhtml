@@ -12,8 +12,6 @@
             <h:form id="VendedorCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{vendedorController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateVendedorLabel_idVendedor}" for="idVendedor" />
-                        <p:inputText id="idVendedor" value="#{vendedorController.selected.idVendedor}" title="#{bundle.CreateVendedorTitle_idVendedor}" required="true" requiredMessage="#{bundle.CreateVendedorRequiredMessage_idVendedor}" />
                         <p:outputLabel value="#{bundle.CreateVendedorLabel_dsVendedor}" for="dsVendedor" />
                         <p:inputText id="dsVendedor" value="#{vendedorController.selected.dsVendedor}" title="#{bundle.CreateVendedorTitle_dsVendedor}" required="true" requiredMessage="#{bundle.CreateVendedorRequiredMessage_dsVendedor}"/>
                         <p:outputLabel value="#{bundle.CreateVendedorLabel_inAtivo}" for="inAtivo" />
