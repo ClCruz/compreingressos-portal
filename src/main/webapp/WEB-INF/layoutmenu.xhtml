@@ -16,10 +16,12 @@
                 <ul>
                 <h:form>
                     <li><h:outputLink rendered="#{request.getUserPrincipal() != null}" value="#{request.contextPath}/logoutServlet" ><i class="fa fa-power-off"></i> Sair</h:outputLink></li>
+                    <li><p:commandLink id="alterarSenha" oncomplete="PF('AlterarSenhaDialog').show();"><i class="icon fa fa-key"/> Alterar Senha</p:commandLink></li>
                 </h:form>
                 </ul>
             </li>
         </ul>
+		<ui:include src="/pages/alterarSenha.xhtml" />
         <div class="Separator"></div>
         <pr:menu model="#{loginController.menu}" />
     </div>
