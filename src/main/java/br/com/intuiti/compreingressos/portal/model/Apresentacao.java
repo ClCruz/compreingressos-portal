@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -16,12 +17,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -39,6 +43,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Apresentacao.findByDsPiso", query = "SELECT a FROM Apresentacao a WHERE a.dsPiso = :dsPiso"),
     @NamedQuery(name = "Apresentacao.findByInAtivo", query = "SELECT a FROM Apresentacao a WHERE a.inAtivo = :inAtivo")})
 public class Apresentacao implements Serializable {
+
+    @OneToMany(mappedBy = "idApresentacao")
+    private Collection<ContaCorrente> contaCorrenteCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -161,6 +168,16 @@ public class Apresentacao implements Serializable {
     @Override
     public String toString() {
         return "br.com.intuiti.compreingressos.portal.model.Apresentacao[ idApresentacao=" + idApresentacao + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<ContaCorrente> getContaCorrenteCollection() {
+        return contaCorrenteCollection;
+    }
+
+    public void setContaCorrenteCollection(Collection<ContaCorrente> contaCorrenteCollection) {
+        this.contaCorrenteCollection = contaCorrenteCollection;
     }
     
 }

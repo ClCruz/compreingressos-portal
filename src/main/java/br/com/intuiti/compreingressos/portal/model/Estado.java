@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -39,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Estado.findByDsEstado", query = "SELECT e FROM Estado e WHERE e.dsEstado = :dsEstado"),
     @NamedQuery(name = "Estado.findBySgEstado", query = "SELECT e FROM Estado e WHERE e.sgEstado = :sgEstado")})
 public class Estado implements Serializable {
+
+    @OneToMany(mappedBy = "idEstado")
+    private Collection<PedidoVenda> pedidoVendaCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -148,6 +152,16 @@ public class Estado implements Serializable {
 
     public void setClienteCollection(Collection<Cliente> clienteCollection) {
         this.clienteCollection = clienteCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<PedidoVenda> getPedidoVendaCollection() {
+        return pedidoVendaCollection;
+    }
+
+    public void setPedidoVendaCollection(Collection<PedidoVenda> pedidoVendaCollection) {
+        this.pedidoVendaCollection = pedidoVendaCollection;
     }
 
     

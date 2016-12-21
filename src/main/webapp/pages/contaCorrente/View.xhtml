@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContaCorrenteViewDlg" widgetVar="ContaCorrenteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContaCorrenteTitle}">
+            <h:form id="ContaCorrenteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contaCorrenteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_contaCorrentePK_idTransacao}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.contaCorrentePK.idTransacao}" title="#{bundle.ViewContaCorrenteTitle_contaCorrentePK_idTransacao}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_dtHoraTransacao}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.dtHoraTransacao}" title="#{bundle.ViewContaCorrenteTitle_dtHoraTransacao}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_cdTransacao}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.cdTransacao}" title="#{bundle.ViewContaCorrenteTitle_cdTransacao}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_vlMovimento}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.vlMovimento}" title="#{bundle.ViewContaCorrenteTitle_vlMovimento}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_qtMovimento}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.qtMovimento}" title="#{bundle.ViewContaCorrenteTitle_qtMovimento}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_dsObservacao}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.dsObservacao}" title="#{bundle.ViewContaCorrenteTitle_dsObservacao}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idContaContabilDebito}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idContaContabilDebito}" title="#{bundle.ViewContaCorrenteTitle_idContaContabilDebito}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idApresentacao}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idApresentacao}" title="#{bundle.ViewContaCorrenteTitle_idApresentacao}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idContaContabilCredito}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idContaContabilCredito}" title="#{bundle.ViewContaCorrenteTitle_idContaContabilCredito}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_contratoCliente}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.contratoCliente}" title="#{bundle.ViewContaCorrenteTitle_contratoCliente}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idEmpresa}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idEmpresa}" title="#{bundle.ViewContaCorrenteTitle_idEmpresa}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idEvento}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idEvento}" title="#{bundle.ViewContaCorrenteTitle_idEvento}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idFormaPagamento}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idFormaPagamento}" title="#{bundle.ViewContaCorrenteTitle_idFormaPagamento}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idPedidoVenda}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idPedidoVenda}" title="#{bundle.ViewContaCorrenteTitle_idPedidoVenda}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idTipoLancamento}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idTipoLancamento}" title="#{bundle.ViewContaCorrenteTitle_idTipoLancamento}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idTipoTransacao}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idTipoTransacao}" title="#{bundle.ViewContaCorrenteTitle_idTipoTransacao}"/>
+                        <h:outputText value="#{bundle.ViewContaCorrenteLabel_idUsuario}"/>
+                        <h:outputText value="#{contaCorrenteController.selected.idUsuario}" title="#{bundle.ViewContaCorrenteTitle_idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ContaCorrenteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,16 +1,21 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 @Entity
@@ -21,6 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TipoTransacao.findByIdTipoTransacao", query = "SELECT t FROM TipoTransacao t WHERE t.idTipoTransacao = :idTipoTransacao"),
     @NamedQuery(name = "TipoTransacao.findByDsTipoTransacao", query = "SELECT t FROM TipoTransacao t WHERE t.dsTipoTransacao = :dsTipoTransacao")})
 public class TipoTransacao implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoTransacao")
+    private Collection<ContaCorrente> contaCorrenteCollection;
 	
 	 private static final long serialVersionUID = 1L;
 	 	@Id
@@ -82,5 +90,15 @@ public class TipoTransacao implements Serializable {
 	    public String toString() {
 	        return idTipoTransacao.toString();
 	    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<ContaCorrente> getContaCorrenteCollection() {
+        return contaCorrenteCollection;
+    }
+
+    public void setContaCorrenteCollection(Collection<ContaCorrente> contaCorrenteCollection) {
+        this.contaCorrenteCollection = contaCorrenteCollection;
+    }
 	    
 	}

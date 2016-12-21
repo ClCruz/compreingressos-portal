@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +26,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -60,6 +62,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByInAssinante", query = "SELECT c FROM Cliente c WHERE c.inAssinante = :inAssinante"),
     @NamedQuery(name = "Cliente.findByNrEndereco", query = "SELECT c FROM Cliente c WHERE c.nrEndereco = :nrEndereco")})
 public class Cliente implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private Collection<PedidoVenda> pedidoVendaCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -408,6 +413,16 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return dsNome;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<PedidoVenda> getPedidoVendaCollection() {
+        return pedidoVendaCollection;
+    }
+
+    public void setPedidoVendaCollection(Collection<PedidoVenda> pedidoVendaCollection) {
+        this.pedidoVendaCollection = pedidoVendaCollection;
     }
     
 }

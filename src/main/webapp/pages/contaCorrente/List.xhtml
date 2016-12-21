@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+		            <h:form id="ContaCorrenteListForm">
+		                    <p:dataTable id="datalist" value="#{contaCorrenteController.items}" var="item"
+		                                 selectionMode="single" selection="#{contaCorrenteController.selected}"
+		                                 paginator="true"
+		                                 rowKey="#{item.contaCorrentePK}"
+		                                 rows="10"
+		                                 rowsPerPageTemplate="10,20,30,40,50"
+		                                 paginatorPosition="bottom"
+		                                 >
+		
+		                        <p:ajax event="rowSelect"   update="createButton viewButton"/>
+		                        <p:ajax event="rowUnselect" update="createButton viewButton"/>
+								<f:facet name="header">
+		                        	#{bundle.ListContaCorrenteTitle}
+		                        </f:facet>
+		                            
+		                        <p:column headerText="#{bundle.ListContaCorrenteTitle_dtHoraTransacao}">
+		                            <h:outputText value="#{item.dtHoraTransacao}"/>
+		                        </p:column>
+		                        <p:column headerText="#{bundle.ListContaCorrenteTitle_cdTransacao}">
+		                            <h:outputText value="#{item.cdTransacao}"/>
+		                        </p:column>
+		                        <p:column headerText="#{bundle.ListContaCorrenteTitle_idTipoLancamento}">
+		                            <h:outputText value="#{item.idTipoLancamento}"/>
+		                        </p:column>
+		                        <p:column headerText="#{bundle.ListContaCorrenteTitle_qtMovimento}">
+		                            <h:outputText value="#{item.qtMovimento}"/>
+		                        </p:column>
+		                        <p:column headerText="#{bundle.ListContaCorrenteTitle_saldoAnterior}" >
+		                        
+		                        </p:column> 
+		                        <p:column headerText="#{bundle.ListContaCorrenteTitle_vlMovimento}">
+		                            <h:outputText value="#{item.vlMovimento}"/>
+		                        </p:column>
+		                        <p:column headerText="#{bundle.ListContaCorrenteTitle_saldoAtual}" >
+		                        
+		                        </p:column> 
+		                        <p:column headerText="#{bundle.ListContaCorrenteTitle_dsObservacao}">
+		                            <h:outputText value="#{item.dsObservacao}"/>
+		                        </p:column>
+		                        <f:facet name="footer">
+		                            <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{contaCorrenteController.prepareCreate}" update=":ContaCorrenteCreateForm" oncomplete="PF('ContaCorrenteCreateDialog').show()"/>
+		                            <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":ContaCorrenteViewForm" oncomplete="PF('ContaCorrenteViewDialog').show()" disabled="#{empty contaCorrenteController.selected}"/>
+		                        </f:facet>
+		                    </p:dataTable>
+		            </h:form>
+				</div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="View.xhtml"/>
+	</ui:define>
+</ui:composition>

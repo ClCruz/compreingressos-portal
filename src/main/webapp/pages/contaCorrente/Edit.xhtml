@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContaCorrenteEditDlg" widgetVar="ContaCorrenteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditContaCorrenteTitle}">
+            <h:form id="ContaCorrenteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contaCorrenteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_contaCorrentePK_idTransacao}" for="contaCorrentePK_idTransacao" />
+                        <p:inputText id="contaCorrentePK_idTransacao" value="#{contaCorrenteController.selected.contaCorrentePK.idTransacao}" title="#{bundle.EditContaCorrenteTitle_contaCorrentePK_idTransacao}" required="true" requiredMessage="#{bundle.EditContaCorrenteRequiredMessage_contaCorrentePK_idTransacao}"/>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_dtHoraTransacao}" for="dtHoraTransacao" />
+                        <p:inputText id="dtHoraTransacao" value="#{contaCorrenteController.selected.dtHoraTransacao}" title="#{bundle.EditContaCorrenteTitle_dtHoraTransacao}" />
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_cdTransacao}" for="cdTransacao" />
+                        <p:inputText id="cdTransacao" value="#{contaCorrenteController.selected.cdTransacao}" title="#{bundle.EditContaCorrenteTitle_cdTransacao}" />
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_vlMovimento}" for="vlMovimento" />
+                        <p:inputText id="vlMovimento" value="#{contaCorrenteController.selected.vlMovimento}" title="#{bundle.EditContaCorrenteTitle_vlMovimento}" required="true" requiredMessage="#{bundle.EditContaCorrenteRequiredMessage_vlMovimento}"/>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_qtMovimento}" for="qtMovimento" />
+                        <p:inputText id="qtMovimento" value="#{contaCorrenteController.selected.qtMovimento}" title="#{bundle.EditContaCorrenteTitle_qtMovimento}" />
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_dsObservacao}" for="dsObservacao" />
+                        <p:inputText id="dsObservacao" value="#{contaCorrenteController.selected.dsObservacao}" title="#{bundle.EditContaCorrenteTitle_dsObservacao}" />
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idContaContabilDebito}" for="idContaContabilDebito" />
+                        <p:selectOneMenu id="idContaContabilDebito" value="#{contaCorrenteController.selected.idContaContabilDebito}" required="true" requiredMessage="#{bundle.EditContaCorrenteRequiredMessage_idContaContabilDebito}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{contaContabilController.itemsAvailableSelectOne}"
+                                           var="idContaContabilDebitoItem"
+                                           itemValue="#{idContaContabilDebitoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idApresentacao}" for="idApresentacao" />
+                        <p:selectOneMenu id="idApresentacao" value="#{contaCorrenteController.selected.idApresentacao}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{apresentacaoController.itemsAvailableSelectOne}"
+                                           var="idApresentacaoItem"
+                                           itemValue="#{idApresentacaoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idContaContabilCredito}" for="idContaContabilCredito" />
+                        <p:selectOneMenu id="idContaContabilCredito" value="#{contaCorrenteController.selected.idContaContabilCredito}" required="true" requiredMessage="#{bundle.EditContaCorrenteRequiredMessage_idContaContabilCredito}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{contaContabilController.itemsAvailableSelectOne}"
+                                           var="idContaContabilCreditoItem"
+                                           itemValue="#{idContaContabilCreditoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_contratoCliente}" for="contratoCliente" />
+                        <p:selectOneMenu id="contratoCliente" value="#{contaCorrenteController.selected.contratoCliente}" required="true" requiredMessage="#{bundle.EditContaCorrenteRequiredMessage_contratoCliente}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{contratoClienteController.itemsAvailableSelectOne}"
+                                           var="contratoClienteItem"
+                                           itemValue="#{contratoClienteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idEmpresa}" for="idEmpresa" />
+                        <p:selectOneMenu id="idEmpresa" value="#{contaCorrenteController.selected.idEmpresa}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{empresaController.itemsAvailableSelectOne}"
+                                           var="idEmpresaItem"
+                                           itemValue="#{idEmpresaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idEvento}" for="idEvento" />
+                        <p:selectOneMenu id="idEvento" value="#{contaCorrenteController.selected.idEvento}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{eventoController.itemsAvailableSelectOne}"
+                                           var="idEventoItem"
+                                           itemValue="#{idEventoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idFormaPagamento}" for="idFormaPagamento" />
+                        <p:selectOneMenu id="idFormaPagamento" value="#{contaCorrenteController.selected.idFormaPagamento}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{formaPagamentoController.itemsAvailableSelectOne}"
+                                           var="idFormaPagamentoItem"
+                                           itemValue="#{idFormaPagamentoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idPedidoVenda}" for="idPedidoVenda" />
+                        <p:selectOneMenu id="idPedidoVenda" value="#{contaCorrenteController.selected.idPedidoVenda}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{pedidoVendaController.itemsAvailableSelectOne}"
+                                           var="idPedidoVendaItem"
+                                           itemValue="#{idPedidoVendaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idTipoLancamento}" for="idTipoLancamento" />
+                        <p:selectOneMenu id="idTipoLancamento" value="#{contaCorrenteController.selected.idTipoLancamento}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoLancamentoController.itemsAvailableSelectOne}"
+                                           var="idTipoLancamentoItem"
+                                           itemValue="#{idTipoLancamentoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idTipoTransacao}" for="idTipoTransacao" />
+                        <p:selectOneMenu id="idTipoTransacao" value="#{contaCorrenteController.selected.idTipoTransacao}" required="true" requiredMessage="#{bundle.EditContaCorrenteRequiredMessage_idTipoTransacao}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoTransacaoController.itemsAvailableSelectOne}"
+                                           var="idTipoTransacaoItem"
+                                           itemValue="#{idTipoTransacaoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContaCorrenteLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{contaCorrenteController.selected.idUsuario}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contaCorrenteController.update}" value="#{bundle.Save}" update="display,:ContaCorrenteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContaCorrenteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ContaCorrenteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

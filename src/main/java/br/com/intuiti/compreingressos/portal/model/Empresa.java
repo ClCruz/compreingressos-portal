@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -38,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empresa.findByDsEmpresaId", query = "SELECT e FROM Empresa e WHERE e.dsEmpresa = :dsEmpresa AND e.idEmpresa <> :idEmpresa"),
     @NamedQuery(name = "Empresa.findByInAtivo", query = "SELECT e FROM Empresa e WHERE e.inAtivo = :inAtivo")})
 public class Empresa implements Serializable {
+
+    @OneToMany(mappedBy = "idEmpresa")
+    private Collection<ContaCorrente> contaCorrenteCollection;
 
     @OneToMany(mappedBy = "idEmpresa")
     private Collection<ContratoCliente> contratoClienteCollection;
@@ -129,6 +133,16 @@ public class Empresa implements Serializable {
 
     public void setContratoClienteCollection(Collection<ContratoCliente> contratoClienteCollection) {
         this.contratoClienteCollection = contratoClienteCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<ContaCorrente> getContaCorrenteCollection() {
+        return contaCorrenteCollection;
+    }
+
+    public void setContaCorrenteCollection(Collection<ContaCorrente> contaCorrenteCollection) {
+        this.contaCorrenteCollection = contaCorrenteCollection;
     }
     
 }

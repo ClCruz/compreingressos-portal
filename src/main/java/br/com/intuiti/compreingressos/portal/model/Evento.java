@@ -6,19 +6,26 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -44,6 +51,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Evento.findByInimprimicanhotoPos", query = "SELECT e FROM Evento e WHERE e.inimprimicanhotoPos = :inimprimicanhotoPos"),
     @NamedQuery(name = "Evento.findByInExibeTelaAssinante", query = "SELECT e FROM Evento e WHERE e.inExibeTelaAssinante = :inExibeTelaAssinante")})
 public class Evento implements Serializable {
+
+    @JoinTable(name = "mw_usuario_itau_evento", joinColumns = {
+        @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")})
+    @ManyToMany
+    private Collection<UsuarioItau> usuarioItauCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvento")
+    private Collection<Apresentacao> apresentacaoCollection;
+    @OneToMany(mappedBy = "idEvento")
+    private Collection<ContaCorrente> contaCorrenteCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -245,6 +262,36 @@ public class Evento implements Serializable {
     @Override
     public String toString() {
         return dsEvento;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<UsuarioItau> getUsuarioItauCollection() {
+        return usuarioItauCollection;
+    }
+
+    public void setUsuarioItauCollection(Collection<UsuarioItau> usuarioItauCollection) {
+        this.usuarioItauCollection = usuarioItauCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<Apresentacao> getApresentacaoCollection() {
+        return apresentacaoCollection;
+    }
+
+    public void setApresentacaoCollection(Collection<Apresentacao> apresentacaoCollection) {
+        this.apresentacaoCollection = apresentacaoCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<ContaCorrente> getContaCorrenteCollection() {
+        return contaCorrenteCollection;
+    }
+
+    public void setContaCorrenteCollection(Collection<ContaCorrente> contaCorrenteCollection) {
+        this.contaCorrenteCollection = contaCorrenteCollection;
     }
     
 }

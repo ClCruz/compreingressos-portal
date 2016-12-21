@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -18,12 +19,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -46,6 +50,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TipoLancamento.findByInAcrescentaSubstrai", query = "SELECT t FROM TipoLancamento t WHERE t.inAcrescentaSubstrai = :inAcrescentaSubstrai"),
     @NamedQuery(name = "TipoLancamento.findByIdFormaPagamento", query = "SELECT t FROM TipoLancamento t WHERE t.idFormaPagamento = :idFormaPagamento")})
 public class TipoLancamento implements Serializable {
+
+    @OneToMany(mappedBy = "idTipoLancamento")
+    private Collection<ContaCorrente> contaCorrenteCollection;
 
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -245,6 +252,16 @@ public class TipoLancamento implements Serializable {
     @Override
     public String toString() {
         return dsTipoLancamento;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<ContaCorrente> getContaCorrenteCollection() {
+        return contaCorrenteCollection;
+    }
+
+    public void setContaCorrenteCollection(Collection<ContaCorrente> contaCorrenteCollection) {
+        this.contaCorrenteCollection = contaCorrenteCollection;
     }
     
 }

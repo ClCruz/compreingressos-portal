@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,10 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -37,6 +41,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FormaPagamento.findByDsMpId", query = "SELECT f FROM FormaPagamento f WHERE f.dsFormaPagamento = :dsFormaPagamento AND f.inTipoMeioPagamento = :inTipoMeioPagamento AND f.idFormaPagamento <> :idFormaPagamento"),
     @NamedQuery(name = "FormaPagamento.findByInAtivo", query = "SELECT f FROM FormaPagamento f WHERE f.inAtivo = :inAtivo")})
 public class FormaPagamento implements Serializable {
+
+    @OneToMany(mappedBy = "idFormaPagamento")
+    private Collection<TipoLancamento> tipoLancamentoCollection;
+    @OneToMany(mappedBy = "idFormaPagamento")
+    private Collection<ContaCorrente> contaCorrenteCollection;
 
 
     private static final long serialVersionUID = 1L;
@@ -124,5 +133,25 @@ public class FormaPagamento implements Serializable {
     @Override
     public String toString() {
         return dsFormaPagamento;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<TipoLancamento> getTipoLancamentoCollection() {
+        return tipoLancamentoCollection;
+    }
+
+    public void setTipoLancamentoCollection(Collection<TipoLancamento> tipoLancamentoCollection) {
+        this.tipoLancamentoCollection = tipoLancamentoCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<ContaCorrente> getContaCorrenteCollection() {
+        return contaCorrenteCollection;
+    }
+
+    public void setContaCorrenteCollection(Collection<ContaCorrente> contaCorrenteCollection) {
+        this.contaCorrenteCollection = contaCorrenteCollection;
     }
 }

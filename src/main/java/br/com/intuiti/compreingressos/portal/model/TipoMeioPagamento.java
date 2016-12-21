@@ -6,6 +6,7 @@
 package br.com.intuiti.compreingressos.portal.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,10 +14,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -31,6 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TipoMeioPagamento.findByInTipoMeioPagamento", query = "SELECT t FROM TipoMeioPagamento t WHERE t.inTipoMeioPagamento = :inTipoMeioPagamento"),
     @NamedQuery(name = "TipoMeioPagamento.findByDsTipoMeioPagamento", query = "SELECT t FROM TipoMeioPagamento t WHERE t.dsTipoMeioPagamento = :dsTipoMeioPagamento")})
 public class TipoMeioPagamento implements Serializable {
+
+    @OneToMany(mappedBy = "inTipoMeioPagamento")
+    private Collection<FormaPagamento> formaPagamentoCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -88,6 +95,16 @@ public class TipoMeioPagamento implements Serializable {
     @Override
     public String toString() {
         return dsTipoMeioPagamento;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<FormaPagamento> getFormaPagamentoCollection() {
+        return formaPagamentoCollection;
+    }
+
+    public void setFormaPagamentoCollection(Collection<FormaPagamento> formaPagamentoCollection) {
+        this.formaPagamentoCollection = formaPagamentoCollection;
     }
     
 }

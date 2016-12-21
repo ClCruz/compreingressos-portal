@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -40,6 +42,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ContaContabil.findByNrContaContabil", query = "SELECT c FROM ContaContabil c WHERE c.nrContaContabil = :nrContaContabil"), 
     @NamedQuery(name = "ContaContabil.findByNrContaContabilId", query = "SELECT c FROM ContaContabil c WHERE c.nrContaContabil = :nrContaContabil AND c.idContaContabil <> :idContaContabil")})
 public class ContaContabil implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idContaContabilDebito")
+    private Collection<ContaCorrente> contaCorrenteCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idContaContabilCredito")
+    private Collection<ContaCorrente> contaCorrenteCollection1;
 
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = IDENTITY)
@@ -152,6 +159,26 @@ public class ContaContabil implements Serializable {
     @Override
     public String toString() {
         return dsContaContabil;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<ContaCorrente> getContaCorrenteCollection() {
+        return contaCorrenteCollection;
+    }
+
+    public void setContaCorrenteCollection(Collection<ContaCorrente> contaCorrenteCollection) {
+        this.contaCorrenteCollection = contaCorrenteCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<ContaCorrente> getContaCorrenteCollection1() {
+        return contaCorrenteCollection1;
+    }
+
+    public void setContaCorrenteCollection1(Collection<ContaCorrente> contaCorrenteCollection1) {
+        this.contaCorrenteCollection1 = contaCorrenteCollection1;
     }
     
 }
