@@ -5,10 +5,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
       
-    <f:metadata>
+    <!-- <f:metadata>
 		<f:event type="preRenderView"
 			listener="#{esqueciSenhaController.redefinirSenha()}" />
-	</f:metadata>
+	</f:metadata> -->
 
     <h:head>
         <f:facet name="first">
@@ -34,8 +34,13 @@
                         <div class="Wid100"><p:password id="novaSenha" placeholder="Informe uma nova senha" style="width:300px;" value="#{esqueciSenhaController.senha}" feedback="true" 
                         promptLabel="Informe uma senha" weakLabel="Fraca"
                     	goodLabel="Média" strongLabel="Forte" required="true" requiredMessage="Informe uma senha" /></div>
+                    	<div class="EmptyBox10"></div>
+                    	<div class="Wid100"><p:password id="novaSenha2" placeholder="Confirmar nova senha" style="width:300px;" value="#{esqueciSenhaController.senha2}" feedback="true" 
+                        promptLabel="Confirmar nova senha" weakLabel="Fraca"
+                    	goodLabel="Média" strongLabel="Forte" required="true"/>
+                    	</div>
                     	<div class="EmptyBox20"></div>
-                        <div class="Wid100"><p:commandButton actionListener="#{esqueciSenhaController.alteraSenha()}" value="Alterar Senha" icon="fa fa-send"  styleClass="RedButton Wid60 Fs18 White RaisedButton"/></div>
+                        <div class="Wid100"><p:commandButton actionListener="#{esqueciSenhaController.alteraSenha()}" value="Alterar Senha" icon="fa fa-send" update="formRedefinirSenha:growl" styleClass="RedButton Wid60 Fs18 White RaisedButton"/></div>
                         <div class="EmptyBox10"></div>
                     </div>
                     <div class="Wid100 TexAlCenter MarTop20 Fs14 FontRobotoRegular WhiteBlue">

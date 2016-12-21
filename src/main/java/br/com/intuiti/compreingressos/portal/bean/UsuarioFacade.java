@@ -53,6 +53,12 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     }
     
     @SuppressWarnings("unchecked")
+   	public int findLoginId(String cdLogin, Integer idUsuario){
+           List<Usuario> lista = em.createNamedQuery("Usuario.findLoginId").setParameter("cdLogin", cdLogin).setParameter("idUsuario", idUsuario).getResultList();
+           return lista.size();
+    }
+    
+    @SuppressWarnings("unchecked")
 	public List<Usuario> findAtivo(){
     	return getEntityManager().createNamedQuery("Usuario.findAtivo").setParameter("inAtivo", 1).getResultList();
     }

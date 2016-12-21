@@ -115,7 +115,7 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 								JsfUtil.addErrorMessage("Já existe um Login cadastrado com esse nome.");
 							}
 						} else if (persistAction == PersistAction.UPDATE){
-							if(getFacade().findCdLogin(selected.getCdLogin())){
+							if(getFacade().findLoginId(selected.getCdLogin(), selected.getIdUsuario()) == 0){
 								getFacade().edit(selected);
 								JsfUtil.addSuccessMessage(successMessage);
 							} else {

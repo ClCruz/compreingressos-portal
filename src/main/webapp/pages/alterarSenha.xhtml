@@ -16,6 +16,8 @@
 			<p:password id="senha" value="#{alterarSenhaController.senhaAtual}"/>
 			<p:outputLabel for="novaSenha" value="Nova Senha: " />
 			<p:password id="novaSenha" value="#{alterarSenhaController.novaSenha}"/>
+			<p:outputLabel for="novaSenha2" value="Confirmar Nova Senha: " />
+			<p:password id="novaSenha2" value="#{alterarSenhaController.novaSenha2}"/>
 		</p:panelGrid>
 			<p:commandButton actionListener="#{alterarSenhaController.alterarSenha()}" value="#{bundle.Save}" update="AlterarSenhaForm,:growl" oncomplete="handleSubmit(args,'AlterarSenhaDialog');"/>
             <p:commandButton value="#{bundle.Cancel}" onclick="PF('AlterarSenhaDialog').hide()"/>

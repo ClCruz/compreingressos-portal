@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
+import br.com.intuiti.compreingressos.portal.bean.EsqueciSenhaFacade;
 import br.com.intuiti.compreingressos.portal.bean.UsuarioFacade;
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
 import br.com.intuiti.compreingressos.portal.model.EsqueciSenha;
@@ -33,6 +34,7 @@ public class EsqueciSenhaController implements Serializable {
 	private String usuario;
 	private Integer codigoUsuario;
 	private String senha;
+	private String senha2;
 
 	public String getUsuario() {
 		return usuario;
@@ -50,11 +52,19 @@ public class EsqueciSenhaController implements Serializable {
 		this.senha = senha;
 	}
 
+	public String getSenha2() {
+		return senha2;
+	}
+
+	public void setSenha2(String senha2) {
+		this.senha2 = senha2;
+	}
+
 	public UsuarioFacade getFacade() {
 		return ejbFacade;
 	}
 	
-	public br.com.intuiti.compreingressos.portal.bean.EsqueciSenhaFacade getEFacade() {
+	public EsqueciSenhaFacade getEFacade() {
 		return ejbEFacade;
 	}
 
@@ -63,6 +73,7 @@ public class EsqueciSenhaController implements Serializable {
 		if (user != null) {
 			HtmlEmail email = new HtmlEmail();
 			email.setHostName("smtp.gmail.com"); // email.setHostName("smtp.gmail.com");
+			
 			email.setSmtpPort(587);
 			email.addTo(user.getDsEmail(), user.getDsNome());
 			email.setFrom("emailtesteintuiti@gmail.com", "COMPREINGRESSOS");
@@ -77,7 +88,8 @@ public class EsqueciSenhaController implements Serializable {
 			String link = "http://localhost:8080/compreingressos-portal/faces/redefinirSenha.xhtml?code=" + codigoMD5;
 			builder.append(createMailHTML(user, link));
 			email.setHtmlMsg(builder.toString());
-			email.setSSL(true);
+			email.setSSL(false);
+			email.setTLS(true);
 			email.setAuthentication("emailtesteintuiti@gmail.com", "padrao111");
 			email.send();
 			JsfUtil.addSuccessMessage("E-mail enviado com sucesso, verifique sua caixa de mensagem");
@@ -100,20 +112,20 @@ public class EsqueciSenhaController implements Serializable {
 	}
 	
 	public void alteraSenha() throws NoSuchAlgorithmException, IOException{
-		try{
-			Usuario us = new Usuario();
-			us = getFacade().find(codigoUsuario);
-			MessageDigest m = MessageDigest.getInstance("MD5");
-			m.update(senha.getBytes(),0,senha.length());
-			String novaSenha = new BigInteger(1,m.digest()).toString(16);
-			us.setCdPww(novaSenha);
-			getFacade().edit(us);
-			FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(senha.equals(senha2)){
+			try{
+				Usuario us = new Usuario();
+				us = getFacade().find(codigoUsuario);
+				us.setCdPww(senha);
+				getFacade().edit(us);
+				FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(senha != senha2) {
+			JsfUtil.addErrorMessage("As senhas não correspondem.");
 		}
 	}
-	
 	public void redefinirSenha(){
 		String codigoE = FacesContext.getCurrentInstance()
 				.getExternalContext().getRequestParameterMap().get("code");

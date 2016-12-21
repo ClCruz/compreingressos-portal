@@ -22,6 +22,7 @@ public class AlterarSenhaController implements Serializable{
 	private Usuario usuario;
 	private String senhaAtual;
 	private String novaSenha;
+	private String novaSenha2;
 	
 	public AlterarSenhaController() {
 		usuario = new Usuario();
@@ -30,11 +31,15 @@ public class AlterarSenhaController implements Serializable{
 	
 	public void alterarSenha() throws NoSuchAlgorithmException {
 		if(senhaAtual.equals(usuario.getCdPww())){
-			MessageDigest m = MessageDigest.getInstance("MD5");
-			m.update(novaSenha.getBytes(), 0, novaSenha.length());
-			usuario.setCdPww(novaSenha);
-			getFacade().edit(usuario);
-			JsfUtil.addSuccessMessage("Senha alterada com sucesso.");
+			if(novaSenha.equals(novaSenha2)){
+				MessageDigest m = MessageDigest.getInstance("MD5");
+				m.update(novaSenha.getBytes(), 0, novaSenha.length());
+				usuario.setCdPww(novaSenha);
+				getFacade().edit(usuario);
+				JsfUtil.addSuccessMessage("Senha alterada com sucesso.");
+			} else {
+				JsfUtil.addErrorMessage("As senhas não correspondem.");
+			}
 		} else {
 			JsfUtil.addErrorMessage("Senha atual inválida.");
 		}
@@ -64,6 +69,14 @@ public class AlterarSenhaController implements Serializable{
 	
 	public void setNovaSenha(String novaSenha) {
 		this.novaSenha = novaSenha;
+	}
+	
+	public String getNovaSenha2() {
+		return novaSenha2;
+	}
+
+	public void setNovaSenha2(String novaSenha2) {
+		this.novaSenha2 = novaSenha2;
 	}
 
 	public UsuarioFacade getFacade() {
