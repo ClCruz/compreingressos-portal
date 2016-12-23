@@ -33,7 +33,7 @@
                         <div class="EmptyBox20"></div>
                         <div class="Wid100"><p:inputText id="loginUsuario" placeholder="Informe seu login" style="width:300px;"  value="#{esqueciSenhaController.usuario}"/></div>
                     	<div class="EmptyBox20"></div>
-                        <div class="Wid100"><p:commandButton actionListener="#{esqueciSenhaController.sendMail()}" value="Enviar" icon="fa fa-send"  styleClass="RedButton Wid60 Fs18 White RaisedButton" update="formEsqueciSenha:growl"/></div>
+                        <div class="Wid100"><p:commandButton actionListener="#{esqueciSenhaController.enviarEmail()}" value="Enviar" icon="fa fa-send"  styleClass="RedButton Wid60 Fs18 White RaisedButton" update="formEsqueciSenha:growl"/></div>
                         <div class="EmptyBox5"></div>
                         <div class="Wid100"><p:commandButton value="Voltar" action="/pages/index.xhtml?faces-redirect=true" icon="fa fa-arrow-left" styleClass="RedButton Wid60 Fs18 White RaisedButton" update="growl"/></div>
                         <div class="EmptyBox10"></div>

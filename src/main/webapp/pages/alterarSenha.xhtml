@@ -12,12 +12,12 @@
 	<p:dialog id="AlterarSenhaDlg" header="Alterar Senha" widgetVar="AlterarSenhaDialog" modal="true" resizable="false" appendTo="@(body)" style="overflow-y: hidden!important;">
 		<h:form id="AlterarSenhaForm">
 		<p:panelGrid columns="2">
-			<p:outputLabel for="senha" value="Senha: " />
-			<p:password id="senha" value="#{alterarSenhaController.senhaAtual}"/>
-			<p:outputLabel for="novaSenha" value="Nova Senha: " />
-			<p:password id="novaSenha" value="#{alterarSenhaController.novaSenha}"/>
-			<p:outputLabel for="novaSenha2" value="Confirmar Nova Senha: " />
-			<p:password id="novaSenha2" value="#{alterarSenhaController.novaSenha2}"/>
+			<p:outputLabel for="senha" value="#{bundle.EditAlterarSenha_senha}" />
+			<p:password id="senha" value="#{alterarSenhaController.senhaAtual}" required="true"/>
+			<p:outputLabel for="novaSenha" value="#{bundle.EditAlterarSenha_novaSenha}" />
+			<p:password id="novaSenha" value="#{alterarSenhaController.novaSenha}" required="true"/>
+			<p:outputLabel for="novaSenha2" value="#{bundle.EditAlterarSenha_novaSenha2}"/>
+			<p:password id="novaSenha2" value="#{alterarSenhaController.novaSenha2}" required="true"/>
 		</p:panelGrid>
 			<p:commandButton actionListener="#{alterarSenhaController.alterarSenha()}" value="#{bundle.Save}" update="AlterarSenhaForm,:growl" oncomplete="handleSubmit(args,'AlterarSenhaDialog');"/>
             <p:commandButton value="#{bundle.Cancel}" onclick="PF('AlterarSenhaDialog').hide()"/>

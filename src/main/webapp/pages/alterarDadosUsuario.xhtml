@@ -12,40 +12,40 @@
 	<p:dialog id="AlterarDadosUsuarioDlg" header="Meus Dados" widgetVar="AlterarDadosUsuarioDialog" modal="true" resizable="false" appendTo="@(body)" style="overflow-y: hidden!important;">
 		<h:form id="AlterarDadosUsuarioForm">
 		<p:panelGrid columns="4">
-			<p:outputLabel value="#{bundle.EditUsuarioLabel_cdLogin}" for="cdLogin" />
-                        <p:inputText id="cdLogin" value="#{alterarDadosUsuarioController.usuario.cdLogin}" title="#{bundle.EditUsuarioTitle_cdLogin}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_cdLogin}"/>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_dsNome}" for="dsNome" />
-                        <p:inputText id="dsNome" value="#{alterarDadosUsuarioController.usuario.dsNome}" title="#{bundle.EditUsuarioTitle_dsNome}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_dsNome}"/>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_dsEmail}" for="dsEmail" />
-                        <p:inputText id="dsEmail" value="#{alterarDadosUsuarioController.usuario.dsEmail}" title="#{bundle.EditUsuarioTitle_dsEmail}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_dsEmail}"/>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inAtivo}" for="inAtivo" />
-                        <p:selectOneMenu id="inAtivo" value="#{alterarDadosUsuarioController.usuario.inAtivo}" style="width:100px;">
-                                <f:selectItem itemLabel="Ativo" itemValue="1" noSelectionOption="false" />
-                                <f:selectItem itemLabel="Inativo" itemValue="0" noSelectionOption="true"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inAdmin}" for="inAdmin" />
-                        <p:selectOneMenu id="inAdmin" value="#{alterarDadosUsuarioController.usuario.inAdmin}" style="width:100px;">
-                                <f:selectItem itemLabel="Sim" itemValue="1" noSelectionOption="false" />
-                                <f:selectItem itemLabel="Não" itemValue="0" noSelectionOption="true"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inTelemarketing}" for="inTelemarketing" />
-                        <p:selectOneMenu id="inTelemarketing" value="#{alterarDadosUsuarioController.usuario.inTelemarketing}" style="width:100px;">
-                                <f:selectItem itemLabel="Sim" itemValue="1" noSelectionOption="false" />
-                                <f:selectItem itemLabel="Não" itemValue="0" noSelectionOption="true"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inPdv}" for="inPdv" />
-                        <p:selectOneMenu id="inPdv" value="#{alterarDadosUsuarioController.usuario.inPdv}" style="width:100px;">
-                                <f:selectItem itemLabel="Sim" itemValue="1" noSelectionOption="false" />
-                                <f:selectItem itemLabel="Não" itemValue="0" noSelectionOption="true"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_inPos}" for="inPos" />
-                        <p:selectOneMenu id="inPos" value="#{alterarDadosUsuarioController.usuario.inPos}" style="width:100px;">
-                                <f:selectItem itemLabel="Sim" itemValue="1" noSelectionOption="false" />
-                                <f:selectItem itemLabel="Não" itemValue="0" noSelectionOption="true"/>
-                        </p:selectOneMenu>
+				<p:outputLabel value="#{bundle.EditUsuarioLabel_cdLogin}" for="cdLogin" />
+				<p:inputText id="cdLogin" value="#{alterarDadosUsuarioController.usuario.cdLogin}" title="#{bundle.EditUsuarioTitle_cdLogin}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_cdLogin}"/>
+				<p:outputLabel value="#{bundle.EditUsuarioLabel_dsNome}" for="dsNome" />
+				<p:inputText id="dsNome" value="#{alterarDadosUsuarioController.usuario.dsNome}" title="#{bundle.EditUsuarioTitle_dsNome}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_dsNome}"/>
+				<p:outputLabel value="#{bundle.EditUsuarioLabel_dsEmail}" for="dsEmail" />
+				<p:inputText id="dsEmail" value="#{alterarDadosUsuarioController.usuario.dsEmail}" title="#{bundle.EditUsuarioTitle_dsEmail}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_dsEmail}"/>
+				<p:outputLabel value="#{bundle.EditUsuarioLabel_inAtivo}" for="inAtivo" />
+					<p:selectOneMenu id="inAtivo" value="#{alterarDadosUsuarioController.usuario.inAtivo}" style="width:100px;">
+						<f:selectItem itemLabel="Ativo" itemValue="1" noSelectionOption="false" />
+						<f:selectItem itemLabel="Inativo" itemValue="0" noSelectionOption="true"/>
+					</p:selectOneMenu>
+				<p:outputLabel value="#{bundle.EditUsuarioLabel_inAdmin}" for="inAdmin" />
+					<p:selectOneMenu id="inAdmin" value="#{alterarDadosUsuarioController.usuario.inAdmin}" style="width:100px;">
+						<f:selectItem itemLabel="Sim" itemValue="1" noSelectionOption="false" />
+						<f:selectItem itemLabel="Não" itemValue="0" noSelectionOption="true"/>
+					</p:selectOneMenu>
+				<p:outputLabel value="#{bundle.EditUsuarioLabel_inTelemarketing}" for="inTelemarketing" />
+					<p:selectOneMenu id="inTelemarketing" value="#{alterarDadosUsuarioController.usuario.inTelemarketing}" style="width:100px;">
+						<f:selectItem itemLabel="Sim" itemValue="1" noSelectionOption="false" />
+						<f:selectItem itemLabel="Não" itemValue="0" noSelectionOption="true"/>
+					</p:selectOneMenu>
+				<p:outputLabel value="#{bundle.EditUsuarioLabel_inPdv}" for="inPdv" />
+					<p:selectOneMenu id="inPdv" value="#{alterarDadosUsuarioController.usuario.inPdv}" style="width:100px;">
+						<f:selectItem itemLabel="Sim" itemValue="1" noSelectionOption="false" />
+						<f:selectItem itemLabel="Não" itemValue="0" noSelectionOption="true"/>
+					</p:selectOneMenu>
+				<p:outputLabel value="#{bundle.EditUsuarioLabel_inPos}" for="inPos" />
+					<p:selectOneMenu id="inPos" value="#{alterarDadosUsuarioController.usuario.inPos}" style="width:100px;">
+						<f:selectItem itemLabel="Sim" itemValue="1" noSelectionOption="false" />
+						<f:selectItem itemLabel="Não" itemValue="0" noSelectionOption="true"/>
+					</p:selectOneMenu>
 		</p:panelGrid>
-			<p:commandButton actionListener="#{alterarDadosUsuarioController.salvarEdicao()}" value="#{bundle.Save}" update="AlterarDadosUsuarioForm,:growl" oncomplete="handleSubmit(args,'AlterarDadosUsuarioDialog');"/>
-            <p:commandButton value="#{bundle.Cancel}" onclick="PF('AlterarDadosUsuarioDialog').hide()"/>
+		<p:commandButton actionListener="#{alterarDadosUsuarioController.salvarEdicao()}" value="#{bundle.Save}" update="AlterarDadosUsuarioForm,:growl" oncomplete="handleSubmit(args,'AlterarDadosUsuarioDialog');"/>
+		<p:commandButton value="#{bundle.Cancel}" onclick="PF('AlterarDadosUsuarioDialog').hide()"/>
 		</h:form>
 	</p:dialog>
 </ui:composition>
