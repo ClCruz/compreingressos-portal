@@ -65,7 +65,6 @@ public class ContaContabil implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30, message = "O campo Número da Conta deve conter entre 1 e 30 caracteres")
-    @Pattern(regexp = "^[0-9]+$", message="O campo Número da Conta deve conter somente números")
     @Column(name = "nr_conta_contabil")
     private String nrContaContabil;
     @OneToMany(mappedBy = "idContaContabilDeb")

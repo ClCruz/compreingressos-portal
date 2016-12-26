@@ -1,5 +1,6 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -17,6 +18,7 @@ import br.com.intuiti.compreingressos.portal.model.Usuario;
 @ViewScoped
 public class AlterarSenhaController implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@EJB
 	private br.com.intuiti.compreingressos.portal.bean.UsuarioFacade ejbFacade;
 	private Usuario usuario;
@@ -29,7 +31,7 @@ public class AlterarSenhaController implements Serializable{
 		usuario = JsfUtil.getLogin();
 	}
 	
-	public void alterarSenha() throws NoSuchAlgorithmException {
+	public void alterarSenha() throws NoSuchAlgorithmException, IOException {
 		if(senhaAtual.equals(usuario.getCdPww())){
 			if(novaSenha.equals(novaSenha2)){
 				MessageDigest m = MessageDigest.getInstance("MD5");

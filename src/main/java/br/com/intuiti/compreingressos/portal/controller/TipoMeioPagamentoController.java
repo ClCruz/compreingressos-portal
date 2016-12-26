@@ -94,15 +94,6 @@ public class TipoMeioPagamentoController implements Serializable {
 		}
 	}
 
-	public boolean verificaMP(String dsTipoMeioPagamento) {
-		if (getFacade().findByDsTipoMeioPagamento(dsTipoMeioPagamento)) {
-			return true;
-		} else {
-			selected = null;
-			return false;
-		}
-	}
-
 	public LazyDataModel<TipoMeioPagamento> getItems() {
 		if (items == null) {
 			items = new Lazy(getFacade().findAll());
@@ -115,13 +106,21 @@ public class TipoMeioPagamentoController implements Serializable {
 			setEmbeddableKeys();
 			try {
 				if (persistAction != PersistAction.DELETE) {
-					if (getFacade().findByDsTipoMeioPagamento(selected.getDsTipoMeioPagamento())) {
-						getFacade().edit(selected);
-						JsfUtil.addSuccessMessage(successMessage);
-					} else {
-						JsfUtil.addErrorMessage("Já existe um tipo de meio de pagamento cadastrado com essa descrição");
+					if(persistAction == PersistAction.CREATE){
+						if(getFacade().findByDsTipoMeioPagamento(selected.getDsTipoMeioPagamento()) == 0 && (getFacade().findByInTipoMeioPagamento(selected.getInTipoMeioPagamento()) == 0 )){
+							getFacade().edit(selected);
+							JsfUtil.addSuccessMessage(successMessage);
+						} else {
+							JsfUtil.addErrorMessage("Meio de Pagamento ou descrição já cadastrado com o mesmo valor");
+						}
+					} else if(persistAction == PersistAction.UPDATE){
+						if(getFacade().findByDsTipoMeioPagamento(selected.getDsTipoMeioPagamento()) == 0 && (getFacade().findByInTipoMeioPagamento(selected.getInTipoMeioPagamento()) == 0 )){
+							getFacade().edit(selected);
+							JsfUtil.addSuccessMessage(successMessage);
+						} else {
+							JsfUtil.addErrorMessage("Meio de Pagamento ou descrição já cadastrado com o mesmo valor");
+						}
 					}
-
 				} else {
 					getFacade().remove(selected);
 					JsfUtil.addSuccessMessage(successMessage);

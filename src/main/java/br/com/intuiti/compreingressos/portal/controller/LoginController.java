@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -53,6 +56,15 @@ public class LoginController {
             funcaoSistemaList.add(selected);
         }
     }
+    
+    public void refresh() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Application application = context.getApplication();
+		ViewHandler viewHandler = application.getViewHandler();
+		UIViewRoot viewRoot = viewHandler.createView(context, context.getViewRoot().getViewId());
+		context.setViewRoot(viewRoot);
+		context.renderResponse();
+	}
 
     public String logout() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -60,6 +72,7 @@ public class LoginController {
                 .getSession(false);
         session.setAttribute("usuario", null);
         session.invalidate();
+        this.refresh();
         return "/pages/tarefa?faces-redirect=true";
     }
 
