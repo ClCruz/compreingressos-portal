@@ -12,9 +12,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.manager.RuntimeEngine;
-import org.kie.api.runtime.manager.audit.AuditService;
 import org.kie.api.runtime.process.ProcessInstance;
-import org.kie.api.task.TaskService;
 import org.kie.services.client.api.RemoteRuntimeEngineFactory;
 
 import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
@@ -77,14 +75,12 @@ public class ProcessDefinitionController {
         this.processDefinition = processDefinition;
     }
     
-    @SuppressWarnings("unused")
 	public void startProcess() throws MalformedURLException{
         String deploymentId = "compreingressos:gestao-contrato:1.0.0-SNAPSHOT";
-        URL appUrl = new URL("http://200.155.9.201:8080/jbpm-console/");
+        URL appUrl = new URL(System.getenv("JBPM_URL"));
         String user = JsfUtil.getLogin().getCdLogin();
         String password = JsfUtil.getLogin().getCdPww();
-
-
+        
         RuntimeEngine engine;
         engine = RemoteRuntimeEngineFactory.newRestBuilder()
         		.addUrl(appUrl)
@@ -94,12 +90,8 @@ public class ProcessDefinitionController {
         		.build();        
         
         KieSession ksession = engine.getKieSession();
-        TaskService taskService = engine.getTaskService();
-        AuditService auditService = engine.getAuditService();
-
         ProcessInstance processInstance = ksession.startProcess("gestao-contrato.Comercial");
         JsfUtil.addSuccessMessage("Processo Comercial foi iniciado.");
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, "Processo Comercial foi iniciado.");
-    }
-        
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Processo Comercial {1} foi iniciado.", processInstance.getId());
+    }        
 }
