@@ -34,11 +34,11 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e ORDER BY e.dsEstado"),
-    @NamedQuery(name = "Estado.findES", query = "SELECT e FROM Estado e WHERE e.dsEstado = :estado AND e.sgEstado = :sigla"),
-    @NamedQuery(name = "Estado.findESID", query = "SELECT e FROM Estado e WHERE e.dsEstado = :estado AND e.sgEstado = :sigla AND e.idEstado <> :id"),
     @NamedQuery(name = "Estado.findByIdEstado", query = "SELECT e FROM Estado e WHERE e.idEstado = :idEstado"),
     @NamedQuery(name = "Estado.findByDsEstado", query = "SELECT e FROM Estado e WHERE e.dsEstado = :dsEstado"),
-    @NamedQuery(name = "Estado.findBySgEstado", query = "SELECT e FROM Estado e WHERE e.sgEstado = :sgEstado")})
+    @NamedQuery(name = "Estado.findBySgEstado", query = "SELECT e FROM Estado e WHERE e.sgEstado = :sgEstado"),
+    @NamedQuery(name = "Estado.findDsEstadoId", query = "SELECT e FROM Estado e WHERE e.dsEstado = :dsEstado AND e.idEstado <> :idEstado"),
+    @NamedQuery(name = "Estado.findSgEstadoId", query = "SELECT e FROM Estado e WHERE e.sgEstado = :sgEstado AND e.idEstado <> :idEstado")})
 public class Estado implements Serializable {
 
     @OneToMany(mappedBy = "idEstado")

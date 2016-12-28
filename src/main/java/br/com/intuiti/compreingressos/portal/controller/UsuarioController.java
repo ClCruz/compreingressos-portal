@@ -84,6 +84,9 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 	public void update() {
 		persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle")
 				.getString("UsuarioUpdated"));
+		if (!JsfUtil.isValidationFailed()) {
+			items = null; // Invalidate list of items to trigger re-query.
+		}
 	}
 
 	public void destroy() {
@@ -108,14 +111,14 @@ public class UsuarioController extends LazyDataModel<Usuario> implements
 				try {
 					if (persistAction != PersistAction.DELETE) {
 						if(persistAction == PersistAction.CREATE){
-							if(getFacade().findCdLogin(selected.getCdLogin())){
+							if(getFacade().findCdLogin(selected.getCdLogin()) == 0 && (getFacade().findByDsEmail(selected.getDsEmail()) == 0)){
 								getFacade().edit(selected);
 								JsfUtil.addSuccessMessage(successMessage);
 							} else {
 								JsfUtil.addErrorMessage("Já existe um Login cadastrado com esse nome.");
 							}
 						} else if (persistAction == PersistAction.UPDATE){
-							if(getFacade().findLoginId(selected.getCdLogin(), selected.getIdUsuario()) == 0){
+							if(getFacade().findLoginId(selected.getCdLogin(), selected.getIdUsuario()) == 0 && (getFacade().findDsEmailId(selected.getDsEmail(), selected.getIdUsuario()) == 0)){
 								getFacade().edit(selected);
 								JsfUtil.addSuccessMessage(successMessage);
 							} else {

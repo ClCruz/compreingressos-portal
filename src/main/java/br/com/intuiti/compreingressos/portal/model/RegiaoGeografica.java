@@ -32,8 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "RegiaoGeografica.findAll", query = "SELECT r FROM RegiaoGeografica r ORDER BY r.dsRegiaoGeografica"),
     @NamedQuery(name = "RegiaoGeografica.findByIdRegiaoGeografica", query = "SELECT r FROM RegiaoGeografica r WHERE r.idRegiaoGeografica = :idRegiaoGeografica"),
-    @NamedQuery(name = "RegiaoGeografica.findByDsRegiaoGeografica", query = "SELECT r FROM RegiaoGeografica r WHERE r.dsRegiaoGeografica = :dsRegiaoGeografica"),
-    @NamedQuery(name = "RegiaoGeografica.findByDsRegiaoGeograficaId", query = "SELECT r FROM RegiaoGeografica r WHERE r.dsRegiaoGeografica = :dsRegiaoGeografica AND r.idRegiaoGeografica <> :idRegiaoGeografica")})
+    @NamedQuery(name = "RegiaoGeografica.findByDsRegiaoGeografica", query = "SELECT r FROM RegiaoGeografica r WHERE r.dsRegiaoGeografica = :dsRegiaoGeografica")})
 public class RegiaoGeografica implements Serializable {
 
     private static final long serialVersionUID = 1L;

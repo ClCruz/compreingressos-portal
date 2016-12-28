@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 		@NamedQuery(name = "Usuario.findAtivo", query = "SELECT u FROM Usuario u WHERE u.inAtivo = :inAtivo ORDER BY u.dsNome"),
 		@NamedQuery(name = "Usuario.findAllRow", query = "SELECT COUNT(u) FROM Usuario u"),
 		@NamedQuery(name = "Usuario.findCdLogin", query = "SELECT u FROM Usuario u WHERE u.cdLogin = :cdLogin"),
+		@NamedQuery(name = "Usuario.findDsEmailId", query = "SELECT u FROM Usuario u WHERE u.dsEmail = :dsEmail AND u.idUsuario <> :idUsuario"),
 		@NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
 		@NamedQuery(name = "Usuario.findByCdLogin", query = "SELECT u FROM Usuario u WHERE u.cdLogin = :cdLogin"),
 		@NamedQuery(name = "Usuario.findByDsNome", query = "SELECT u FROM Usuario u WHERE u.dsNome = :dsNome"),

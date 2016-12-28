@@ -48,6 +48,11 @@ public class TipoMeioPagamentoFacade extends AbstractFacade<TipoMeioPagamento> {
    	public int findByInTipoMeioPagamento(String inTipoMeioPagamento) {
        	List<TipoMeioPagamento> lista = getEntityManager().createNamedQuery("TipoMeioPagamento.findByInTipoMeioPagamento").setParameter("inTipoMeioPagamento", inTipoMeioPagamento).getResultList();
        	return lista.size();
-       }
+    }
     
+    @SuppressWarnings("unchecked")
+   	public int findDsTipoMeioPagamentoId(String dsTipoMeioPagamento, String inTipoMeioPagamento) {
+       	List<TipoMeioPagamento> lista = getEntityManager().createNamedQuery("TipoMeioPagamento.findDsTipoMeioPagamentoId").setParameter("dsTipoMeioPagamento", dsTipoMeioPagamento).setParameter("inTipoMeioPagamento", inTipoMeioPagamento).getResultList();
+       	return lista.size();
+       }
 }

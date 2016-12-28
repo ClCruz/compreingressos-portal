@@ -39,15 +39,14 @@ public class RegiaoGeograficaFacade extends AbstractFacade<RegiaoGeografica> {
     }
     
     @SuppressWarnings("unchecked")
-	public boolean findDs(String descricao){
-    	List<RegiaoGeografica> lista = em.createNamedQuery("RegiaoGeografica.findByDsRegiaoGeografica").setParameter("dsRegiaoGeografica", descricao).getResultList();
-    	return lista.size() > 0 ? false : true;
+   	public int findByIdRegiaoGeografica(Integer idRegiaoGeografica){
+       	List<RegiaoGeografica> lista = em.createNamedQuery("RegiaoGeografica.findByIdRegiaoGeografica").setParameter("idRegiaoGeografica", idRegiaoGeografica).getResultList();
+       	return lista.size();
     }
     
     @SuppressWarnings("unchecked")
-	public boolean findDsId(String descricao, int id){
-    	List<RegiaoGeografica> lista = em.createNamedQuery("RegiaoGeografica.findByDsRegiaoGeograficaId").setParameter("dsRegiaoGeografica", descricao).setParameter("idRegiaoGeografica", id).getResultList();
-    	return lista.size() > 0 ? false : true;
+	public int findDs(String descricao){
+    	List<RegiaoGeografica> lista = em.createNamedQuery("RegiaoGeografica.findByDsRegiaoGeografica").setParameter("dsRegiaoGeografica", descricao).getResultList();
+    	return lista.size();
     }
-    
 }

@@ -51,7 +51,7 @@ public class LocalEventoFacade extends AbstractFacade<LocalEvento> {
     }
     
     public void remove(LocalEvento localEvento){
-    	getEntityManager().createNamedQuery("delete FROM mw_local_evento WHERE id_local_evento = " + localEvento.getIdLocalEvento()).executeUpdate();
+    	getEntityManager().createNativeQuery("delete FROM mw_local_evento WHERE id_local_evento = " + localEvento.getIdLocalEvento()).executeUpdate();
     }
     
 }

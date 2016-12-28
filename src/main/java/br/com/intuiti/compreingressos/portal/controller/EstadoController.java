@@ -81,6 +81,9 @@ public class EstadoController implements Serializable {
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EstadoUpdated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
     }
 
     public void destroy() {
@@ -97,24 +100,6 @@ public class EstadoController implements Serializable {
         }
         return items;
     }
-    
-    public boolean validaEstado(String descricao, String sigla){
-    	if(getFacade().findES(descricao, sigla)){
-    		return true;
-    	} else {
-    		selected = null;
-    		return false;
-    	}
-    }
-    
-    public boolean validaEstado(String descricao, String sigla, Short id){
-    	if(getFacade().findES(descricao, sigla, id)){
-    		return true;
-    	} else {
-    		selected = null;
-    		return false;
-    	}
-    }
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
@@ -122,19 +107,20 @@ public class EstadoController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                 	if(persistAction == PersistAction.CREATE){
-                		if(validaEstado(selected.getDsEstado(), selected.getSgEstado())){
+                		if(getFacade().findByDsEstado(selected.getDsEstado()) == 0 && (getFacade().findByIdEstado(selected.getIdEstado()) == 0)
+                				&& (getFacade().findBySgEstado(selected.getSgEstado()) == 0)){
                     		getFacade().edit(selected);
                     		JsfUtil.addSuccessMessage(successMessage);
                     	} else {
-                    		JsfUtil.addErrorMessage("Já existe um estado cadastrado com essa sigla e descrição");
+                    		JsfUtil.addErrorMessage("Estado já cadastrado");
                     	}
-                	} else {
-                		if(validaEstado(selected.getDsEstado(), selected.getSgEstado(), selected.getIdEstado())){
-                    		getFacade().edit(selected);
+                	} else if(persistAction == PersistAction.UPDATE){
+                		if(getFacade().findDsEstadoId(selected.getDsEstado(), selected.getIdEstado()) == 0 && (getFacade().findSgEstadoId(selected.getSgEstado(), selected.getIdEstado()) == 0)){
+                			getFacade().edit(selected);
                     		JsfUtil.addSuccessMessage(successMessage);
-                    	} else {
-                    		JsfUtil.addErrorMessage("Já existe um estado cadastrado com essa sigla e descrição");
-                    	}
+                		} else {
+                			JsfUtil.addErrorMessage("Já existe um estado cadastrado com essa sigla e descrição");
+						}
                 	}
                 } else {
                 	getFacade().remove(selected);

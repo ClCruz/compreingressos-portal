@@ -114,11 +114,11 @@ public class TipoMeioPagamentoController implements Serializable {
 							JsfUtil.addErrorMessage("Meio de Pagamento ou descrição já cadastrado com o mesmo valor");
 						}
 					} else if(persistAction == PersistAction.UPDATE){
-						if(getFacade().findByDsTipoMeioPagamento(selected.getDsTipoMeioPagamento()) == 0 && (getFacade().findByInTipoMeioPagamento(selected.getInTipoMeioPagamento()) == 0 )){
+						if(getFacade().findByDsTipoMeioPagamento(selected.getDsTipoMeioPagamento()) == 0){
 							getFacade().edit(selected);
 							JsfUtil.addSuccessMessage(successMessage);
 						} else {
-							JsfUtil.addErrorMessage("Meio de Pagamento ou descrição já cadastrado com o mesmo valor");
+							JsfUtil.addErrorMessage("Meio de Pagamento já cadastrado com a mesma descrição.");
 						}
 					}
 				} else {

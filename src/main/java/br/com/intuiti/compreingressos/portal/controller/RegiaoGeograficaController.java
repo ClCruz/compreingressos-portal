@@ -81,6 +81,9 @@ public class RegiaoGeograficaController implements Serializable {
 
 	public void update() {
 		persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RegiaoGeograficaUpdated"));
+		if (!JsfUtil.isValidationFailed()) {
+			items = null; // Invalidate list of items to trigger re-query.
+		}
 	}
 
 	public void destroy() {
@@ -104,14 +107,14 @@ public class RegiaoGeograficaController implements Serializable {
 			try {
 				if (persistAction != PersistAction.DELETE) {
 					if (persistAction == PersistAction.CREATE) {
-						if (getFacade().findDs(selected.getDsRegiaoGeografica())) {
+						if (getFacade().findByIdRegiaoGeografica(selected.getIdRegiaoGeografica()) == 0 && (getFacade().findDs(selected.getDsRegiaoGeografica()) == 0)){
 							getFacade().edit(selected);
 							JsfUtil.addSuccessMessage(successMessage);
 						} else {
-							JsfUtil.addErrorMessage("Já existe uma região cadastrada com essa descrição.");
+							JsfUtil.addErrorMessage("Já existe uma região cadastrada com essa descrição ou ID.");
 						}
 					} else if (persistAction == PersistAction.UPDATE) {
-						if (getFacade().findDsId(selected.getDsRegiaoGeografica(), selected.getIdRegiaoGeografica())) {
+						if (getFacade().findDs(selected.getDsRegiaoGeografica()) == 0) {
 							getFacade().edit(selected);
 							JsfUtil.addSuccessMessage(successMessage);
 						} else {

@@ -78,6 +78,10 @@ public class ContratoController implements Serializable {
 	private ContratoClienteTipoLancamentoController contratoClienteTipoLancamentoController = new ContratoClienteTipoLancamentoController();
 
 	public ContratoController() {
+		selected = new ContratoCliente();
+		contratoGed = new ContratoGed();
+		selectedPP = new ContratoClientePrazoPagamento();
+		selectedTL = new ContratoClienteTipoLancamento();
 		itemsPP = new ArrayList<>();
 		itemsTL = new ArrayList<>();
 		listaContratoGed = new ArrayList<>();

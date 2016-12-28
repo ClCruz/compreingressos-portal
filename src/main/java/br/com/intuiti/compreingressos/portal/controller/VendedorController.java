@@ -81,6 +81,9 @@ public class VendedorController implements Serializable {
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("VendedorUpdated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
     }
 
     public void destroy() {
@@ -98,26 +101,24 @@ public class VendedorController implements Serializable {
         return items;
     }
     
-    public boolean validaVendedor(String dsVendedor) {
-    	if(getFacade().findByDsVendedor(dsVendedor)){
-    		return true;
-    	} else {
-    		selected = null;
-    		return false;
-    	}
-    }
-    
     private void persist(PersistAction persistAction, String successMessage) {
     	if (selected != null) {
     		setEmbeddableKeys();
     		try {
     			if (persistAction != PersistAction.DELETE) {
-    				if(getFacade().findByDsVendedor(selected.getDsVendedor())){
+    				if(persistAction == PersistAction.CREATE){
+    					if(getFacade().findByDsVendedor(selected.getDsVendedor()) == 0){
+    						getFacade().edit(selected);
+    						JsfUtil.addSuccessMessage(successMessage);
+    					} else {
+    						JsfUtil.addErrorMessage("Já existe um vendedor cadastrado com o mesmo nome.");
+    					}
+    				} else if(getFacade().findDsVendedorId(selected.getDsVendedor(), selected.getIdVendedor()) == 0){
     					getFacade().edit(selected);
-    					JsfUtil.addSuccessMessage(successMessage);
-    				} else {
-    					JsfUtil.addErrorMessage("Já existe um vendedor cadastrado com o mesmo nome.");
-    				}
+						JsfUtil.addSuccessMessage(successMessage);
+					} else {
+						JsfUtil.addErrorMessage("Já existe um vendedor cadastrado com o mesmo nome.");
+					}
     			} else {
     				getFacade().remove(selected);
     				JsfUtil.addSuccessMessage(successMessage);

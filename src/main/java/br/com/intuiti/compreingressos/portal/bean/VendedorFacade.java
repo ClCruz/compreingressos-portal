@@ -39,11 +39,17 @@ public class VendedorFacade extends AbstractFacade<Vendedor> {
     }
     
     @SuppressWarnings("unchecked")
-	public boolean findByDsVendedor(String dsVendedor){
+	public int findByDsVendedor(String dsVendedor){
     	List<Vendedor> lista = getEntityManager().createNamedQuery("Vendedor.findByDsVendedor").setParameter("dsVendedor", dsVendedor).getResultList();
-    	return lista.size() > 0 ? false : true;
+    	return lista.size();
     }
    
+    @SuppressWarnings("unchecked")
+	public int findDsVendedorId(String dsVendedor, Integer idVendedor){
+    	List<Vendedor> lista = getEntityManager().createNamedQuery("Vendedor.findDsVendedorId").setParameter("dsVendedor", dsVendedor).setParameter("idVendedor", idVendedor).getResultList();
+    	return lista.size();
+    }
+    
     @SuppressWarnings("unchecked")
 	public List<Vendedor> findAtivo(){
     	return getEntityManager().createNamedQuery("Vendedor.findByInAtivo").setParameter("inAtivo", true).getResultList();

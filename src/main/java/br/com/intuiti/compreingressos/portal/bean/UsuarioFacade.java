@@ -47,14 +47,26 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     }
     
     @SuppressWarnings("unchecked")
-   	public boolean findCdLogin(String cdLogin){
+   	public int findCdLogin(String cdLogin){
            List<Usuario> lista = em.createNamedQuery("Usuario.findCdLogin").setParameter("cdLogin", cdLogin).getResultList();
-           return lista.size() > 0 ? false : true;
+           return lista.size();
     }
     
     @SuppressWarnings("unchecked")
    	public int findLoginId(String cdLogin, Integer idUsuario){
            List<Usuario> lista = em.createNamedQuery("Usuario.findLoginId").setParameter("cdLogin", cdLogin).setParameter("idUsuario", idUsuario).getResultList();
+           return lista.size();
+    }
+    
+    @SuppressWarnings("unchecked")
+   	public int findByDsEmail(String dsEmail){
+           List<Usuario> lista = em.createNamedQuery("Usuario.findByDsEmail").setParameter("dsEmail", dsEmail).getResultList();
+           return lista.size();
+    }
+    
+    @SuppressWarnings("unchecked")
+   	public int findDsEmailId(String dsEmail, Integer idUsuario){
+           List<Usuario> lista = em.createNamedQuery("Usuario.findDsEmailId").setParameter("dsEmail", dsEmail).setParameter("idUsuario", idUsuario).getResultList();
            return lista.size();
     }
     

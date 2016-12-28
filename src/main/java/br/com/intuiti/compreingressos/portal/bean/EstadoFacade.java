@@ -39,19 +39,37 @@ public class EstadoFacade extends AbstractFacade<Estado> {
     }
     
     @SuppressWarnings("unchecked")
-	public boolean findES(String estado, String sigla){
-        List<Estado> lista = em.createNamedQuery("Estado.findES").setParameter("estado", estado).setParameter("sigla", sigla).getResultList();
-        return lista.size() > 0 ? false : true;
+    public int findByIdEstado(Short idEstado){
+    	List<Estado> lista = em.createNamedQuery("Estado.findByIdEstado").setParameter("idEstado", idEstado).getResultList();
+    	return lista.size();
+    }
+
+    @SuppressWarnings("unchecked")
+	public int findByDsEstado(String dsEstado){
+        List<Estado> lista = em.createNamedQuery("Estado.findByDsEstado").setParameter("dsEstado", dsEstado).getResultList();
+        return lista.size();
     }
     
     @SuppressWarnings("unchecked")
-	public boolean findES(String estado, String sigla, Short id){
-        List<Estado> lista = em.createNamedQuery("Estado.findESID").setParameter("estado", estado).setParameter("sigla", sigla).setParameter("id", id).getResultList();
-        return lista.size() > 0 ? false : true;
+	public int findBySgEstado(String sgEstado){
+        List<Estado> lista = em.createNamedQuery("Estado.findBySgEstado").setParameter("sgEstado", sgEstado).getResultList();
+        return lista.size();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public int findDsEstadoId(String dsEstado, Short idEstado){
+        List<Estado> lista = em.createNamedQuery("Estado.findDsEstadoId").setParameter("dsEstado", dsEstado).setParameter("idEstado", idEstado).getResultList();
+        return lista.size();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public int findSgEstadoId(String sgEstado, Short idEstado){
+        List<Estado> lista = em.createNamedQuery("Estado.findSgEstadoId").setParameter("sgEstado", sgEstado).setParameter("idEstado", idEstado).getResultList();
+        return lista.size();
     }
     
     public void remove(Estado estado){
-    	getEntityManager().createNamedQuery("delete FROM mw_estado WHERE id_estado = " + estado.getIdEstado()).executeUpdate();
+    	getEntityManager().createNativeQuery("delete FROM mw_estado WHERE id_estado = " + estado.getIdEstado()).executeUpdate();
     }
         
 }
