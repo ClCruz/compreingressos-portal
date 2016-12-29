@@ -82,9 +82,6 @@ public class ContratoController implements Serializable {
 		contratoGed = new ContratoGed();
 		selectedPP = new ContratoClientePrazoPagamento();
 		selectedTL = new ContratoClienteTipoLancamento();
-		itemsPP = new ArrayList<>();
-		itemsTL = new ArrayList<>();
-		listaContratoGed = new ArrayList<>();
 		FacesContext f = FacesContext.getCurrentInstance();
         Task task = TaskBPM.getRuntimeEngine().getTaskService().getTaskById(Long.valueOf(getTarefaParam(f)));
         tarefa = new Tarefa();
@@ -112,8 +109,11 @@ public class ContratoController implements Serializable {
 	public ContratoCliente prepareCreate() {
 		selected = new ContratoCliente();
 		contratoGed = new ContratoGed();
+		listaContratoGed = new ArrayList<>();
 		selectedPP = new ContratoClientePrazoPagamento();
+		itemsPP = new ArrayList<>();
 		selectedTL = new ContratoClienteTipoLancamento();
+		itemsTL = new ArrayList<>();
 		obtemContrato();
 		initializeEmbeddableKey();
 		return selected;
@@ -223,17 +223,14 @@ public class ContratoController implements Serializable {
 	// Métodos para adicionas nas listas.
 	public void addPP() {
 		itemsPP.add(selectedPP);
+		selectedPP = new ContratoClientePrazoPagamento();
 	}
 
 	public void addTL() {
 		itemsTL.add(selectedTL);
+		selectedTL = new ContratoClienteTipoLancamento();
 	}
 	
-	public void addContratoGed() {
-		listaContratoGed.add(contratoGed);
-		contratoGed = new ContratoGed();
-	}
-
 	public void removePP(ContratoClientePrazoPagamento selectedPP){
 		itemsPP.remove(selectedPP);
 		if (selectedPP.getIdContratoCliente() != null) {
@@ -269,6 +266,7 @@ public class ContratoController implements Serializable {
 		saveFileDisk(evento.getFile(), fileName);
 		contratoGed.setDsArquivo(fileName);
 		listaContratoGed.add(contratoGed);
+		contratoGed = new ContratoGed();
 	}
 	
 	public void saveFileDisk(UploadedFile file, String fileName) throws IOException {
