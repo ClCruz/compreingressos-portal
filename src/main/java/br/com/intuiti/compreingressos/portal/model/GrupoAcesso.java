@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -58,6 +59,10 @@ public class GrupoAcesso implements Serializable {
     private Collection<GrupoFuncao> grupoFuncaoCollection;
     @OneToMany(mappedBy = "idGrupoAcesso")
     private Collection<UsuarioGrupoFuncao> usuarioGrupoFuncaoCollection;
+    @Transient
+    private boolean selected;
+    @Transient
+    private UsuarioGrupoFuncao usuarioGrupoFuncao;
 
     public GrupoAcesso() {
     }
@@ -95,8 +100,24 @@ public class GrupoAcesso implements Serializable {
     public void setInAtivo(boolean inAtivo) {
         this.inAtivo = inAtivo;
     }
+    
+    public UsuarioGrupoFuncao getUsuarioGrupoFuncao() {
+		return usuarioGrupoFuncao;
+	}
+    
+	public boolean isSelected() {
+		return selected;
+	}
 
-    @XmlTransient
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
+	public void setUsuarioGrupoFuncao(UsuarioGrupoFuncao usuarioGrupoFuncao) {
+		this.usuarioGrupoFuncao = usuarioGrupoFuncao;
+	}
+
+	@XmlTransient
     @JsonIgnore
     public Collection<GrupoFuncao> getGrupoFuncaoCollection() {
         return grupoFuncaoCollection;

@@ -1,37 +1,52 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
-    <ui:composition>
-
-        <p:dialog id="UsuarioGrupoFuncaoCreateDlg" widgetVar="UsuarioGrupoFuncaoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioGrupoFuncaoTitle}">
-            <h:form id="UsuarioGrupoFuncaoCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioGrupoFuncaoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateUsuarioGrupoFuncaoLabel_idUsuarioGrupoFuncao}" for="idUsuarioGrupoFuncao" />
-                        <p:inputText id="idUsuarioGrupoFuncao" value="#{usuarioGrupoFuncaoController.selected.idUsuarioGrupoFuncao}" title="#{bundle.CreateUsuarioGrupoFuncaoTitle_idUsuarioGrupoFuncao}" required="true" requiredMessage="#{bundle.CreateUsuarioGrupoFuncaoRequiredMessage_idUsuarioGrupoFuncao}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioGrupoFuncaoLabel_idGrupoFuncao}" for="idGrupoFuncao" />
-                        <p:selectOneMenu id="idGrupoFuncao" value="#{usuarioGrupoFuncaoController.selected.idGrupoFuncao}" >
-                            <f:selectItems value="#{grupoFuncaoController.itemsAvailableSelectOne}"
-                                           var="idGrupoFuncaoItem"
-                                           itemValue="#{idGrupoFuncaoItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateUsuarioGrupoFuncaoLabel_idUsuario}" for="idUsuario" />
-                        <p:selectOneMenu id="idUsuario" value="#{usuarioGrupoFuncaoController.selected.idUsuario}" >
-                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
-                                           var="idUsuarioItem"
-                                           itemValue="#{idUsuarioItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioGrupoFuncaoController.create}" value="#{bundle.Save}" update="display,:UsuarioGrupoFuncaoListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioGrupoFuncaoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioGrupoFuncaoCreateDialog').hide()"/>
-                </h:panelGroup>
-            </h:form>
-        </p:dialog>
-
-    </ui:composition>
-</html>
+	<ui:define name="content">
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect">
+					<br />
+					<h:form id="usuarioGrupoFuncaoCreateForm">
+						<h:outputLabel value="#{bundle.CreateUsuarioGrupoFuncaoLabel_idUsuario}" for="idUsuario" /><br /> 
+						<p:selectOneMenu id="idUsuario" value="#{usuarioGrupoFuncaoController.usuario}" 
+										 required="true" requiredMessage="#{bundle.CreateUsuarioGrupoFuncaoRequiredMessage_idUsuario}"
+										 valueChangeListener="#{usuarioGrupoFuncaoController.changeUsuario}">
+							<f:selectItem itemLabel="Selecione o usuário" />
+							<f:selectItems
+								value="#{usuarioController.itemsAvailableSelectOne}"
+								var="idUsuarioItem" itemValue="#{idUsuarioItem}" />
+								<p:ajax event="change" update="datalist" />
+						</p:selectOneMenu>
+						<br />
+						<br />
+						
+						<p:dataTable id="datalist" var="item"
+									 value="#{usuarioGrupoFuncaoController.items}"
+									 emptyMessage="Nenhum resultado encontrado">
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListUsuarioGrupoFuncaoTitle}" />
+							</f:facet>
+							
+							<p:column headerText="Grupo" >
+								<h:outputText value="#{item.dsGrupo}" />
+							</p:column>
+							<p:column width="100" style="text-align: center;">
+								<f:facet name="header">
+									<p:selectBooleanCheckbox id="todos" value="#{usuarioGrupoFuncaoController.todos}">
+										<p:ajax event="change" listener="#{usuarioGrupoFuncaoController.save}" update=":growl, datalist" /> 
+									</p:selectBooleanCheckbox>
+								</f:facet>
+								<p:selectBooleanCheckbox value="#{item.selected}">
+									<p:ajax event="change" listener="#{usuarioGrupoFuncaoController.change(item)}" update=":growl, datalist" />
+								</p:selectBooleanCheckbox>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
