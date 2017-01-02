@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "ContaCorrente.findByIdContratoCliente", query = "SELECT c FROM ContaCorrente c WHERE c.contaCorrentePK.idContratoCliente = :idContratoCliente")
     , @NamedQuery(name = "ContaCorrente.findByVlMovimento", query = "SELECT c FROM ContaCorrente c WHERE c.vlMovimento = :vlMovimento")
     , @NamedQuery(name = "ContaCorrente.findByQtMovimento", query = "SELECT c FROM ContaCorrente c WHERE c.qtMovimento = :qtMovimento")
-    , @NamedQuery(name = "ContaCorrente.findByDsObservacao", query = "SELECT c FROM ContaCorrente c WHERE c.dsObservacao = :dsObservacao")})
+    , @NamedQuery(name = "ContaCorrente.findByDsObservacao", query = "SELECT c FROM ContaCorrente c WHERE c.dsObservacao = :dsObservacao")
+    , @NamedQuery(name = "ContaCorrente.maxIdTransacao", query = "SELECT MAX(c.contaCorrentePK.idTransacao) + 1 FROM ContaCorrente c")})
 public class ContaCorrente implements Serializable {
 
     private static final long serialVersionUID = 1L;

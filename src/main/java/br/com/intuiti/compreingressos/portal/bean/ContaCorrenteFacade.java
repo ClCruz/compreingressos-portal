@@ -28,5 +28,9 @@ public class ContaCorrenteFacade extends AbstractFacade<ContaCorrente> {
     public ContaCorrenteFacade() {
         super(ContaCorrente.class);
     }
+
+	public int maxIdTrasacao() {
+		return (int) getEntityManager().createNamedQuery("ContaCorrente.maxIdTransacao").getSingleResult();
+	}
     
 }

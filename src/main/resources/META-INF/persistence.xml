@@ -6,8 +6,8 @@
     <class>br.com.intuiti.compreingressos.portal.model.TipoEstorno</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <!-- <property name="eclipselink.logging.level" value="FINE"/>
-            <property name="eclipselink.logging.parameters" value="true"/> -->
+    	<property name="eclipselink.logging.level" value="FINE"/>
+    	<property name="eclipselink.logging.parameters" value="true"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
     </properties>
   </persistence-unit>

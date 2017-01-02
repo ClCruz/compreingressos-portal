@@ -11,9 +11,7 @@
         <p:dialog id="ContaCorrenteCreateDlg" widgetVar="ContaCorrenteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateContaCorrenteTitle}">
             <h:form id="ContaCorrenteCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{contaCorrenteController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateContaCorrenteLabel_contaCorrentePK_idTransacao}" for="contaCorrentePK_idTransacao" />
-                        <p:inputText id="contaCorrentePK_idTransacao" value="#{contaCorrenteController.selected.contaCorrentePK.idTransacao}" title="#{bundle.CreateContaCorrenteTitle_contaCorrentePK_idTransacao}" required="true" requiredMessage="#{bundle.CreateContaCorrenteRequiredMessage_contaCorrentePK_idTransacao}"/>
+                    <p:panelGrid columns="4" rendered="#{contaCorrenteController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateContaCorrenteLabel_dtHoraTransacao}" for="dtHoraTransacao" />
                         <p:inputText id="dtHoraTransacao" value="#{contaCorrenteController.selected.dtHoraTransacao}" title="#{bundle.CreateContaCorrenteTitle_dtHoraTransacao}" />
                         <p:outputLabel value="#{bundle.CreateContaCorrenteLabel_cdTransacao}" for="cdTransacao" />

@@ -1,26 +1,27 @@
 package br.com.intuiti.compreingressos.portal.controller;
 
-import br.com.intuiti.compreingressos.portal.model.ContaCorrente;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
-import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
-import br.com.intuiti.compreingressos.portal.bean.ContaCorrenteFacade;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("contaCorrenteController")
-@SessionScoped
+import br.com.intuiti.compreingressos.portal.bean.ContaCorrenteFacade;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil;
+import br.com.intuiti.compreingressos.portal.controller.util.JsfUtil.PersistAction;
+import br.com.intuiti.compreingressos.portal.model.ContaCorrente;
+
+@ManagedBean(name = "contaCorrenteController")
+@ViewScoped
 public class ContaCorrenteController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -41,6 +42,7 @@ public class ContaCorrenteController implements Serializable {
     }
 
     protected void setEmbeddableKeys() {
+    	selected.getContaCorrentePK().setIdTransacao(getFacade().maxIdTrasacao());
         selected.getContaCorrentePK().setIdContratoCliente(selected.getContratoCliente().getIdContratoCliente());
     }
 
@@ -88,7 +90,7 @@ public class ContaCorrenteController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction != PersistAction.DELETE) {                	
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
