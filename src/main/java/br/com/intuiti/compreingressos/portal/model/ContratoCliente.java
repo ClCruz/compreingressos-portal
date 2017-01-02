@@ -357,7 +357,7 @@ public class ContratoCliente implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.intuiti.compreingressos.portal.model.ContratoCliente[ idContratoCliente=" + idContratoCliente + " ]";
+        return dsResumida;
     }
 
     @XmlTransient

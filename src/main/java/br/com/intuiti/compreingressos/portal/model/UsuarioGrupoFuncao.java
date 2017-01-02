@@ -10,6 +10,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,13 +31,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UsuarioGrupoFuncao.findAll", query = "SELECT u FROM UsuarioGrupoFuncao u"),
+    @NamedQuery(name = "UsuarioGrupoFuncao.findByIdUsuario", query = "SELECT u FROM UsuarioGrupoFuncao u WHERE u.idUsuario = :idUsuario "),
+    @NamedQuery(name = "UsuarioGrupoFuncao.findAllByUsuario", query = "SELECT g FROM GrupoAcesso g WHERE g.inAtivo = true"),
     @NamedQuery(name = "UsuarioGrupoFuncao.findByIdUsuarioGrupoFuncao", query = "SELECT u FROM UsuarioGrupoFuncao u WHERE u.idUsuarioGrupoFuncao = :idUsuarioGrupoFuncao")})
 public class UsuarioGrupoFuncao implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_usuario_grupo_funcao")
     private Integer idUsuarioGrupoFuncao;
     @JoinColumn(name = "id_grupo_acesso", referencedColumnName = "id_grupo_acesso")
@@ -52,6 +55,11 @@ public class UsuarioGrupoFuncao implements Serializable {
 
     public UsuarioGrupoFuncao(Integer idUsuarioGrupoFuncao) {
         this.idUsuarioGrupoFuncao = idUsuarioGrupoFuncao;
+    }
+    
+    public UsuarioGrupoFuncao(GrupoAcesso grupo, Usuario usuario){
+    	this.idGrupoAcesso = grupo;
+    	this.idUsuario = usuario;
     }
 
     public Integer getIdUsuarioGrupoFuncao() {
